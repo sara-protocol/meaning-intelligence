@@ -37,6 +37,7 @@ import json
 import os
 import ssl
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -83,17 +84,44 @@ def request(method: str, url: str, token: str, payload=None, *, raw=None,
     req = urllib.request.Request(url, data=data, headers=headers, method=method)
     # 显式用默认 SSL 上下文（Python 走 OpenSSL，不依赖 Windows Schannel）
     ctx = ssl.create_default_context()
-    try:
-        with urllib.request.urlopen(req, timeout=60, context=ctx) as resp:
-            body = resp.read().decode("utf-8", "replace")
-            if resp.status not in ok:
-                raise GitHubError(resp.status, method, url, body)
-            return json.loads(body) if body.strip() else {}
-    except urllib.error.HTTPError as e:
-        detail = e.read().decode("utf-8", "replace")
-        if e.code in ok:
-            return json.loads(detail) if detail.strip() else {}
-        raise GitHubError(e.code, method, url, detail) from None
+
+    # 网络层重试。推一次仓库要发 60+ 个请求、传数 MB，
+    # 任何一个请求被中途掐断都会让整次发布失败。
+    # 实测在走本地代理（TUN/fake-IP）的环境下，会偶发
+    # `SSL: UNEXPECTED_EOF_WHILE_READING`，重试即可恢复。
+    RETRYABLE_NET = (urllib.error.URLError, TimeoutError,
+                     ConnectionResetError, ConnectionAbortedError, ssl.SSLError)
+    last_exc = None
+    for attempt in range(4):
+        try:
+            with urllib.request.urlopen(req, timeout=60, context=ctx) as resp:
+                body = resp.read().decode("utf-8", "replace")
+                if resp.status not in ok:
+                    raise GitHubError(resp.status, method, url, body)
+                return json.loads(body) if body.strip() else {}
+        except urllib.error.HTTPError as e:
+            detail = e.read().decode("utf-8", "replace")
+            if e.code in ok:
+                return json.loads(detail) if detail.strip() else {}
+            # 5xx 与限流是服务端瞬时问题，重试；4xx 是调用方问题，直接抛
+            if e.code in (429, 500, 502, 503, 504) and attempt < 3:
+                wait = 1.5 * (2 ** attempt)
+                print(f"    [net] HTTP {e.code}，{wait:.1f}s 后重试 "
+                      f"({attempt + 1}/3) {method} {url.split('/repos/')[-1][:60]}")
+                time.sleep(wait)
+                last_exc = e
+                continue
+            raise GitHubError(e.code, method, url, detail) from None
+        except RETRYABLE_NET as e:
+            last_exc = e
+            if attempt < 3:
+                wait = 1.5 * (2 ** attempt)
+                print(f"    [net] {type(e).__name__}，{wait:.1f}s 后重试 "
+                      f"({attempt + 1}/3) {method} {url.split('/repos/')[-1][:60]}")
+                time.sleep(wait)
+                continue
+            raise
+    raise last_exc  # pragma: no cover
 
 
 # --------------------------------------------------------------------------
@@ -422,6 +450,29 @@ def ensure_labels(token, owner, repo):
         print("[label] 标签已齐全")
 
 
+def ascii_asset_name(path: Path, version: str = "v1.0") -> str:
+    """给 release 附件取一个 ASCII 名。
+
+    为什么必须这样：GitHub 在上传 release 附件时会把**非 ASCII 文件名清洗掉**，
+    而且不报错。实测 `意义智能_元智能理论与分层应用_公开发布白皮书_v1.0_中英双语.docx`
+    被上传成了 `_._._v1.0_.docx` —— 外部用户下载到的就是一个乱名文件。
+    所以附件名一律走 ASCII。
+    """
+    name = path.name
+    if name.isascii():
+        return name
+    ext = path.suffix.lstrip(".")
+    low = name.lower()
+    if "whitepaper" in low or path.parent.name == "dist":
+        return f"Meaning-Intelligence-Whitepaper-{version}-zh-en.{ext}"
+    # 通用兜底：把非 ASCII 段替换成连字符
+    stem = "".join(ch if ch.isascii() and (ch.isalnum() or ch in "-_") else "-"
+                   for ch in path.stem)
+    while "--" in stem:
+        stem = stem.replace("--", "-")
+    return f"{stem.strip('-') or 'asset'}.{ext}"
+
+
 def create_release(token, owner, repo, *, tag, name, body, assets):
     try:
         rel = request("POST", f"{API}/repos/{owner}/{repo}/releases", token,
@@ -437,21 +488,27 @@ def create_release(token, owner, repo, *, tag, name, body, assets):
             raise
 
     for asset in assets:
-        p = Path(asset)
+        # assets 元素可以是 "路径" 或 "路径::附件名"
+        spec = str(asset).split("::", 1)
+        p = Path(spec[0])
         if not p.is_file():
             print(f"[release] 跳过不存在的发布物：{p}")
             continue
+        asset_name = spec[1] if len(spec) > 1 else ascii_asset_name(p)
+        if not asset_name.isascii():
+            print(f"[release] 警告：附件名 {asset_name!r} 含非 ASCII，"
+                  f"GitHub 会把它清洗成乱码；请用 路径::名称 指定 ASCII 名")
         url = (f"{UPLOADS}/repos/{owner}/{repo}/releases/{rel['id']}/assets"
-               f"?name={urllib.parse.quote(p.name)}")
+               f"?name={urllib.parse.quote(asset_name)}")
         try:
             request("POST", url, token, raw=p.read_bytes(),
                     content_type="application/octet-stream", ok=(201,))
-            print(f"[release] 已上传 {p.name}（{p.stat().st_size:,} 字节）")
+            print(f"[release] 已上传 {asset_name}（{p.stat().st_size:,} 字节）")
         except GitHubError as e:
             if e.status == 422:
-                print(f"[release] 资源 {p.name} 已存在，跳过")
+                print(f"[release] 资源 {asset_name} 已存在，跳过")
             else:
-                print(f"[release] 上传 {p.name} 失败：{e.status}")
+                print(f"[release] 上传 {asset_name} 失败：{e.status}")
     return rel
 
 
