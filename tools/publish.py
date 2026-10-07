@@ -35,6 +35,7 @@ import base64
 import fnmatch
 import json
 import os
+import re
 import ssl
 import sys
 import time
@@ -61,6 +62,39 @@ class GitHubError(RuntimeError):
     def __init__(self, status, method, url, body):
         self.status, self.method, self.url, self.body = status, method, url, body
         super().__init__(f"HTTP {status} {method} {url}\n{body[:800]}")
+
+
+def get_token_scopes(token: str) -> set:
+    """读取 token 的 OAuth scope 列表（来自 GET /user 的 X-OAuth-Scopes 响应头）。
+
+    fine-grained token 不返回这个头，此时返回空集合 —— 调用方必须把「读不到」
+    与「确定没有」区分对待，否则会误判并做出错误的自适应行为。
+    """
+    req = urllib.request.Request(f"{API}/user", headers={
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": API_VERSION,
+        "User-Agent": UA,
+    })
+    with urllib.request.urlopen(req, timeout=30,
+                                context=ssl.create_default_context()) as r:
+        header = r.headers.get("X-OAuth-Scopes")
+        me = json.loads(r.read().decode())
+    if header is None:
+        return set(), me          # fine-grained：头上没有这个字段
+    return {s.strip() for s in header.split(",") if s.strip()}, me
+
+
+# README 里的 CI 徽章行。当 workflow 文件推不上去时，这行会指向一个不存在的
+# workflow，GitHub 返回 404，访客看到的是一个破图。宁可暂时不显示徽章，
+# 也不要让门面上挂着一个坏链接。
+CI_BADGE_RE = re.compile(r"^\[!\[CI\]\(.*$\n?", re.MULTILINE)
+
+
+def strip_ci_badge(text: str) -> tuple:
+    """移除 CI 徽章行，返回 (新文本, 是否改动过)。"""
+    new = CI_BADGE_RE.sub("", text)
+    return new, new != text
 
 
 def request(method: str, url: str, token: str, payload=None, *, raw=None,
@@ -324,12 +358,20 @@ def get_head(token, owner, repo, branch):
 
 
 def push_tree(token, owner, repo, root: Path, files, *, branch, message,
-              parent, base_tree, replace=False):
+              parent, base_tree, replace=False, drop_ci_badge=False):
     entries = []
     total = len(files)
     for i, (rel, path, executable) in enumerate(files, 1):
+        content = path.read_bytes()
+        if drop_ci_badge and rel == "README.md":
+            text = content.decode("utf-8")
+            text, changed = strip_ci_badge(text)
+            if changed:
+                content = text.encode("utf-8")
+                print("[readme] 已从 README 移除 CI 徽章 —— 本次不推送 workflow，"
+                      "徽章会指向一个不存在的文件（访客看到的是破图）")
         blob = request("POST", f"{API}/repos/{owner}/{repo}/git/blobs", token,
-                       {"content": base64.b64encode(path.read_bytes()).decode("ascii"),
+                       {"content": base64.b64encode(content).decode("ascii"),
                         "encoding": "base64"}, ok=(201,))
         entries.append({"path": rel, "mode": "100755" if executable else "100644",
                         "type": "blob", "sha": blob["sha"]})
@@ -572,8 +614,26 @@ def main() -> int:
               file=sys.stderr)
         return 2
 
-    me = request("GET", f"{API}/user", token, ok=(200,))
+    scopes, me = get_token_scopes(token)
     print(f"[auth] 已认证为 {me['login']}")
+    if scopes:
+        print(f"[auth] token scopes: {', '.join(sorted(scopes))}")
+    else:
+        print("[auth] token scopes: （fine-grained token 不通过响应头暴露 scope）")
+
+    # 主动判断能不能推 workflow 文件。
+    # 不能推的时候，README 里的 CI 徽章就成了死链（指向不存在的 workflow，
+    # 访客看到破图）。与其让仓库处于自相矛盾的状态，不如在推之前就把它摘掉。
+    has_wf_files = any(rel.startswith(".github/workflows/") for rel, _, _ in files)
+    drop_ci_badge = False
+    if has_wf_files and scopes and "workflow" not in scopes:
+        drop_ci_badge = True
+        print("[auth] 注意：token 缺少 `workflow` scope，本次将跳过 workflow 文件，")
+        print("       并同步移除 README 中的 CI 徽章以保持一致。")
+    elif has_wf_files and not scopes:
+        print("[auth] 提示：无法从响应头判断 workflow 权限（fine-grained token）。")
+        print("       若推送时因权限被跳过 workflow 文件，README 的 CI 徽章会失效，")
+        print("       请给 token 勾上 Workflows: Read and write 后重跑。")
 
     repo_info = ensure_repo(token, args.owner, args.repo, private=args.private,
                             description=args.description, homepage=args.homepage,
@@ -597,7 +657,7 @@ def main() -> int:
 
     _, skipped = push_tree(token, args.owner, args.repo, root, files, branch=args.branch,
                            message=message, parent=parent, base_tree=base_tree,
-                           replace=args.replace)
+                           replace=args.replace, drop_ci_badge=drop_ci_badge)
 
     if skipped:
         print()

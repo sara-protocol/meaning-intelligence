@@ -1,0 +1,211 @@
+name: Maintenance
+
+# 定时维护。每周一 03:17 UTC 运行（也可在 Actions 页面手动触发）。
+#
+# 设计红线（见 docs/automation.md）：
+#   · **不自动关闭任何 issue。** actions/stale 默认会关闭陈旧 issue，这里显式设为 -1（永不关闭）。
+#     对一个以「可失败性」为承诺的仓库，静默关闭一条未回复的批评是最坏的自动化。
+#   · 陈旧提醒只针对「缺少信息、等待提问者补充」的 issue，且措辞不得含有责备。
+#   · 未被回复的证伪报告会被**升级**（加标签 + 提醒维护者），而不是被清理。
+#
+# 注意：GitHub 会在仓库连续 60 天无活动后自动停用 schedule 工作流。
+#       这是平台行为，不是配置问题；届时到 Actions 页面点一次 Enable 即可。
+
+on:
+  schedule:
+    - cron: '17 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
+
+concurrency:
+  group: maintenance
+  cancel-in-progress: false
+
+jobs:
+  # --------------------------------------------------------------------
+  # 1. 陈旧管理：只标记，永不关闭 issue
+  # --------------------------------------------------------------------
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          # --- issue：永不自动关闭 ---
+          days-before-issue-stale: 90
+          days-before-issue-close: -1          # ← 关键：-1 = 永不关闭
+          exempt-issue-labels: 'falsification-report,pinned,security,maintenance-digest'
+          stale-issue-label: 'awaiting-response'
+          stale-issue-message: |
+            这条议题已 90 天没有新活动。
+
+            这里**不会**自动关闭它——只是提醒一下。如果它仍然重要，回一句就能移除标记；
+            如果已经不再相关，也欢迎说明。
+
+            <sub>自动化提醒 · 本仓库不自动关闭 issue，尤其不关闭证伪报告。</sub>
+
+          # --- PR：可以清理，废弃的 PR 与未回复的批评性质不同 ---
+          days-before-pr-stale: 45
+          days-before-pr-close: 30
+          stale-pr-label: 'stale'
+          stale-pr-message: |
+            这个 PR 已 45 天没有更新。30 天后将被自动关闭，但随时可以重新打开。
+          close-pr-message: |
+            已因长期无活动关闭。若想继续，直接重新打开即可，无需解释。
+
+          operations-per-run: 60
+
+  # --------------------------------------------------------------------
+  # 2. 升级：把「长期无人回复的证伪报告」顶到维护者面前
+  # --------------------------------------------------------------------
+  escalate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 找出未被回复的证伪报告
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const DAYS = 14;
+            const since = new Date(Date.now() - DAYS * 86400_000);
+
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'falsification-report',
+              per_page: 100,
+            });
+
+            let escalated = 0;
+            for (const iss of issues) {
+              if (iss.pull_request) continue;
+              if (iss.created_at && new Date(iss.created_at) > since) continue;
+
+              const { data: comments } = await github.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: iss.number,
+                per_page: 100,
+              });
+
+              // 只看「维护者」的回复：作者关联为 OWNER / MEMBER / COLLABORATOR，
+              // 且排除本仓库机器人自己发的自动提示。
+              const replied = comments.some(c => {
+                if (/github-actions\[bot\]/.test(c.user.login)) return false;
+                if (/AI 分诊草稿|machine triage draft|本提示由自动化流程生成/.test(c.body || '')) return false;
+                return ['OWNER', 'MEMBER', 'COLLABORATOR'].includes(c.author_association);
+              });
+
+              if (replied) continue;
+
+              const already = (iss.labels || []).some(l => l.name === 'needs-maintainer-review');
+              if (!already) {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: iss.number,
+                  labels: ['needs-maintainer-review'],
+                });
+              }
+              escalated++;
+              core.warning(`#${iss.number} 已 ${DAYS} 天无人回复：${iss.title}`);
+            }
+            core.info(`升级 ${escalated} 条未被回复的证伪报告`);
+
+  # --------------------------------------------------------------------
+  # 3. 周报：把仓库状态汇总成一条评论，追加到固定议题
+  # --------------------------------------------------------------------
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 生成并发布维护摘要
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const TITLE = '维护摘要 / Maintenance Digest';
+
+            // --- 收集数据 ---
+            const open = await github.paginate(github.rest.issues.listForRepo, {
+              owner, repo, state: 'open', per_page: 100,
+            });
+            const issues = open.filter(i => !i.pull_request);
+
+            const byLabel = {};
+            for (const i of issues) {
+              for (const l of i.labels || []) {
+                const n = typeof l === 'string' ? l : l.name;
+                byLabel[n] = (byLabel[n] || 0) + 1;
+              }
+            }
+
+            const fals = issues.filter(i =>
+              (i.labels || []).some(l => (typeof l === 'string' ? l : l.name) === 'falsification-report'));
+            const unreplied = issues.filter(i =>
+              (i.labels || []).some(l => (typeof l === 'string' ? l : l.name) === 'needs-maintainer-review'));
+
+            const { data: pulls } = await github.rest.pulls.list({
+              owner, repo, state: 'open', per_page: 100,
+            });
+
+            const stamp = new Date().toISOString().slice(0, 10);
+            const top = Object.entries(byLabel).sort((a, b) => b[1] - a[1]).slice(0, 10);
+
+            const lines = [
+              `### 维护摘要 · ${stamp}`,
+              '',
+              `| 指标 | 数值 |`,
+              `|---|---|`,
+              `| 未关闭 issue | ${issues.length} |`,
+              `| 未关闭 PR | ${pulls.length} |`,
+              `| 证伪报告 | ${fals.length} |`,
+              `| **等待维护者回复的证伪报告** | **${unreplied.length}** |`,
+              '',
+            ];
+
+            if (unreplied.length) {
+              lines.push('#### ⚠️ 等待回复的证伪报告', '');
+              for (const i of unreplied) {
+                const days = Math.floor((Date.now() - new Date(i.created_at)) / 86400_000);
+                lines.push(`- [#${i.number}](${i.html_url}) ${i.title} — 已 ${days} 天`);
+              }
+              lines.push('',
+                '<sub>按本仓库的可失败性承诺，这些报告必须由**人类**回应。它们不会被自动处理。</sub>', '');
+            }
+
+            if (top.length) {
+              lines.push('#### 标签分布', '');
+              for (const [k, v] of top) lines.push(`- \`${k}\` — ${v}`);
+              lines.push('');
+            }
+
+            lines.push('---',
+              '<sub>由 Maintenance 工作流每周生成。它只汇总状态，不做任何关闭或裁决。</sub>');
+
+            // --- 找到或创建固定议题 ---
+            const existing = await github.paginate(github.rest.issues.listForRepo, {
+              owner, repo, state: 'all', labels: 'maintenance-digest', per_page: 100,
+            });
+            let target = existing.find(i => !i.pull_request && i.title === TITLE);
+
+            if (!target) {
+              const created = await github.rest.issues.create({
+                owner, repo,
+                title: TITLE,
+                body: '本议题由 Maintenance 工作流维护，用于累积每周的仓库状态摘要。\n\n' +
+                      '它只做汇总，不会关闭任何其他 issue。',
+                labels: ['maintenance-digest'],
+              });
+              target = created.data;
+              core.info(`已创建固定议题 #${target.number}`);
+            }
+
+            await github.rest.issues.createComment({
+              owner, repo,
+              issue_number: target.number,
+              body: lines.join('\n'),
+            });
+            core.info(`摘要已追加到 #${target.number}`);

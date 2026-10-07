@@ -1,0 +1,256 @@
+# ============================================================================
+# CI —— 意义智能 / Meaning Intelligence
+# 目的：在每次 push 与 pull_request 上验证仓库的"可解析 + 可重建 + 可校验"三件事。
+#   1. 所有 YAML / CFF 能被解析（模板与工作流本身是仓库的对外接口，坏掉的模板等于坏掉的贡献入口）；
+#   2. 白皮书能由脚本重建出有效 DOCX（产物可重建，才谈得上可复核）；
+#   3. MSI 单文件交互页能构建出来、无残留占位符、内联 JavaScript 语法正确。
+# 有意不做的事：
+#   - 不渲染 Manim（渲染耗时且需要系统级依赖，代价远高于它带来的检查价值）。
+#     因此 MSI 部分除了构建工作区中的页面，还会在临时目录里显式验证"无 timeline.json"
+#     时的 planned 回退分支——这条路径不依赖工作区里是否放着实测时间轴，结果确定；
+#   - 不自动提交或推送任何产物。构建结果只用于校验，仓库内容的变更必须由人提交。
+# ============================================================================
+name: CI
+
+on:
+  push:
+  pull_request:
+
+# 只读权限：CI 不需要写入仓库。产物由维护者在本地构建后提交。
+permissions:
+  contents: read
+
+jobs:
+  build-and-validate:
+    name: 构建与校验 / Build and validate
+    runs-on: ubuntu-latest
+    env:
+      # 让脚本里的中文与符号在 runner 上按 UTF-8 输出，避免编码导致的假失败。
+      PYTHONIOENCODING: utf-8
+      PYTHONUTF8: "1"
+    steps:
+      - name: 检出仓库 / Checkout
+        uses: actions/checkout@v4
+
+      - name: 安装 Python 3.12 / Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 安装依赖 / Install dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install python-docx pillow pyyaml
+
+      # ------------------------------------------------------------------
+      # 1. YAML / CFF 可解析性
+      # ------------------------------------------------------------------
+      - name: 校验 YAML 与 CFF 可解析 / Validate that YAML and CFF files parse
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import sys
+          from pathlib import Path
+          import yaml
+
+          # .github 下的全部 YAML（工作流、issue 表单、模板配置）+ 仓库根目录的 CFF。
+          targets = sorted(Path(".github").rglob("*.yml")) + sorted(Path(".github").rglob("*.yaml"))
+          targets += sorted(Path(".").glob("*.cff"))
+          targets = [p for p in targets if p.is_file()]
+
+          if not targets:
+              print("::error::未找到任何待校验的 YAML/CFF 文件")
+              sys.exit(1)
+
+          failed = []
+          for path in targets:
+              try:
+                  with path.open("r", encoding="utf-8") as handle:
+                      yaml.safe_load(handle)
+              except Exception as exc:  # 解析失败必须暴露文件名与行列，否则无法定位
+                  failed.append(path)
+                  print(f"::error file={path}::{exc}")
+              else:
+                  print(f"OK   {path}")
+
+          if failed:
+              print(f"::error::{len(failed)}/{len(targets)} 个文件解析失败")
+              sys.exit(1)
+          print(f"通过：{len(targets)} 个 YAML/CFF 文件全部可解析")
+          PY
+
+      - name: 校验 Issue 表单结构 / Validate issue form schema
+        run: |
+          set -euo pipefail
+          # 光能解析 YAML 不够：issue form 有自己的一套结构约束
+          # （type 取值、id 唯一且 markdown 不得带 id、dropdown 必须有 options…），
+          # 违反时 GitHub 不会报错，而是让表单静默失效。
+          # 注意：GitHub 的 /issues/new 页面是纯客户端渲染的，
+          # HTTP 抓取无法验证（有效与无效模板返回同一个空壳），所以只能在这里静态校验。
+          python tools/verify_issue_forms.py
+
+      # ------------------------------------------------------------------
+      # 2. 白皮书重建
+      # ------------------------------------------------------------------
+      - name: 安装插图所需字体 / Install fonts for figure rendering
+        run: |
+          set -euo pipefail
+          # make_figures.py 会按平台在多个候选路径中自行解析字体，找不到时会给出
+          # 可操作的报错。这里只需保证 runner 上确实装了一款含 CJK 字形的字体。
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends fonts-wqy-zenhei fonts-dejavu-core
+
+      - name: 重建白皮书 / Rebuild the white paper
+        run: |
+          set -euo pipefail
+          START=$(date +%s)
+
+          cd whitepaper
+          python make_figures.py
+          python build_whitepaper.py
+          cd ..
+
+          # 断言：确实产出了新的、结构有效的 DOCX。
+          # 仅判断"文件存在"不够——仓库里本来就带着上一版产物，
+          # 这里用 mtime 确认它由本次构建写出，并检查 DOCX 包内是否含 word/document.xml。
+          START="$START" python - <<'PY'
+          import os
+          import sys
+          import zipfile
+          from pathlib import Path
+
+          start = int(os.environ["START"])
+          candidates = sorted(set(Path("whitepaper").glob("*.docx")) | set(Path("whitepaper/dist").glob("*.docx")))
+          if not candidates:
+              print("::error::未找到任何 DOCX：白皮书构建未产出文件")
+              sys.exit(1)
+
+          fresh = [p for p in candidates if int(p.stat().st_mtime) >= start - 2]
+          if not fresh:
+              print(f"::error::本次构建未写出新的 DOCX，候选文件均为旧产物：{[str(p) for p in candidates]}")
+              sys.exit(1)
+
+          for docx in fresh:
+              size = docx.stat().st_size
+              if size < 10240:
+                  print(f"::error file={docx}::DOCX 体积异常（{size} 字节），疑似构建中断")
+                  sys.exit(1)
+              with zipfile.ZipFile(docx) as archive:
+                  parts = archive.namelist()
+              if "word/document.xml" not in parts:
+                  print(f"::error file={docx}::不是有效的 DOCX 包（缺少 word/document.xml）")
+                  sys.exit(1)
+              print(f"OK   {docx}（{size} 字节，{len(parts)} 个部件）")
+          PY
+
+      # ------------------------------------------------------------------
+      # 3. MSI 单文件交互页构建
+      # ------------------------------------------------------------------
+      - name: 构建 MSI 交互页 / Build the MSI interactive page
+        run: |
+          set -euo pipefail
+
+          # 先确认构建入口与模板都在预期位置：路径不一致时给出明确报错，
+          # 而不是让 python 抛一个只有回溯的异常。
+          test -f msi/build.py || { echo "::error::缺少 msi/build.py"; exit 1; }
+          test -f msi/config.json || { echo "::error::缺少 msi/config.json"; exit 1; }
+          test -f msi/templates/html_template.html || { echo "::error::缺少 msi/templates/html_template.html"; exit 1; }
+
+          cd msi
+          python build.py
+          cd ..
+
+          # 断言：产物存在、由本次构建写出、无残留占位符、内联时间轴已注入。
+          python - <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          page = Path("msi/meaning_intelligence.html")
+          if not page.is_file():
+              print("::error::未生成 msi/meaning_intelligence.html")
+              sys.exit(1)
+
+          text = page.read_text(encoding="utf-8")
+          if len(text) < 1024:
+              print(f"::error file={page}::页面体积异常（{len(text)} 字符），疑似构建中断")
+              sys.exit(1)
+
+          leftover = sorted(set(re.findall(r"\{\{[^{}]*\}\}", text)))
+          if leftover:
+              print(f"::error file={page}::存在未替换的模板占位符：{leftover}")
+              sys.exit(1)
+
+          if "const TIMELINE" not in text:
+              print(f"::error file={page}::未找到内联时间轴数据，注入可能失败")
+              sys.exit(1)
+
+          # 说明当前用的是哪条分支，便于排查（两条都是合法输入，因此只作信息输出）。
+          match = re.search(r'const\s+SOURCE\s*=\s*"(planned|measured)"', text)
+          print(f"时间轴来源 / timeline source: {match.group(1) if match else 'unknown'}")
+
+          print(f"OK   {page}（{len(text)} 字符，无残留占位符）")
+          PY
+
+          # CI 不渲染 Manim，而工作区里是否放着实测 timeline.json 取决于仓库内容，
+          # 因此这里在临时副本中显式跑一次"无实测时间轴"的 planned 回退分支：
+          # 结果与仓库当前状态无关，且不会改动工作区里的任何文件。
+          PLANNED_DIR=$(mktemp -d)
+          cp -r msi/build.py msi/mi_common.py msi/config.json msi/templates "$PLANNED_DIR"/
+          if ! (cd "$PLANNED_DIR" && python build.py > planned-build.log 2>&1); then
+            cat "$PLANNED_DIR/planned-build.log"
+            echo "::error::planned 时间轴回退分支构建失败"
+            exit 1
+          fi
+          cat "$PLANNED_DIR/planned-build.log"
+          if ! grep -Eq 'const +SOURCE *= *"planned"' "$PLANNED_DIR/meaning_intelligence.html"; then
+            echo "::error::planned 回退分支未产出 planned 时间轴"
+            exit 1
+          fi
+          echo "OK   planned 时间轴回退分支构建通过（临时目录，未改动仓库）"
+
+      # ------------------------------------------------------------------
+      # 4. 生成页面内联 JavaScript 语法
+      # ------------------------------------------------------------------
+      - name: 校验内联 JavaScript 语法 / Check inline JavaScript syntax
+        run: |
+          set -euo pipefail
+          WORK=$(mktemp -d)
+
+          # 抽出所有不带 src 的 <script> 块。外部 CDN 脚本（mermaid）不在此列。
+          WORK="$WORK" python - <<'PY'
+          import os
+          import re
+          import sys
+          from pathlib import Path
+
+          page = Path("msi/meaning_intelligence.html")
+          if not page.is_file():
+              print("::error::找不到 msi/meaning_intelligence.html，无法校验内联脚本")
+              sys.exit(1)
+
+          html = page.read_text(encoding="utf-8")
+          blocks = re.findall(
+              r"<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>",
+              html,
+              flags=re.IGNORECASE | re.DOTALL,
+          )
+          blocks = [b for b in blocks if b.strip()]
+          if not blocks:
+              print("::error::未找到任何可校验的内联 <script> 块（预期模板中至少有一段）")
+              sys.exit(1)
+
+          out_dir = Path(os.environ["WORK"])
+          for index, block in enumerate(blocks):
+              target = out_dir / f"inline_{index}.js"
+              target.write_text(block, encoding="utf-8")
+              print(f"已抽取 {target}（{len(block)} 字符）")
+          print(f"共 {len(blocks)} 段内联 JavaScript 待校验")
+          PY
+
+          for script in "$WORK"/inline_*.js; do
+            echo "node --check $script"
+            node --check "$script"
+          done
+          echo "内联 JavaScript 语法检查通过"
