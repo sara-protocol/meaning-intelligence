@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meaning Intelligence · 六层应用栈 / Six-Layer Application Stack</title>
+<style>
+  :root{
+    --bg:#0F172A; --fg:#F8FAFC; --muted:#7A8CA3;
+    --accent:#C49B3B; --fail:#EF4444; --navy:#1B3A5C;
+    --panel:rgba(255,255,255,.045); --line:rgba(255,255,255,.10);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",Roboto,sans-serif;
+       line-height:1.6}
+  header{padding:26px 28px 14px;border-bottom:1px solid var(--line)}
+  h1{margin:0;font-size:26px;letter-spacing:.4px}
+  h1 small{display:block;font-size:13px;font-weight:400;color:var(--muted);
+           letter-spacing:1.6px;text-transform:uppercase;margin-top:6px}
+  .canon{margin-top:10px;font-size:12.5px;color:var(--muted)}
+  .canon b{color:var(--accent);font-weight:600}
+  .wrap{display:grid;grid-template-columns:290px 1fr;gap:22px;padding:22px 28px 40px;
+        max-width:1560px;margin:0 auto}
+  @media(max-width:980px){.wrap{grid-template-columns:1fr}}
+  .band{margin-bottom:16px}
+  .band-h{font-size:11.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);
+          margin:0 0 8px 4px;display:flex;justify-content:space-between;gap:8px}
+  .band-h em{font-style:normal;opacity:.75;letter-spacing:0;text-transform:none}
+  .tab{display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;
+       background:var(--panel);border:1px solid var(--line);border-left-width:4px;
+       border-radius:9px;padding:9px 11px;margin-bottom:7px;color:var(--fg);
+       font-family:inherit;font-size:13.5px;transition:background .15s,transform .15s}
+  .tab:hover{background:rgba(255,255,255,.09);transform:translateX(2px)}
+  .tab[aria-selected="true"]{background:rgba(255,255,255,.13)}
+  .tab .id{font-weight:700;font-size:13px;min-width:22px}
+  .tab .nm{flex:1}
+  .tab .nm i{display:block;font-style:normal;font-size:11px;color:var(--muted)}
+  .tab .ev{font-size:10.5px;padding:2px 6px;border-radius:20px;color:#0b1220;font-weight:700}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+        padding:18px 20px;margin-bottom:18px}
+  .card h2{margin:0 0 4px;font-size:19px}
+  .card h2 span{font-size:12.5px;color:var(--muted);font-weight:400;margin-left:8px}
+  .q{font-size:14px;color:var(--accent);margin:10px 0 2px}
+  .q em{display:block;font-style:normal;color:var(--muted);font-size:12px}
+  .def{font-size:14px;margin:10px 0 2px}
+  .def em{display:block;font-style:normal;color:var(--muted);font-size:12.5px;margin-top:3px}
+  .anchor{font-size:12px;color:var(--muted);margin-top:12px;
+          border-top:1px dashed var(--line);padding-top:10px}
+  video{width:100%;border-radius:10px;background:#000;display:block}
+  .hint{font-size:12.5px;color:var(--muted);margin-top:10px}
+  .hint b{color:var(--accent)}
+  canvas{width:100%;height:430px;display:block;border-radius:10px;background:#070d1a;
+         border:1px solid var(--line)}
+  .ctrls{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:14px}
+  .ctrl{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--muted)}
+  .ctrl input[type=range]{width:150px;accent-color:var(--accent)}
+  .ctrl output{color:var(--fg);font-variant-numeric:tabular-nums;min-width:38px;display:inline-block}
+  .btn{background:var(--panel);border:1px solid var(--line);color:var(--fg);border-radius:8px;
+       padding:6px 13px;cursor:pointer;font-family:inherit;font-size:12.5px}
+  .btn:hover{background:rgba(255,255,255,.10)}
+  .btn.on{border-color:var(--accent);color:var(--accent)}
+  footer{padding:0 28px 34px;color:var(--muted);font-size:12px;max-width:1560px;margin:0 auto}
+</style>
+</head>
+<body>
+<header>
+  <h1>Meaning Intelligence　意义智能
+    <small>Six-Layer Application Stack · v2.0.0</small>
+  </h1>
+  <div class="canon">理论正典 <b>《意义智能：意义文明的认知操作系统》V7.0</b>　·　元智能＝对其他智能活动的方向性调控<br>
+    Canon: meta-intelligence is the directional regulation of other intelligent activities.</div>
+</header>
+
+<div class="wrap">
+  <nav id="tabs" aria-label="六层导航"></nav>
+
+  <main>
+    <div class="card">
+      <h2 id="lName">—<span id="lNameEn"></span></h2>
+      <div class="q" id="lQ"></div>
+      <div class="def" id="lDef"></div>
+      <div class="anchor" id="lAnchor"></div>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size:16px;margin-bottom:12px">逐层可操作演示
+        <span>Interactive per-layer demo</span></h2>
+      <canvas id="stage"></canvas>
+      <div class="ctrls" id="ctrls"></div>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size:16px;margin-bottom:12px">六幕动画同步
+        <span>Six-act animation</span></h2>
+      <video id="mainVideo" controls preload="metadata">
+        <source src="MeaningIntelligenceScene.mp4" type="video/mp4">
+        您的浏览器不支持 video 标签。
+      </video>
+      <div class="hint" id="statusAlert"></div>
+    </div>
+  </main>
+</div>
+
+<footer>
+  证据等级 E0–E6 与失败矩阵见正典；本项目承诺：任何模块达到失败阈值，将被标记或删除，而非辩护。<br>
+  Evidence levels E0–E6 and the Theory Failure Matrix follow the canon. Any module reaching its
+  failure threshold will be marked or removed — not defended.
+</footer>
+
+<script>
+const LAYERS   = {"L1": {"index": 1, "band": "interface", "name": "减负", "en": "Cognitive Load Reduction", "color": "#2A5C8E", "evidence": "E1", "mechanism_evidence": "E3", "duration": 4.5, "question": "当信息供给远超认知带宽时，第一步该做什么？", "question_en": "When information supply far exceeds cognitive bandwidth, what is the first thing to do?", "definition": "在不丢失决策所需关键结构的前提下，降低单位时间内的认知负荷总量。", "definition_en": "Reduce total cognitive load per unit of time without losing the key structure needed for decision.", "anchor": "正典第1章 1.1；工具 A.1 意义自检卡", "anchor_en": "Canon 1.1; Tool A.1 Meaning Self-Check Card"}, "L2": {"index": 2, "band": "interface", "name": "可体验", "en": "Experiential Rendering", "color": "#3B6EA5", "evidence": "E1", "mechanism_evidence": "E3", "duration": 4.5, "question": "理解一个结构，最短的路径是什么？", "question_en": "What is the shortest path to understanding a structure?", "definition": "把抽象关系转译为可操作、可回放的感知对象。", "definition_en": "Translate abstract relations into operable, replayable perceptual objects.", "anchor": "正典第3章；第9章 M1 感知模块", "anchor_en": "Canon Ch.3; Ch.9 module M1 (perception)"}, "L3": {"index": 3, "band": "processing", "name": "意义生成", "en": "Meaning Generation", "color": "#6B4C9A", "evidence": "E1", "mechanism_evidence": "E0", "duration": 4.5, "question": "一堆已经看懂的材料，如何变成「对我意味着什么」？", "question_en": "How does understood material become \"what it means for me\"?", "definition": "把材料组织为方向、价值、边界三个维度，并沿意义光谱带定位其抽象程度与时间尺度。", "definition_en": "Organize material along direction, value, and boundary, and locate its level of abstraction and time scale along the meaning spectrum.", "anchor": "正典第3章 3.1/3.2；第8章 8.1 光谱带模型（取代固定层次）", "anchor_en": "Canon 3.1/3.2; Ch.8 8.1 spectral band model (replaces fixed levels)"}, "L4": {"index": 4, "band": "processing", "name": "价值评估", "en": "Value Assessment", "color": "#8A6BB5", "evidence": "E2", "mechanism_evidence": "E1", "duration": 4.5, "question": "这个意义判断有多可靠？凭什么？", "question_en": "How reliable is this meaning judgment, and on what grounds?", "definition": "用统一标尺为意义判断标注证据强度与不确定性，并估计意义势能的变化方向。", "definition_en": "Label judgments with evidence strength and uncertainty, and estimate the direction of meaning potential.", "anchor": "正典第6章 E0–E6；3.3 PE 方程", "anchor_en": "Canon Ch.6 E0–E6; 3.3 the PE equation"}, "L5": {"index": 5, "band": "meta", "name": "方向选择", "en": "Direction Selection", "color": "#C49B3B", "evidence": "E1", "mechanism_evidence": "E1", "duration": 4.5, "question": "在多个都「有价值」的方向中，选哪一个？", "question_en": "Among several directions that all have value, which one to choose?", "definition": "在五尺度框架下选定一个方向并显式承担其代价，同时输出修正触发条件。", "definition_en": "Select one direction within the five scales while bearing its cost, and output correction triggers.", "anchor": "正典第4章五尺度；DC 指标；三级修正", "anchor_en": "Canon Ch.4 five scales; DC indicator; three-level correction"}, "L6": {"index": 6, "band": "meta", "name": "反思与审视递归", "en": "Recursive Reflection and Review", "color": "#D9B45C", "evidence": "E2", "mechanism_evidence": "E2", "duration": 5.5, "question": "谁来审视审视者？", "question_en": "Who reviews the reviewer?", "definition": "系统对自身的意义判断过程进行再判断，包括对判断框架本身的审查、周期性归零与重构。", "definition_en": "The system re-judges its own meaning-judgment process, including review of the framework itself and periodic zeroing.", "anchor": "正典第7章 7B.2/7B.3/7B.4 三特性；附录D 表D.7 理论失败矩阵；H12/H13/H14", "anchor_en": "Canon Ch.7 7B.2/7B.3/7B.4 three properties; Appendix D Table D.7 Theory Failure Matrix; H12/H13/H14"}};
+const BANDS    = [{"id": "interface", "name": "界面带", "en": "Interface Band", "layers": ["L1", "L2"], "solves": "信息进不来", "solves_en": "Information cannot get in"}, {"id": "processing", "name": "加工带", "en": "Processing Band", "layers": ["L3", "L4"], "solves": "意义出不来", "solves_en": "Meaning cannot get out"}, {"id": "meta", "name": "元带", "en": "Meta Band", "layers": ["L5", "L6"], "solves": "方向守不住", "solves_en": "Direction cannot be held"}];
+const EVIDENCE = {"E0": "#9CA3AF", "E1": "#3B82F6", "E2": "#06B6D4", "E3": "#10B981", "E4": "#8B5CF6", "E5": "#F59E0B", "E6": "#4F46E5", "FAIL": "#EF4444"};
+const EV_NAMES = {"E0": ["概念", "Conceptual"], "E1": ["形式化", "Formalized"], "E2": ["操作化", "Operationalized"], "E3": ["预测性", "Predictive"], "E4": ["复制", "Replicated"], "E5": ["证伪/存活", "Falsified / Survived"], "E6": ["外部验证", "Externally Validated"]};
+const TIMELINE = {"L1": {"name": "减负 (Cognitive Load Reduction)", "index": 1, "band": "interface", "start": 2.13, "end": 7.2}, "L2": {"name": "可体验 (Experiential Rendering)", "index": 2, "band": "interface", "start": 7.8, "end": 12.67}, "L3": {"name": "意义生成 (Meaning Generation)", "index": 3, "band": "processing", "start": 13.27, "end": 17.53}, "L4": {"name": "价值评估 (Value Assessment)", "index": 4, "band": "processing", "start": 18.13, "end": 22.73}, "L5": {"name": "方向选择 (Direction Selection)", "index": 5, "band": "meta", "start": 23.33, "end": 28.93}, "L6": {"name": "反思与审视递归 (Recursive Reflection and Review)", "index": 6, "band": "meta", "start": 29.53, "end": 36.93}};
+const SOURCE   = "measured";
+
+const evColor = k => EVIDENCE[k] || "#7A8CA3";
+const notes = [];
+const statusAlert = document.getElementById("statusAlert");
+function renderNotes(){ statusAlert.innerHTML = notes.join("<br>"); }
+if (SOURCE === "planned") {
+  notes.push("⚠️ 当前注入的是<b>预算时间轴</b>：未检测到实测 timeline.json，" +
+             "运行渲染后重建即可同步毫秒级数据。");
+}
+
+/* ---------------------------------------------------------------- 导航 */
+let current = "L1";
+const tabsEl = document.getElementById("tabs");
+BANDS.forEach(band => {
+  const box = document.createElement("div");
+  box.className = "band";
+  box.innerHTML = '<div class="band-h"><span>' + band.name + " · " + band.en +
+                  "</span><em>" + band.solves + "</em></div>";
+  band.layers.forEach(key => {
+    const L = LAYERS[key];
+    const btn = document.createElement("button");
+    btn.className = "tab";
+    btn.type = "button";
+    btn.dataset.key = key;
+    btn.style.borderLeftColor = L.color;
+    btn.setAttribute("aria-selected", key === current ? "true" : "false");
+    btn.innerHTML = '<span class="id" style="color:' + L.color + '">' + key + "</span>" +
+      '<span class="nm">' + L.name + "<i>" + L.en + "</i></span>" +
+      '<span class="ev" style="background:' + evColor(L.evidence) + '">' + L.evidence + "</span>";
+    btn.addEventListener("click", () => select(key));
+    box.appendChild(btn);
+  });
+  tabsEl.appendChild(box);
+});
+
+/* ---------------------------------------------------------------- 视频 */
+const video = document.getElementById("mainVideo");
+let seeking = false;
+video.addEventListener("error", () => {
+  notes.push("🎬 未找到 <b>MeaningIntelligenceScene.mp4</b>：请先运行 run.ps1 / run.sh " +
+             "渲染并复制到本目录。");
+  renderNotes();
+});
+
+/* ---------------------------------------------------------------- 画布 */
+const canvas = document.getElementById("stage");
+const ctx = canvas.getContext("2d");
+const W = 1000, H = 430;      // 逻辑坐标空间
+let scale = 1;
+
+function fitCanvas(){
+  const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width  = Math.max(1, Math.round(rect.width  * dpr));
+  canvas.height = Math.max(1, Math.round(rect.height * dpr));
+  scale = Math.min(rect.width / W, rect.height / H);
+  // setTransform 幂等；用 scale() 会在每次 resize 时累乘，窗口拖几次画面就会被放大
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.translate((rect.width - W*scale)/2, (rect.height - H*scale)/2);
+  ctx.scale(scale, scale);
+}
+function clear(){ ctx.clearRect(-2000, -2000, 6000, 6000); }
+function dot(x,y,r,fill){ ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fillStyle=fill; ctx.fill(); }
+function ring(x,y,r,stroke,w){ ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+  ctx.strokeStyle=stroke; ctx.lineWidth=w||3; ctx.stroke(); }
+function label(txt,x,y,color,size,align){
+  ctx.fillStyle = color || "#7A8CA3";
+  ctx.font = (size||15) + 'px -apple-system,"Microsoft YaHei",sans-serif';
+  ctx.textAlign = align || "center"; ctx.textBaseline = "middle";
+  ctx.fillText(txt, x, y);
+}
+function rng(seed){ let s = seed>>>0; return () => (s = (s*1664525+1013904223)>>>0)/4294967296; }
+function toLocal(ev){
+  const r = canvas.getBoundingClientRect();
+  return [(ev.clientX - r.left - (r.width  - W*scale)/2)/scale,
+          (ev.clientY - r.top  - (r.height - H*scale)/2)/scale];
+}
+
+const state = {};
+
+/* ---- L1 减负 ---- */
+function initL1(){
+  const r = rng(20261007), pts = [], homes = [];
+  for (let i=0;i<120;i++) pts.push([r()*W, r()*H]);
+  for (let i=0;i<12;i++) homes.push([200 + (i%4)*200, 110 + ((i/4)|0)*105]);
+  state.L1 = { pts, homes, compress: 0.55 };
+}
+function drawL1(){
+  const s = state.L1, k = s.compress;
+  clear();
+  s.pts.forEach((p,i)=>{
+    const h = s.homes[i % 12];
+    dot(p[0]+(h[0]-p[0])*k, p[1]+(h[1]-p[1])*k, 2.4,
+        "rgba(196,155,59," + (0.30 + 0.70*(1-k)).toFixed(3) + ")");
+  });
+  s.homes.forEach(h=>{
+    ring(h[0], h[1], 13, "rgba(42,92,142," + (0.35+0.65*k).toFixed(3) + ")", 2);
+    if (k > 0.62) dot(h[0], h[1], 5.2, "#2A5C8E");
+  });
+  label("压缩率 compress = " + k.toFixed(2) + "　·　120 → 12　负荷从信息量转移到结构",
+        W/2, H-26);
+}
+
+/* ---- L2 可体验 ---- */
+function initL2(){
+  const homes = [];
+  for (let i=0;i<12;i++){
+    const a = (i/12)*Math.PI*2 - Math.PI/2;
+    homes.push([380*Math.cos(a), 150*Math.sin(a)]);
+  }
+  state.L2 = { homes, spread: 0.9 };
+}
+function drawL2(){
+  const s = state.L2, k = s.spread;
+  clear();
+  ctx.save(); ctx.translate(W/2, H/2 - 14);
+  ring(0,0,150*0.45,"rgba(255,255,255,.10)",1);
+  ring(0,0,150*1.05,"rgba(255,255,255,.10)",1);
+  s.homes.forEach(h=>{
+    dot(h[0]*k, h[1]*k, 9, "#3B6EA5");
+    ring(h[0]*k, h[1]*k, 15, "rgba(59,110,165,.55)", 2);
+  });
+  ctx.restore();
+  const tx0=120, tx1=W-120, ty=H-52;
+  ctx.strokeStyle="#7A8CA3"; ctx.lineWidth=3;
+  ctx.beginPath(); ctx.moveTo(tx0,ty); ctx.lineTo(tx1,ty); ctx.stroke();
+  dot(tx0 + (tx1-tx0)*((k-0.45)/0.9), ty, 9, "#3B6EA5");
+  label("spread = " + k.toFixed(2) + "　·　参数改变 → 结果可预测，这才是「可体验」而非「好看」",
+        W/2, H-20);
+}
+
+/* ---- L3 意义生成 ---- */
+function initL3(){ state.L3 = { d:0.7, v:0.5, b:0.4 }; }
+function drawL3(){
+  const s = state.L3;
+  clear();
+  const top=[W/2,80], left=[W/2-330,H-110], right=[W/2+330,H-110];
+  ctx.beginPath(); ctx.moveTo(top[0],top[1]); ctx.lineTo(left[0],left[1]);
+  ctx.lineTo(right[0],right[1]); ctx.closePath();
+  ctx.fillStyle="rgba(107,76,154,.10)"; ctx.fill();
+  ctx.strokeStyle="#6B4C9A"; ctx.lineWidth=2.5; ctx.stroke();
+  [[top,"方向 Direction"],[left,"价值 Value"],[right,"边界 Boundary"]].forEach(p=>{
+    dot(p[0][0],p[0][1],7,"#6B4C9A");
+    label(p[1], p[0][0], p[0][1]-26, "#F8FAFC", 16);
+  });
+  const sum = s.d+s.v+s.b || 1;
+  const x = (top[0]*s.d + left[0]*s.v + right[0]*s.b)/sum;
+  const y = (top[1]*s.d + left[1]*s.v + right[1]*s.b)/sum;
+  ring(x,y,22,"rgba(107,76,154,.45)",2);
+  dot(x,y,10,"#C49B3B");
+  label("意义坐标 (" + s.d.toFixed(1) + ", " + s.v.toFixed(1) + ", " + s.b.toFixed(1) + ")",
+        x, y+44, "#F8FAFC", 15);
+  label("三个维度同时成立，才构成一个可陈述的意义判断", W/2, H-18);
+}
+
+/* ---- L4 价值评估 ---- */
+function initL4(){
+  const nodes = [];
+  for (let i=0;i<12;i++){
+    nodes.push({ x:200 + (i%4)*200, y:110 + ((i/4)|0)*105, lv:i%7 });
+  }
+  state.L4 = { nodes };
+}
+function drawL4(){
+  clear();
+  state.L4.nodes.forEach(n=>{
+    const col = evColor("E"+n.lv);
+    ring(n.x, n.y, 26, col, 3.4);
+    dot(n.x, n.y, 9, col);
+    label("E"+n.lv, n.x, n.y+46, col, 14);
+  });
+  const keys=["E0","E1","E2","E3","E4","E5","E6"];
+  const bw=64, x0=W/2-(keys.length*bw)/2;
+  keys.forEach((k,i)=>{
+    ctx.fillStyle = evColor(k);
+    ctx.fillRect(x0+i*bw, H-56, bw-8, 20);
+    label(k, x0+i*bw+(bw-8)/2, H-46, "#0b1220", 13);
+    label(EV_NAMES[k][0], x0+i*bw+(bw-8)/2, H-26, "#7A8CA3", 12);
+  });
+  label("点击任一节点：循环提升其证据等级", W/2, 26);
+}
+
+/* ---- L5 方向选择 ---- */
+function initL5(){ state.L5 = { chosen: 1 }; }
+function bezier(p0,p1,p2,p3,t){
+  const u=1-t;
+  return [u*u*u*p0[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t*t*t*p3[0],
+          u*u*u*p0[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t*t*t*p3[1]];
+}
+function drawL5(){
+  const s = state.L5;
+  clear();
+  const p0=[120,H-90];
+  const ends=[[W-120,80],[W-110,H/2],[W-140,H-140]];
+  const ctrl=[[420,40],[470,H/2-30],[430,H-40]];
+  const names=["候选 A","候选 B","候选 C"];
+  for (let i=0;i<3;i++){
+    const on = i===s.chosen;
+    ctx.beginPath();
+    for (let t=0;t<=1.0001;t+=0.02){
+      const p = bezier(p0,ctrl[i],ctrl[i],ends[i],t);
+      if (t===0) ctx.moveTo(p[0],p[1]); else ctx.lineTo(p[0],p[1]);
+    }
+    ctx.strokeStyle = on ? "#C49B3B" : "rgba(122,140,163,.30)";
+    ctx.lineWidth   = on ? 6 : 2;
+    ctx.stroke();
+    label(names[i], ends[i][0]+8, ends[i][1]-30, on?"#C49B3B":"#7A8CA3", on?17:14, "right");
+    if (on) dot(ends[i][0], ends[i][1], 9, "#C49B3B");
+  }
+  dot(p0[0],p0[1],9,"#7A8CA3");
+  label("点击曲线切换选定方向　·　选定即承担代价，并预先声明偏离阈值", W/2, H-18);
+  label("一级 <10%　二级 10–30%　三级 >30%", W/2, 24);
+}
+
+/* ---- L6 反思与审视递归 ---- */
+function initL6(){ state.L6 = { t: 0 }; }
+function drawL6(){
+  const s = state.L6;
+  clear();
+  const cx=W/2, cy=H/2+12, turns=1.6, r0=40, r1=185;
+  ctx.beginPath();
+  const N = Math.max(2, Math.floor(600*s.t));
+  for (let i=0;i<=N;i++){
+    const t=i/600, a=-Math.PI/2 + t*turns*Math.PI*2, r=r0+(r1-r0)*t;
+    const x=cx+r*Math.cos(a), y=cy+r*Math.sin(a);
+    if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.strokeStyle="#EF4444"; ctx.lineWidth=4; ctx.stroke();
+  dot(cx,cy,7,"#EF4444");
+  label("归零 Zeroing", cx, cy+32, "#EF4444", 14);
+  if (s.t > 0.98){
+    const a=-Math.PI/2 + turns*Math.PI*2, r=r1*1.13;
+    const x=cx+r*Math.cos(a), y=cy+r*Math.sin(a);
+    ring(x,y,17,"#EF4444",4);
+    label("L1′", x, y, "#EF4444", 15);
+    label("下一轮起点 Next-cycle entry", x+120, y, "#EF4444", 14, "left");
+  }
+  label("归零不是回到原点，而是回到同角度的更高一层起点", W/2, H-18);
+}
+
+/* ---- 各层控件定义 ---- */
+const DEMOS = {
+  L1:{init:initL1, draw:drawL1,
+      ctrls:[{k:"compress",label:"压缩率",min:0,max:1,step:0.01}]},
+  L2:{init:initL2, draw:drawL2,
+      ctrls:[{k:"spread",label:"spread",min:0.45,max:1.35,step:0.01}]},
+  L3:{init:initL3, draw:drawL3,
+      ctrls:[{k:"d",label:"方向",min:0,max:1,step:0.05},
+             {k:"v",label:"价值",min:0,max:1,step:0.05},
+             {k:"b",label:"边界",min:0,max:1,step:0.05}]},
+  L4:{init:initL4, draw:drawL4, ctrls:[]},
+  L5:{init:initL5, draw:drawL5, ctrls:[]},
+  L6:{init:initL6, draw:drawL6, ctrls:[]}
+};
+
+function buildCtrls(key){
+  const box = document.getElementById("ctrls");
+  box.innerHTML = "";
+  DEMOS[key].ctrls.forEach(c=>{
+    const wrap = document.createElement("label");
+    wrap.className = "ctrl";
+    wrap.innerHTML = c.label +
+      ' <input type="range" min="' + c.min + '" max="' + c.max + '" step="' + c.step +
+      '" value="' + state[key][c.k] + '"> <output>' +
+      Number(state[key][c.k]).toFixed(2) + "</output>";
+    const inp = wrap.querySelector("input"), out = wrap.querySelector("output");
+    inp.addEventListener("input", ()=>{
+      state[key][c.k] = parseFloat(inp.value);
+      out.textContent = Number(inp.value).toFixed(2);
+      DEMOS[key].draw();
+    });
+    box.appendChild(wrap);
+  });
+  if (key === "L6"){
+    const b = document.createElement("button");
+    b.className = "btn on"; b.type = "button"; b.textContent = "重新归零 Restart";
+    b.addEventListener("click", ()=>{ state.L6.t = 0; });
+    box.appendChild(b);
+  }
+  if (key === "L4" || key === "L5"){
+    const t = document.createElement("span");
+    t.className = "ctrl";
+    t.textContent = key === "L4" ? "在画布上点击节点以提升证据等级"
+                                 : "在画布上点击曲线以选定方向";
+    box.appendChild(t);
+  }
+}
+
+canvas.addEventListener("click", ev=>{
+  const p = toLocal(ev);
+  if (current === "L4"){
+    let hit = false;
+    state.L4.nodes.forEach(n=>{
+      if (Math.hypot(n.x-p[0], n.y-p[1]) < 34){ n.lv = (n.lv+1)%7; hit = true; }
+    });
+    if (hit) drawL4();
+  } else if (current === "L5"){
+    state.L5.chosen = p[1] < H/3 ? 0 : (p[1] < 2*H/3 ? 1 : 2);
+    drawL5();
+  }
+});
+
+/* L6 的螺旋需要逐帧推进；只在该层启动 rAF，切走即停 */
+let rafId = null;
+function loop(){
+  if (current !== "L6"){ rafId = null; return; }
+  const s = state.L6;
+  if (s.t < 1) s.t = Math.min(1, s.t + 0.012);
+  drawL6();
+  rafId = requestAnimationFrame(loop);
+}
+function startLoop(){ if (rafId === null) rafId = requestAnimationFrame(loop); }
+
+/* ---------------------------------------------------------------- 切换 */
+function select(key){
+  current = key;
+  document.querySelectorAll(".tab").forEach(b=>
+    b.setAttribute("aria-selected", b.dataset.key === key ? "true" : "false"));
+
+  const L = LAYERS[key];
+  document.getElementById("lName").firstChild.nodeValue = key + "　" + L.name;
+  document.getElementById("lNameEn").textContent = "　" + L.en;
+  document.getElementById("lQ").innerHTML = L.question + "<em>" + L.question_en + "</em>";
+  document.getElementById("lDef").innerHTML = L.definition + "<em>" + L.definition_en + "</em>";
+  document.getElementById("lAnchor").innerHTML =
+    "理论锚点 Anchor：" + L.anchor + "　·　证据等级 Evidence：" +
+    '<b style="color:' + evColor(L.evidence) + '">' + L.evidence + "</b>（" +
+    EV_NAMES[L.evidence][0] + " / " + EV_NAMES[L.evidence][1] + "）";
+
+  DEMOS[key].init();
+  buildCtrls(key);
+  DEMOS[key].draw();
+  if (key === "L6") startLoop();
+
+  const tl = TIMELINE[key];
+  if (tl && video && !seeking && video.readyState >= 1){
+    if (Math.abs(video.currentTime - tl.start) > 0.3){
+      seeking = true;
+      try { video.currentTime = tl.start; } catch(e){}
+      setTimeout(()=>{ seeking = false; }, 150);
+    }
+  }
+}
+
+/* ---------------------------------------------------------------- 启动 */
+function boot(){
+  fitCanvas();
+  renderNotes();
+  select("L1");
+}
+window.addEventListener("resize", ()=>{ fitCanvas(); DEMOS[current].draw(); });
+video.addEventListener("loadedmetadata", ()=>{
+  const tl = TIMELINE[current];
+  if (tl) { try { video.currentTime = tl.start; } catch(e){} }
+});
+boot();
+</script>
+</body>
+</html>

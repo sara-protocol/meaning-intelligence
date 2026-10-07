@@ -1,0 +1,97 @@
+# 文档许可 / Documentation License
+
+本仓库采用**分许可**结构：代码与文档适用不同的许可。代码适用 MIT（见 [`LICENSE`](LICENSE)），文档适用 CC BY 4.0（见本文件）。
+
+This repository is **split-licensed**: code is under MIT (see [`LICENSE`](LICENSE)), documentation is under CC BY 4.0 (this file).
+
+---
+
+## 中文
+
+### 适用范围
+
+本文件适用于本仓库中的**文字性内容**，包括：
+
+- `docs/` 目录下的全部文档；
+- `whitepaper/` 目录下的白皮书正文、生成脚本中的文案内容，以及 `whitepaper/dist/` 下的发布产物（DOCX / PDF）；
+- 仓库根目录的说明性文本：`README.md`、`CHANGELOG.md`、`CONTRIBUTING.md`、`CODE_OF_CONDUCT.md`、`CITATION.cff`、`LICENSE-DOCS`（本文件）；
+- `.github/` 下的 issue 模板、PR 模板与工作流中的说明性文字。
+
+上述内容采用 **Creative Commons Attribution 4.0 International（CC BY 4.0，知识共享 署名 4.0 国际）** 许可。
+
+- 许可摘要：<https://creativecommons.org/licenses/by/4.0/>
+- 完整法律文本：<https://creativecommons.org/licenses/by/4.0/legalcode>
+
+### 不适用本许可的内容
+
+- **代码**：`msi/`、`tools/`、`whitepaper/` 下的 Python 生成脚本，以及本仓库中的其他程序代码，适用 MIT 许可（见 `LICENSE`）。
+- **第三方内容**：仓库中引用或依赖的第三方库、字体、图表工具、徽章与文本模板（例如 Manim、python-docx、Pillow、Mermaid、Contributor Covenant、Keep a Changelog）仍适用其各自的原始许可，本仓库不对其重新授权。
+- **仓库之外的著作**：作为理论正典的专著《意义智能：意义文明的认知操作系统》V7.0 由作者保留其著作权。本仓库中的白皮书与文档是应用层的配套说明；引用理论命题、构念定义与证据等级时，请以正典为准。
+
+### 你可以做什么
+
+在 CC BY 4.0 的条款下，你可以复制、分发、改编本仓库的文档内容，包括用于商业目的，条件是给予适当署名（见下）。
+
+### 署名要求
+
+署名时请尽可能包含以下要素：
+
+1. 作品名称：**意义智能 / Meaning Intelligence**（元智能理论与六层应用栈）；
+2. 作者：**sara-protocol**；
+3. 来源：<https://github.com/sara-protocol/meaning-intelligence>
+4. 许可：CC BY 4.0，<https://creativecommons.org/licenses/by/4.0/>
+5. 若你作了修改，请注明"本作品基于原文修改"或等效说明。
+
+推荐署名格式：
+
+> 意义智能 / Meaning Intelligence，作者 sara-protocol，来源 <https://github.com/sara-protocol/meaning-intelligence>，许可 CC BY 4.0。
+
+---
+
+## English
+
+### Scope
+
+This file covers the **textual content** of this repository, including:
+
+- documents under `docs/`;
+- the white paper text under `whitepaper/`, the prose embedded in its generator scripts, and the release artifacts in `whitepaper/dist/` (DOCX / PDF);
+- repository-level explanatory texts: `README.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `CITATION.cff`, and this file;
+- the explanatory text in the issue templates, pull request template, and workflows under `.github/`.
+
+That content is licensed under **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
+
+- License summary: <https://creativecommons.org/licenses/by/4.0/>
+- Full legal text: <https://creativecommons.org/licenses/by/4.0/legalcode>
+
+### Not covered
+
+- **Code**: the Python generator scripts under `msi/`, `tools/`, and `whitepaper/`, and other program code in this repository, are licensed under MIT (see `LICENSE`).
+- **Third-party material**: third-party libraries, fonts, diagramming tools, badges, and text templates referenced or depended upon here (for example Manim, python-docx, Pillow, Mermaid, Contributor Covenant, Keep a Changelog) remain under their own licenses. This repository does not relicense them.
+- **Material outside this repository**: the canonical monograph *Meaning Intelligence: The Cognitive Operating System of Meaning Civilization*, V7.0, remains the copyright of its author. The white paper and documents here are application-layer companions; for theoretical propositions, construct definitions, and evidence levels, cite the canonical text.
+
+### What you may do
+
+Under CC BY 4.0 you may copy, redistribute, and adapt the documentation content of this repository, including for commercial purposes, provided you give appropriate attribution.
+
+### Attribution requirements
+
+Please include, as far as practical:
+
+1. the title: **Meaning Intelligence** (meta-intelligence theory and the six-layer application stack);
+2. the author: **sara-protocol**;
+3. the source: <https://github.com/sara-protocol/meaning-intelligence>;
+4. the license: CC BY 4.0, <https://creativecommons.org/licenses/by/4.0/>;
+5. if you made changes, a note such as "adapted from the original work".
+
+Suggested attribution string:
+
+> Meaning Intelligence, by sara-protocol, source <https://github.com/sara-protocol/meaning-intelligence>, licensed under CC BY 4.0.
+
+---
+
+## 关于本文件的性质 / On the nature of this file
+
+本文件是一份**许可声明**，不是 CC BY 4.0 的许可全文。为避免转录错误，本仓库不复制 CC BY 4.0 的法律条文。若本文件的表述与 CC BY 4.0 法律文本存在冲突，以法律文本为准。许可名称与链接按 Creative Commons 官方推荐写法引用。
+
+This file is a **declaration of licensing**, not the full text of CC BY 4.0. To avoid transcription errors, this repository does not reproduce the CC license text. If anything here conflicts with the CC BY 4.0 legal code, the legal code governs. License names and links follow the naming recommended by Creative Commons.

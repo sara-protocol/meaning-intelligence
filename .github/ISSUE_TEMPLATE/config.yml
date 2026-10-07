@@ -1,0 +1,10 @@
+# ============================================================================
+# Issue 模板选择页配置 / Issue template chooser configuration
+# 关闭空白 issue：本项目的 issue 需要结构化信息（尤其是证伪报告），
+# 自由格式的空白 issue 会让"依据哪条标准、数据在哪"这类关键信息系统性缺失。
+# ============================================================================
+blank_issues_enabled: false
+contact_links:
+  - name: 维护者主页（非议题类联系）/ Maintainer profile (non-issue contact)
+    url: https://github.com/sara-protocol
+    about: "证伪报告、缺陷与建议请使用上面的模板提交；其他联系请通过维护者主页。请勿在公开 issue 中提交未公开的个人信息或个人数据。 / Use the templates above for falsification reports, bugs, and proposals. For anything else, reach the maintainer here. Please do not post private personal information or personal data in public issues."

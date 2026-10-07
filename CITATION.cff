@@ -1,0 +1,38 @@
+# Citation File Format 1.2.0 —— 规范见 https://citation-file-format.github.io/
+# 本文件描述的是**仓库（软件 + 文档）**，不是某篇论文。
+# 作者以 GitHub 账号 sara-protocol 署名：这是公开发布时使用的唯一稳定身份，
+# 因此这里使用实体的 `name` 字段（CFF 1.2.0 允许 entity 用 name），
+# 不填写真实姓名、邮箱与机构——这些信息未被公开确认，写进来会构成虚构。
+cff-version: "1.2.0"
+message: "If you use this repository, its white paper, or the six-layer application stack in your work, please cite it as below."
+title: "Meaning Intelligence: Meta-Intelligence Theory and the Six-Layer Application Stack"
+abstract: >-
+  An open research and practice project on meta-intelligence: the directional regulation of other
+  intelligent activities. The repository contains a bilingual (Chinese/English) white paper, a
+  six-layer application stack (L1 cognitive load reduction, L2 experiential rendering, L3 meaning
+  generation, L4 value assessment, L5 direction selection, L6 recursive reflection and review),
+  the E0-E6 evidence level scheme, the H1-H18 testable hypothesis cards with preregistered
+  falsification criteria, a theory failure matrix, and a demonstration system (MSI) built from
+  Manim scenes and a single-file interactive HTML page. The project treats meta-intelligence as a
+  testable scientific hypothesis rather than a philosophical thesis, and commits to marking or
+  removing any module that reaches its preregistered failure threshold.
+type: software
+authors:
+  - name: "sara-protocol"
+    website: "https://github.com/sara-protocol"
+    alias: "sara-protocol"
+license: MIT
+repository-code: "https://github.com/sara-protocol/meaning-intelligence"
+url: "https://github.com/sara-protocol/meaning-intelligence"
+version: "0.1.0"
+date-released: "2026-10-07"
+keywords:
+  - meaning-intelligence
+  - meta-intelligence
+  - AI-alignment
+  - cognitive-load
+  - evidence-based
+  - falsifiability
+  - six-layer-stack
+  - preregistration
+  - open-science

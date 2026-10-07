@@ -1,0 +1,44 @@
+{
+  "L1": {
+    "name": "减负 (Cognitive Load Reduction)",
+    "index": 1,
+    "band": "interface",
+    "start": 2.13,
+    "end": 7.2
+  },
+  "L2": {
+    "name": "可体验 (Experiential Rendering)",
+    "index": 2,
+    "band": "interface",
+    "start": 7.8,
+    "end": 12.67
+  },
+  "L3": {
+    "name": "意义生成 (Meaning Generation)",
+    "index": 3,
+    "band": "processing",
+    "start": 13.27,
+    "end": 17.53
+  },
+  "L4": {
+    "name": "价值评估 (Value Assessment)",
+    "index": 4,
+    "band": "processing",
+    "start": 18.13,
+    "end": 22.73
+  },
+  "L5": {
+    "name": "方向选择 (Direction Selection)",
+    "index": 5,
+    "band": "meta",
+    "start": 23.33,
+    "end": 28.93
+  },
+  "L6": {
+    "name": "反思与审视递归 (Recursive Reflection and Review)",
+    "index": 6,
+    "band": "meta",
+    "start": 29.53,
+    "end": 36.93
+  }
+}

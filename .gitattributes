@@ -1,0 +1,66 @@
+# ============================================================================
+# 意义智能 / Meaning Intelligence —— 属性规则
+# 目标：让所有平台上检出的文本文件行尾一致，让二进制文件不被 Git 当作文本处理。
+# ============================================================================
+
+# 默认：由 Git 判断是否为文本；文本文件在检出时统一为 LF。
+# 这样 Windows / macOS / Linux 上的 diff、补丁与 CI 结果才可比。
+* text=auto eol=lf
+
+# ---------------------------------------------------------------- 二进制文件
+# 这些文件是"字节即内容"的产物：合并冲突无法人工解决，行尾转换只会损坏文件。
+# 用 `binary` 宏（等价于 -diff -merge -text）把它们明确排除在文本处理之外。
+*.docx binary
+*.pdf  binary
+*.png  binary
+
+# 顺带声明其他同类产物，避免以后有人误把它们当文本提交。
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.ttf  binary
+*.ttc  binary
+*.otf  binary
+*.woff binary
+*.woff2 binary
+*.mp4  binary
+*.zip  binary
+
+# ---------------------------------------------------------------- Shell / PowerShell
+# *.sh：仓库中的脚本可能在 Linux/macOS/WSL 下执行，必须是 LF，
+#       否则解释器会把 CR 当作命令名的一部分（"$'\r': command not found"）。
+*.sh text eol=lf
+
+# *.ps1：Windows PowerShell 5.1 需要 CRLF，并且需要 UTF-8 BOM 才能正确解析中文。
+#        - 行尾：由本规则强制为 CRLF；
+#        - BOM ：.gitattributes 无法写入 BOM（这里的 text/eol 只影响行尾与 diff）。
+#                因此 .ps1 文件里的 BOM 必须作为文件内容的一部分被提交和保留，
+#                不要在编辑器里"另存为无 BOM 的 UTF-8"，否则 5.1 会把中文读成乱码。
+#                对应地，.editorconfig 为 *.ps1 声明了 charset = utf-8-bom。
+#        注意：这是 PowerShell 5.1 的限制；PowerShell 7+ 默认按 UTF-8 解析，不受影响。
+*.ps1 text eol=crlf
+
+# ---------------------------------------------------------------- 其余文本文件
+*.py   text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.cff  text eol=lf
+*.md   text eol=lf
+*.txt  text eol=lf
+*.toml text eol=lf
+*.cfg  text eol=lf
+*.html text eol=lf
+*.css  text eol=lf
+*.js   text eol=lf
+
+# LICENSE 无扩展名，显式声明为文本，保证在各平台上正常显示。
+LICENSE      text eol=lf
+LICENSE-DOCS text eol=lf
+
+# ---------------------------------------------------------------- 使语言统计更准确
+# GitHub 的语言统计会把生成的 HTML/DOCX 也算进去，这里把明显的产物标记为 vendored/生成物，
+# 避免仓库首页的语言占比被演示页面带偏。
+msi/meaning_intelligence.html linguist-generated=true
+whitepaper/dist/**             linguist-generated=true

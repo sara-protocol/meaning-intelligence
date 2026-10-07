@@ -1,0 +1,218 @@
+# ============================================================================
+# 证伪报告 / Falsification Report —— GitHub Issue Form
+# 这是本项目最重要的模板。字段顺序对应"如何让一次证伪判断可以脱离报告人身份独立完成"。
+# 说明：本模板只列假设编号 H1–H18，不复述卡片的名称与证伪标准——
+#       标准以正典《意义智能：意义文明的认知操作系统》V7.0 原文为准，转述容易失真。
+# label "falsification-report" 需在仓库 Settings → Labels 中创建后才会被自动添加。
+# ============================================================================
+name: 证伪报告 / Falsification Report
+description: 提交一项与正典中某条假设的预注册证伪标准冲突的观测、实验或分析结果。/ Report an observation, experiment, or analysis that conflicts with a preregistered falsification criterion.
+title: "[证伪 / Falsification] "
+labels:
+  - falsification-report
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 先读这一段 / Read this first
+
+        本项目把"意义智能"当作**可检验的科学假说**，而不是需要被捍卫的立场。
+        因此本模板要求的字段不是形式主义：它们的作用是让"这是否构成证伪"这个判断，
+        **可以由第三方独立复核**，而不必依赖报告人的身份或立场。
+
+        我们明确承诺：**若证伪成立，对应模块将在后续版本中被标记或删除，而不是被辩护。**
+        这条承诺同样适用于我们自己的模块。
+
+        ---
+
+        This project treats meta-intelligence as a **testable scientific hypothesis**, not a
+        position to be defended. The fields below are not formalism: they exist so that the
+        judgment "does this constitute a falsification" can be **independently reviewed**,
+        without relying on the reporter's identity or stance.
+
+        We commit explicitly: **if the falsification holds, the module will be marked or removed
+        in a later version, not defended.** The commitment applies to our own modules too.
+
+  - type: dropdown
+    id: hypothesis
+    attributes:
+      label: "涉及哪一条假设 / Which hypothesis (H1–H18)"
+      description: "编号沿用正典 V7.0 的假设卡片编号。若本报告针对某一层而非具体假设，请选最后一项并在下方填写层级。"
+      options:
+        - "H1"
+        - "H2"
+        - "H3"
+        - "H4"
+        - "H5"
+        - "H6"
+        - "H7"
+        - "H8"
+        - "H9"
+        - "H10"
+        - "H11"
+        - "H12"
+        - "H13"
+        - "H14"
+        - "H15"
+        - "H16"
+        - "H17"
+        - "H18"
+        - "不针对具体假设（针对某一层，见下一项）/ Not a specific hypothesis (see layer below)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: layer
+    attributes:
+      label: "涉及哪一层 / Which layer of the stack (L1–L6)"
+      description: "三带划分：界面带（L1–L2）/ 加工带（L3–L4）/ 元带（L5–L6）。"
+      options:
+        - "L1 减负 / Cognitive Load Reduction（界面带 / interface band）"
+        - "L2 可体验 / Experiential Rendering（界面带 / interface band）"
+        - "L3 意义生成 / Meaning Generation（加工带 / processing band）"
+        - "L4 价值评估 / Value Assessment（加工带 / processing band）"
+        - "L5 方向选择 / Direction Selection（元带 / meta band）"
+        - "L6 反思与审视递归 / Recursive Reflection and Review（元带 / meta band）"
+        - "跨层 / 涉及多层（Cross-layer）"
+        - "不适用或无法定位 / Not applicable or undetermined"
+    validations:
+      required: true
+
+  - type: textarea
+    id: claim
+    attributes:
+      label: "被证伪的理论主张 / The claim being falsified"
+      description: "用一到三句写出该主张的可判定形式（不要复述整章内容），并注明正典中对应章节、附录或卡片编号。"
+      placeholder: "例：正典第 N 章 / 卡片 H7 主张「在条件 X 下，观察到 Y 随 Z 单调变化」。本报告的结果与该主张的方向/量级不符。"
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: observation
+    attributes:
+      label: "观测或实验描述 / Observation or experiment"
+      description: "做了什么、在什么被试或语料上做、如何测量、采集时间。请写到别人可以照着复现的程度。"
+      render: text
+    validations:
+      required: true
+
+  - type: input
+    id: sample
+    attributes:
+      label: "样本 / Sample"
+      description: "样本量、抽样方式、分组方式。若为个案或定性材料，请说明其证据上限。不适用时请写明理由。"
+      placeholder: "例：n = 120（实验组 60 / 对照组 60），便利抽样，2026-03 至 2026-05"
+    validations:
+      required: true
+
+  - type: input
+    id: effect_size
+    attributes:
+      label: "效应量 / Effect size"
+      description: "Cohen's d 或你实际使用的指标（请注明指标名称与计算方式）。"
+      placeholder: "例：d = 0.12（95% CI [−0.24, 0.48]）"
+    validations:
+      required: true
+
+  - type: input
+    id: p_value
+    attributes:
+      label: "p 值 / p value"
+      description: "报告实际 p 值与所采用的检验方法；若使用贝叶斯方法请给出贝叶斯因子并注明先验。"
+      placeholder: "例：p = 0.61，双尾独立样本 t 检验；或 BF01 = 4.2（先验：Cauchy(0, 0.707)）"
+    validations:
+      required: true
+
+  - type: input
+    id: power
+    attributes:
+      label: "统计功效 / Statistical power"
+      description: "基于本样本量与最小可关注效应的事后或事前功效。功效不足本身会削弱证伪力度，请如实报告。"
+      placeholder: "例：事后功效 0.34（α = 0.05，双尾，最小可关注 d = 0.5）"
+    validations:
+      required: true
+
+  - type: textarea
+    id: why_falsifies
+    attributes:
+      label: "为什么这构成证伪 / Why this constitutes falsification"
+      description: "引用正典中该假设的预注册证伪标准的具体条款，逐条对照：标准要求什么、你的结果是什么、是否满足。若只与预测方向相反但未达到标准阈值，请明确说明——那仍然值得读，但不构成证伪。"
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "复现步骤 / Steps to reproduce"
+      description: "分析脚本、命令、环境（软件与版本）、随机种子、预处理与排除规则。若无法提供可执行材料，请说明原因。"
+      render: text
+    validations:
+      required: true
+
+  - type: input
+    id: data_availability
+    attributes:
+      label: "数据可得性 / Data availability"
+      description: "数据存放位置与获取方式。不能公开时请说明限制，并给出足以让他人重新设计一次检验的细节。请勿粘贴未公开的个人数据。"
+      placeholder: "例：匿名化数据附于 PR #123；或：受知情同意限制不可公开，测量程序与量表见附录"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: uncertainty
+    attributes:
+      label: "报告者不确定性自评 / Reporter's self-assessed uncertainty"
+      description: "你对本报告结论的整体不确定程度。诚实自评比漂亮结论更有用。"
+      options:
+        - "低：测量与统计程序标准，结果对分析选择不敏感 / Low"
+        - "中：存在已知混淆或分析自由度，结论可能随选择变化 / Medium"
+        - "高：样本小、测量间接或存在未排除的替代解释 / High"
+        - "无法判断：需要他人帮助评估 / Cannot judge"
+    validations:
+      required: true
+
+  - type: textarea
+    id: uncertainty_notes
+    attributes:
+      label: "不确定性来自哪里 / Where the uncertainty comes from"
+      description: "你最担心本报告的哪一点：测量、混淆变量、样本、分析自由度、还是标准本身的解释？"
+      render: text
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: declarations
+    attributes:
+      label: "声明 / Declarations"
+      options:
+        - label: "我已对照正典原文核对该假设的预注册证伪标准，而不是凭记忆转述。/ I checked the preregistered criterion against the canonical text rather than paraphrasing from memory."
+          required: true
+        - label: "本报告中的数据、引用与版本信息真实可查，未编造或选择性省略与结论不符的结果。/ The data, citations, and version information here are real and checkable; no results conflicting with the conclusion were fabricated or selectively omitted."
+          required: true
+        - label: "我理解：若证伪成立，对应模块将在后续版本中被标记或删除，而不是被辩护。/ I understand that if the falsification holds, the module will be marked or removed in a later version rather than defended."
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+
+        ### 接下来会发生什么 / What happens next
+
+        维护者会先判断三件事：**(1)** 报告是否准确对应了正典中的预注册标准；
+        **(2)** 数字是否支持"达到失败阈值"这一判断；**(3)** 是否存在更简单的替代解释。
+
+        若成立，处理方式是**修改理论**，不是修改报告：相关模块会被标记为未通过（并注明依据、
+        样本与失败标准），或在后续版本中删除。若暂不成立，我们会说明缺哪一项证据，并保留该报告
+        以便后来者补充。
+
+        Maintainers first check three things: **(1)** whether the report matches the preregistered
+        criterion in the canonical text; **(2)** whether the numbers support "reached the failure
+        threshold"; **(3)** whether a simpler alternative explanation exists.
+
+        If it holds, the response is to **change the theory, not the report**: the module is flagged
+        as failed (with its basis, sample, and criterion recorded) or removed in a later version.
+        If it does not hold yet, we say which evidence is missing and keep the report so others can
+        extend it.

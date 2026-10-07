@@ -1,0 +1,127 @@
+# ============================================================================
+# 缺陷报告 / Bug Report —— GitHub Issue Form
+# 针对本仓库的两条构建链：whitepaper/（脚本生成 DOCX）与 msi/（Manim + 单文件 HTML）。
+# label "bug" 为 GitHub 默认标签，通常已存在。
+# ============================================================================
+name: 缺陷报告 / Bug Report
+description: 报告 whitepaper 生成链或 msi 渲染/构建链中的可复现缺陷。/ Report a reproducible defect in the whitepaper build chain or the msi render/build chain.
+title: "[缺陷 / Bug] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请尽量把问题定位到**可复现的最小条件**。若你只能提供现象描述，也欢迎提交，
+        但请明确标注哪些部分是推测。
+
+        Please narrow the problem to the **smallest reproducible condition** where you can.
+        A phenomenon-only report is welcome too — just mark clearly which parts are inference.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: "受影响的部分 / Affected area"
+      description: "请选择你实际观察到问题的那一条链。"
+      options:
+        - "whitepaper 生成（make_figures.py / build_whitepaper.py / docx_style.py）/ white paper generation"
+        - "whitepaper 产出物本身（DOCX / PDF 排版、字体、图表错位）/ generated DOCX or PDF artifacts"
+        - "msi 构建（build.py 生成的单文件 HTML）/ msi HTML build"
+        - "msi 渲染（Manim 场景 scenes/meaning_intelligence.py）/ msi Manim rendering"
+        - "msi 页面交互（时间轴联动、Canvas 粒子、六层导航）/ msi page interaction"
+        - "CI 工作流（.github/workflows/ci.yml）/ CI workflow"
+        - "其他（请在下方说明）/ Other"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: "操作系统 / Operating system"
+      description: "含版本号。中文 Windows 控制台的编码问题请注明代码页。"
+      placeholder: "例：Windows 11 23H2（控制台代码页 936）；或 Ubuntu 24.04"
+    validations:
+      required: true
+
+  - type: input
+    id: python_version
+    attributes:
+      label: "Python 版本 / Python version"
+      description: "`python --version` 的输出；若使用虚拟环境请说明。"
+      placeholder: "例：Python 3.12.6"
+    validations:
+      required: true
+
+  - type: input
+    id: manim_version
+    attributes:
+      label: "Manim 版本 / Manim version"
+      description: "仅 msi 渲染相关缺陷需要；其他情况填「不适用」。请注明是 Manim Community 还是 ManimGL。"
+      placeholder: "例：Manim Community v0.18.1；或 不适用"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "复现步骤 / Steps to reproduce"
+      description: "从干净的检出开始写了哪些命令？请贴出实际执行的命令与工作目录。"
+      placeholder: |
+        1. git clone ...
+        2. cd msi && python build.py
+        3. 打开 meaning_intelligence.html，拖动滑块到 0.5
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "期望结果 / Expected behavior"
+      description: "你认为应该发生什么？如果依据是文档或注释，请指出位置。"
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: "实际结果 / Actual behavior"
+      description: "实际发生了什么？退出码、报错首行、页面表现（例如空白、无响应、数据未注入）都请写清。"
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: "日志与输出 / Logs and output"
+      description: "完整回溯或控制台输出。请检查并去掉其中不应公开的路径与个人信息。"
+      render: text
+    validations:
+      required: false
+
+  - type: dropdown
+    id: timeline_source
+    attributes:
+      label: "时间轴来源 / Timeline source"
+      description: "HTML 页面顶部会提示当前使用的时间轴来源，用于区分「预算推算」与「实测毫秒」两条分支。"
+      options:
+        - "planned（未检测到 timeline.json，使用预算推算时间轴）/ planned"
+        - "measured（已注入实测 timeline.json）/ measured"
+        - "不适用 / Not applicable"
+        - "不确定 / Not sure"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: "提交前确认 / Before submitting"
+      options:
+        - label: "我已在最新 main 分支上复现该问题。/ I reproduced this on the latest main branch."
+          required: false
+        - label: "我已搜索现有 issue，未发现重复。/ I searched existing issues and found no duplicate."
+          required: false
+        - label: "日志中不含未公开的个人信息或个人数据。/ The logs contain no private personal information or personal data."
+          required: true

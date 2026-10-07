@@ -1,0 +1,117 @@
+# ============================================================================
+# 功能建议 / Feature Request —— GitHub Issue Form
+# 本项目的功能建议需要回答一个具体问题：它降低的是谁的、哪一部分认知负荷，
+# 以及"它有效"这件事如何被测量。缺少可测量验收标准的建议不会被直接拒绝，
+# 但会被要求补齐——否则无法判断它是否真的改善了六层栈中的任何一层。
+# ============================================================================
+name: 功能建议 / Feature Request
+description: 提议对六层栈、白皮书或仓库工程的一项改进，并给出可测量的验收标准。/ Propose an improvement to the stack, the white paper, or the repository, with measurable acceptance criteria.
+title: "[建议 / Feature] "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        六层应用栈为：L1 减负 / L2 可体验 / L3 意义生成 / L4 价值评估 / L5 方向选择 /
+        L6 反思与审视递归。三带划分：界面带（L1–L2）、加工带（L3–L4）、元带（L5–L6）。
+
+        请先说明**这一层当前的哪个环节造成了认知负荷**，再说你提议怎么改。
+        先讲方案后讲问题的建议，通常无法被评估。
+
+        The six-layer stack is L1 Cognitive Load Reduction, L2 Experiential Rendering,
+        L3 Meaning Generation, L4 Value Assessment, L5 Direction Selection, and
+        L6 Recursive Reflection and Review, in three bands: interface (L1–L2),
+        processing (L3–L4), meta (L5–L6).
+
+        State **which step of which layer creates the cognitive load** before describing your
+        proposal. Proposals that lead with a solution cannot usually be evaluated.
+
+  - type: dropdown
+    id: layer
+    attributes:
+      label: "建议属于哪一层 / Which layer does this belong to"
+      description: "若这是工程或文档层面的改进，请选择最后一项。"
+      options:
+        - "L1 减负 / Cognitive Load Reduction（界面带 / interface band）"
+        - "L2 可体验 / Experiential Rendering（界面带 / interface band）"
+        - "L3 意义生成 / Meaning Generation（加工带 / processing band）"
+        - "L4 价值评估 / Value Assessment（加工带 / processing band）"
+        - "L5 方向选择 / Direction Selection（元带 / meta band）"
+        - "L6 反思与审视递归 / Recursive Reflection and Review（元带 / meta band）"
+        - "跨层 / 涉及多层（Cross-layer）"
+        - "仓库工程（构建、CI、模板、许可与发布）/ Repository engineering"
+        - "文档与白皮书（措辞、结构、术语对照）/ Documentation and white paper"
+    validations:
+      required: true
+
+  - type: textarea
+    id: cognitive_load
+    attributes:
+      label: "它解决了什么认知负荷问题 / What cognitive load problem it solves"
+      description: "描述负担的具体来源：是信息量、切换成本、术语不一致、反馈缺失，还是判断依据不可查？并说明受影响的人是谁（读者、贡献者、维护者、还是该层的使用者）。"
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: "提议的做法 / Proposed approach"
+      description: "具体到可实施的程度：改哪个文件、加哪个环节、输出什么。"
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: "如何判断它有效 / How we will know it works"
+      description: "给出**可测量**的验收标准：观察什么指标、比较的基线是什么、达到什么数值算成功、什么结果算失败。若只能给出定性标准，请说明如何避免自证。"
+      placeholder: |
+        例：新读者在无口头指导下完成「找到 L4 的价值评估指标定义」的平均耗时，
+        由当前基线 3 分钟降至 1 分钟以内（n ≥ 8，同任务同材料）。
+      render: text
+    validations:
+      required: true
+
+  - type: dropdown
+    id: involves_claim
+    attributes:
+      label: "是否涉及理论主张 / Does this touch a theoretical claim"
+      description: "若涉及某条假设（H1–H18）或某模块的证据等级，请在下方说明并附上检验或证伪方式。"
+      options:
+        - "不涉及理论主张，只涉及工程或表述 / No, engineering or wording only"
+        - "涉及表述澄清，不改变主张的证据等级 / Wording clarification only"
+        - "涉及一条假设或某个模块的证据等级（需附检验方式）/ Yes, it affects a hypothesis or a module's evidence level"
+        - "不确定 / Not sure"
+    validations:
+      required: true
+
+  - type: textarea
+    id: falsifiability
+    attributes:
+      label: "若涉及主张：如何被检验或证伪 / If it touches a claim: how it would be tested or falsified"
+      description: "写出可判定的预测与失败条件。涉及主张却无法说明检验方式的建议，只能作为表述修改处理。不适用时填「不适用」。"
+      render: text
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "替代方案与代价 / Alternatives and costs"
+      description: "你考虑过但没有选择的做法，以及本建议的代价（维护成本、依赖、可读性、双语同步成本）。"
+      render: text
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: "提交前确认 / Before submitting"
+      options:
+        - label: "我已搜索现有 issue 与 PR，未发现重复建议。/ I searched existing issues and PRs and found no duplicate."
+          required: false
+        - label: "本建议不依赖夸张措辞来说服他人，而是依赖可测量的结果。/ This proposal persuades through measurable outcomes, not through grandiose wording."
+          required: true

@@ -1,0 +1,69 @@
+# ============================================================================
+# 意义智能 / Meaning Intelligence —— EditorConfig
+# 让不同编辑器在打开本仓库时使用同一套基础格式约定，减少纯格式噪音的 diff。
+# 规范：https://editorconfig.org
+# ============================================================================
+
+root = true
+
+# ---------------------------------------------------------------- 通用默认
+[*]
+# 统一 UTF-8 无 BOM。仓库中的文本文件不使用 UTF-8 BOM
+#（唯一的例外是 *.ps1，见文件末尾：PowerShell 5.1 解析中文需要 BOM）。
+charset = utf-8
+
+# 行尾统一 LF；Windows 下的 .ps1 另有例外。
+end_of_line = lf
+
+# 文件结尾保留一个换行符，方便 diff 与 POSIX 工具处理。
+insert_final_newline = true
+
+# 去掉行尾空白：它看不见，却会让 diff 出现假变更。
+trim_trailing_whitespace = true
+
+indent_style = space
+indent_size = 4
+
+# ---------------------------------------------------------------- 按语言细分
+# Python：4 空格（PEP 8）。
+[*.py]
+indent_size = 4
+max_line_length = 100
+
+# 数据与配置：2 空格。YAML 用空格缩进是硬性要求（不能用 Tab）；
+# JSON / Markdown 用 2 空格是为了让嵌套结构在评审时更易读。
+[*.{yml,yaml,json,cff}]
+indent_size = 2
+indent_style = space
+
+[*.md]
+indent_size = 2
+# Markdown 的行尾两个空格是"硬换行"，属于语义，不能被自动清除。
+trim_trailing_whitespace = false
+
+# 前端资源与生成的 HTML 模板
+[*.{html,css,js}]
+indent_size = 2
+
+[*.toml]
+indent_size = 2
+
+# ---------------------------------------------------------------- 明确例外
+# Makefile 的缩进必须是 Tab，否则规则不生效。
+[Makefile]
+indent_style = tab
+indent_size = 4
+
+# Shell 脚本：LF。
+[*.sh]
+end_of_line = lf
+
+# PowerShell：Windows PowerShell 5.1 需要 CRLF 与 UTF-8 BOM 才能正确解析中文；
+# 仓库内的 *.ps1 按此规则保存（与 .gitattributes 中的 `*.ps1 text eol=crlf` 对应）。
+[*.ps1]
+end_of_line = crlf
+charset = utf-8-bom
+
+# 许可证与说明文本不含缩进，放宽行尾长度提示即可。
+[LICENSE]
+indent_size = 4
