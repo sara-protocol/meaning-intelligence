@@ -1,0 +1,85 @@
+# ============================================================================
+# Meaning Intelligence — Single Source of Truth for Version Identifiers
+# ============================================================================
+# This file is the ONLY place where version numbers live.
+# All other files (README.md, index.html, whitepaper/) MUST reference these
+# values rather than hard-coding their own.
+#
+# Rule: if you find a version number anywhere that disagrees with this file,
+# the other file is wrong — not this one.
+# ============================================================================
+
+project:
+  name: Meaning Intelligence
+  full_name: Meaning Intelligence Theory (MIT)
+  tagline_zh: 智能活动的方向性调控理论
+  tagline_en: A Theory of Directional Regulation of Intelligence
+  owner: sara-protocol
+  homepage: https://sara-protocol.github.io/meaning-intelligence/
+  repository: https://github.com/sara-protocol/meaning-intelligence
+
+# --- Layered version identity -------------------------------------------------
+# The canon is the theoretical source. The research system is the current
+# public implementation. They evolve independently and must not be conflated.
+
+canon:
+  # The canonical text this work derives from.
+  name: "意义智能：意义文明的认知操作系统"
+  name_en: "Meaning Intelligence: The Cognitive Operating System of Meaning Civilization"
+  version: "V7.0"
+  # Canon is not versioned by this repository. Cite it as-is.
+
+research_system:
+  # The public research system defined by this repository.
+  version: "0.2.0"
+  date: "2026-10-08"
+  status: "public-research"
+  # 0.x = research formation. Only after construct validation,
+  # first predictive study, and independent replication does this
+  # reach 1.0.
+
+operational_stack:
+  # The six-layer operational representation.
+  version: "2.0"
+  evidence_status: "E0"   # conceptual, untested — this is a hard fact
+  layers: [L1, L2, L3, L4, L5, L6]
+  bands: [interface, processing, meta]
+
+# --- Component versions (each evolves on its own schedule) --------------------
+
+whitepaper:
+  version: "1.0"
+  pages: 19
+  tables: 7
+  figures: 2
+  languages: [zh, en]
+  formats: [docx, pdf]
+
+toolkit:
+  version: "1.0"
+  count: 11
+  # Derived from Canon Appendix A.1–A.10, with one additional README.
+
+msi_demo:
+  # Meaning Intelligence Demonstration System
+  version: "2.0"
+  acts: 6
+  runtime_seconds: 36
+
+# --- Copyright ----------------------------------------------------------------
+
+copyright:
+  year: 2026
+  holder: sara-protocol
+  license_code: MIT
+  license_docs: LICENSE-DOCS
+
+# --- Changelog -----------------------------------------------------------------
+
+changelog:
+  - version: "0.1.0"
+    date: "2025-10-07"
+    note: "First public release — white paper v1.0, MSI demo, 11 toolkit checklists"
+  - version: "0.2.0"
+    date: "2026-10-08"
+    note: "Version unification, Claim Registry (pending), Construct Boundary Map (pending)"

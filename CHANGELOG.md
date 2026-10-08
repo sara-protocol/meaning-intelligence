@@ -46,6 +46,27 @@ A note on version numbers: releases mark the state of both the documents and the
 
 ---
 
+## [0.2.0] - 2026-10-08
+
+### Added
+- **`VERSION.yaml`** — 单一版本源,所有版本号以此为唯一真相
+- **`README.en.md`** — 英文版 README
+- **`ROADMAP.md`** — 工程路线图 v0.2.0
+- **`tools/audit_versions.py`** — 版本信号一致性扫描
+- **`tools/fix_versions.py`** — 一致性缺陷批量修复
+- **`tools/fix_versions_v2.py`** — badge / citation / changelog 收尾修复
+
+### Changed
+- 统一白皮书页数:`20` → `19`(与实际一致)
+- 统一 Copyright:`2025` → `2026`
+- `README.md` badge:`0.1.0` → `0.2.0`
+- `CITATION.cff`:`0.1.0` → `0.2.0`
+
+### Fixed
+- 版本信号在 README / index.html / config.json / whitepaper 之间漂移的问题
+
+---
+
 ## [0.1.0] - 2026-10-07
 
 首次公开发布。

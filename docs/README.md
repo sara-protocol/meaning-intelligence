@@ -13,17 +13,20 @@ canon *Meaning Intelligence: The Cognitive Operating System of Meaning Civilizat
 white paper generator script. This directory does exactly one thing: it arranges what has already
 been written into something that can be looked up, cited, and tested item by item.
 
+> **证据状态：E0（概念）。** 六层栈是本项目提出的**操作性表示**，
+> 不是理论本体，也未经独立检验。它可能被更简洁的切分替换。
+
 ---
 
 ## 文档清单 / Documents
 
-| 文档 Document | 回答什么问题 / What it answers |
-|---|---|
-| [architecture.md](architecture.md)<br>系统架构 / System Architecture | 仓库各部分如何分层；`config.json` 到 `meaning_intelligence.html` 的数据如何流动；为什么时间轴必须实测注入而不能手写；六层如何映射到正典的 M1/M2/M3 与 F1–F4。<br>How the repository is layered; how data flows from `config.json` to `meaning_intelligence.html`; why the timeline must be measured rather than hand-written; how the six layers map onto canon modules M1/M2/M3 and processes F1–F4. |
-| [evidence.md](evidence.md)<br>证据体系 / Evidence System | E0–E6 各自是什么；六层各自的证据等级是多少；为什么必须区分「本框架内的操作化等级」与「底层机制的证据等级」。<br>What E0–E6 each mean; the evidence level of each layer; why "operationalization level inside this framework" must be kept apart from "evidence level of the underlying mechanism". |
-| [failure-matrix.md](failure-matrix.md)<br>理论失败矩阵 / Theory Failure Matrix | 每一层的支持证据、部分支持、失败阈值与失败后操作分别是什么；触及阈值后按什么规则处置。<br>Each layer's supporting evidence, partial support, failure threshold, and post-failure action; the rule applied once a threshold is reached. |
-| [roadmap.md](roadmap.md)<br>路线图 / Roadmap | 正典五阶段路线图各阶段做什么；本仓库定位在哪一阶段；0.1.0 已完成什么、下一步做什么。<br>What each of the canon's five roadmap phases does; where this repository sits; what 0.1.0 already delivers and what comes next. |
-| [glossary.md](glossary.md)<br>术语对照 / Glossary | 一个术语（意义智能、PE、DC、BS、SD、RZ、MC、MCA/SA/AZ、M1–M3、F1–F4……）的中文、英文与正典出处；以及六层各自的中英文名。<br>The Chinese name, English name, and canon source of each term (meaning intelligence, PE, DC, BS, SD, RZ, MC, MCA/SA/AZ, M1–M3, F1–F4, …), plus the bilingual names of the six layers. |
+| 文档 Document                                                              | 回答什么问题 / What it answers                                                                                                                                                                                                                                                                                                                             |
+| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [architecture.md](architecture.md)<br>系统架构 / System Architecture         | 仓库各部分如何分层；`config.json` 到 `meaning_intelligence.html` 的数据如何流动；为什么时间轴必须实测注入而不能手写；六层如何映射到正典的 M1/M2/M3 与 F1–F4。<br>How the repository is layered; how data flows from `config.json` to `meaning_intelligence.html`; why the timeline must be measured rather than hand-written; how the six layers map onto canon modules M1/M2/M3 and processes F1–F4. |
+| [evidence.md](evidence.md)<br>证据体系 / Evidence System                     | E0–E6 各自是什么；六层各自的证据等级是多少；为什么必须区分「本框架内的操作化等级」与「底层机制的证据等级」。<br>What E0–E6 each mean; the evidence level of each layer; why "operationalization level inside this framework" must be kept apart from "evidence level of the underlying mechanism".                                                                                                      |
+| [failure-matrix.md](failure-matrix.md)<br>理论失败矩阵 / Theory Failure Matrix | 每一层的支持证据、部分支持、失败阈值与失败后操作分别是什么；触及阈值后按什么规则处置。<br>Each layer's supporting evidence, partial support, failure threshold, and post-failure action; the rule applied once a threshold is reached.                                                                                                                                                          |
+| [roadmap.md](roadmap.md)<br>路线图 / Roadmap                                | 正典五阶段路线图各阶段做什么；本仓库定位在哪一阶段；0.1.0 已完成什么、下一步做什么。<br>What each of the canon's five roadmap phases does; where this repository sits; what 0.1.0 already delivers and what comes next.                                                                                                                                                                     |
+| [glossary.md](glossary.md)<br>术语对照 / Glossary                            | 一个术语（意义智能、PE、DC、BS、SD、RZ、MC、MCA/SA/AZ、M1–M3、F1–F4……）的中文、英文与正典出处；以及六层各自的中英文名。<br>The Chinese name, English name, and canon source of each term (meaning intelligence, PE, DC, BS, SD, RZ, MC, MCA/SA/AZ, M1–M3, F1–F4, …), plus the bilingual names of the six layers.                                                                                |
 
 ---
 
@@ -72,6 +75,8 @@ overwritten by the next build.
 3. **术语以正典章节为准。** 出处不明确的术语应标注 `TODO(source)`，而不是猜测章节号。
    Terms follow canon sections. A term without a verified source is marked `TODO(source)` rather than
    given a guessed section number.
+4. > **证据状态：E0（概念）。** 六层栈是本项目提出的**操作性表示**，
+   > 不是理论本体，也未经独立检验。它可能被更简洁的切分替换。
 
 ![六层栈](../whitepaper/figures/fig1_six_layer_stack.png)
 
