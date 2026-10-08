@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meaning Intelligence · 意义智能</title>
+<meta name="description" content="Meaning Intelligence: Meta-Intelligence Theory and Layered Applications">
+<style>
+:root{
+  --bg:#0a0c10; --card:#141820; --border:#2a2f3a;
+  --cyan:#00e5ff; --purple:#bb86fc; --gray:#8b95a5;
+  --text:#e0e6ed; --dim:#8b95a5;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",Roboto,Arial,sans-serif;
+  background:var(--bg); color:var(--text); line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--cyan); text-decoration:none; transition:opacity .2s}
+a:hover{opacity:.75}
+.wrap{max-width:960px; margin:0 auto; padding:0 24px}
+
+/* ---------- NAV ---------- */
+nav{
+  position:sticky; top:0; z-index:10;
+  background:rgba(10,12,16,.85); backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+nav .inner{
+  max-width:960px; margin:0 auto; padding:14px 24px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+}
+nav .brand{font-weight:700; letter-spacing:.5px; color:var(--text); font-size:.95rem}
+nav .brand span{color:var(--cyan)}
+nav .links{display:flex; gap:20px; align-items:center; font-size:.9rem}
+nav .links a{color:var(--dim)}
+nav .links a:hover{color:var(--text)}
+.lang-btn{
+  background:transparent; border:1px solid var(--border); color:var(--dim);
+  padding:4px 10px; border-radius:6px; cursor:pointer; font-size:.8rem;
+  font-family:inherit; transition:all .2s;
+}
+.lang-btn:hover{border-color:var(--cyan); color:var(--cyan)}
+
+/* ---------- HERO ---------- */
+header.hero{
+  padding:96px 0 72px;
+  text-align:center;
+  position:relative;
+}
+header.hero::before{
+  content:""; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 50% 0%, rgba(0,229,255,.08), transparent 60%);
+  pointer-events:none;
+}
+header.hero h1{
+  font-size:2.6rem; font-weight:700; letter-spacing:-.02em;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  margin-bottom:14px; position:relative;
+}
+header.hero .en-title{
+  font-size:1rem; color:var(--dim); letter-spacing:.15em;
+  text-transform:uppercase; margin-bottom:28px; position:relative;
+}
+header.hero p.tagline{
+  max-width:620px; margin:0 auto 40px;
+  color:var(--text); font-size:1.05rem; position:relative;
+}
+header.hero .cta{
+  display:flex; gap:14px; justify-content:center; flex-wrap:wrap; position:relative;
+}
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 26px; border-radius:8px;
+  font-size:.95rem; font-weight:600;
+  transition:all .2s; cursor:pointer; border:1px solid transparent;
+}
+.btn.primary{
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  color:#0a0c10;
+}
+.btn.primary:hover{transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,229,255,.25); opacity:1}
+.btn.ghost{
+  background:transparent; border-color:var(--border); color:var(--text);
+}
+.btn.ghost:hover{border-color:var(--cyan); color:var(--cyan); opacity:1}
+
+/* ---------- SECTION ---------- */
+section{padding:64px 0; border-top:1px solid var(--border)}
+section h2{
+  font-size:1.4rem; font-weight:600; margin-bottom:10px;
+  display:flex; align-items:center; gap:12px;
+}
+section h2::before{
+  content:""; width:3px; height:20px; border-radius:2px;
+  background:linear-gradient(var(--cyan),var(--purple));
+}
+section .lead{color:var(--dim); margin-bottom:32px; font-size:.95rem}
+
+/* ---------- STACK (six layers) ---------- */
+.stack-group{margin-bottom:20px}
+.stack-group .band-label{
+  display:inline-block; font-size:.75rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--dim); margin-bottom:8px;
+  padding:2px 10px; border:1px solid var(--border); border-radius:12px;
+}
+.layer{
+  display:grid; grid-template-columns:56px 1fr 1fr; gap:16px;
+  padding:16px 18px; margin-bottom:8px;
+  background:var(--card); border:1px solid var(--border); border-radius:10px;
+  transition:all .2s; align-items:center;
+}
+.layer:hover{border-color:rgba(0,229,255,.4); transform:translateX(4px)}
+.layer .id{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.85rem; font-weight:600; text-align:center;
+  padding:4px 0; border-radius:6px;
+}
+.layer .name{font-weight:600}
+.layer .name small{display:block; color:var(--dim); font-weight:400; font-size:.8rem; margin-top:2px}
+.layer .desc{color:var(--dim); font-size:.88rem}
+.layer.interface .id{color:var(--cyan); background:rgba(0,229,255,.08)}
+.layer.processing .id{color:#6ea8fe; background:rgba(110,168,254,.08)}
+.layer.meta .id{color:var(--purple); background:rgba(187,134,252,.08)}
+
+/* ---------- FEATURES ---------- */
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px}
+.feat{
+  padding:22px; background:var(--card); border:1px solid var(--border);
+  border-radius:12px; transition:all .2s;
+}
+.feat:hover{border-color:rgba(187,134,252,.4)}
+.feat .icon{font-size:1.4rem; margin-bottom:10px}
+.feat h3{font-size:1rem; font-weight:600; margin-bottom:6px}
+.feat p{color:var(--dim); font-size:.88rem}
+
+/* ---------- VIDEO ---------- */
+.video-box{
+  background:var(--card); border:1px solid var(--border); border-radius:12px;
+  padding:16px; text-align:center;
+}
+.video-box video{width:100%; border-radius:8px; max-height:520px; background:#000}
+
+/* ---------- RELEASE ---------- */
+.release{
+  display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;
+  padding:24px; background:var(--card); border:1px solid var(--border); border-radius:12px;
+}
+.release .version{font-size:1.6rem; font-weight:700; color:var(--cyan); font-family:ui-monospace,monospace}
+.release .meta{flex:1; min-width:220px}
+.release .meta h3{font-size:1.05rem; margin-bottom:4px}
+.release .meta p{color:var(--dim); font-size:.88rem}
+.release .assets{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+.release .assets .btn{padding:8px 16px; font-size:.85rem}
+
+/* ---------- FOOTER ---------- */
+footer{
+  border-top:1px solid var(--border); padding:40px 0;
+  text-align:center; color:var(--dim); font-size:.85rem;
+}
+footer .quote{
+  max-width:600px; margin:0 auto 24px;
+  font-style:italic; color:var(--text); opacity:.8; line-height:1.7;
+}
+footer .copy{margin-top:16px; font-size:.78rem}
+
+/* ---------- LANG SWITCH ---------- */
+[data-lang="zh"] .en-only{display:none !important}
+[data-lang="en"] .zh-only{display:none !important}
+
+@media (max-width:640px){
+  header.hero{padding:56px 0 40px}
+  header.hero h1{font-size:1.8rem}
+  .layer{grid-template-columns:44px 1fr; gap:12px; padding:14px}
+  .layer .desc{grid-column:1 / -1; padding-left:56px; font-size:.85rem}
+  nav .links{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="brand">MEANING<span>·</span>INTELLIGENCE</div>
+    <div class="links">
+      <a href="#stack">六层栈</a>
+      <a href="#demo">演示</a>
+      <a href="#whitepaper">白皮书</a>
+      <a href="https://github.com/sara-protocol/meaning-intelligence" target="_blank">GitHub ↗</a>
+      <button class="lang-btn" onclick="toggleLang()"><span class="zh-only">EN</span><span class="en-only">中文</span></button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1>意义智能</h1>
+  <div class="en-title">Meaning Intelligence</div>
+  <p class="tagline">
+    <span class="zh-only">元智能理论与分层应用 —— 对齐《意义智能：意义文明的认知操作系统》V7.0 正典。把抽象的方向性判断，转译为可操作、可检验的六层应用栈。</span>
+    <span class="en-only">Meta-Intelligence Theory and Layered Applications — aligned with the canon <em>Meaning Intelligence: The Cognitive Operating System of Meaning Civilization</em> V7.0. A six-layer application stack that turns directional judgment into something operable and testable.</span>
+  </p>
+  <div class="cta">
+    <a class="btn primary" href="#whitepaper">
+      <span class="zh-only">📄 下载白皮书</span>
+      <span class="en-only">📄 Download White Paper</span>
+    </a>
+    <a class="btn ghost" href="https://github.com/sara-protocol/meaning-intelligence" target="_blank">
+      <span class="zh-only">GitHub 仓库 ↗</span>
+      <span class="en-only">GitHub Repository ↗</span>
+    </a>
+  </div>
+</header>
+
+<section id="stack" class="wrap">
+  <h2><span class="zh-only">六层元智能栈</span><span class="en-only">The Six-Layer Meta-Intelligence Stack</span></h2>
+  <p class="lead">
+    <span class="zh-only">六层按认知距离分为三带：界面带解决「信息进不来」，加工带解决「意义出不来」，元带解决「方向守不住」。只有元带具备改写下层前提的能力——这正是「元」的形式特征。</span>
+    <span class="en-only">The six layers fall into three bands by cognitive distance: the interface band solves "information cannot get in", the processing band "meaning cannot get out", and the meta band "direction cannot be held". Only the meta band can rewrite the premises below it.</span>
+  </p>
+
+  <div class="stack-group">
+    <div class="band-label"><span class="zh-only">界面带</span><span class="en-only">Interface Band</span></div>
+    <div class="layer interface">
+      <div class="id">L1</div>
+      <div class="name"><span class="zh-only">减负</span><span class="en-only">Cognitive Load Reduction</span><small><span class="zh-only">Cognitive Load Reduction</span><span class="en-only">减负</span></small></div>
+      <div class="desc"><span class="zh-only">把认知负荷从信息量转移到结构</span><span class="en-only">Shift load from volume to structure</span></div>
+    </div>
+    <div class="layer interface">
+      <div class="id">L2</div>
+      <div class="name"><span class="zh-only">可体验</span><span class="en-only">Experiential Rendering</span><small><span class="zh-only">Experiential Rendering</span><span class="en-only">可体验</span></small></div>
+      <div class="desc"><span class="zh-only">把「读到」变成「操作到」</span><span class="en-only">Turn reading into operating</span></div>
+    </div>
+  </div>
+
+  <div class="stack-group">
+    <div class="band-label"><span class="zh-only">加工带</span><span class="en-only">Processing Band</span></div>
+    <div class="layer processing">
+      <div class="id">L3</div>
+      <div class="name"><span class="zh-only">意义生成</span><span class="en-only">Meaning Generation</span><small><span class="zh-only">Meaning Generation</span><span class="en-only">意义生成</span></small></div>
+      <div class="desc"><span class="zh-only">组织成方向·价值·边界</span><span class="en-only">Organize into direction / value / boundary</span></div>
+    </div>
+    <div class="layer processing">
+      <div class="id">L4</div>
+      <div class="name"><span class="zh-only">价值评估</span><span class="en-only">Value Assessment</span><small><span class="zh-only">Value Assessment</span><span class="en-only">价值评估</span></small></div>
+      <div class="desc"><span class="zh-only">为判断标注证据强度</span><span class="en-only">Label judgments with evidence strength</span></div>
+    </div>
+  </div>
+
+  <div class="stack-group">
+    <div class="band-label"><span class="zh-only">元带</span><span class="en-only">Meta Band</span></div>
+    <div class="layer meta">
+      <div class="id">L5</div>
+      <div class="name"><span class="zh-only">方向选择</span><span class="en-only">Direction Selection</span><small><span class="zh-only">Direction Selection</span><span class="en-only">方向选择</span></small></div>
+      <div class="desc"><span class="zh-only">在五尺度上选定值得的方向</span><span class="en-only">Choose the worth-going direction</span></div>
+    </div>
+    <div class="layer meta">
+      <div class="id">L6</div>
+      <div class="name"><span class="zh-only">反思与审视递归</span><span class="en-only">Recursive Reflection</span><small><span class="zh-only">Recursive Reflection and Review</span><span class="en-only">反思与审视递归</span></small></div>
+      <div class="desc"><span class="zh-only">让系统审视自己的审视</span><span class="en-only">Let the system review its own review</span></div>
+    </div>
+  </div>
+
+  <p style="text-align:center; color:var(--dim); font-size:.85rem; margin-top:24px; font-style:italic">
+    <span class="zh-only">L6 的输出写回为 L1 的输入，六层构成闭合螺旋，而非单向流水线。</span>
+    <span class="en-only">L6's output is written back as L1's input — six layers form a closed spiral, not a one-way pipeline.</span>
+  </p>
+</section>
+
+<section class="wrap">
+  <h2><span class="zh-only">三条自我约束</span><span class="en-only">Three Self-Imposed Constraints</span></h2>
+  <p class="lead">
+    <span class="zh-only">这份白皮书对学术诚信的三项硬承诺。</span>
+    <span class="en-only">Three hard commitments to scholarly integrity.</span>
+  </p>
+  <div class="grid">
+    <div class="feat">
+      <div class="icon">📐</div>
+      <h3><span class="zh-only">理论从属</span><span class="en-only">Theoretical Subordination</span></h3>
+      <p><span class="zh-only">凡与正典冲突之处，以正典为准。</span><span class="en-only">Wherever this document conflicts with the canon, the canon prevails.</span></p>
+    </div>
+    <div class="feat">
+      <div class="icon">⚖️</div>
+      <h3><span class="zh-only">证据诚实</span><span class="en-only">Evidence Honesty</span></h3>
+      <p><span class="zh-only">每层标注证据等级与证伪条件；不确定处标「待检验」，不写「已成立」。</span><span class="en-only">Every layer carries an evidence level and a falsification condition; uncertainty is marked "to be tested".</span></p>
+    </div>
+    <div class="feat">
+      <div class="icon">🔍</div>
+      <h3><span class="zh-only">结构标明</span><span class="en-only">Structural Disclosure</span></h3>
+      <p><span class="zh-only">六层栈本身是 E0 结构，未经独立检验。请把它当作待检验的工具，而非已证实的发现。</span><span class="en-only">The six-layer stack is itself E0 — untested. Treat it as a testable tool, not a confirmed finding.</span></p>
+    </div>
+  </div>
+</section>
+
+<section id="demo" class="wrap">
+  <h2><span class="zh-only">MSI 演示系统</span><span class="en-only">MSI Demonstration System</span></h2>
+  <p class="lead">
+    <span class="zh-only">L2「可体验」的一个参考实现 —— 六幕 Manim 动画 + 单文件交互页，从信息洪流到抽象监督的完整演进。</span>
+    <span class="en-only">A reference implementation of L2 "Experiential Rendering" — a six-act Manim animation and single-file interactive page, from information overload to abstract supervision.</span>
+  </p>
+  <div class="video-box">
+    <video controls preload="metadata" poster="">
+      <source src="msi/MeaningIntelligenceScene.mp4" type="video/mp4">
+      <span class="zh-only">您的浏览器不支持 HTML5 视频。</span>
+      <span class="en-only">Your browser does not support HTML5 video.</span>
+    </video>
+  </div>
+  <div style="text-align:center; margin-top:20px">
+    <a class="btn ghost" href="msi/meaning_intelligence.html">
+      <span class="zh-only">打开完整交互演示 →</span>
+      <span class="en-only">Open Interactive Demo →</span>
+    </a>
+  </div>
+</section>
+
+<section id="whitepaper" class="wrap">
+  <h2><span class="zh-only">白皮书</span><span class="en-only">White Paper</span></h2>
+  <p class="lead">
+    <span class="zh-only">《意义智能 · 元智能理论与分层应用》中英双语公开发布白皮书 v1.0</span>
+    <span class="en-only">Meaning Intelligence: Meta-Intelligence Theory and Layered Applications — bilingual public release v1.0</span>
+  </p>
+  <div class="release">
+    <div class="version">v1.0</div>
+    <div class="meta">
+      <h3><span class="zh-only">公开发布白皮书</span><span class="en-only">Public Release White Paper</span></h3>
+      <p><span class="zh-only">20 页 / 7 表 / 2 图 · 中英双语 · DOCX + PDF 双份</span><span class="en-only">20 pages / 7 tables / 2 figures · bilingual · DOCX + PDF</span></p>
+      <div class="assets">
+        <a class="btn primary" href="https://github.com/sara-protocol/meaning-intelligence/releases/latest" target="_blank">
+          <span class="zh-only">📥 下载 PDF / DOCX</span>
+          <span class="en-only">📥 Download PDF / DOCX</span>
+        </a>
+        <a class="btn ghost" href="https://github.com/sara-protocol/meaning-intelligence/blob/main/whitepaper/dist" target="_blank">
+          <span class="zh-only">查看源文件</span>
+          <span class="en-only">View Source</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="quote">
+      <span class="zh-only">「如果第二轮与第一轮完全重合，说明这一轮没有产生意义增量。」</span>
+      <span class="en-only">"If the second cycle coincides exactly with the first, no meaning increment was produced."</span>
+    </p>
+    <div>
+      <a href="https://github.com/sara-protocol/meaning-intelligence">GitHub</a> ·
+      <a href="https://github.com/sara-protocol/meaning-intelligence/blob/main/LICENSE">MIT</a> ·
+      <a href="https://github.com/sara-protocol/meaning-intelligence/blob/main/CITATION.cff">Cite</a>
+    </div>
+    <p class="copy">© 2025 Meaning Intelligence · sara-protocol</p>
+  </div>
+</footer>
+
+<script>
+function toggleLang(){
+  const html = document.documentElement;
+  html.dataset.lang = html.dataset.lang === 'zh' ? 'en' : 'zh';
+  html.lang = html.dataset.lang === 'zh' ? 'zh-CN' : 'en';
+}
+</script>
+</body>
+</html>

@@ -18,11 +18,17 @@ A note on version numbers: releases mark the state of both the documents and the
 
 ### 新增 / Added
 
-- **Issue 分诊与定时维护自动化。** 新增两个工作流，权限被刻意收窄，治理规则见 [docs/automation.md](docs/automation.md)：
+- **Issue 分诊与定时维护自动化。** 两个工作流，权限被刻意收窄，治理规则见 [docs/automation.md](docs/automation.md)：
   - `triage.yml`：issue 打开时检查证伪报告的必备字段是否齐全（**缺失不等于不成立**，只是提示补充）、依据固定字段名机械打标签；若配置了 `LLM_API_KEY`，额外生成一份自标为「机器草稿」的归类说明。
   - `maintenance.yml`：每周一汇总仓库状态；把超过 14 天无人回复的证伪报告**升级**给维护者（加 `needs-maintainer-review` 标签），而不是清理它们。
   - **本仓库不自动关闭任何 issue**（`days-before-issue-close: -1`）。对一个以可失败性为承诺的仓库，静默关闭一条未回复的批评是最坏的自动化。
-- **Issue triage and scheduled maintenance automation.** Two workflows were added with deliberately narrow permissions; the governance rules are in [docs/automation.md](docs/automation.md). The repository **never auto-closes issues** — silently closing an unanswered criticism would be the worst possible automation for a repository whose commitment is falsifiability.
+- **Issue triage and scheduled maintenance automation.** Two workflows with deliberately narrow permissions; governance rules in [docs/automation.md](docs/automation.md). The repository **never auto-closes issues** — silently closing an unanswered criticism would be the worst possible automation for a repository whose commitment is falsifiability.
+- **公开发布落地页 `index.html`。** 单文件、**零外部资源**——没有 CDN、没有字体外链、没有统计脚本，离线打开亦完整可用。含六层栈、证据等级与失败矩阵、六幕截图、参与方式。配套 `.nojekyll`，可直接用 GitHub Pages（Source 设为 `main` / `(root)`）发布。
+- **Landing page `index.html`.** A single file with **zero external resources** — no CDN, no web fonts, no analytics; it works fully offline.
+- **`toolkit/`：十份可填写的实践工具模板**，对应正典附录 A 的工具 1–10（意义自检卡、个人/组织归零协议、生命叙事螺旋图、使命压力测试、组织监测仪表盘、城市普查问卷、城市归零工作坊、螺旋回环跟踪表、归零安全检查清单）。每份含出处、用途、适用尺度与频率、关联层级、可填写区、判读标准、失败即删提示与边界。
+- **`toolkit/`: ten fillable practice templates** corresponding to canon Appendix A tools 1–10, each with provenance, purpose, scale and cadence, the layer it serves, a fillable form, reading criteria, its falsification trigger, and boundaries.
+- `tools/verify_issue_forms.py`：按 GitHub 官方 schema 校验 issue 表单结构，已接入 CI 作为独立步骤。它守的是 YAML 解析管不到的约束（`type` 取值、`id` 唯一性、markdown 元素不得带 `id`、dropdown 必须有 `options` 等）——**违反这些时 GitHub 不报错，只会让表单静默失效**。
+- `tools/verify_issue_forms.py`: validates issue form structure against GitHub's official schema, wired into CI as its own step. It catches constraints YAML parsing cannot — which GitHub enforces silently by dropping the form rather than erroring.
 - `tools/publish.py` 新增标签自动创建（`ensure_labels()`）。GitHub 对不存在的标签是静默丢弃的，不建会让分诊无声失效。
 - `tools/publish.py` now creates the labels the workflows depend on. GitHub drops unknown labels silently, which would make triage fail without any error.
 

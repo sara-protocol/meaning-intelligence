@@ -134,6 +134,7 @@ pip install manim
 
 ```
 .
+├── index.html              公开发布落地页（单文件，零外部依赖，可直接用 GitHub Pages 发布）
 ├── msi/                    演示系统：Manim 六幕动画 + 单文件交互页
 │   ├── config.json         六层 / 三带 / 证据色阶，全部数据化
 │   ├── mi_common.py        路径、配置、UTF-8 控制台兜底
@@ -145,10 +146,12 @@ pip install manim
 │   ├── make_figures.py     插图（PIL）
 │   ├── build_whitepaper.py 正文（python-docx）
 │   └── dist/               发布的 DOCX / PDF
+├── toolkit/                十份可填写的实践工具模板（对应正典附录 A）
 ├── docs/                   架构、证据体系、失败矩阵、路线图、术语、**自动化治理**
 ├── tools/
 │   ├── publish.py          无需 git 的 GitHub 发布器（纯 REST API）
-│   └── verify_html.py      校验构建产物：占位符残留 + 内联 JS 真实语法检查
+│   ├── verify_html.py      校验构建产物：占位符残留 + 内联 JS 真实语法检查
+│   └── verify_issue_forms.py  按 GitHub 官方 schema 校验 issue 表单结构
 ├── .github/workflows/
 │   ├── ci.yml              构建校验
 │   ├── triage.yml          issue 分诊（完整度检查 + 可选 AI 归类）
@@ -156,6 +159,9 @@ pip install manim
 ├── CITATION.cff            引用信息
 └── CONTRIBUTING.md         如何贡献（尤其是如何提交证伪报告）
 ```
+
+> **落地页**：`index.html` 是单文件、零外部资源的发布页——没有 CDN、没有字体外链、没有统计脚本，离线打开亦完整可用。
+> 在仓库 Settings → Pages 里把 Source 设为 `main` / `(root)` 即可发布（`.nojekyll` 已就位）。
 
 ---
 
