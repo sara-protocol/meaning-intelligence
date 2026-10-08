@@ -116,6 +116,19 @@ The repository does three things:
 ---
 
 
+### 构造边界
+
+![构造边界图](whitepaper/figures/fig3_construct_boundary.png)
+
+上图把 MIT 放在一个概念空间里:**内环**是 MIT 本身(元层,对智能活动的方向性调控);
+**中环**是 IQ / EQ / SQ(平行能力,被元层约束);**外环**是邻接场域
+(Semantic / Pragmatic、Decision Intelligence、Metacognitive AI、AI Alignment、Wisdom 传统)。
+
+命名冲突不可避免——`Meaning Intelligence` 一词在多个方向已被使用。本项目的
+**Meaning Intelligence Theory (MIT)** 指**方向性调控**,与语义/语用/决策方向的同名使用
+是**不同的构造**。
+
+
 ## 六层应用栈 / The six-layer application stack
 
 | 层 | 名称 | Layer | 一句话定义 | 锚定正典 | 证据等级 |

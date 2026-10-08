@@ -134,6 +134,22 @@ This theory is most easily misread as a manifesto of the form "AI gives answers,
 
 
 
+### Construct Boundary Map
+
+![Construct Boundary Map](whitepaper/figures/fig3_construct_boundary.png)
+
+The figure places MIT in a conceptual space: the **inner ring** is MIT itself (a meta-layer for
+the directional regulation of intelligent activities); the **middle ring** is IQ / EQ / SQ
+(parallel capabilities, constrained by the meta-layer); the **outer ring** is the adjacent
+fields (Semantic/Pragmatic, Decision Intelligence, Metacognitive AI, AI Alignment, Wisdom
+traditions).
+
+Naming collision is unavoidable — `Meaning Intelligence` is already in use across multiple
+directions. This project's **Meaning Intelligence Theory (MIT)** refers to **directional
+regulation**, which is a **different construct** from same-named usage in semantic, pragmatic,
+or decision-oriented directions.
+
+
 ## The Six-Layer Stack
 
 

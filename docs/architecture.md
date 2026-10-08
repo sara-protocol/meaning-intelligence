@@ -170,3 +170,24 @@ cycles means no meaning increment was produced.
   The demo makes each layer *experienceable*; it does not test it. Experiential is not confirmed.
 
 后续阅读：[证据体系](evidence.md) · [理论失败矩阵](failure-matrix.md) · [术语对照](glossary.md)
+
+## 构造边界 / Construct Boundary
+
+![构造边界图](../whitepaper/figures/fig3_construct_boundary.png)
+
+MIT 在概念空间中的位置:
+
+| 环 | 内容 | 与 MIT 的关系 |
+|---|---|---|
+| **内环** | MIT | 元层:对智能活动的方向性调控 |
+| **中环** | IQ · EQ · SQ | 平行能力;被 MIT 约束,而非与之并列 |
+| **外环** | Semantic / Pragmatic · Decision Intelligence · Metacognitive AI · AI Alignment · Wisdom | 邻接场域;与 MIT 相邻但不同构造 |
+
+**"元"的形式特征**:只有 MIT 位于其他智能活动之上,对它们进行方向约束。IQ 关心「能不能算」,
+EQ 关心「能不能相处」,SQ 关心「能不能共处」——三者都在回答「如何做到」。唯有 MIT 追问
+「为何要做」以及「值不值得」。
+
+**命名提示**:本项目的 "Meaning Intelligence Theory" 使用 `MIT` 缩写时,指**方向性调控**,
+与语义/语用/决策方向的同名 `Meaning Intelligence` 是不同构造。详见
+[`docs/glossary.md`](glossary.md) 的命名冲突声明。
+
