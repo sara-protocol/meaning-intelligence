@@ -32,6 +32,24 @@
 
 ---
 
+## Research Status
+
+| Dimension | Current status |
+|---|---|
+| Research phase | `public-research` — 0.x signals research formation, not yet empirically tested |
+| Stack evidence level | **E0 (conceptual)** — not independently tested |
+| White paper | v1.0 (19 pages, bilingual, DOCX + PDF) |
+| Version source | [`VERSION.yaml`](VERSION.yaml) — single source of truth for all version numbers |
+| Falsification path | [Failure matrix](docs/failure-matrix.md) · [Falsification report template](.github/ISSUE_TEMPLATE/falsification_report.yml) |
+| Scholarly commitment | Any module reaching its failure threshold will be **marked or removed**, not defended |
+
+> **On version numbering**: This project uses `0.x` to signal research formation.
+> Only after construct validation, a first predictive study, and independent replication
+> does it reach `1.0`. This is a deliberate, conservative convention.
+
+---
+
+
 
 
 ## What This Theory Does NOT Claim

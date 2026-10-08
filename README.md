@@ -53,6 +53,24 @@ The repository does three things:
 
 ---
 
+## 研究状态
+
+| 维度 | 当前状态 |
+|---|---|
+| 研究阶段 | `public-research` —— 0.x 表示 research formation,尚未进入实证检验阶段 |
+| 六层栈证据等级 | **E0(概念)** —— 未经独立检验 |
+| 白皮书版本 | v1.0(19 页,中英双语,DOCX + PDF) |
+| 版本源 | [`VERSION.yaml`](VERSION.yaml) —— 所有版本号以此为唯一真相 |
+| 证伪路径 | [失败矩阵](docs/failure-matrix.md) · [证伪报告模板](.github/ISSUE_TEMPLATE/falsification_report.yml) |
+| 学术承诺 | 任何模块达到失败阈值,将被**标记或删除**,而不是被辩护 |
+
+> **关于版本编号**:本项目使用 `0.x` 表示 research formation 阶段。
+> 只有在完成 construct validation、首次预测性研究、以及独立复现之后,
+> 才会进入 `1.0`。这是一个刻意保守的约定。
+
+---
+
+
 ## 这个理论不声称什么
 
 本理论最容易被误读为「AI 只会给答案,人类才能创造意义」一类的宣言。它**不是**。
