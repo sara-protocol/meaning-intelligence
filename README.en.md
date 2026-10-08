@@ -1,38 +1,126 @@
-\# Meaning Intelligence
+# Meaning Intelligence
 
 
 
-> \*\*Meta-Intelligence Theory and Layered Applications\*\*
+> **Meta-Intelligence Theory and Layered Applications**
 
-> Aligned with the canon \*Meaning Intelligence: The Cognitive Operating System of Meaning Civilization\* V7.0
-
-
-
-\[!\[Live Page](https://img.shields.io/badge/live-page-00e5ff?style=flat-square)](https://sara-protocol.github.io/meaning-intelligence/)
-
-\[!\[Release](https://img.shields.io/github/v/release/sara-protocol/meaning-intelligence?style=flat-square\&color=bb86fc)](https://github.com/sara-protocol/meaning-intelligence/releases/latest)
-
-\[!\[License](https://img.shields.io/badge/license-MIT-8b95a5?style=flat-square)](LICENSE)
+> Aligned with the canon *Meaning Intelligence: The Cognitive Operating System of Meaning Civilization* V7.0
 
 
 
-\---
+[![Live Page](https://img.shields.io/badge/live-page-00e5ff?style=flat-square)](https://sara-protocol.github.io/meaning-intelligence/)
+
+[![Release](https://img.shields.io/github/v/release/sara-protocol/meaning-intelligence?style=flat-square&color=bb86fc)](https://github.com/sara-protocol/meaning-intelligence/releases/latest)
+
+[![License](https://img.shields.io/badge/license-MIT-8b95a5?style=flat-square)](LICENSE)
+
+[![Version](https://img.shields.io/badge/version-0.2.0-6B4C9A.svg)](VERSION.yaml)
 
 
 
-\*\*Meaning Intelligence is the \*directional regulation\* of other intelligent activities.\*\* It is not a fourth kind of intelligence standing alongside logical, computational, and perceptual intelligence, but a \*meta-layer\* above them that constrains their direction. Its question is not \*"can it be done"\* but \*"is it worth doing — worth it for whom, and at what scale?"\*
+---
 
 
 
-\[中文版](README.md)
+**Meaning Intelligence is the *directional regulation* of other intelligent activities.** It is not a fourth kind of intelligence standing alongside logical, computational, and perceptual intelligence, but a *meta-layer* above them that constrains their direction. Its question is not *"can it be done"* but *"is it worth doing — worth it for whom, and at what scale?"*
 
 
 
-\## The Six-Layer Stack
+[中文版](README.md)
 
 
 
-The six layers fall into \*\*three bands\*\* by cognitive distance:
+---
+
+
+
+## What This Theory Does NOT Claim
+
+
+
+This theory is most easily misread as a manifesto of the form "AI gives answers, only humans create meaning". It is **not**. To avoid that battlefield, here is an explicit list of its boundaries.
+
+
+
+### ❌ This theory does NOT claim
+
+
+
+- that humans possess exclusive access to meaning
+
+- that AI cannot participate in meaning processes
+
+- that meaning is subjective preference alone
+
+- that all intelligent systems require human supervision
+
+- that the six-layer stack is the only valid decomposition
+
+- that the theory is empirically confirmed
+
+
+
+### ✅ This theory DOES claim
+
+
+
+- intelligence requires directional regulation
+
+- meaning judgments can be structurally analyzed
+
+- value and boundary are parts of directional judgment
+
+- multi-scale meaning creates coordination problems
+
+- recursive review may be necessary for long-horizon stability
+
+- the claims above are **testable and falsifiable**
+
+
+
+---
+
+
+
+## Construct Boundaries
+
+
+
+**This project's "Meaning Intelligence" is a specific naming.** As of 2026, `Meaning Intelligence` is already in use across several directions — semantic/pragmatic analysis, decision support, and commercial products among them. This project's **Meaning Intelligence Theory (MIT)** refers to **the directional regulation of intelligent activities**. It is not identical to any of the following adjacent constructs.
+
+
+
+| Adjacent construct | Concerns | Relation to this project |
+
+|---|---|---|
+
+| **IQ / EQ / SQ** | Can it compute / get along / coexist | Parallel capabilities; this theory **sits above them** to constrain direction |
+
+| **Semantic / Pragmatic Intelligence** | Context, intent, irony, coded subtext in language | Handles **meaning in language**; this theory handles **direction of action** |
+
+| **Decision Intelligence** | Coherent understanding from information + context + human judgment | Application-layer framework; this theory provides the **meta-layer structure** |
+
+| **Metacognitive AI** | Self-monitoring, resource allocation, difficulty estimation | Adjacent to L6; L6 is **one layer of the stack** |
+
+| **AI Alignment** | Aligning AI behavior with human values | Provides **structure for directional judgment**; does not replace alignment research |
+
+| **Wisdom / Judgment traditions** | Practical wisdom, judgment | This theory attempts to **formalize** them into testable structure |
+
+
+
+> **Naming conflict statement**: This project does not claim exclusivity over the term `Meaning Intelligence`. We do explicitly distinguish: this project's "Meaning Intelligence Theory" refers to **directional regulation**, which is a **different construct** from same-named usage in semantic, pragmatic, or decision-oriented directions.
+
+
+
+---
+
+
+
+## The Six-Layer Stack
+
+
+
+The six layers fall into **three bands** by cognitive distance:
 
 
 
@@ -40,29 +128,37 @@ The six layers fall into \*\*three bands\*\* by cognitive distance:
 
 |---|---|---|---|
 
-| \*\*Interface\*\* | L1 | Cognitive Load Reduction | \*Information cannot get in\* |
+| **Interface** | L1 | Cognitive Load Reduction | *Information cannot get in* |
 
-| \*\*Interface\*\* | L2 | Experiential Rendering | \*Information cannot get in\* |
+| **Interface** | L2 | Experiential Rendering | *Information cannot get in* |
 
-| \*\*Processing\*\* | L3 | Meaning Generation | \*Meaning cannot get out\* |
+| **Processing** | L3 | Meaning Generation | *Meaning cannot get out* |
 
-| \*\*Processing\*\* | L4 | Value Assessment | \*Meaning cannot get out\* |
+| **Processing** | L4 | Value Assessment | *Meaning cannot get out* |
 
-| \*\*Meta\*\* | L5 | Direction Selection | \*Direction cannot be held\* |
+| **Meta** | L5 | Direction Selection | *Direction cannot be held* |
 
-| \*\*Meta\*\* | L6 | Recursive Reflection and Review | \*Direction cannot be held\* |
-
-
-
-\*\*Only the meta band can rewrite the premises of the layers below it\*\* — this is the formal signature of "meta".
+| **Meta** | L6 | Recursive Reflection and Review | *Direction cannot be held* |
 
 
 
-L6's output is written back as L1's input. The six layers form a \*\*closed spiral\*\*, not a one-way pipeline.
+**Only the meta band can rewrite the premises of the layers below it** — this is the formal signature of "meta".
 
 
 
-\## What's in this Repository
+L6's output is written back as L1's input. The six layers form a **closed spiral**, not a one-way pipeline.
+
+
+
+> ### ⚠️ A note on the stack itself
+
+>
+
+> The six-layer stack is an **integrative structure** at evidence level **E0 (conceptual)**. It has not been independently tested. Treat it as a **testable organizing tool**, not a confirmed finding. If a simpler partition with greater explanatory power emerges, it should **replace** this one.
+
+
+
+## What's in this Repository
 
 
 
@@ -82,13 +178,13 @@ L6's output is written back as L1's input. The six layers form a \*\*closed spir
 
 
 
-\## Quick Start
+## Quick Start
 
 
 
 ```bash
 
-\# 1. Clone
+# 1. Clone
 
 git clone https://github.com/sara-protocol/meaning-intelligence.git
 
@@ -96,33 +192,35 @@ cd meaning-intelligence
 
 
 
-\# 2. Read the white paper
+# 2. Read the white paper
 
-\#    → whitepaper/dist/意义智能\_元智能理论与分层应用\_公开发布白皮书\_v1.0\_中英双语.pdf
-
-
-
-\# 3. Watch the six-act animation
-
-\#    → msi/MeaningIntelligenceScene.mp4
+#    → whitepaper/dist/意义智能_元智能理论与分层应用_公开发布白皮书_v1.0_中英双语.pdf
 
 
 
-\# 4. Open the interactive dashboard
+# 3. Watch the six-act animation
 
-\#    → msi/meaning\_intelligence.html  (double-click; no server required)
-
-
-
-\# 5. Rebuild the white paper (optional)
-
-python whitepaper/build\_whitepaper.py
+#    → msi/MeaningIntelligenceScene.mp4
 
 
 
-\# 6. Re-render the animation (optional, requires manim)
+# 4. Open the interactive dashboard
 
-cd msi \&\& python run.ps1     # Windows
+#    → msi/meaning_intelligence.html  (double-click; no server required)
 
-cd msi \&\& bash run.sh        # macOS / Linux
+
+
+# 5. Rebuild the white paper (optional)
+
+python whitepaper/build_whitepaper.py
+
+
+
+# 6. Re-render the animation (optional, requires manim)
+
+cd msi && python run.ps1     # Windows
+
+cd msi && bash run.sh        # macOS / Linux
+
+
 
