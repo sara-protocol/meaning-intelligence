@@ -1,80 +1,149 @@
-"""mi_common.py —— Meaning Intelligence 演示系统 / 公共层
+"""Shared helpers: config loading + validation, timeline planning, Mermaid generation.
 
-职责：
-  · 路径与配置加载（一律以本文件所在目录为基准，不依赖调用时的 cwd）
-  · 中文 Windows 控制台的 UTF-8 兜底（GBK 控制台打印 emoji 会抛 UnicodeEncodeError）
-  · 六层时间轴的推算（planned）与读取（measured）
-  · 跨平台 CJK 字体选择
+Used by the Manim scene and build.py so every deliverable derives from
+config.json (single source of truth).
 
-本模块只依赖标准库，Manim 场景与 HTML 构建脚本共用。
+Model: 6 `layers` (grouped in 3 `bands`) are what the stack IS;
+8 `acts` are what the animation SHOWS. Each act belongs to one layer.
 """
 import json
-import os
-import sys
 from pathlib import Path
 
-# msi/ 根目录（本文件所在目录）
-BASE_DIR = Path(__file__).resolve().parent
-
-LAYER_ORDER = ["L1", "L2", "L3", "L4", "L5", "L6"]
+HERE = Path(__file__).resolve().parent
 
 
-def enable_utf8_console():
-    """中文 Windows 控制台默认 GBK，打印 emoji / 生僻字会抛 UnicodeEncodeError。
-
-    这个坑在 build.py 与场景文件里各踩过一次：build.py 是 print("⚠️ ...") 直接崩；
-    场景文件是渲染完成后 print("📐 ...") 崩，导致 manim 以非零码退出。
-    """
-    for stream in (sys.stdout, sys.stderr):
-        try:
-            stream.reconfigure(encoding="utf-8", errors="replace")
-        except Exception:
-            pass
+def load_config(path=None):
+    cfg = json.loads(Path(path or HERE / "config.json").read_text(encoding="utf-8"))
+    validate_config(cfg)
+    return cfg
 
 
-def safe_print(*args, **kwargs):
-    """即便 reconfigure 失效（例如流被 rich 之类接管），也绝不因编码而崩溃。"""
-    try:
-        print(*args, **kwargs)
-    except UnicodeEncodeError:
-        enc = getattr(sys.stdout, "encoding", None) or "ascii"
-        print(*(str(a).encode(enc, "replace").decode(enc, "replace") for a in args), **kwargs)
+def validate_config(cfg):
+    langs = cfg["languages"]
+    assert cfg["default_lang"] in langs, "default_lang must be in languages"
+
+    def need(d, where):
+        for lg in langs:
+            assert lg in d, f"missing language '{lg}' in {where}"
+
+    layer_ids = [l["id"] for l in cfg["layers"]]
+    band_ids = [b["id"] for b in cfg["bands"]]
+    assert len(set(layer_ids)) == len(layer_ids), "duplicate layer ids"
+    for b in cfg["bands"]:
+        need(b["label"], f"band {b['id']}.label")
+        need(b["problem"], f"band {b['id']}.problem")
+        assert b["tier"] in cfg["colors"], f"unknown tier {b['tier']}"
+        assert all(l in layer_ids for l in b["layers"]), f"band {b['id']} lists unknown layer"
+    for l in cfg["layers"]:
+        assert l["band"] in band_ids, f"layer {l['id']} has unknown band"
+        for k in ("name", "definition", "anchor", "falsifier"):
+            need(l[k], f"layer {l['id']}.{k}")
+    in_bands = [x for b in cfg["bands"] for x in b["layers"]]
+    assert sorted(in_bands) == sorted(layer_ids), "every layer must belong to exactly one band"
+
+    acts = cfg["acts"]
+    ids = [a["id"] for a in acts]
+    assert len(set(ids)) == len(ids), "duplicate act ids"
+    seen = []
+    for a in acts + [cfg["final"]]:
+        need(a["label"], f"act {a['id']}.label")
+        need(a["scene"], f"act {a['id']}.scene")
+        assert a["enter"] > 0 and a["hold"] >= 0, f"bad timing in {a['id']}"
+    for a in acts:
+        need(a["desc"], f"act {a['id']}.desc")
+        assert a["layer"] in layer_ids, f"act {a['id']} has unknown layer"
+        assert a["tier"] in cfg["colors"], f"unknown tier {a['tier']}"
+        seen.append(a["layer"])
+    # layers must appear in order and every layer must have at least one act
+    order = [x for i, x in enumerate(seen) if i == 0 or seen[i - 1] != x]
+    assert order == layer_ids, f"acts must cover layers contiguously and in order; got {order}"
+
+    for k, v in cfg["content"].items():
+        need(v, f"content.{k}")
+    assert len(cfg["content"]["axes"][langs[0]]) == 3
+    assert len(cfg["content"]["candidates"][langs[0]]) == 3
+    n = len(cfg["content"]["ste_lines"][langs[0]])
+    assert all(len(cfg["content"]["ste_lines"][lg]) == n for lg in langs), "ste_lines length mismatch"
+    assert len(cfg["evidence_scale"]) == 7, "evidence_scale must have E0..E6"
+    assert all(0 <= x <= 6 for x in cfg["demo"]["assess_levels"])
+    need(cfg["source_note"], "source_note")
+    for lg in langs:
+        assert lg in cfg["ui"], f"missing ui.{lg}"
+        assert len(cfg["ui"][lg]["tabs"]) == 4
 
 
-def resolve(path) -> Path:
-    p = Path(path)
-    return p if p.is_absolute() else (BASE_DIR / p)
+def layer_of(cfg, lid):
+    return next(l for l in cfg["layers"] if l["id"] == lid)
 
 
-def load_config(config_path="config.json"):
-    with open(resolve(config_path), "r", encoding="utf-8-sig") as f:
-        return json.load(f)
+def band_of(cfg, layer):
+    return next(b for b in cfg["bands"] if b["id"] == layer["band"])
 
 
-def get_cjk_font():
-    if os.name == "nt":
-        return "Microsoft YaHei"
-    if sys.platform == "darwin":
-        return "PingFang SC"
-    # Linux / CI：Manim 的 Pango 后端会回退到系统已装字体
-    return "Noto Sans CJK SC"
+def plan_timeline(cfg):
+    """Start second of every act and every layer (= its first act), from enter/hold only."""
+    t, tl = 0.0, {}
+    for a in cfg["acts"] + [cfg["final"]]:
+        tl[a["id"]] = round(t, 3)
+        if a.get("layer") and a["layer"] not in tl:
+            tl[a["layer"]] = round(t, 3)
+        t += a["enter"] + a["hold"]
+    tl["end"] = round(t, 3)
+    return tl
 
 
-def calculate_layer_timestamps(layers):
-    """无实测数据时的预算时间轴。"""
-    timestamps = {}
-    current = 0.0
-    for key in LAYER_ORDER:
-        layer = layers[key]
-        start = round(current, 2)
-        duration = layer.get("duration", 4.5)
-        current += duration
-        timestamps[key] = {
-            "name": f"{layer['name']} ({layer['en']})",
-            "index": layer["index"],
-            "band": layer["band"],
-            "start": start,
-            "end": round(current, 2),
-            "duration": duration,
-        }
-    return timestamps
+# ---------------------------------------------------------------- Mermaid
+def _classdefs(c):
+    d = []
+    for k, fill, extra in [("gray", "fill_gray", ",stroke-dasharray:4 3"), ("cyan", "fill_cyan", ""),
+                           ("purple", "fill_purple", ""), ("amber", "fill_amber", "")]:
+        d.append(f"    classDef {k} fill:{c[fill]},stroke:{c[k]}{extra},color:{c[k]}")
+    d.append(f"    classDef white fill:{c['bg']},stroke:{c['white']},stroke-width:2px,color:{c['white']}")
+    return d
+
+
+def mermaid_pipeline(cfg, lang):
+    lines = ["flowchart LR"]
+    for bi, b in enumerate(cfg["bands"]):
+        lines.append(f'    subgraph B{bi}["{b["label"][lang]} · {b["problem"][lang]}"]')
+        lines.append("        direction LR")
+        for lid in b["layers"]:
+            l = layer_of(cfg, lid)
+            lines.append(f'        {lid}["{lid} · {l["name"][lang]}<br/>{l["definition"][lang]}<br/>{l["evidence"]}"]:::{b["tier"]}')
+        lines.append("    end")
+    lines.append("    " + " --> ".join(l["id"] for l in cfg["layers"]))
+    last, first = cfg["layers"][-1]["id"], cfg["layers"][0]["id"]
+    lines.append(f'    {last} -. "{first}′" .-> {first}')
+    return "\n".join(lines + _classdefs(cfg["colors"]))
+
+
+def mermaid_scenes(cfg, lang):
+    lines = ["flowchart TD"]
+    ids, count = [], cfg["overload"]["count"]
+    for i, a in enumerate(cfg["acts"] + [cfg["final"]]):
+        nid = f"N{i}"
+        ids.append(nid)
+        tag = f'{a["layer"]} · ' if a.get("layer") else ""
+        text = a["scene"][lang].replace("{count}", str(count))
+        lines.append(f'    {nid}["{tag}{a["label"][lang]}<br/>{text}"]:::{a.get("tier", "white")}')
+    lines.append("    " + " --> ".join(ids))
+    return "\n".join(lines + _classdefs(cfg["colors"]))
+
+
+def mermaid_palette(cfg, lang):
+    c, roles = cfg["colors"], cfg["color_roles"]
+    order = ["gray", "cyan", "purple", "amber"]
+    lines = ["flowchart LR"]
+    for i, k in enumerate(order):
+        lines.append(f'    P{i}["{k} {c[k]}<br/>{roles[k][lang]}"]:::{k}')
+    ev = " → ".join(f"E{i}" for i in (0, 6))
+    lines.append(f'    P4["{ev}<br/>{" ".join(cfg["evidence_scale"][:1] + cfg["evidence_scale"][-1:])}"]:::white')
+    lines.append("    " + " --> ".join(f"P{i}" for i in range(5)))
+    return "\n".join(lines + _classdefs(c))
+
+
+def all_mermaid(cfg):
+    return {
+        lg: {"pipeline": mermaid_pipeline(cfg, lg), "scenes": mermaid_scenes(cfg, lg), "palette": mermaid_palette(cfg, lg)}
+        for lg in cfg["languages"]
+    }

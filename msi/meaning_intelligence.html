@@ -3,474 +3,370 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meaning Intelligence · 六层应用栈 / Six-Layer Application Stack</title>
+<title>Meaning Intelligence</title>
 <style>
-  :root{
-    --bg:#0F172A; --fg:#F8FAFC; --muted:#7A8CA3;
-    --accent:#C49B3B; --fail:#EF4444; --navy:#1B3A5C;
-    --panel:rgba(255,255,255,.045); --line:rgba(255,255,255,.10);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--fg);
-       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",Roboto,sans-serif;
-       line-height:1.6}
-  header{padding:26px 28px 14px;border-bottom:1px solid var(--line)}
-  h1{margin:0;font-size:26px;letter-spacing:.4px}
-  h1 small{display:block;font-size:13px;font-weight:400;color:var(--muted);
-           letter-spacing:1.6px;text-transform:uppercase;margin-top:6px}
-  .canon{margin-top:10px;font-size:12.5px;color:var(--muted)}
-  .canon b{color:var(--accent);font-weight:600}
-  .wrap{display:grid;grid-template-columns:290px 1fr;gap:22px;padding:22px 28px 40px;
-        max-width:1560px;margin:0 auto}
-  @media(max-width:980px){.wrap{grid-template-columns:1fr}}
-  .band{margin-bottom:16px}
-  .band-h{font-size:11.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);
-          margin:0 0 8px 4px;display:flex;justify-content:space-between;gap:8px}
-  .band-h em{font-style:normal;opacity:.75;letter-spacing:0;text-transform:none}
-  .tab{display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;
-       background:var(--panel);border:1px solid var(--line);border-left-width:4px;
-       border-radius:9px;padding:9px 11px;margin-bottom:7px;color:var(--fg);
-       font-family:inherit;font-size:13.5px;transition:background .15s,transform .15s}
-  .tab:hover{background:rgba(255,255,255,.09);transform:translateX(2px)}
-  .tab[aria-selected="true"]{background:rgba(255,255,255,.13)}
-  .tab .id{font-weight:700;font-size:13px;min-width:22px}
-  .tab .nm{flex:1}
-  .tab .nm i{display:block;font-style:normal;font-size:11px;color:var(--muted)}
-  .tab .ev{font-size:10.5px;padding:2px 6px;border-radius:20px;color:#0b1220;font-weight:700}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
-        padding:18px 20px;margin-bottom:18px}
-  .card h2{margin:0 0 4px;font-size:19px}
-  .card h2 span{font-size:12.5px;color:var(--muted);font-weight:400;margin-left:8px}
-  .q{font-size:14px;color:var(--accent);margin:10px 0 2px}
-  .q em{display:block;font-style:normal;color:var(--muted);font-size:12px}
-  .def{font-size:14px;margin:10px 0 2px}
-  .def em{display:block;font-style:normal;color:var(--muted);font-size:12.5px;margin-top:3px}
-  .anchor{font-size:12px;color:var(--muted);margin-top:12px;
-          border-top:1px dashed var(--line);padding-top:10px}
-  video{width:100%;border-radius:10px;background:#000;display:block}
-  .hint{font-size:12.5px;color:var(--muted);margin-top:10px}
-  .hint b{color:var(--accent)}
-  canvas{width:100%;height:430px;display:block;border-radius:10px;background:#070d1a;
-         border:1px solid var(--line)}
-  .ctrls{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:14px}
-  .ctrl{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--muted)}
-  .ctrl input[type=range]{width:150px;accent-color:var(--accent)}
-  .ctrl output{color:var(--fg);font-variant-numeric:tabular-nums;min-width:38px;display:inline-block}
-  .btn{background:var(--panel);border:1px solid var(--line);color:var(--fg);border-radius:8px;
-       padding:6px 13px;cursor:pointer;font-family:inherit;font-size:12.5px}
-  .btn:hover{background:rgba(255,255,255,.10)}
-  .btn.on{border-color:var(--accent);color:var(--accent)}
-  footer{padding:0 28px 34px;color:var(--muted);font-size:12px;max-width:1560px;margin:0 auto}
+:root{--bg:#0a0c10;--card:#141820;--cyan:#00e5ff;--purple:#bb86fc;--text:#e0e6ed;--sub:#8b95a5;--border:#2a2f3a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);display:flex;justify-content:center;padding:30px 15px;min-height:100vh}
+.app{width:100%;max-width:900px;background:var(--card);border-radius:16px;padding:25px;border:1px solid var(--border);box-shadow:0 10px 40px rgba(0,0,0,.6),0 0 30px rgba(0,229,255,.1);display:flex;flex-direction:column;gap:20px}
+header{text-align:center;border-bottom:1px solid var(--border);padding-bottom:15px;position:relative}
+h1{font-size:1.8rem;background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+.subtitle{color:var(--sub);font-size:.9rem}
+.lang-btn{position:absolute;right:0;top:0;background:rgba(0,229,255,.08);border:1px solid var(--cyan);color:var(--cyan);padding:5px 12px;border-radius:6px;cursor:pointer;font-size:.8rem;font-weight:600}
+.lang-btn:hover,.lang-btn:focus-visible{background:var(--cyan);color:#000}
+.tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.tab{background:transparent;border:1px solid var(--border);color:var(--sub);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:.85rem}
+.tab:hover{border-color:var(--cyan);color:var(--text)}
+.tab[aria-selected=true]{background:rgba(0,229,255,.1);border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 10px rgba(0,229,255,.2)}
+:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.panel[hidden]{display:none}
+.box{background:#0f1218;border-radius:12px;border:1px solid var(--border);padding:15px}
+video{width:100%;max-height:480px;border-radius:8px;border:1px solid var(--cyan);background:#000}
+.note{color:var(--sub);font-size:.8rem;margin-top:10px;text-align:center}
+.warn{color:var(--purple)}
+.slider{display:flex;flex-direction:column;align-items:center}
+input[type=range]{-webkit-appearance:none;appearance:none;height:6px;background:#1f2530;border-radius:4px;outline-offset:6px;margin:15px 0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--cyan);cursor:pointer;box-shadow:0 0 10px rgba(0,229,255,.6)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border:0;border-radius:50%;background:var(--cyan);cursor:pointer}
+#stageSlider{width:85%}
+.labels{width:85%;display:flex;justify-content:space-between;gap:4px;font-size:.75rem;color:var(--sub)}
+.labels button{background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:2px 0;text-align:center;flex:1}
+.labels button.on{color:var(--cyan);font-weight:700}
+.stage{min-height:210px;margin-top:15px;display:flex;align-items:center;justify-content:center;text-align:center}
+.stage>div{width:100%}
+.stage>div[hidden]{display:none}
+.noise{font-family:monospace;font-size:.8rem;color:#667;line-height:1.5}
+.ste{font-size:1.1rem;line-height:1.9;color:var(--cyan);font-weight:500}
+.nodes{display:flex;align-items:center;gap:14px;justify-content:center;flex-wrap:wrap}
+.node{padding:8px 16px;border-radius:6px;border:1px solid}
+.playbtn{margin-top:14px;background:transparent;border:1px solid var(--purple);color:var(--purple);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.8rem}
+.playbtn:hover{background:var(--purple);color:#000}
+canvas{width:100%;max-width:480px;height:130px;background:var(--bg);border-radius:8px;border:1px solid var(--border);display:block;margin:8px auto}
+.ent{display:flex;align-items:center;justify-content:center;gap:10px;font-size:.8rem;color:var(--sub)}
+.ent input{width:160px;margin:0}
+.vid{width:90px;height:50px;background:#1a1f2b;border-radius:6px;border:1px solid var(--purple);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;color:var(--purple);font-size:1.3rem}
+.sup{color:var(--cyan);font-size:.95rem;font-weight:500}
+.mm{margin-bottom:18px}
+.mm h3{font-size:.9rem;color:var(--sub);margin-bottom:8px;font-weight:600}
+.mermaid{display:flex;justify-content:center;overflow-x:auto}
+pre{background:#0f1218;padding:15px;border-radius:12px;border:1px solid var(--border);overflow:auto;max-height:420px;color:#a9b7c6;font:.78rem/1.45 ui-monospace,Menlo,Consolas,monospace}
+h4{margin:14px 0 6px;font-size:.85rem;color:var(--cyan)}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+.card{margin-top:14px;padding:14px 16px;border-radius:12px;border:1px solid var(--border);background:#0f1218;text-align:left;font-size:.85rem;line-height:1.6}
+.card h3{font-size:1.05rem;margin-bottom:4px}
+.card .def{color:var(--text);margin-bottom:8px}
+.card dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;color:var(--sub)}
+.card dt{white-space:nowrap}
+.card dd{color:var(--text)}
+.badge{display:inline-block;padding:1px 8px;border-radius:10px;border:1px solid;font-size:.75rem;margin-right:6px}
+.src{margin-top:10px;font-size:.72rem;color:var(--sub)}
+svg.viz{width:100%;max-width:520px;height:auto;display:block;margin:0 auto}
+svg text{font-family:inherit}
+.path{cursor:pointer;transition:opacity .25s}.path:focus-visible{outline:2px solid var(--purple)}
+.cols{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap}
+.cols .arr{color:var(--purple);font-size:1.4rem}
+.mini{max-width:210px;font-size:.72rem;color:#667;font-family:monospace;line-height:1.5;text-align:left}
+
 </style>
 </head>
 <body>
-<header>
-  <h1>Meaning Intelligence　意义智能
-    <small>Six-Layer Application Stack · v2.0.0</small>
-  </h1>
-  <div class="canon">理论正典 <b>《意义智能：意义文明的认知操作系统》V7.0</b>　·　元智能＝对其他智能活动的方向性调控<br>
-    Canon: meta-intelligence is the directional regulation of other intelligent activities.</div>
-</header>
+<div class="app">
+  <header>
+    <h1 id="title"></h1>
+    <p class="subtitle" id="subtitle"></p>
+    <button class="lang-btn" id="langBtn" type="button"></button>
+  </header>
 
-<div class="wrap">
-  <nav id="tabs" aria-label="六层导航"></nav>
+  <div class="tabs" role="tablist" id="tabs"></div>
 
-  <main>
-    <div class="card">
-      <h2 id="lName">—<span id="lNameEn"></span></h2>
-      <div class="q" id="lQ"></div>
-      <div class="def" id="lDef"></div>
-      <div class="anchor" id="lAnchor"></div>
+  <section class="panel" role="tabpanel" id="p0" aria-labelledby="t0">
+    <div class="box">
+      <video id="video" controls preload="metadata"><source id="vsrc"></video>
+      <p class="note warn" id="vmiss" hidden></p>
+      <p class="note"><span id="vdesc"></span> · <span id="tlsrc"></span></p>
     </div>
+  </section>
 
-    <div class="card">
-      <h2 style="font-size:16px;margin-bottom:12px">逐层可操作演示
-        <span>Interactive per-layer demo</span></h2>
-      <canvas id="stage"></canvas>
-      <div class="ctrls" id="ctrls"></div>
+  <section class="panel" role="tabpanel" id="p1" aria-labelledby="t1" hidden>
+    <div class="slider">
+      <input type="range" id="stageSlider" min="1" value="1" step="1" aria-label="layer">
+      <div class="labels" id="labels"></div>
     </div>
+    <div class="box stage">
+      <div id="v1"><div class="cols">
+        <div class="mini" id="v1noise"></div><div class="arr" aria-hidden="true">→</div>
+        <div class="ste" id="v1ste"></div><div class="arr" aria-hidden="true">→</div>
+        <div class="nodes"><div class="node" id="n1"></div><div class="arr" aria-hidden="true">→</div><div class="node" id="n2"></div></div>
+      </div></div>
+      <div id="v2" hidden>
+        <p class="note" id="hint" style="margin:0"></p>
+        <canvas id="cv" role="img"></canvas>
+        <label class="ent"><span id="entLbl"></span><input type="range" id="entropy" min="0" max="100" value="75"></label>
+      </div>
+      <div id="v3" hidden><svg class="viz" id="svg3" viewBox="0 0 400 200" role="img"></svg></div>
+      <div id="v4" hidden><svg class="viz" id="svg4" viewBox="0 0 400 220" role="img"></svg></div>
+      <div id="v5" hidden><p class="note" id="pickHint" style="margin:0 0 6px"></p><svg class="viz" id="svg5" viewBox="0 0 400 200" role="group"></svg></div>
+      <div id="v6" hidden><svg class="viz" id="svg6" viewBox="0 0 400 220" role="img"></svg><p class="note" id="recNote"></p></div>
+    </div>
+    <div class="card" id="card"></div>
+    <p class="src" id="srcNote"></p>
+    <div style="text-align:center"><button class="playbtn" id="playStage" type="button"></button></div>
+  </section>
 
-    <div class="card">
-      <h2 style="font-size:16px;margin-bottom:12px">六幕动画同步
-        <span>Six-act animation</span></h2>
-      <video id="mainVideo" controls preload="metadata">
-        <source src="MeaningIntelligenceScene.mp4" type="video/mp4">
-        您的浏览器不支持 video 标签。
-      </video>
-      <div class="hint" id="statusAlert"></div>
-    </div>
-  </main>
+  <section class="panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden><div id="mmHost"></div></section>
+
+  <section class="panel" role="tabpanel" id="p3" aria-labelledby="t3" hidden>
+    <h4 id="srcPyH"></h4><pre><code id="srcPy"></code></pre>
+    <h4 id="srcCfgH"></h4><pre><code id="srcCfg"></code></pre>
+  </section>
 </div>
 
-<footer>
-  证据等级 E0–E6 与失败矩阵见正典；本项目承诺：任何模块达到失败阈值，将被标记或删除，而非辩护。<br>
-  Evidence levels E0–E6 and the Theory Failure Matrix follow the canon. Any module reaching its
-  failure threshold will be marked or removed — not defended.
-</footer>
-
 <script>
-const LAYERS   = {"L1": {"index": 1, "band": "interface", "name": "减负", "en": "Cognitive Load Reduction", "color": "#2A5C8E", "evidence": "E1", "mechanism_evidence": "E3", "duration": 4.5, "question": "当信息供给远超认知带宽时，第一步该做什么？", "question_en": "When information supply far exceeds cognitive bandwidth, what is the first thing to do?", "definition": "在不丢失决策所需关键结构的前提下，降低单位时间内的认知负荷总量。", "definition_en": "Reduce total cognitive load per unit of time without losing the key structure needed for decision.", "anchor": "正典第1章 1.1；工具 A.1 意义自检卡", "anchor_en": "Canon 1.1; Tool A.1 Meaning Self-Check Card"}, "L2": {"index": 2, "band": "interface", "name": "可体验", "en": "Experiential Rendering", "color": "#3B6EA5", "evidence": "E1", "mechanism_evidence": "E3", "duration": 4.5, "question": "理解一个结构，最短的路径是什么？", "question_en": "What is the shortest path to understanding a structure?", "definition": "把抽象关系转译为可操作、可回放的感知对象。", "definition_en": "Translate abstract relations into operable, replayable perceptual objects.", "anchor": "正典第3章；第9章 M1 感知模块", "anchor_en": "Canon Ch.3; Ch.9 module M1 (perception)"}, "L3": {"index": 3, "band": "processing", "name": "意义生成", "en": "Meaning Generation", "color": "#6B4C9A", "evidence": "E1", "mechanism_evidence": "E0", "duration": 4.5, "question": "一堆已经看懂的材料，如何变成「对我意味着什么」？", "question_en": "How does understood material become \"what it means for me\"?", "definition": "把材料组织为方向、价值、边界三个维度，并沿意义光谱带定位其抽象程度与时间尺度。", "definition_en": "Organize material along direction, value, and boundary, and locate its level of abstraction and time scale along the meaning spectrum.", "anchor": "正典第3章 3.1/3.2；第8章 8.1 光谱带模型（取代固定层次）", "anchor_en": "Canon 3.1/3.2; Ch.8 8.1 spectral band model (replaces fixed levels)"}, "L4": {"index": 4, "band": "processing", "name": "价值评估", "en": "Value Assessment", "color": "#8A6BB5", "evidence": "E2", "mechanism_evidence": "E1", "duration": 4.5, "question": "这个意义判断有多可靠？凭什么？", "question_en": "How reliable is this meaning judgment, and on what grounds?", "definition": "用统一标尺为意义判断标注证据强度与不确定性，并估计意义势能的变化方向。", "definition_en": "Label judgments with evidence strength and uncertainty, and estimate the direction of meaning potential.", "anchor": "正典第6章 E0–E6；3.3 PE 方程", "anchor_en": "Canon Ch.6 E0–E6; 3.3 the PE equation"}, "L5": {"index": 5, "band": "meta", "name": "方向选择", "en": "Direction Selection", "color": "#C49B3B", "evidence": "E1", "mechanism_evidence": "E1", "duration": 4.5, "question": "在多个都「有价值」的方向中，选哪一个？", "question_en": "Among several directions that all have value, which one to choose?", "definition": "在五尺度框架下选定一个方向并显式承担其代价，同时输出修正触发条件。", "definition_en": "Select one direction within the five scales while bearing its cost, and output correction triggers.", "anchor": "正典第4章五尺度；DC 指标；三级修正", "anchor_en": "Canon Ch.4 five scales; DC indicator; three-level correction"}, "L6": {"index": 6, "band": "meta", "name": "反思与审视递归", "en": "Recursive Reflection and Review", "color": "#D9B45C", "evidence": "E2", "mechanism_evidence": "E2", "duration": 5.5, "question": "谁来审视审视者？", "question_en": "Who reviews the reviewer?", "definition": "系统对自身的意义判断过程进行再判断，包括对判断框架本身的审查、周期性归零与重构。", "definition_en": "The system re-judges its own meaning-judgment process, including review of the framework itself and periodic zeroing.", "anchor": "正典第7章 7B.2/7B.3/7B.4 三特性；附录D 表D.7 理论失败矩阵；H12/H13/H14", "anchor_en": "Canon Ch.7 7B.2/7B.3/7B.4 three properties; Appendix D Table D.7 Theory Failure Matrix; H12/H13/H14"}};
-const BANDS    = [{"id": "interface", "name": "界面带", "en": "Interface Band", "layers": ["L1", "L2"], "solves": "信息进不来", "solves_en": "Information cannot get in"}, {"id": "processing", "name": "加工带", "en": "Processing Band", "layers": ["L3", "L4"], "solves": "意义出不来", "solves_en": "Meaning cannot get out"}, {"id": "meta", "name": "元带", "en": "Meta Band", "layers": ["L5", "L6"], "solves": "方向守不住", "solves_en": "Direction cannot be held"}];
-const EVIDENCE = {"E0": "#9CA3AF", "E1": "#3B82F6", "E2": "#06B6D4", "E3": "#10B981", "E4": "#8B5CF6", "E5": "#F59E0B", "E6": "#4F46E5", "FAIL": "#EF4444"};
-const EV_NAMES = {"E0": ["概念", "Conceptual"], "E1": ["形式化", "Formalized"], "E2": ["操作化", "Operationalized"], "E3": ["预测性", "Predictive"], "E4": ["复制", "Replicated"], "E5": ["证伪/存活", "Falsified / Survived"], "E6": ["外部验证", "Externally Validated"]};
-const TIMELINE = {"L1": {"name": "减负 (Cognitive Load Reduction)", "index": 1, "band": "interface", "start": 2.13, "end": 7.2}, "L2": {"name": "可体验 (Experiential Rendering)", "index": 2, "band": "interface", "start": 7.8, "end": 12.67}, "L3": {"name": "意义生成 (Meaning Generation)", "index": 3, "band": "processing", "start": 13.27, "end": 17.53}, "L4": {"name": "价值评估 (Value Assessment)", "index": 4, "band": "processing", "start": 18.13, "end": 22.73}, "L5": {"name": "方向选择 (Direction Selection)", "index": 5, "band": "meta", "start": 23.33, "end": 28.93}, "L6": {"name": "反思与审视递归 (Recursive Reflection and Review)", "index": 6, "band": "meta", "start": 29.53, "end": 36.93}};
-const SOURCE   = "measured";
+/* ---- injected by build.py from config.json (do not edit by hand) ---- */
+const CFG = {"version": 2, "languages": ["zh", "en"], "default_lang": "zh", "colors": {"bg": "#0a0c10", "dark": "#141820", "gray": "#8b95a5", "cyan": "#00e5ff", "purple": "#bb86fc", "amber": "#ffd166", "white": "#ffffff", "fill_gray": "#141820", "fill_cyan": "#0a1a20", "fill_purple": "#150e26", "fill_amber": "#241c08"}, "evidence_scale": ["#5b6472", "#6f86a8", "#4aa3df", "#00e5ff", "#3ddc97", "#a3e635", "#ffd166"], "color_roles": {"gray": {"zh": "噪声 / 原始信息", "en": "Noise / raw information"}, "cyan": {"zh": "界面带 · L1–L2", "en": "Interface band · L1–L2"}, "purple": {"zh": "加工带 · L3–L4", "en": "Processing band · L3–L4"}, "amber": {"zh": "元带 · L5–L6", "en": "Meta band · L5–L6"}}, "fonts": {"cjk": ["Noto Sans CJK SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", "WenQuanYi Micro Hei"], "latin": ["Inter", "Helvetica Neue", "Arial", "DejaVu Sans"], "mono": ["JetBrains Mono", "Menlo", "Consolas", "DejaVu Sans Mono"]}, "video": {"file": "MeaningIntelligenceScene.mp4", "quality": "1080p60"}, "overload": {"count": 45, "seed": 42}, "source_note": {"zh": "六层名称、锚点与证据等级取自 sara-protocol/meaning-intelligence 的 README(v0.2.0)。证伪条件为本项目的草案,尚未与其失败矩阵对齐。", "en": "Layer names, anchors and evidence levels follow the README of sara-protocol/meaning-intelligence (v0.2.0). Falsifiers are our own drafts, not yet aligned with its failure matrix."}, "bands": [{"id": "interface", "tier": "cyan", "layers": ["L1", "L2"], "label": {"zh": "界面带", "en": "Interface band"}, "problem": {"zh": "信息进不来", "en": "Information can't get in"}}, {"id": "processing", "tier": "purple", "layers": ["L3", "L4"], "label": {"zh": "加工带", "en": "Processing band"}, "problem": {"zh": "意义出不来", "en": "Meaning can't come out"}}, {"id": "meta", "tier": "amber", "layers": ["L5", "L6"], "label": {"zh": "元带", "en": "Meta band"}, "problem": {"zh": "方向守不住", "en": "Direction can't hold"}}], "layers": [{"id": "L1", "band": "interface", "name": {"zh": "减负", "en": "Cognitive Load Reduction"}, "definition": {"zh": "把认知负荷从信息量转移到结构", "en": "Shift cognitive load from information volume to structure"}, "anchor": {"zh": "第1章 1.1;工具 A.1", "en": "Ch.1 §1.1; Tool A.1"}, "evidence": "E1(机制 E3)", "falsifier": {"zh": "若结构化压缩后,读者的理解准确率与错误发现率不优于原文,则 L1 在该任务上失败。", "en": "If comprehension accuracy and error-detection after structured compression are no better than with the original text, L1 fails on that task."}}, {"id": "L2", "band": "interface", "name": {"zh": "可体验", "en": "Experiential Rendering"}, "definition": {"zh": "把「读到」变成「操作到」", "en": "Turn \"read\" into \"operated\""}, "anchor": {"zh": "第3章;第9章 M1", "en": "Ch.3; Ch.9 M1"}, "evidence": "E1(机制 E3)", "falsifier": {"zh": "若可操作版本相对静态版本在迁移任务上没有增益,则 L2 失败。", "en": "If the operable version yields no gain over the static version on transfer tasks, L2 fails."}}, {"id": "L3", "band": "processing", "name": {"zh": "意义生成", "en": "Meaning Generation"}, "definition": {"zh": "组织成方向·价值·边界", "en": "Organise into direction · value · boundary"}, "anchor": {"zh": "第3章 3.1 / 3.2;第8章 8.1 光谱带", "en": "Ch.3 §3.1/3.2; Ch.8 §8.1 spectrum band"}, "evidence": "E0–E1", "falsifier": {"zh": "若独立标注者无法把同一材料稳定归入方向、价值、边界(一致性低于预设阈值),则 L3 失败。", "en": "If independent raters cannot sort the same material into direction/value/boundary consistently (agreement below a preset threshold), L3 fails."}}, {"id": "L4", "band": "processing", "name": {"zh": "价值评估", "en": "Value Assessment"}, "definition": {"zh": "为判断标注证据强度", "en": "Label every judgement with its strength of evidence"}, "anchor": {"zh": "第6章 E0–E6;3.3 PE 方程", "en": "Ch.6 E0–E6; §3.3 PE equation"}, "evidence": "E2(工具)/ E1(模型)", "falsifier": {"zh": "若证据等级标注在评审者之间不一致,或与后续检验结果无单调关系,则 L4 失败。", "en": "If evidence grades disagree across reviewers, or bear no monotone relation to later test outcomes, L4 fails."}}, {"id": "L5", "band": "meta", "name": {"zh": "方向选择", "en": "Direction Selection"}, "definition": {"zh": "在五尺度上选定值得的方向", "en": "Choose the worthwhile direction across five scales"}, "anchor": {"zh": "第4章;DC 指标;三级修正", "en": "Ch.4; DC index; three-level correction"}, "evidence": "E1", "falsifier": {"zh": "若按该层选出的方向在事后评估中不优于基线或随机选择,则 L5 失败。", "en": "If directions chosen by this layer do no better than a baseline or random choice in post-hoc evaluation, L5 fails."}}, {"id": "L6", "band": "meta", "name": {"zh": "反思与审视递归", "en": "Recursive Reflection and Review"}, "definition": {"zh": "让系统审视自己的审视", "en": "Let the system review its own reviewing"}, "anchor": {"zh": "第7章 7B.2/7B.3/7B.4;失败矩阵", "en": "Ch.7 §7B.2/7B.3/7B.4; failure matrix"}, "evidence": "E2(案例)/ E1", "falsifier": {"zh": "若递归审视在后续轮次中没有比无审视对照更高的纠错率,则 L6 失败。", "en": "If recursive review does not correct earlier errors at a higher rate than a no-review control in later rounds, L6 fails."}}], "acts": [{"id": "overload", "layer": "L1", "tier": "gray", "enter": 1.2, "hold": 1.0, "label": {"zh": "信息洪流", "en": "Information Overload"}, "desc": {"zh": "info. info. info. ...", "en": "info. info. info. ..."}, "scene": {"zh": "信息过载:{count} 条随机文本", "en": "Overload: {count} random text fragments"}}, {"id": "text", "layer": "L1", "tier": "cyan", "enter": 3.0, "hold": 2.0, "label": {"zh": "文本降维", "en": "Text Reduction"}, "desc": {"zh": "ASD-STE100 受控语言", "en": "ASD-STE100 controlled language"}, "scene": {"zh": "汇聚为一点 → 提炼三条核心语句", "en": "Collapse to a point → three core statements"}}, {"id": "diagram", "layer": "L1", "tier": "cyan", "enter": 1.8, "hold": 2.0, "label": {"zh": "结构图", "en": "Structure Diagram"}, "desc": {"zh": "节点 + 关系", "en": "Nodes + relations"}, "scene": {"zh": "转换为节点与箭头图", "en": "Converted to a node-and-arrow graph"}}, {"id": "interactive", "layer": "L2", "tier": "cyan", "enter": 4.0, "hold": 1.5, "label": {"zh": "可操作界面", "en": "Operable Interface"}, "desc": {"zh": "网页 / 滑块 / 参数调节", "en": "Web page / slider / parameters"}, "scene": {"zh": "浏览器窗口 + 滑块拖动", "en": "Browser window + slider drag"}}, {"id": "meaning", "layer": "L3", "tier": "purple", "enter": 3.5, "hold": 2.0, "label": {"zh": "意义归位", "en": "Meaning Placement"}, "desc": {"zh": "方向 · 价值 · 边界", "en": "Direction · value · boundary"}, "scene": {"zh": "散点节点归位到方向·价值·边界三角", "en": "Scattered nodes settle into the direction·value·boundary triangle"}}, {"id": "assess", "layer": "L4", "tier": "purple", "enter": 3.0, "hold": 2.0, "label": {"zh": "证据着色", "en": "Evidence Rings"}, "desc": {"zh": "E0–E6 证据色环", "en": "E0–E6 evidence rings"}, "scene": {"zh": "每个节点套上证据色环(示意)", "en": "Each node gets an evidence ring (illustrative)"}}, {"id": "select", "layer": "L5", "tier": "amber", "enter": 3.5, "hold": 2.0, "label": {"zh": "路径选择", "en": "Path Selection"}, "desc": {"zh": "三选一,其余淡出", "en": "One of three; the rest fade"}, "scene": {"zh": "三条候选路径,两条淡出,一条高亮", "en": "Three candidate paths: two fade, one is highlighted"}}, {"id": "reflect", "layer": "L6", "tier": "amber", "enter": 4.5, "hold": 2.0, "label": {"zh": "递归螺旋", "en": "Recursive Spiral"}, "desc": {"zh": "回写至更高起点 L1′ + 监督之眼", "en": "Return to higher start L1′ + overseeing eye"}, "scene": {"zh": "螺旋回写至同角度的更高起点 L1′,监督之眼审视整圈", "en": "Spiral returns to a higher start L1′ at the same angle; the eye reviews the whole loop"}}], "final": {"id": "final", "enter": 1.8, "hold": 2.5, "label": {"zh": "Meaning Intelligence", "en": "Meaning Intelligence"}, "scene": {"zh": "渐变标题落幕", "en": "Gradient title card"}}, "content": {"overload_text": {"zh": "大模型生成内容爆炸式增长,人类面临严重的认知信息过载。在海量文本洪流中,人类注意力被极大地分散。我们需要快速提取核心意义,真正的价值在于理解与监督……", "en": "Explosive AI-generated content leads to severe cognitive information overload. Human attention is fragmented across vast text streams. Extracting core meaning and staying in the loop is essential..."}, "ste_lines": {"zh": ["信息过载", "人类阅读困难", "提取核心意义"], "en": ["Information Overload", "Cognitive Bottleneck", "Extracting Meaning"]}, "node1": {"zh": "原始信息", "en": "Raw Information"}, "node2": {"zh": "降维处理", "en": "Reduction"}, "axes": {"zh": ["方向", "价值", "边界"], "en": ["Direction", "Value", "Boundary"]}, "candidates": {"zh": ["路径 A", "路径 B", "路径 C"], "en": ["Path A", "Path B", "Path C"]}, "illustrative": {"zh": "示意 · 色环不代表真实评级", "en": "Illustrative · rings are not real ratings"}, "supervisor": {"zh": "抽象监督与意义提取", "en": "Abstract Supervision & Meaning Extraction"}}, "demo": {"assess_levels": [0, 1, 1, 2, 3, 2, 1, 4, 2], "chosen_path": 1}, "ui": {"zh": {"title": "意义智能 (Meaning Intelligence)", "subtitle": "六层应用栈:从减负到反思与审视递归", "langBtn": "English", "tabs": ["📹 渲染视频", "🎚 六层演示", "📊 逻辑图表", "💻 源码与配置"], "videoDesc": "3B1B 风格渲染", "videoMissing": "未找到视频文件,请先运行 manim 渲染,并将 mp4 放在本页同目录。", "timelineSrc": {"measured": "时间轴:渲染实测", "planned": "时间轴:配置推算(渲染后将自动被实测值取代)"}, "playStage": "▶ 在视频中播放此层", "canvasHint": "调节无序度,观察粒子从混乱收敛为结构:", "entropy": "无序度 (Entropy)", "pickPath": "点击候选路径,其余淡出:", "recursion": "L6 回写至更高起点 L1′", "mermaidFail": "Mermaid 库未能加载(离线?),以下为图表源码:", "diagrams": ["六层应用栈", "场景结构", "视觉编码规范"], "card": {"band": "所属带", "anchor": "锚定正典", "evidence": "证据等级", "falsifier": "什么会让它作废(草案)"}, "srcPy": "meaning_intelligence.py", "srcCfg": "config.json"}, "en": {"title": "Meaning Intelligence", "subtitle": "The six-layer stack: from load reduction to recursive review", "langBtn": "中文", "tabs": ["📹 Rendered Video", "🎚 Six-Layer Demo", "📊 Logic Diagram", "💻 Source & Config"], "videoDesc": "3B1B-style render", "videoMissing": "Video file not found. Render with manim and place the mp4 next to this page.", "timelineSrc": {"measured": "Timeline: measured from render", "planned": "Timeline: planned from config (replaced by measured values after rendering)"}, "playStage": "▶ Play this layer in the video", "canvasHint": "Adjust entropy to watch particles converge into structure:", "entropy": "Entropy", "pickPath": "Click a candidate path; the others fade:", "recursion": "L6 returns to a higher start, L1′", "mermaidFail": "Mermaid failed to load (offline?). Diagram source:", "diagrams": ["Six-layer stack", "Scene structure", "Visual encoding"], "card": {"band": "Band", "anchor": "Canon anchor", "evidence": "Evidence level", "falsifier": "What would falsify it (draft)"}, "srcPy": "meaning_intelligence.py", "srcCfg": "config.json"}}};
+const TIMELINE = {"overload": 0.0, "L1": 0.0, "text": 2.2, "diagram": 7.217, "interactive": 11.017, "L2": 11.017, "meaning": 16.517, "L3": 16.517, "assess": 22.067, "L4": 22.067, "select": 27.083, "L5": 27.083, "reflect": 32.6, "L6": 32.6, "final": 39.117, "end": 43.433};
+const TIMELINE_SOURCE = "measured";
+const MERMAID = {"zh": {"pipeline": "flowchart LR\n    subgraph B0[\"界面带 · 信息进不来\"]\n        direction LR\n        L1[\"L1 · 减负<br/>把认知负荷从信息量转移到结构<br/>E1(机制 E3)\"]:::cyan\n        L2[\"L2 · 可体验<br/>把「读到」变成「操作到」<br/>E1(机制 E3)\"]:::cyan\n    end\n    subgraph B1[\"加工带 · 意义出不来\"]\n        direction LR\n        L3[\"L3 · 意义生成<br/>组织成方向·价值·边界<br/>E0–E1\"]:::purple\n        L4[\"L4 · 价值评估<br/>为判断标注证据强度<br/>E2(工具)/ E1(模型)\"]:::purple\n    end\n    subgraph B2[\"元带 · 方向守不住\"]\n        direction LR\n        L5[\"L5 · 方向选择<br/>在五尺度上选定值得的方向<br/>E1\"]:::amber\n        L6[\"L6 · 反思与审视递归<br/>让系统审视自己的审视<br/>E2(案例)/ E1\"]:::amber\n    end\n    L1 --> L2 --> L3 --> L4 --> L5 --> L6\n    L6 -. \"L1′\" .-> L1\n    classDef gray fill:#141820,stroke:#8b95a5,stroke-dasharray:4 3,color:#8b95a5\n    classDef cyan fill:#0a1a20,stroke:#00e5ff,color:#00e5ff\n    classDef purple fill:#150e26,stroke:#bb86fc,color:#bb86fc\n    classDef amber fill:#241c08,stroke:#ffd166,color:#ffd166\n    classDef white fill:#0a0c10,stroke:#ffffff,stroke-width:2px,color:#ffffff", "scenes": "flowchart TD\n    N0[\"L1 · 信息洪流<br/>信息过载:45 条随机文本\"]:::gray\n    N1[\"L1 · 文本降维<br/>汇聚为一点 → 提炼三条核心语句\"]:::cyan\n    N2[\"L1 · 结构图<br/>转换为节点与箭头图\"]:::cyan\n    N3[\"L2 · 可操作界面<br/>浏览器窗口 + 滑块拖动\"]:::cyan\n    N4[\"L3 · 意义归位<br/>散点节点归位到方向·价值·边界三角\"]:::purple\n    N5[\"L4 · 证据着色<br/>每个节点套上证据色环(示意)\"]:::purple\n    N6[\"L5 · 路径选择<br/>三条候选路径,两条淡出,一条高亮\"]:::amber\n    N7[\"L6 · 递归螺旋<br/>螺旋回写至同角度的更高起点 L1′,监督之眼审视整圈\"]:::amber\n    N8[\"Meaning Intelligence<br/>渐变标题落幕\"]:::white\n    N0 --> N1 --> N2 --> N3 --> N4 --> N5 --> N6 --> N7 --> N8\n    classDef gray fill:#141820,stroke:#8b95a5,stroke-dasharray:4 3,color:#8b95a5\n    classDef cyan fill:#0a1a20,stroke:#00e5ff,color:#00e5ff\n    classDef purple fill:#150e26,stroke:#bb86fc,color:#bb86fc\n    classDef amber fill:#241c08,stroke:#ffd166,color:#ffd166\n    classDef white fill:#0a0c10,stroke:#ffffff,stroke-width:2px,color:#ffffff", "palette": "flowchart LR\n    P0[\"gray #8b95a5<br/>噪声 / 原始信息\"]:::gray\n    P1[\"cyan #00e5ff<br/>界面带 · L1–L2\"]:::cyan\n    P2[\"purple #bb86fc<br/>加工带 · L3–L4\"]:::purple\n    P3[\"amber #ffd166<br/>元带 · L5–L6\"]:::amber\n    P4[\"E0 → E6<br/>#5b6472 #ffd166\"]:::white\n    P0 --> P1 --> P2 --> P3 --> P4\n    classDef gray fill:#141820,stroke:#8b95a5,stroke-dasharray:4 3,color:#8b95a5\n    classDef cyan fill:#0a1a20,stroke:#00e5ff,color:#00e5ff\n    classDef purple fill:#150e26,stroke:#bb86fc,color:#bb86fc\n    classDef amber fill:#241c08,stroke:#ffd166,color:#ffd166\n    classDef white fill:#0a0c10,stroke:#ffffff,stroke-width:2px,color:#ffffff"}, "en": {"pipeline": "flowchart LR\n    subgraph B0[\"Interface band · Information can't get in\"]\n        direction LR\n        L1[\"L1 · Cognitive Load Reduction<br/>Shift cognitive load from information volume to structure<br/>E1(机制 E3)\"]:::cyan\n        L2[\"L2 · Experiential Rendering<br/>Turn \"read\" into \"operated\"<br/>E1(机制 E3)\"]:::cyan\n    end\n    subgraph B1[\"Processing band · Meaning can't come out\"]\n        direction LR\n        L3[\"L3 · Meaning Generation<br/>Organise into direction · value · boundary<br/>E0–E1\"]:::purple\n        L4[\"L4 · Value Assessment<br/>Label every judgement with its strength of evidence<br/>E2(工具)/ E1(模型)\"]:::purple\n    end\n    subgraph B2[\"Meta band · Direction can't hold\"]\n        direction LR\n        L5[\"L5 · Direction Selection<br/>Choose the worthwhile direction across five scales<br/>E1\"]:::amber\n        L6[\"L6 · Recursive Reflection and Review<br/>Let the system review its own reviewing<br/>E2(案例)/ E1\"]:::amber\n    end\n    L1 --> L2 --> L3 --> L4 --> L5 --> L6\n    L6 -. \"L1′\" .-> L1\n    classDef gray fill:#141820,stroke:#8b95a5,stroke-dasharray:4 3,color:#8b95a5\n    classDef cyan fill:#0a1a20,stroke:#00e5ff,color:#00e5ff\n    classDef purple fill:#150e26,stroke:#bb86fc,color:#bb86fc\n    classDef amber fill:#241c08,stroke:#ffd166,color:#ffd166\n    classDef white fill:#0a0c10,stroke:#ffffff,stroke-width:2px,color:#ffffff", "scenes": "flowchart TD\n    N0[\"L1 · Information Overload<br/>Overload: 45 random text fragments\"]:::gray\n    N1[\"L1 · Text Reduction<br/>Collapse to a point → three core statements\"]:::cyan\n    N2[\"L1 · Structure Diagram<br/>Converted to a node-and-arrow graph\"]:::cyan\n    N3[\"L2 · Operable Interface<br/>Browser window + slider drag\"]:::cyan\n    N4[\"L3 · Meaning Placement<br/>Scattered nodes settle into the direction·value·boundary triangle\"]:::purple\n    N5[\"L4 · Evidence Rings<br/>Each node gets an evidence ring (illustrative)\"]:::purple\n    N6[\"L5 · Path Selection<br/>Three candidate paths: two fade, one is highlighted\"]:::amber\n    N7[\"L6 · Recursive Spiral<br/>Spiral returns to a higher start L1′ at the same angle; the eye reviews the whole loop\"]:::amber\n    N8[\"Meaning Intelligence<br/>Gradient title card\"]:::white\n    N0 --> N1 --> N2 --> N3 --> N4 --> N5 --> N6 --> N7 --> N8\n    classDef gray fill:#141820,stroke:#8b95a5,stroke-dasharray:4 3,color:#8b95a5\n    classDef cyan fill:#0a1a20,stroke:#00e5ff,color:#00e5ff\n    classDef purple fill:#150e26,stroke:#bb86fc,color:#bb86fc\n    classDef amber fill:#241c08,stroke:#ffd166,color:#ffd166\n    classDef white fill:#0a0c10,stroke:#ffffff,stroke-width:2px,color:#ffffff", "palette": "flowchart LR\n    P0[\"gray #8b95a5<br/>Noise / raw information\"]:::gray\n    P1[\"cyan #00e5ff<br/>Interface band · L1–L2\"]:::cyan\n    P2[\"purple #bb86fc<br/>Processing band · L3–L4\"]:::purple\n    P3[\"amber #ffd166<br/>Meta band · L5–L6\"]:::amber\n    P4[\"E0 → E6<br/>#5b6472 #ffd166\"]:::white\n    P0 --> P1 --> P2 --> P3 --> P4\n    classDef gray fill:#141820,stroke:#8b95a5,stroke-dasharray:4 3,color:#8b95a5\n    classDef cyan fill:#0a1a20,stroke:#00e5ff,color:#00e5ff\n    classDef purple fill:#150e26,stroke:#bb86fc,color:#bb86fc\n    classDef amber fill:#241c08,stroke:#ffd166,color:#ffd166\n    classDef white fill:#0a0c10,stroke:#ffffff,stroke-width:2px,color:#ffffff"}};
+const SRC_PY = "\"\"\"Meaning Intelligence — Manim scene (six-layer stack, 8 acts).\n\nEverything (copy, colours, fonts, timing) comes from config.json.\n\n    manim -qh meaning_intelligence.py MeaningIntelligenceScene     # Chinese\n    MI_LANG=en manim -qh meaning_intelligence.py MeaningIntelligenceScene\n\nActs -> layers:  overload/text/diagram = L1,  interactive = L2,\n                 meaning = L3,  assess = L4,  select = L5,  reflect = L6.\nA measured timeline.json is written next to this file after rendering;\n`python build.py` then uses it for the HTML page's video seeking.\n\"\"\"\nimport json\nimport os\nimport sys\nfrom pathlib import Path\n\n_HERE = Path(__file__).resolve().parent\nsys.path.insert(0, str(_HERE))          # msi/scenes/\nsys.path.insert(0, str(_HERE.parent))   # msi/  <- 这里是 mi_common.py 所在\n\nimport numpy as np\nfrom manim import *\n\nfrom mi_common import HERE, load_config\n\nCFG = load_config()\nLANG = os.environ.get(\"MI_LANG\", CFG[\"default_lang\"])\nif LANG not in CFG[\"languages\"]:\n    raise ValueError(f\"MI_LANG must be one of {CFG['languages']}, got {LANG!r}\")\n\nCOL = CFG[\"colors\"]\nEVID = CFG[\"evidence_scale\"]\nACT = {a[\"id\"]: a for a in CFG[\"acts\"]}\nCONTENT = {k: v[LANG] for k, v in CFG[\"content\"].items()}\n\n\ndef pick_font(candidates):\n    \"\"\"First installed font from the list, else '' (Manim/Pango default).\"\"\"\n    try:\n        import manimpango\n\n        available = set(manimpango.list_fonts())\n    except Exception:\n        return \"\"\n    return next((f for f in candidates if f in available), \"\")\n\n\nUI_FONT = pick_font(CFG[\"fonts\"][\"cjk\" if LANG == \"zh\" else \"latin\"])\nMONO_FONT = pick_font(CFG[\"fonts\"][\"mono\"])\n\n\ndef T(text, font=None, **kw):\n    return Text(text, font=UI_FONT if font is None else font, **kw)\n\n\ndef P3(x, y):\n    return np.array([x, y, 0.0])\n\n\nclass MeaningIntelligenceScene(Scene):\n    # ---------------------------------------------------------------- helpers\n    def mark(self, key):\n        self.timeline[key] = round(float(self.renderer.time), 3)\n\n    def begin(self, act_id):\n        \"\"\"Mark the act's start, and its layer's start if it is the layer's first act.\"\"\"\n        self.mark(act_id)\n        layer = ACT[act_id][\"layer\"]\n        if layer not in self.timeline:\n            self.mark(layer)\n        return ACT[act_id]\n\n    def make_noise(self):\n        rng = np.random.default_rng(CFG[\"overload\"][\"seed\"])\n        group = VGroup()\n        for _ in range(CFG[\"overload\"][\"count\"]):\n            t = T(\"info. \" * 3, font=MONO_FONT, font_size=11, color=COL[\"gray\"])\n            t.move_to([rng.uniform(-6.5, 6.5), rng.uniform(-3.5, 3.5), 0])\n            t.set_opacity(rng.uniform(0.3, 0.8))\n            group.add(t)\n        return group\n\n    def make_node(self, text, color):\n        box = RoundedRectangle(corner_radius=0.15, height=0.9, width=3.0, color=color)\n        box.set_fill(COL[\"fill_gray\"], opacity=0.9)\n        return VGroup(box, T(text, font_size=18, color=color).move_to(box))\n\n    def make_eye(self, scale=1.0):\n        c = COL[\"cyan\"]\n        outline = Ellipse(width=2.4 * scale, height=1.1 * scale, color=c)\n        pupil = Circle(radius=0.32 * scale, color=c).set_fill(c, opacity=0.95)\n        glow = Circle(radius=0.45 * scale, color=c).set_fill(c, opacity=0.25)\n        return VGroup(outline, glow, pupil), pupil, glow\n\n    # -------------------------------------------------------------- construct\n    def construct(self):\n        self.camera.background_color = COL[\"bg\"]\n        self.timeline = {}\n        cyan, purple, amber, gray = COL[\"cyan\"], COL[\"purple\"], COL[\"amber\"], COL[\"gray\"]\n        rng = np.random.default_rng(7)\n\n        # ===== L1 · act 1: information overload ===========================\n        s = self.begin(\"overload\")\n        noise = self.make_noise()\n        self.play(FadeIn(noise), run_time=s[\"enter\"])\n        self.wait(s[\"hold\"])\n\n        # ===== L1 · act 2: gravitational collapse -> 3 core lines ============\n        s = self.begin(\"text\")\n        E = s[\"enter\"]\n        core = Dot(color=cyan).scale(2.8)\n        self.play(\n            LaggedStart(*[t.animate.move_to(ORIGIN).scale(0.05).set_color(cyan) for t in noise],\n                        lag_ratio=0.02),\n            run_time=0.45 * E, rate_func=exponential_decay,\n        )\n        self.play(FadeOut(noise), FadeIn(core, scale=0.3), run_time=0.10 * E)\n        ste = VGroup(*[T(l, font_size=30, color=cyan, weight=BOLD) for l in CONTENT[\"ste_lines\"]]\n                     ).arrange(DOWN, buff=0.45)\n        self.play(FadeOut(core, scale=2),\n                  LaggedStart(*[FadeIn(l, shift=UP * 0.2) for l in ste], lag_ratio=0.3),\n                  run_time=0.45 * E)\n        self.wait(s[\"hold\"])\n\n        # ===== L1 · act 3: structure diagram ================================\n        s = self.begin(\"diagram\")\n        n1 = self.make_node(CONTENT[\"node1\"], cyan)\n        n2 = self.make_node(CONTENT[\"node2\"], purple)\n        n2.next_to(n1, RIGHT, buff=1.6)\n        arrow = Arrow(n1.get_right(), n2.get_left(), buff=0.15, color=WHITE,\n                      max_tip_length_to_length_ratio=0.2)\n        diagram = VGroup(n1, arrow, n2).center()\n        self.play(FadeOut(ste),\n                  LaggedStart(FadeIn(n1), GrowArrow(arrow), FadeIn(n2), lag_ratio=0.4),\n                  run_time=s[\"enter\"])\n        self.wait(s[\"hold\"])\n\n        # ===== L2 · operable interface ======================================\n        s = self.begin(\"interactive\")\n        E = s[\"enter\"]\n        browser = RoundedRectangle(corner_radius=0.2, height=3.2, width=5.8, color=cyan)\n        browser.set_fill(COL[\"fill_gray\"], opacity=0.9)\n        bar = Rectangle(height=0.35, width=5.8, color=cyan).set_fill(cyan, opacity=0.3)\n        bar.align_to(browser, UP)\n        track = Rectangle(height=0.08, width=3.8, color=gray).shift(DOWN * 0.3)\n        knob = Circle(radius=0.16, color=cyan).set_fill(cyan, opacity=1).move_to(track.get_left())\n        browser_group = VGroup(browser, bar, track, knob)\n        self.play(FadeOut(diagram), FadeIn(browser_group), run_time=0.35 * E)\n        self.play(knob.animate.shift(RIGHT * track.width), run_time=0.65 * E, rate_func=smooth)\n        self.wait(s[\"hold\"])\n\n        # ===== L3 · meaning generation: nodes settle into direction·value·boundary\n        s = self.begin(\"meaning\")\n        E = s[\"enter\"]\n        verts = [P3(0, 1.9), P3(-3.0, -1.5), P3(3.0, -1.5)]\n        centroid = sum(verts) / 3\n        starts = [P3(rng.uniform(-3, 3), rng.uniform(-1.6, 1.6)) for _ in range(9)]\n        dots = VGroup(*[Dot(point=p, radius=0.11, color=cyan) for p in starts])\n        targets = []\n        for i in range(9):\n            v = verts[i % 3]\n            ang = (i // 3) * 2.1 + i\n            targets.append(v + (centroid - v) * 0.24 + 0.34 * P3(np.cos(ang), np.sin(ang)))\n        tri = Polygon(*verts, color=purple, stroke_width=3)\n        tri.set_fill(COL[\"fill_purple\"], opacity=0.5)\n        axis_labels = VGroup(\n            T(CONTENT[\"axes\"][0], font_size=24, color=purple, weight=BOLD).next_to(verts[0], UP, buff=0.2),\n            T(CONTENT[\"axes\"][1], font_size=24, color=purple, weight=BOLD).next_to(verts[1], DOWN, buff=0.2),\n            T(CONTENT[\"axes\"][2], font_size=24, color=purple, weight=BOLD).next_to(verts[2], DOWN, buff=0.2),\n        )\n        self.play(FadeOut(browser_group), FadeIn(dots), run_time=0.25 * E)\n        self.play(Create(tri), run_time=0.15 * E)\n        self.play(*[d.animate.move_to(t) for d, t in zip(dots, targets)], run_time=0.40 * E,\n                  rate_func=smooth)\n        self.play(LaggedStart(*[FadeIn(l, shift=UP * 0.1) for l in axis_labels], lag_ratio=0.3),\n                  run_time=0.20 * E)\n        self.wait(s[\"hold\"])\n\n        # ===== L4 · value assessment: evidence rings ==========================\n        s = self.begin(\"assess\")\n        E = s[\"enter\"]\n        rings = VGroup(*[\n            Circle(radius=0.22, color=EVID[lv], stroke_width=4).move_to(t)\n            for lv, t in zip(CFG[\"demo\"][\"assess_levels\"], targets)\n        ])\n        swatches = VGroup(*[Square(side_length=0.3, color=EVID[i]).set_fill(EVID[i], opacity=0.9)\n                            for i in range(7)]).arrange(RIGHT, buff=0.08)\n        e0 = T(\"E0\", font_size=16, color=gray).next_to(swatches, LEFT, buff=0.2)\n        e6 = T(\"E6\", font_size=16, color=gray).next_to(swatches, RIGHT, buff=0.2)\n        note = T(CONTENT[\"illustrative\"], font_size=14, color=gray).next_to(swatches, DOWN, buff=0.15)\n        legend = VGroup(swatches, e0, e6, note).move_to(P3(0, -3.0))\n        self.play(LaggedStart(*[Create(r) for r in rings], lag_ratio=0.1), run_time=0.60 * E)\n        self.play(FadeIn(legend, shift=UP * 0.2), run_time=0.40 * E)\n        self.wait(s[\"hold\"])\n\n        # ===== L5 · direction selection: 3 candidates, 1 survives =============\n        s = self.begin(\"select\")\n        E = s[\"enter\"]\n        old = VGroup(dots, rings, tri, axis_labels, legend)\n        origin_pt = P3(-4.2, 0)\n        ends = [P3(3.6, 1.7), P3(3.6, 0.0), P3(3.6, -1.7)]\n        origin_dot = Dot(point=origin_pt, radius=0.16, color=WHITE)\n        end_dots = VGroup(*[Dot(point=e, radius=0.14, color=amber) for e in ends])\n        end_labels = VGroup(*[T(CONTENT[\"candidates\"][i], font_size=22, color=amber).next_to(ends[i], RIGHT, buff=0.25)\n                              for i in range(3)])\n        paths = VGroup(*[\n            CubicBezier(origin_pt, origin_pt + RIGHT * 3.2, e + LEFT * 3.2, e, color=amber, stroke_width=4)\n            for e in ends\n        ])\n        k = CFG[\"demo\"][\"chosen_path\"]\n        self.play(FadeOut(old), FadeIn(origin_dot), FadeIn(end_dots), FadeIn(end_labels),\n                  run_time=0.30 * E)\n        self.play(LaggedStart(*[Create(p) for p in paths], lag_ratio=0.25), run_time=0.40 * E)\n        fades = [paths[i].animate.set_stroke(opacity=0.15) for i in range(3) if i != k]\n        fades += [end_dots[i].animate.set_opacity(0.2) for i in range(3) if i != k]\n        fades += [end_labels[i].animate.set_opacity(0.2) for i in range(3) if i != k]\n        self.play(*fades,\n                  paths[k].animate.set_stroke(color=cyan, width=8),\n                  end_dots[k].animate.scale(1.5).set_color(cyan),\n                  run_time=0.30 * E)\n        self.wait(s[\"hold\"])\n\n        # ===== L6 · recursive reflection: spiral back to L1' + overseeing eye ==\n        s = self.begin(\"reflect\")\n        E = s[\"enter\"]\n        select_group = VGroup(origin_dot, end_dots, end_labels, paths)\n        center = P3(0, -0.5)\n\n        def spiral_pt(t):  # t in [0, 2*pi]; starts at the top, clockwise, radius grows\n            r = 0.75 + 0.95 * t / TAU\n            a = PI / 2 - t\n            return center + r * P3(np.cos(a), np.sin(a))\n\n        spiral = ParametricFunction(lambda t: spiral_pt(t), t_range=[0, TAU], color=amber, stroke_width=5)\n        markers, labels = VGroup(), VGroup()\n        names = [f\"L{i + 1}\" for i in range(6)] + [\"L1′\"]\n        for i, nm in enumerate(names):\n            p = spiral_pt(i * TAU / 6)\n            out = (p - center) / np.linalg.norm(p - center)\n            markers.add(Dot(point=p, radius=0.09, color=cyan if i < 6 else WHITE))\n            labels.add(T(nm, font_size=18, color=cyan if i < 6 else WHITE).move_to(p + out * 0.38))\n        link = DashedLine(spiral_pt(0), spiral_pt(TAU), color=WHITE, stroke_width=2)\n        eye, pupil, glow = self.make_eye(0.8)\n        eye.move_to(P3(0, 2.9))\n        cap = T(CONTENT[\"supervisor\"], font_size=18, color=cyan, weight=BOLD).move_to(P3(0, -3.35))\n\n        self.play(FadeOut(select_group), run_time=0.15 * E)\n        self.play(Create(spiral), run_time=0.45 * E, rate_func=linear)\n        self.play(LaggedStart(*[FadeIn(VGroup(m, l)) for m, l in zip(markers, labels)], lag_ratio=0.15),\n                  Create(link), run_time=0.20 * E)\n        self.play(FadeIn(eye, shift=DOWN * 0.2), FadeIn(cap), run_time=0.10 * E)\n        self.play(pupil.animate.scale(1.25), glow.animate.scale(1.5).set_opacity(0.4),\n                  run_time=0.10 * E, rate_func=there_and_back)\n        self.wait(s[\"hold\"])\n\n        # ===== finale ==========================================================\n        f = CFG[\"final\"]\n        self.mark(\"final\")\n        title = T(f[\"label\"][LANG], font_size=48, color=WHITE, weight=BOLD)\n        title.set_color_by_gradient(cyan, purple, amber)\n        self.play(FadeOut(*self.mobjects), run_time=0.4 * f[\"enter\"])\n        self.play(FadeIn(title, scale=0.88), run_time=0.6 * f[\"enter\"])\n        self.wait(f[\"hold\"])\n        self.mark(\"end\")\n\n        (HERE / \"timeline.json\").write_text(\n            json.dumps({\"lang\": LANG, \"timeline\": self.timeline}, indent=2), encoding=\"utf-8\")\n";
+const SRC_CFG = "{\n  \"version\": 2,\n  \"languages\": [\"zh\", \"en\"],\n  \"default_lang\": \"zh\",\n  \"colors\": {\n    \"bg\": \"#0a0c10\", \"dark\": \"#141820\", \"gray\": \"#8b95a5\", \"cyan\": \"#00e5ff\", \"purple\": \"#bb86fc\", \"amber\": \"#ffd166\", \"white\": \"#ffffff\",\n    \"fill_gray\": \"#141820\", \"fill_cyan\": \"#0a1a20\", \"fill_purple\": \"#150e26\", \"fill_amber\": \"#241c08\"\n  },\n  \"evidence_scale\": [\"#5b6472\", \"#6f86a8\", \"#4aa3df\", \"#00e5ff\", \"#3ddc97\", \"#a3e635\", \"#ffd166\"],\n  \"color_roles\": {\n    \"gray\":   {\"zh\": \"噪声 / 原始信息\", \"en\": \"Noise / raw information\"},\n    \"cyan\":   {\"zh\": \"界面带 · L1–L2\", \"en\": \"Interface band · L1–L2\"},\n    \"purple\": {\"zh\": \"加工带 · L3–L4\", \"en\": \"Processing band · L3–L4\"},\n    \"amber\":  {\"zh\": \"元带 · L5–L6\", \"en\": \"Meta band · L5–L6\"}\n  },\n  \"fonts\": {\n    \"cjk\":   [\"Noto Sans CJK SC\", \"Source Han Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", \"WenQuanYi Micro Hei\"],\n    \"latin\": [\"Inter\", \"Helvetica Neue\", \"Arial\", \"DejaVu Sans\"],\n    \"mono\":  [\"JetBrains Mono\", \"Menlo\", \"Consolas\", \"DejaVu Sans Mono\"]\n  },\n  \"video\": {\"file\": \"MeaningIntelligenceScene.mp4\", \"quality\": \"1080p60\"},\n  \"overload\": {\"count\": 45, \"seed\": 42},\n  \"source_note\": {\n    \"zh\": \"六层名称、锚点与证据等级取自 sara-protocol/meaning-intelligence 的 README(v0.2.0)。证伪条件为本项目的草案,尚未与其失败矩阵对齐。\",\n    \"en\": \"Layer names, anchors and evidence levels follow the README of sara-protocol/meaning-intelligence (v0.2.0). Falsifiers are our own drafts, not yet aligned with its failure matrix.\"\n  },\n  \"bands\": [\n    {\"id\": \"interface\",  \"tier\": \"cyan\",   \"layers\": [\"L1\", \"L2\"], \"label\": {\"zh\": \"界面带\", \"en\": \"Interface band\"},  \"problem\": {\"zh\": \"信息进不来\", \"en\": \"Information can't get in\"}},\n    {\"id\": \"processing\", \"tier\": \"purple\", \"layers\": [\"L3\", \"L4\"], \"label\": {\"zh\": \"加工带\", \"en\": \"Processing band\"}, \"problem\": {\"zh\": \"意义出不来\", \"en\": \"Meaning can't come out\"}},\n    {\"id\": \"meta\",       \"tier\": \"amber\",  \"layers\": [\"L5\", \"L6\"], \"label\": {\"zh\": \"元带\", \"en\": \"Meta band\"},       \"problem\": {\"zh\": \"方向守不住\", \"en\": \"Direction can't hold\"}}\n  ],\n  \"layers\": [\n    {\"id\": \"L1\", \"band\": \"interface\",\n     \"name\": {\"zh\": \"减负\", \"en\": \"Cognitive Load Reduction\"},\n     \"definition\": {\"zh\": \"把认知负荷从信息量转移到结构\", \"en\": \"Shift cognitive load from information volume to structure\"},\n     \"anchor\": {\"zh\": \"第1章 1.1;工具 A.1\", \"en\": \"Ch.1 §1.1; Tool A.1\"},\n     \"evidence\": \"E1(机制 E3)\",\n     \"falsifier\": {\"zh\": \"若结构化压缩后,读者的理解准确率与错误发现率不优于原文,则 L1 在该任务上失败。\", \"en\": \"If comprehension accuracy and error-detection after structured compression are no better than with the original text, L1 fails on that task.\"}},\n    {\"id\": \"L2\", \"band\": \"interface\",\n     \"name\": {\"zh\": \"可体验\", \"en\": \"Experiential Rendering\"},\n     \"definition\": {\"zh\": \"把「读到」变成「操作到」\", \"en\": \"Turn \\\"read\\\" into \\\"operated\\\"\"},\n     \"anchor\": {\"zh\": \"第3章;第9章 M1\", \"en\": \"Ch.3; Ch.9 M1\"},\n     \"evidence\": \"E1(机制 E3)\",\n     \"falsifier\": {\"zh\": \"若可操作版本相对静态版本在迁移任务上没有增益,则 L2 失败。\", \"en\": \"If the operable version yields no gain over the static version on transfer tasks, L2 fails.\"}},\n    {\"id\": \"L3\", \"band\": \"processing\",\n     \"name\": {\"zh\": \"意义生成\", \"en\": \"Meaning Generation\"},\n     \"definition\": {\"zh\": \"组织成方向·价值·边界\", \"en\": \"Organise into direction · value · boundary\"},\n     \"anchor\": {\"zh\": \"第3章 3.1 / 3.2;第8章 8.1 光谱带\", \"en\": \"Ch.3 §3.1/3.2; Ch.8 §8.1 spectrum band\"},\n     \"evidence\": \"E0–E1\",\n     \"falsifier\": {\"zh\": \"若独立标注者无法把同一材料稳定归入方向、价值、边界(一致性低于预设阈值),则 L3 失败。\", \"en\": \"If independent raters cannot sort the same material into direction/value/boundary consistently (agreement below a preset threshold), L3 fails.\"}},\n    {\"id\": \"L4\", \"band\": \"processing\",\n     \"name\": {\"zh\": \"价值评估\", \"en\": \"Value Assessment\"},\n     \"definition\": {\"zh\": \"为判断标注证据强度\", \"en\": \"Label every judgement with its strength of evidence\"},\n     \"anchor\": {\"zh\": \"第6章 E0–E6;3.3 PE 方程\", \"en\": \"Ch.6 E0–E6; §3.3 PE equation\"},\n     \"evidence\": \"E2(工具)/ E1(模型)\",\n     \"falsifier\": {\"zh\": \"若证据等级标注在评审者之间不一致,或与后续检验结果无单调关系,则 L4 失败。\", \"en\": \"If evidence grades disagree across reviewers, or bear no monotone relation to later test outcomes, L4 fails.\"}},\n    {\"id\": \"L5\", \"band\": \"meta\",\n     \"name\": {\"zh\": \"方向选择\", \"en\": \"Direction Selection\"},\n     \"definition\": {\"zh\": \"在五尺度上选定值得的方向\", \"en\": \"Choose the worthwhile direction across five scales\"},\n     \"anchor\": {\"zh\": \"第4章;DC 指标;三级修正\", \"en\": \"Ch.4; DC index; three-level correction\"},\n     \"evidence\": \"E1\",\n     \"falsifier\": {\"zh\": \"若按该层选出的方向在事后评估中不优于基线或随机选择,则 L5 失败。\", \"en\": \"If directions chosen by this layer do no better than a baseline or random choice in post-hoc evaluation, L5 fails.\"}},\n    {\"id\": \"L6\", \"band\": \"meta\",\n     \"name\": {\"zh\": \"反思与审视递归\", \"en\": \"Recursive Reflection and Review\"},\n     \"definition\": {\"zh\": \"让系统审视自己的审视\", \"en\": \"Let the system review its own reviewing\"},\n     \"anchor\": {\"zh\": \"第7章 7B.2/7B.3/7B.4;失败矩阵\", \"en\": \"Ch.7 §7B.2/7B.3/7B.4; failure matrix\"},\n     \"evidence\": \"E2(案例)/ E1\",\n     \"falsifier\": {\"zh\": \"若递归审视在后续轮次中没有比无审视对照更高的纠错率,则 L6 失败。\", \"en\": \"If recursive review does not correct earlier errors at a higher rate than a no-review control in later rounds, L6 fails.\"}}\n  ],\n  \"acts\": [\n    {\"id\": \"overload\", \"layer\": \"L1\", \"tier\": \"gray\", \"enter\": 1.2, \"hold\": 1.0,\n     \"label\": {\"zh\": \"信息洪流\", \"en\": \"Information Overload\"},\n     \"desc\":  {\"zh\": \"info. info. info. ...\", \"en\": \"info. info. info. ...\"},\n     \"scene\": {\"zh\": \"信息过载:{count} 条随机文本\", \"en\": \"Overload: {count} random text fragments\"}},\n    {\"id\": \"text\", \"layer\": \"L1\", \"tier\": \"cyan\", \"enter\": 3.0, \"hold\": 2.0,\n     \"label\": {\"zh\": \"文本降维\", \"en\": \"Text Reduction\"},\n     \"desc\":  {\"zh\": \"ASD-STE100 受控语言\", \"en\": \"ASD-STE100 controlled language\"},\n     \"scene\": {\"zh\": \"汇聚为一点 → 提炼三条核心语句\", \"en\": \"Collapse to a point → three core statements\"}},\n    {\"id\": \"diagram\", \"layer\": \"L1\", \"tier\": \"cyan\", \"enter\": 1.8, \"hold\": 2.0,\n     \"label\": {\"zh\": \"结构图\", \"en\": \"Structure Diagram\"},\n     \"desc\":  {\"zh\": \"节点 + 关系\", \"en\": \"Nodes + relations\"},\n     \"scene\": {\"zh\": \"转换为节点与箭头图\", \"en\": \"Converted to a node-and-arrow graph\"}},\n    {\"id\": \"interactive\", \"layer\": \"L2\", \"tier\": \"cyan\", \"enter\": 4.0, \"hold\": 1.5,\n     \"label\": {\"zh\": \"可操作界面\", \"en\": \"Operable Interface\"},\n     \"desc\":  {\"zh\": \"网页 / 滑块 / 参数调节\", \"en\": \"Web page / slider / parameters\"},\n     \"scene\": {\"zh\": \"浏览器窗口 + 滑块拖动\", \"en\": \"Browser window + slider drag\"}},\n    {\"id\": \"meaning\", \"layer\": \"L3\", \"tier\": \"purple\", \"enter\": 3.5, \"hold\": 2.0,\n     \"label\": {\"zh\": \"意义归位\", \"en\": \"Meaning Placement\"},\n     \"desc\":  {\"zh\": \"方向 · 价值 · 边界\", \"en\": \"Direction · value · boundary\"},\n     \"scene\": {\"zh\": \"散点节点归位到方向·价值·边界三角\", \"en\": \"Scattered nodes settle into the direction·value·boundary triangle\"}},\n    {\"id\": \"assess\", \"layer\": \"L4\", \"tier\": \"purple\", \"enter\": 3.0, \"hold\": 2.0,\n     \"label\": {\"zh\": \"证据着色\", \"en\": \"Evidence Rings\"},\n     \"desc\":  {\"zh\": \"E0–E6 证据色环\", \"en\": \"E0–E6 evidence rings\"},\n     \"scene\": {\"zh\": \"每个节点套上证据色环(示意)\", \"en\": \"Each node gets an evidence ring (illustrative)\"}},\n    {\"id\": \"select\", \"layer\": \"L5\", \"tier\": \"amber\", \"enter\": 3.5, \"hold\": 2.0,\n     \"label\": {\"zh\": \"路径选择\", \"en\": \"Path Selection\"},\n     \"desc\":  {\"zh\": \"三选一,其余淡出\", \"en\": \"One of three; the rest fade\"},\n     \"scene\": {\"zh\": \"三条候选路径,两条淡出,一条高亮\", \"en\": \"Three candidate paths: two fade, one is highlighted\"}},\n    {\"id\": \"reflect\", \"layer\": \"L6\", \"tier\": \"amber\", \"enter\": 4.5, \"hold\": 2.0,\n     \"label\": {\"zh\": \"递归螺旋\", \"en\": \"Recursive Spiral\"},\n     \"desc\":  {\"zh\": \"回写至更高起点 L1′ + 监督之眼\", \"en\": \"Return to higher start L1′ + overseeing eye\"},\n     \"scene\": {\"zh\": \"螺旋回写至同角度的更高起点 L1′,监督之眼审视整圈\", \"en\": \"Spiral returns to a higher start L1′ at the same angle; the eye reviews the whole loop\"}}\n  ],\n  \"final\": {\n    \"id\": \"final\", \"enter\": 1.8, \"hold\": 2.5,\n    \"label\": {\"zh\": \"Meaning Intelligence\", \"en\": \"Meaning Intelligence\"},\n    \"scene\": {\"zh\": \"渐变标题落幕\", \"en\": \"Gradient title card\"}\n  },\n  \"content\": {\n    \"overload_text\": {\n      \"zh\": \"大模型生成内容爆炸式增长,人类面临严重的认知信息过载。在海量文本洪流中,人类注意力被极大地分散。我们需要快速提取核心意义,真正的价值在于理解与监督……\",\n      \"en\": \"Explosive AI-generated content leads to severe cognitive information overload. Human attention is fragmented across vast text streams. Extracting core meaning and staying in the loop is essential...\"\n    },\n    \"ste_lines\": {\n      \"zh\": [\"信息过载\", \"人类阅读困难\", \"提取核心意义\"],\n      \"en\": [\"Information Overload\", \"Cognitive Bottleneck\", \"Extracting Meaning\"]\n    },\n    \"node1\": {\"zh\": \"原始信息\", \"en\": \"Raw Information\"},\n    \"node2\": {\"zh\": \"降维处理\", \"en\": \"Reduction\"},\n    \"axes\": {\"zh\": [\"方向\", \"价值\", \"边界\"], \"en\": [\"Direction\", \"Value\", \"Boundary\"]},\n    \"candidates\": {\"zh\": [\"路径 A\", \"路径 B\", \"路径 C\"], \"en\": [\"Path A\", \"Path B\", \"Path C\"]},\n    \"illustrative\": {\"zh\": \"示意 · 色环不代表真实评级\", \"en\": \"Illustrative · rings are not real ratings\"},\n    \"supervisor\": {\"zh\": \"抽象监督与意义提取\", \"en\": \"Abstract Supervision & Meaning Extraction\"}\n  },\n  \"demo\": {\n    \"assess_levels\": [0, 1, 1, 2, 3, 2, 1, 4, 2],\n    \"chosen_path\": 1\n  },\n  \"ui\": {\n    \"zh\": {\n      \"title\": \"意义智能 (Meaning Intelligence)\",\n      \"subtitle\": \"六层应用栈:从减负到反思与审视递归\",\n      \"langBtn\": \"English\",\n      \"tabs\": [\"📹 渲染视频\", \"🎚 六层演示\", \"📊 逻辑图表\", \"💻 源码与配置\"],\n      \"videoDesc\": \"3B1B 风格渲染\",\n      \"videoMissing\": \"未找到视频文件,请先运行 manim 渲染,并将 mp4 放在本页同目录。\",\n      \"timelineSrc\": {\"measured\": \"时间轴:渲染实测\", \"planned\": \"时间轴:配置推算(渲染后将自动被实测值取代)\"},\n      \"playStage\": \"▶ 在视频中播放此层\",\n      \"canvasHint\": \"调节无序度,观察粒子从混乱收敛为结构:\",\n      \"entropy\": \"无序度 (Entropy)\",\n      \"pickPath\": \"点击候选路径,其余淡出:\",\n      \"recursion\": \"L6 回写至更高起点 L1′\",\n      \"mermaidFail\": \"Mermaid 库未能加载(离线?),以下为图表源码:\",\n      \"diagrams\": [\"六层应用栈\", \"场景结构\", \"视觉编码规范\"],\n      \"card\": {\"band\": \"所属带\", \"anchor\": \"锚定正典\", \"evidence\": \"证据等级\", \"falsifier\": \"什么会让它作废(草案)\"},\n      \"srcPy\": \"meaning_intelligence.py\",\n      \"srcCfg\": \"config.json\"\n    },\n    \"en\": {\n      \"title\": \"Meaning Intelligence\",\n      \"subtitle\": \"The six-layer stack: from load reduction to recursive review\",\n      \"langBtn\": \"中文\",\n      \"tabs\": [\"📹 Rendered Video\", \"🎚 Six-Layer Demo\", \"📊 Logic Diagram\", \"💻 Source & Config\"],\n      \"videoDesc\": \"3B1B-style render\",\n      \"videoMissing\": \"Video file not found. Render with manim and place the mp4 next to this page.\",\n      \"timelineSrc\": {\"measured\": \"Timeline: measured from render\", \"planned\": \"Timeline: planned from config (replaced by measured values after rendering)\"},\n      \"playStage\": \"▶ Play this layer in the video\",\n      \"canvasHint\": \"Adjust entropy to watch particles converge into structure:\",\n      \"entropy\": \"Entropy\",\n      \"pickPath\": \"Click a candidate path; the others fade:\",\n      \"recursion\": \"L6 returns to a higher start, L1′\",\n      \"mermaidFail\": \"Mermaid failed to load (offline?). Diagram source:\",\n      \"diagrams\": [\"Six-layer stack\", \"Scene structure\", \"Visual encoding\"],\n      \"card\": {\"band\": \"Band\", \"anchor\": \"Canon anchor\", \"evidence\": \"Evidence level\", \"falsifier\": \"What would falsify it (draft)\"},\n      \"srcPy\": \"meaning_intelligence.py\",\n      \"srcCfg\": \"config.json\"\n    }\n  }\n}\n";
+/* --------------------------------------------------------------------- */
+const $ = id => document.getElementById(id);
+const C = CFG.colors, LAYERS = CFG.layers, BANDS = CFG.bands, EV = CFG.evidence_scale;
+let lang = CFG.default_lang, tab = 0, stage = 1, chosen = CFG.demo.chosen_path;
+const ui = () => CFG.ui[lang];
+const bandOf = l => BANDS.find(b => b.id === l.band);
+const tierColor = l => C[bandOf(l).tier];
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const NS = 'http://www.w3.org/2000/svg';
 
-const evColor = k => EVIDENCE[k] || "#7A8CA3";
-const notes = [];
-const statusAlert = document.getElementById("statusAlert");
-function renderNotes(){ statusAlert.innerHTML = notes.join("<br>"); }
-if (SOURCE === "planned") {
-  notes.push("⚠️ 当前注入的是<b>预算时间轴</b>：未检测到实测 timeline.json，" +
-             "运行渲染后重建即可同步毫秒级数据。");
-}
+for (const [k, v] of Object.entries({bg:C.bg,card:C.dark,cyan:C.cyan,purple:C.purple,sub:C.gray}))
+  document.documentElement.style.setProperty('--' + k, v);
 
-/* ---------------------------------------------------------------- 导航 */
-let current = "L1";
-const tabsEl = document.getElementById("tabs");
-BANDS.forEach(band => {
-  const box = document.createElement("div");
-  box.className = "band";
-  box.innerHTML = '<div class="band-h"><span>' + band.name + " · " + band.en +
-                  "</span><em>" + band.solves + "</em></div>";
-  band.layers.forEach(key => {
-    const L = LAYERS[key];
-    const btn = document.createElement("button");
-    btn.className = "tab";
-    btn.type = "button";
-    btn.dataset.key = key;
-    btn.style.borderLeftColor = L.color;
-    btn.setAttribute("aria-selected", key === current ? "true" : "false");
-    btn.innerHTML = '<span class="id" style="color:' + L.color + '">' + key + "</span>" +
-      '<span class="nm">' + L.name + "<i>" + L.en + "</i></span>" +
-      '<span class="ev" style="background:' + evColor(L.evidence) + '">' + L.evidence + "</span>";
-    btn.addEventListener("click", () => select(key));
-    box.appendChild(btn);
-  });
-  tabsEl.appendChild(box);
-});
-
-/* ---------------------------------------------------------------- 视频 */
-const video = document.getElementById("mainVideo");
-let seeking = false;
-video.addEventListener("error", () => {
-  notes.push("🎬 未找到 <b>MeaningIntelligenceScene.mp4</b>：请先运行 run.ps1 / run.sh " +
-             "渲染并复制到本目录。");
-  renderNotes();
-});
-
-/* ---------------------------------------------------------------- 画布 */
-const canvas = document.getElementById("stage");
-const ctx = canvas.getContext("2d");
-const W = 1000, H = 430;      // 逻辑坐标空间
-let scale = 1;
-
-function fitCanvas(){
-  const rect = canvas.getBoundingClientRect();
-  const dpr = window.devicePixelRatio || 1;
-  canvas.width  = Math.max(1, Math.round(rect.width  * dpr));
-  canvas.height = Math.max(1, Math.round(rect.height * dpr));
-  scale = Math.min(rect.width / W, rect.height / H);
-  // setTransform 幂等；用 scale() 会在每次 resize 时累乘，窗口拖几次画面就会被放大
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.translate((rect.width - W*scale)/2, (rect.height - H*scale)/2);
-  ctx.scale(scale, scale);
-}
-function clear(){ ctx.clearRect(-2000, -2000, 6000, 6000); }
-function dot(x,y,r,fill){ ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fillStyle=fill; ctx.fill(); }
-function ring(x,y,r,stroke,w){ ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
-  ctx.strokeStyle=stroke; ctx.lineWidth=w||3; ctx.stroke(); }
-function label(txt,x,y,color,size,align){
-  ctx.fillStyle = color || "#7A8CA3";
-  ctx.font = (size||15) + 'px -apple-system,"Microsoft YaHei",sans-serif';
-  ctx.textAlign = align || "center"; ctx.textBaseline = "middle";
-  ctx.fillText(txt, x, y);
-}
-function rng(seed){ let s = seed>>>0; return () => (s = (s*1664525+1013904223)>>>0)/4294967296; }
-function toLocal(ev){
-  const r = canvas.getBoundingClientRect();
-  return [(ev.clientX - r.left - (r.width  - W*scale)/2)/scale,
-          (ev.clientY - r.top  - (r.height - H*scale)/2)/scale];
-}
-
-const state = {};
-
-/* ---- L1 减负 ---- */
-function initL1(){
-  const r = rng(20261007), pts = [], homes = [];
-  for (let i=0;i<120;i++) pts.push([r()*W, r()*H]);
-  for (let i=0;i<12;i++) homes.push([200 + (i%4)*200, 110 + ((i/4)|0)*105]);
-  state.L1 = { pts, homes, compress: 0.55 };
-}
-function drawL1(){
-  const s = state.L1, k = s.compress;
-  clear();
-  s.pts.forEach((p,i)=>{
-    const h = s.homes[i % 12];
-    dot(p[0]+(h[0]-p[0])*k, p[1]+(h[1]-p[1])*k, 2.4,
-        "rgba(196,155,59," + (0.30 + 0.70*(1-k)).toFixed(3) + ")");
-  });
-  s.homes.forEach(h=>{
-    ring(h[0], h[1], 13, "rgba(42,92,142," + (0.35+0.65*k).toFixed(3) + ")", 2);
-    if (k > 0.62) dot(h[0], h[1], 5.2, "#2A5C8E");
-  });
-  label("压缩率 compress = " + k.toFixed(2) + "　·　120 → 12　负荷从信息量转移到结构",
-        W/2, H-26);
-}
-
-/* ---- L2 可体验 ---- */
-function initL2(){
-  const homes = [];
-  for (let i=0;i<12;i++){
-    const a = (i/12)*Math.PI*2 - Math.PI/2;
-    homes.push([380*Math.cos(a), 150*Math.sin(a)]);
+/* ---------- skeleton ---------- */
+(() => {
+  for (let i = 0; i < 4; i++) {
+    const b = document.createElement('button');
+    b.className = 'tab'; b.id = 't' + i; b.type = 'button';
+    b.setAttribute('role', 'tab'); b.setAttribute('aria-controls', 'p' + i);
+    b.addEventListener('click', () => switchTab(i));
+    b.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') switchTab((tab + 1) % 4, true);
+      if (e.key === 'ArrowLeft') switchTab((tab + 3) % 4, true);
+    });
+    $('tabs').appendChild(b);
   }
-  state.L2 = { homes, spread: 0.9 };
-}
-function drawL2(){
-  const s = state.L2, k = s.spread;
-  clear();
-  ctx.save(); ctx.translate(W/2, H/2 - 14);
-  ring(0,0,150*0.45,"rgba(255,255,255,.10)",1);
-  ring(0,0,150*1.05,"rgba(255,255,255,.10)",1);
-  s.homes.forEach(h=>{
-    dot(h[0]*k, h[1]*k, 9, "#3B6EA5");
-    ring(h[0]*k, h[1]*k, 15, "rgba(59,110,165,.55)", 2);
+  $('stageSlider').max = LAYERS.length;
+  LAYERS.forEach((l, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.id = 'lbl' + (i + 1);
+    b.addEventListener('click', () => setStage(i + 1));
+    $('labels').appendChild(b);
   });
-  ctx.restore();
-  const tx0=120, tx1=W-120, ty=H-52;
-  ctx.strokeStyle="#7A8CA3"; ctx.lineWidth=3;
-  ctx.beginPath(); ctx.moveTo(tx0,ty); ctx.lineTo(tx1,ty); ctx.stroke();
-  dot(tx0 + (tx1-tx0)*((k-0.45)/0.9), ty, 9, "#3B6EA5");
-  label("spread = " + k.toFixed(2) + "　·　参数改变 → 结果可预测，这才是「可体验」而非「好看」",
-        W/2, H-20);
-}
+  $('stageSlider').addEventListener('input', e => setStage(+e.target.value));
+  $('langBtn').addEventListener('click', () => { lang = CFG.languages[(CFG.languages.indexOf(lang) + 1) % CFG.languages.length]; applyLang(); });
+  $('playStage').addEventListener('click', () => { switchTab(0); seek(LAYERS[stage - 1].id, true); });
+  $('vsrc').src = CFG.video.file;
+  $('vsrc').addEventListener('error', () => { $('vmiss').hidden = false; });
+  $('video').load();
+})();
 
-/* ---- L3 意义生成 ---- */
-function initL3(){ state.L3 = { d:0.7, v:0.5, b:0.4 }; }
-function drawL3(){
-  const s = state.L3;
-  clear();
-  const top=[W/2,80], left=[W/2-330,H-110], right=[W/2+330,H-110];
-  ctx.beginPath(); ctx.moveTo(top[0],top[1]); ctx.lineTo(left[0],left[1]);
-  ctx.lineTo(right[0],right[1]); ctx.closePath();
-  ctx.fillStyle="rgba(107,76,154,.10)"; ctx.fill();
-  ctx.strokeStyle="#6B4C9A"; ctx.lineWidth=2.5; ctx.stroke();
-  [[top,"方向 Direction"],[left,"价值 Value"],[right,"边界 Boundary"]].forEach(p=>{
-    dot(p[0][0],p[0][1],7,"#6B4C9A");
-    label(p[1], p[0][0], p[0][1]-26, "#F8FAFC", 16);
-  });
-  const sum = s.d+s.v+s.b || 1;
-  const x = (top[0]*s.d + left[0]*s.v + right[0]*s.b)/sum;
-  const y = (top[1]*s.d + left[1]*s.v + right[1]*s.b)/sum;
-  ring(x,y,22,"rgba(107,76,154,.45)",2);
-  dot(x,y,10,"#C49B3B");
-  label("意义坐标 (" + s.d.toFixed(1) + ", " + s.v.toFixed(1) + ", " + s.b.toFixed(1) + ")",
-        x, y+44, "#F8FAFC", 15);
-  label("三个维度同时成立，才构成一个可陈述的意义判断", W/2, H-18);
-}
-
-/* ---- L4 价值评估 ---- */
-function initL4(){
-  const nodes = [];
-  for (let i=0;i<12;i++){
-    nodes.push({ x:200 + (i%4)*200, y:110 + ((i/4)|0)*105, lv:i%7 });
+/* ---------- SVG helpers ---------- */
+const svg = (id, html) => { $(id).innerHTML = html; };
+const dotPositions = () => {                       // 9 nodes settled around the 3 vertices (same rule as the Manim act)
+  const V = [[200, 28], [62, 168], [338, 168]], c = [200, 121], out = [];
+  for (let i = 0; i < 9; i++) {
+    const v = V[i % 3], a = Math.floor(i / 3) * 2.1 + i;
+    out.push([v[0] + (c[0] - v[0]) * 0.24 + 15 * Math.cos(a), v[1] + (c[1] - v[1]) * 0.24 + 15 * Math.sin(a)]);
   }
-  state.L4 = { nodes };
-}
-function drawL4(){
-  clear();
-  state.L4.nodes.forEach(n=>{
-    const col = evColor("E"+n.lv);
-    ring(n.x, n.y, 26, col, 3.4);
-    dot(n.x, n.y, 9, col);
-    label("E"+n.lv, n.x, n.y+46, col, 14);
-  });
-  const keys=["E0","E1","E2","E3","E4","E5","E6"];
-  const bw=64, x0=W/2-(keys.length*bw)/2;
-  keys.forEach((k,i)=>{
-    ctx.fillStyle = evColor(k);
-    ctx.fillRect(x0+i*bw, H-56, bw-8, 20);
-    label(k, x0+i*bw+(bw-8)/2, H-46, "#0b1220", 13);
-    label(EV_NAMES[k][0], x0+i*bw+(bw-8)/2, H-26, "#7A8CA3", 12);
-  });
-  label("点击任一节点：循环提升其证据等级", W/2, 26);
-}
-
-/* ---- L5 方向选择 ---- */
-function initL5(){ state.L5 = { chosen: 1 }; }
-function bezier(p0,p1,p2,p3,t){
-  const u=1-t;
-  return [u*u*u*p0[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t*t*t*p3[0],
-          u*u*u*p0[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t*t*t*p3[1]];
-}
-function drawL5(){
-  const s = state.L5;
-  clear();
-  const p0=[120,H-90];
-  const ends=[[W-120,80],[W-110,H/2],[W-140,H-140]];
-  const ctrl=[[420,40],[470,H/2-30],[430,H-40]];
-  const names=["候选 A","候选 B","候选 C"];
-  for (let i=0;i<3;i++){
-    const on = i===s.chosen;
-    ctx.beginPath();
-    for (let t=0;t<=1.0001;t+=0.02){
-      const p = bezier(p0,ctrl[i],ctrl[i],ends[i],t);
-      if (t===0) ctx.moveTo(p[0],p[1]); else ctx.lineTo(p[0],p[1]);
-    }
-    ctx.strokeStyle = on ? "#C49B3B" : "rgba(122,140,163,.30)";
-    ctx.lineWidth   = on ? 6 : 2;
-    ctx.stroke();
-    label(names[i], ends[i][0]+8, ends[i][1]-30, on?"#C49B3B":"#7A8CA3", on?17:14, "right");
-    if (on) dot(ends[i][0], ends[i][1], 9, "#C49B3B");
-  }
-  dot(p0[0],p0[1],9,"#7A8CA3");
-  label("点击曲线切换选定方向　·　选定即承担代价，并预先声明偏离阈值", W/2, H-18);
-  label("一级 <10%　二级 10–30%　三级 >30%", W/2, 24);
-}
-
-/* ---- L6 反思与审视递归 ---- */
-function initL6(){ state.L6 = { t: 0 }; }
-function drawL6(){
-  const s = state.L6;
-  clear();
-  const cx=W/2, cy=H/2+12, turns=1.6, r0=40, r1=185;
-  ctx.beginPath();
-  const N = Math.max(2, Math.floor(600*s.t));
-  for (let i=0;i<=N;i++){
-    const t=i/600, a=-Math.PI/2 + t*turns*Math.PI*2, r=r0+(r1-r0)*t;
-    const x=cx+r*Math.cos(a), y=cy+r*Math.sin(a);
-    if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-  }
-  ctx.strokeStyle="#EF4444"; ctx.lineWidth=4; ctx.stroke();
-  dot(cx,cy,7,"#EF4444");
-  label("归零 Zeroing", cx, cy+32, "#EF4444", 14);
-  if (s.t > 0.98){
-    const a=-Math.PI/2 + turns*Math.PI*2, r=r1*1.13;
-    const x=cx+r*Math.cos(a), y=cy+r*Math.sin(a);
-    ring(x,y,17,"#EF4444",4);
-    label("L1′", x, y, "#EF4444", 15);
-    label("下一轮起点 Next-cycle entry", x+120, y, "#EF4444", 14, "left");
-  }
-  label("归零不是回到原点，而是回到同角度的更高一层起点", W/2, H-18);
-}
-
-/* ---- 各层控件定义 ---- */
-const DEMOS = {
-  L1:{init:initL1, draw:drawL1,
-      ctrls:[{k:"compress",label:"压缩率",min:0,max:1,step:0.01}]},
-  L2:{init:initL2, draw:drawL2,
-      ctrls:[{k:"spread",label:"spread",min:0.45,max:1.35,step:0.01}]},
-  L3:{init:initL3, draw:drawL3,
-      ctrls:[{k:"d",label:"方向",min:0,max:1,step:0.05},
-             {k:"v",label:"价值",min:0,max:1,step:0.05},
-             {k:"b",label:"边界",min:0,max:1,step:0.05}]},
-  L4:{init:initL4, draw:drawL4, ctrls:[]},
-  L5:{init:initL5, draw:drawL5, ctrls:[]},
-  L6:{init:initL6, draw:drawL6, ctrls:[]}
+  return { V, pts: out };
 };
 
-function buildCtrls(key){
-  const box = document.getElementById("ctrls");
-  box.innerHTML = "";
-  DEMOS[key].ctrls.forEach(c=>{
-    const wrap = document.createElement("label");
-    wrap.className = "ctrl";
-    wrap.innerHTML = c.label +
-      ' <input type="range" min="' + c.min + '" max="' + c.max + '" step="' + c.step +
-      '" value="' + state[key][c.k] + '"> <output>' +
-      Number(state[key][c.k]).toFixed(2) + "</output>";
-    const inp = wrap.querySelector("input"), out = wrap.querySelector("output");
-    inp.addEventListener("input", ()=>{
-      state[key][c.k] = parseFloat(inp.value);
-      out.textContent = Number(inp.value).toFixed(2);
-      DEMOS[key].draw();
-    });
-    box.appendChild(wrap);
+function renderTriangle(id, withRings) {
+  const { V, pts } = dotPositions(), K = CFG.content.axes[lang], col = C.purple;
+  let h = `<polygon points="${V.map(v => v.join(',')).join(' ')}" fill="${C.fill_purple}" fill-opacity=".6" stroke="${col}" stroke-width="2"/>`;
+  h += `<text x="200" y="16" text-anchor="middle" fill="${col}" font-size="13" font-weight="700">${esc(K[0])}</text>`;
+  h += `<text x="62" y="190" text-anchor="middle" fill="${col}" font-size="13" font-weight="700">${esc(K[1])}</text>`;
+  h += `<text x="338" y="190" text-anchor="middle" fill="${col}" font-size="13" font-weight="700">${esc(K[2])}</text>`;
+  pts.forEach(([x, y], i) => {
+    h += `<circle cx="${x}" cy="${y}" r="5" fill="${C.cyan}"/>`;
+    if (withRings) h += `<circle cx="${x}" cy="${y}" r="10" fill="none" stroke="${EV[CFG.demo.assess_levels[i]]}" stroke-width="3"/>`;
   });
-  if (key === "L6"){
-    const b = document.createElement("button");
-    b.className = "btn on"; b.type = "button"; b.textContent = "重新归零 Restart";
-    b.addEventListener("click", ()=>{ state.L6.t = 0; });
-    box.appendChild(b);
+  if (withRings) {
+    EV.forEach((c, i) => { h += `<rect x="${118 + i * 24}" y="198" width="20" height="10" fill="${c}"/>`; });
+    h += `<text x="110" y="207" text-anchor="end" fill="${C.gray}" font-size="9">E0</text><text x="${118 + 7 * 24 + 2}" y="207" fill="${C.gray}" font-size="9">E6</text>`;
+    h += `<text x="200" y="219" text-anchor="middle" fill="${C.gray}" font-size="8">${esc(CFG.content.illustrative[lang])}</text>`;
   }
-  if (key === "L4" || key === "L5"){
-    const t = document.createElement("span");
-    t.className = "ctrl";
-    t.textContent = key === "L4" ? "在画布上点击节点以提升证据等级"
-                                 : "在画布上点击曲线以选定方向";
-    box.appendChild(t);
-  }
+  svg(id, h);
 }
 
-canvas.addEventListener("click", ev=>{
-  const p = toLocal(ev);
-  if (current === "L4"){
-    let hit = false;
-    state.L4.nodes.forEach(n=>{
-      if (Math.hypot(n.x-p[0], n.y-p[1]) < 34){ n.lv = (n.lv+1)%7; hit = true; }
-    });
-    if (hit) drawL4();
-  } else if (current === "L5"){
-    state.L5.chosen = p[1] < H/3 ? 0 : (p[1] < 2*H/3 ? 1 : 2);
-    drawL5();
+function renderPaths() {
+  const cand = CFG.content.candidates[lang], ys = [38, 100, 162], x0 = 24, x1 = 300;
+  let h = `<circle cx="${x0}" cy="100" r="7" fill="#fff"/>`;
+  ys.forEach((y, i) => {
+    const on = i === chosen, col = on ? C.cyan : C.amber;
+    h += `<g class="path" data-i="${i}" tabindex="0" role="button" aria-label="${esc(cand[i])}" style="opacity:${on ? 1 : .2}">` +
+         `<path d="M${x0} 100 C${x0 + 120} 100 ${x1 - 120} ${y} ${x1} ${y}" fill="none" stroke="${col}" stroke-width="${on ? 5 : 3}"/>` +
+         `<path d="M${x0} 100 C${x0 + 120} 100 ${x1 - 120} ${y} ${x1} ${y}" fill="none" stroke="transparent" stroke-width="22" pointer-events="stroke"/>` +
+         `<circle cx="${x1}" cy="${y}" r="${on ? 9 : 6}" fill="${col}"/>` +
+         `<text x="${x1 + 16}" y="${y + 4}" fill="${col}" font-size="13">${esc(cand[i])}</text></g>`;
+  });
+  svg('svg5', h);
+  document.querySelectorAll('#svg5 .path').forEach(g => {
+    const pick = () => { chosen = +g.dataset.i; renderPaths(); };
+    g.addEventListener('click', pick);
+    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+}
+
+function renderSpiral() {
+  const cx = 200, cy = 134, pt = t => { const r = 24 + 46 * t / (2 * Math.PI), a = -Math.PI / 2 + t; return [cx + r * Math.cos(a), cy + r * Math.sin(a), Math.cos(a), Math.sin(a)]; };
+  let d = '';
+  for (let i = 0; i <= 80; i++) { const p = pt(i / 80 * 2 * Math.PI); d += (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }
+  let h = `<path d="${d}" fill="none" stroke="${C.amber}" stroke-width="3"/>`;
+  const a = pt(0), b = pt(2 * Math.PI);
+  h += `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#fff" stroke-dasharray="4 3"/>`;
+  for (let i = 0; i <= 6; i++) {
+    const p = pt(i * 2 * Math.PI / 6), name = i < 6 ? 'L' + (i + 1) : "L1′", col = i < 6 ? C.cyan : '#fff';
+    h += `<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="${col}"/><text x="${p[0] + p[2] * 15}" y="${p[1] + p[3] * 15 + 4}" text-anchor="middle" fill="${col}" font-size="11">${name}</text>`;
   }
-});
-
-/* L6 的螺旋需要逐帧推进；只在该层启动 rAF，切走即停 */
-let rafId = null;
-function loop(){
-  if (current !== "L6"){ rafId = null; return; }
-  const s = state.L6;
-  if (s.t < 1) s.t = Math.min(1, s.t + 0.012);
-  drawL6();
-  rafId = requestAnimationFrame(loop);
+  h += `<g transform="translate(200 20)"><ellipse rx="24" ry="10" fill="none" stroke="${C.cyan}" stroke-width="2"/><circle r="6" fill="${C.cyan}"/></g>`;
+  svg('svg6', h);
 }
-function startLoop(){ if (rafId === null) rafId = requestAnimationFrame(loop); }
 
-/* ---------------------------------------------------------------- 切换 */
-function select(key){
-  current = key;
-  document.querySelectorAll(".tab").forEach(b=>
-    b.setAttribute("aria-selected", b.dataset.key === key ? "true" : "false"));
+/* ---------- language ---------- */
+function applyLang() {
+  const u = ui(), K = CFG.content;
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
+  document.title = u.title;
+  $('title').textContent = u.title; $('subtitle').textContent = u.subtitle; $('langBtn').textContent = u.langBtn;
+  u.tabs.forEach((t, i) => $('t' + i).textContent = t);
+  LAYERS.forEach((l, i) => { $('lbl' + (i + 1)).textContent = l.id + ' ' + l.name[lang]; });
+  $('vdesc').textContent = u.videoDesc + ' · ' + CFG.video.quality;
+  $('tlsrc').textContent = u.timelineSrc[TIMELINE_SOURCE];
+  $('vmiss').textContent = u.videoMissing;
+  $('v1noise').textContent = K.overload_text[lang];
+  $('v1ste').replaceChildren(...K.ste_lines[lang].map(l => { const d = document.createElement('div'); d.textContent = l; return d; }));
+  $('n1').textContent = K.node1[lang]; $('n1').style.cssText = `color:${C.cyan};border-color:${C.cyan}`;
+  $('n2').textContent = K.node2[lang]; $('n2').style.cssText = `color:${C.purple};border-color:${C.purple}`;
+  $('hint').textContent = u.canvasHint; $('entLbl').textContent = u.entropy + ':';
+  $('pickHint').textContent = u.pickPath; $('recNote').textContent = u.recursion;
+  $('playStage').textContent = u.playStage;
+  $('srcNote').textContent = CFG.source_note[lang];
+  $('srcPyH').textContent = u.srcPy; $('srcCfgH').textContent = u.srcCfg;
+  $('srcPy').textContent = SRC_PY; $('srcCfg').textContent = SRC_CFG;
+  renderTriangle('svg3', false); renderTriangle('svg4', true); renderPaths(); renderSpiral();
+  setStage(stage, true);
+  mermaidDirty = true;
+  if (tab === 2) renderMermaid();
+}
 
-  const L = LAYERS[key];
-  document.getElementById("lName").firstChild.nodeValue = key + "　" + L.name;
-  document.getElementById("lNameEn").textContent = "　" + L.en;
-  document.getElementById("lQ").innerHTML = L.question + "<em>" + L.question_en + "</em>";
-  document.getElementById("lDef").innerHTML = L.definition + "<em>" + L.definition_en + "</em>";
-  document.getElementById("lAnchor").innerHTML =
-    "理论锚点 Anchor：" + L.anchor + "　·　证据等级 Evidence：" +
-    '<b style="color:' + evColor(L.evidence) + '">' + L.evidence + "</b>（" +
-    EV_NAMES[L.evidence][0] + " / " + EV_NAMES[L.evidence][1] + "）";
-
-  DEMOS[key].init();
-  buildCtrls(key);
-  DEMOS[key].draw();
-  if (key === "L6") startLoop();
-
-  const tl = TIMELINE[key];
-  if (tl && video && !seeking && video.readyState >= 1){
-    if (Math.abs(video.currentTime - tl.start) > 0.3){
-      seeking = true;
-      try { video.currentTime = tl.start; } catch(e){}
-      setTimeout(()=>{ seeking = false; }, 150);
-    }
+/* ---------- tabs ---------- */
+function switchTab(i, focus) {
+  tab = i;
+  for (let k = 0; k < 4; k++) {
+    $('p' + k).hidden = k !== i;
+    const b = $('t' + k);
+    b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1;
   }
+  if (focus) $('t' + i).focus();
+  if (i !== 0) $('video').pause();
+  syncCanvas();
+  if (i === 2) renderMermaid();
 }
 
-/* ---------------------------------------------------------------- 启动 */
-function boot(){
-  fitCanvas();
-  renderNotes();
-  select("L1");
+/* ---------- layers ---------- */
+function setStage(n, silent) {
+  stage = n;
+  const L = LAYERS[n - 1], B = bandOf(L), u = ui(), col = tierColor(L);
+  $('stageSlider').value = n;
+  $('stageSlider').setAttribute('aria-valuetext', `${L.id} ${L.name[lang]}`);
+  LAYERS.forEach((l, i) => {
+    const on = i + 1 === n;
+    $('lbl' + (i + 1)).classList.toggle('on', on);
+    $('lbl' + (i + 1)).style.color = on ? tierColor(l) : '';
+    $('v' + (i + 1)).hidden = !on;
+  });
+  const row = (k, v) => `<dt>${esc(k)}</dt><dd>${v}</dd>`;
+  $('card').innerHTML =
+    `<h3 style="color:${col}">${esc(L.id)} · ${esc(L.name[lang])} <span style="color:${C.gray};font-weight:400;font-size:.8rem">${lang === 'zh' ? esc(L.name.en) : esc(L.name.zh)}</span></h3>` +
+    `<div class="def">${esc(L.definition[lang])}</div><dl>` +
+    row(u.card.band, `<span class="badge" style="color:${col};border-color:${col}">${esc(B.label[lang])}</span>${esc(B.problem[lang])}`) +
+    row(u.card.anchor, esc(L.anchor[lang])) +
+    row(u.card.evidence, esc(L.evidence)) +
+    row(u.card.falsifier, esc(L.falsifier[lang])) + `</dl>`;
+  if (!silent) seek(L.id, false);
+  syncCanvas();
 }
-window.addEventListener("resize", ()=>{ fitCanvas(); DEMOS[current].draw(); });
-video.addEventListener("loadedmetadata", ()=>{
-  const tl = TIMELINE[current];
-  if (tl) { try { video.currentTime = tl.start; } catch(e){} }
-});
-boot();
+
+function seek(id, play) {
+  const v = $('video'), t = TIMELINE[id];
+  if (t === undefined) return;
+  const go = () => { v.currentTime = t; if (play) v.play().catch(() => {}); };
+  v.readyState > 0 ? go() : v.addEventListener('loadedmetadata', go, { once: true });
+}
+
+/* ---------- canvas (L2): particles converge to a grid as entropy -> 0 ---------- */
+const cv = $('cv'), ctx = cv.getContext('2d');
+let W = 460, H = 130, parts = [], raf = null;
+function rng(seed) { return () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296; }
+function hex2rgb(h) { const n = parseInt(h.slice(1), 16); return [n >> 16, n >> 8 & 255, n & 255]; }
+const CY = hex2rgb(C.cyan), PU = hex2rgb(C.purple);
+function setupCanvas() {
+  const r = cv.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  if (!r.width) return false;
+  W = r.width; H = 130;
+  cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const rnd = rng(7); parts = [];
+  for (let i = 0; i < 50; i++) parts.push({ bx: rnd() * W, by: rnd() * H, ph: rnd() * 6.28,
+    tx: W * (0.1 + 0.8 * (i % 10) / 9), ty: H * (0.15 + 0.7 * Math.floor(i / 10) / 4) });
+  return true;
+}
+function drawCanvas(now) {
+  const e = $('entropy').value / 100, k = reduceMotion ? 0 : now * 0.002;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = `rgb(${CY.map((c, j) => Math.round(c + (PU[j] - c) * e))})`;
+  parts.forEach(p => {
+    const x = p.tx + (p.bx - p.tx) * e + Math.sin(k + p.ph) * 12 * e;
+    const y = p.ty + (p.by - p.ty) * e + Math.cos(k + p.ph) * 12 * e;
+    ctx.beginPath(); ctx.arc(x, y, 3, 0, 6.2832); ctx.fill();
+  });
+  cv.setAttribute('aria-label', `${ui().entropy}: ${Math.round(e * 100)}%`);
+}
+function loop(now) { drawCanvas(now); raf = requestAnimationFrame(loop); }
+function syncCanvas() {
+  if (raf) { cancelAnimationFrame(raf); raf = null; }
+  if (tab !== 1 || stage !== 2) return;
+  if (!setupCanvas()) return;
+  reduceMotion ? drawCanvas(0) : (raf = requestAnimationFrame(loop));
+}
+$('entropy').addEventListener('input', () => { if (reduceMotion) drawCanvas(0); });
+addEventListener('resize', () => { if (tab === 1) syncCanvas(); });
+
+/* ---------- mermaid (pinned CDN; falls back to source) ---------- */
+let mermaidDirty = true;
+function renderMermaid() {
+  if (!mermaidDirty) return;
+  mermaidDirty = false;
+  const host = $('mmHost'), u = ui(), ok = !!window.mermaid, nodes = [];
+  host.replaceChildren();
+  if (!ok) { const p = document.createElement('p'); p.className = 'note warn'; p.textContent = u.mermaidFail; host.appendChild(p); }
+  ['pipeline', 'scenes', 'palette'].forEach((k, i) => {
+    const wrap = document.createElement('div'); wrap.className = 'mm';
+    const h = document.createElement('h3'); h.textContent = u.diagrams[i]; wrap.appendChild(h);
+    const box = document.createElement(ok ? 'div' : 'pre'); box.className = ok ? 'box mermaid' : '';
+    box.textContent = MERMAID[lang][k]; wrap.appendChild(box); host.appendChild(wrap);
+    if (ok) nodes.push(box);
+  });
+  if (ok) mermaid.run({ nodes }).catch(() => { mermaidDirty = true; });
+}
+window.addEventListener('load', () => { if (window.mermaid) mermaid.initialize({ startOnLoad: false, theme: 'dark' }); if (tab === 2) { mermaidDirty = true; renderMermaid(); } });
+
+applyLang();
+switchTab(0);
 </script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js" defer></script>
 </body>
 </html>

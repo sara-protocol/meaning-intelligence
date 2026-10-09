@@ -492,7 +492,29 @@ def ensure_labels(token, owner, repo):
         print("[label] 标签已齐全")
 
 
-def ascii_asset_name(path: Path, version: str = "v1.0") -> str:
+
+
+def _read_whitepaper_version() -> str:
+    """从 VERSION.yaml 读取 whitepaper.version（如 '1.1' 返回 'v1.1'）。
+    找不到文件时返回 'v0.0' 而非崩溃。"""
+    try:
+        import re
+        v = Path(__file__).resolve().parent.parent / "VERSION.yaml"
+        if not v.exists():
+            v = Path("VERSION.yaml")
+        if not v.exists():
+            return "v0.0"
+        txt = v.read_text(encoding="utf-8")
+        pattern = r'^whitepaper:.*?^\s+version:\s*"([^"]+)"'
+        m = re.search(pattern, txt, re.MULTILINE | re.DOTALL)
+        if m:
+            return "v" + m.group(1)
+    except Exception:
+        pass
+    return "v0.0"
+
+
+def ascii_asset_name(path: Path, version: str = None) -> str:
     """给 release 附件取一个 ASCII 名。
 
     为什么必须这样：GitHub 在上传 release 附件时会把**非 ASCII 文件名清洗掉**，
@@ -500,6 +522,8 @@ def ascii_asset_name(path: Path, version: str = "v1.0") -> str:
     被上传成了 `_._._v1.0_.docx` —— 外部用户下载到的就是一个乱名文件。
     所以附件名一律走 ASCII。
     """
+    if version is None:
+        version = _read_whitepaper_version()
     name = path.name
     if name.isascii():
         return name

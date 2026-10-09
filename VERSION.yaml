@@ -62,9 +62,9 @@ toolkit:
 
 msi_demo:
   # Meaning Intelligence Demonstration System
-  version: "2.0"
-  acts: 6
-  runtime_seconds: 36
+  version: "2.1"
+  acts: 8
+  runtime_seconds: 43
 
 # --- Copyright ----------------------------------------------------------------
 

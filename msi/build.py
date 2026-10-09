@@ -1,96 +1,63 @@
-"""build.py —— 把 config.json 与时间轴注入 HTML 模板，产出单文件交互页。
+"""Generate every derived deliverable from config.json.
 
-设计要点（都是踩过坑之后定下来的）：
-  1. 中文 Windows 控制台默认 GBK，打印 emoji 会抛 UnicodeEncodeError。
-     早期版本因此在第一个 print 就崩溃，从未产出过 HTML。统一走 mi_common.safe_print。
-  2. 所有路径以 BASE_DIR（本文件所在目录）为基准，从任意 cwd 调用都能工作。
-  3. timeline.json 用 utf-8-sig 读取，容忍记事本 / PowerShell 写出的 BOM。
-  4. 占位符注入的必须是**合法的 JS 字面量**。模板里写 const X = {{X_JSON}};，
-     由本脚本注入带引号/带括号的 JSON —— 模板外层绝不能再套引号，
-     否则会得到 ""planned"" 这种 SyntaxError，整段内联 JS 失效。
-  5. 构建后扫描残留的 {{...}}，有残留直接非零退出，不静默产出坏页面。
+    python build.py            -> meaning_intelligence.html + meaning_intelligence_diagram.md
+
+If timeline.json (written by the Manim render) exists it is used for the
+slider's video seeking; otherwise the timeline is planned from config.
 """
 import json
-import re
-import sys
+from pathlib import Path
 
-from mi_common import (BASE_DIR, LAYER_ORDER, calculate_layer_timestamps,
-                       enable_utf8_console, load_config, safe_print)
-
-enable_utf8_console()
+from mi_common import HERE, all_mermaid, load_config, plan_timeline
 
 
-def js_literal(obj):
-    """输出可直接嵌入 <script> 的 JS 字面量。
-
-    · ensure_ascii=False 保留中文，便于阅读与 diff
-    · 转义 < > 防止 JSON 中出现 </script> 提前闭合脚本块
-    """
-    return (json.dumps(obj, ensure_ascii=False)
-            .replace("<", "\\u003c").replace(">", "\\u003e"))
+def js(obj):
+    # safe to embed inside <script>
+    return json.dumps(obj, ensure_ascii=False).replace("</", "<\\/")
 
 
-def build():
-    config = load_config("config.json")
-    layers = config["layers"]
-    theme = config["theme"]
+def main():
+    cfg = load_config()
+    planned = plan_timeline(cfg)
 
-    timeline_path = BASE_DIR / "timeline.json"
-    if timeline_path.exists():
-        with open(timeline_path, "r", encoding="utf-8-sig") as f:
-            timeline = json.load(f)
-        source = "measured"
-        safe_print("[timeline] 检测到实测时间轴 timeline.json，注入毫秒级测量数据。")
-    else:
-        timeline = calculate_layer_timestamps(layers)
-        source = "planned"
-        safe_print("[timeline] 未检测到实测时间轴，注入预算推算时间轴。")
+    tl_file = HERE / "timeline.json"
+    timeline, source = planned, "planned"
+    if tl_file.exists():
+        measured = json.loads(tl_file.read_text(encoding="utf-8"))["timeline"]
+        missing = [k for k in planned if k not in measured]
+        if missing:
+            print(f"! timeline.json lacks {missing}; falling back to planned timeline")
+        else:
+            timeline, source = measured, "measured"
+            drift = max(abs(measured[k] - planned[k]) for k in planned)
+            print(f"timeline: measured (max drift vs plan {drift:.2f}s)")
+    if source == "planned":
+        print("timeline: planned from config (render with manim to get measured values)")
 
-    missing = [k for k in LAYER_ORDER if k not in timeline]
-    if missing:
-        safe_print(f"[timeline] 警告：时间轴缺少 {missing}，对应层将无法与视频对齐。")
-
-    template = (BASE_DIR / "templates" / "html_template.html").read_text(encoding="utf-8")
-
-    tokens = {
-        "PROJECT_NAME": config["project_name"],
-        "VERSION": config["version"],
-        "CANON": config["canon"],
-        "THEME_BACKGROUND": theme["background"],
-        "THEME_TEXT": theme["text"],
-        "THEME_MUTED": theme["muted"],
-        "THEME_ACCENT": theme["accent"],
-        "THEME_FAIL": theme["fail"],
-        "THEME_NAVY": theme["navy"],
-        "LAYERS_JSON": js_literal(layers),
-        "BANDS_JSON": js_literal(config["bands"]),
-        "EVIDENCE_JSON": js_literal(config["evidence_palette"]),
-        "EVIDENCE_NAMES_JSON": js_literal(config["evidence_names"]),
-        "TIMELINE_DATA": js_literal(timeline),
-        "TIMELINE_SOURCE": js_literal(source),
+    mm = all_mermaid(cfg)
+    html = (HERE / "templates" / "html_template.html").read_text(encoding="utf-8")
+    repl = {
+        "__CONFIG_JSON__": js(cfg),
+        "__TIMELINE_JSON__": js(timeline),
+        "__TIMELINE_SOURCE__": js(source),
+        "__MERMAID_JSON__": js(mm),
+        "__SRC_PY__": js((HERE / "scenes" / "meaning_intelligence.py").read_text(encoding="utf-8")),
+        "__SRC_CFG__": js((HERE / "config.json").read_text(encoding="utf-8")),
     }
+    for k, v in repl.items():
+        assert k in html, f"placeholder {k} missing from template"
+        html = html.replace(k, v)
+    (HERE / "meaning_intelligence.html").write_text(html, encoding="utf-8")
 
-    html = template
-    for key, value in tokens.items():
-        html = html.replace("{{" + key + "}}", value)
-
-    leftover = sorted(set(re.findall(r"\{\{[A-Z_]+\}\}", html)))
-    if leftover:
-        safe_print(f"[build] 失败：模板中仍有未替换的占位符 {leftover}")
-        return 1
-
-    out_path = BASE_DIR / "meaning_intelligence.html"
-    out_path.write_text(html, encoding="utf-8")
-    safe_print(f"[build] 已生成：{out_path}")
-
-    video = BASE_DIR / "MeaningIntelligenceScene.mp4"
-    if video.exists():
-        safe_print(f"[build] 已检测到 {video.name}（{video.stat().st_size:,} 字节），视频可直接播放。")
-    else:
-        safe_print("[build] 未检测到 MeaningIntelligenceScene.mp4 —— "
-                   "页面仍可用，但动画区会是空的。运行 run.ps1 / run.sh 完成渲染。")
-    return 0
+    titles = {lg: cfg["ui"][lg]["diagrams"] for lg in cfg["languages"]}
+    parts = []
+    for lg in cfg["languages"]:
+        parts.append(f"# {cfg['ui'][lg]['title']} — {lg}\n")
+        for i, k in enumerate(["pipeline", "scenes", "palette"]):
+            parts.append(f"## {i + 1}. {titles[lg][i]}\n\n```mermaid\n{mm[lg][k]}\n```\n")
+    (HERE / "meaning_intelligence_diagram.md").write_text("\n".join(parts), encoding="utf-8")
+    print("wrote meaning_intelligence.html, meaning_intelligence_diagram.md")
 
 
 if __name__ == "__main__":
-    sys.exit(build())
+    main()

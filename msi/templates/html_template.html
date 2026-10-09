@@ -3,474 +3,370 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{PROJECT_NAME}} · 六层应用栈 / Six-Layer Application Stack</title>
+<title>Meaning Intelligence</title>
 <style>
-  :root{
-    --bg:{{THEME_BACKGROUND}}; --fg:{{THEME_TEXT}}; --muted:{{THEME_MUTED}};
-    --accent:{{THEME_ACCENT}}; --fail:{{THEME_FAIL}}; --navy:{{THEME_NAVY}};
-    --panel:rgba(255,255,255,.045); --line:rgba(255,255,255,.10);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--fg);
-       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",Roboto,sans-serif;
-       line-height:1.6}
-  header{padding:26px 28px 14px;border-bottom:1px solid var(--line)}
-  h1{margin:0;font-size:26px;letter-spacing:.4px}
-  h1 small{display:block;font-size:13px;font-weight:400;color:var(--muted);
-           letter-spacing:1.6px;text-transform:uppercase;margin-top:6px}
-  .canon{margin-top:10px;font-size:12.5px;color:var(--muted)}
-  .canon b{color:var(--accent);font-weight:600}
-  .wrap{display:grid;grid-template-columns:290px 1fr;gap:22px;padding:22px 28px 40px;
-        max-width:1560px;margin:0 auto}
-  @media(max-width:980px){.wrap{grid-template-columns:1fr}}
-  .band{margin-bottom:16px}
-  .band-h{font-size:11.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);
-          margin:0 0 8px 4px;display:flex;justify-content:space-between;gap:8px}
-  .band-h em{font-style:normal;opacity:.75;letter-spacing:0;text-transform:none}
-  .tab{display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;
-       background:var(--panel);border:1px solid var(--line);border-left-width:4px;
-       border-radius:9px;padding:9px 11px;margin-bottom:7px;color:var(--fg);
-       font-family:inherit;font-size:13.5px;transition:background .15s,transform .15s}
-  .tab:hover{background:rgba(255,255,255,.09);transform:translateX(2px)}
-  .tab[aria-selected="true"]{background:rgba(255,255,255,.13)}
-  .tab .id{font-weight:700;font-size:13px;min-width:22px}
-  .tab .nm{flex:1}
-  .tab .nm i{display:block;font-style:normal;font-size:11px;color:var(--muted)}
-  .tab .ev{font-size:10.5px;padding:2px 6px;border-radius:20px;color:#0b1220;font-weight:700}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
-        padding:18px 20px;margin-bottom:18px}
-  .card h2{margin:0 0 4px;font-size:19px}
-  .card h2 span{font-size:12.5px;color:var(--muted);font-weight:400;margin-left:8px}
-  .q{font-size:14px;color:var(--accent);margin:10px 0 2px}
-  .q em{display:block;font-style:normal;color:var(--muted);font-size:12px}
-  .def{font-size:14px;margin:10px 0 2px}
-  .def em{display:block;font-style:normal;color:var(--muted);font-size:12.5px;margin-top:3px}
-  .anchor{font-size:12px;color:var(--muted);margin-top:12px;
-          border-top:1px dashed var(--line);padding-top:10px}
-  video{width:100%;border-radius:10px;background:#000;display:block}
-  .hint{font-size:12.5px;color:var(--muted);margin-top:10px}
-  .hint b{color:var(--accent)}
-  canvas{width:100%;height:430px;display:block;border-radius:10px;background:#070d1a;
-         border:1px solid var(--line)}
-  .ctrls{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:14px}
-  .ctrl{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--muted)}
-  .ctrl input[type=range]{width:150px;accent-color:var(--accent)}
-  .ctrl output{color:var(--fg);font-variant-numeric:tabular-nums;min-width:38px;display:inline-block}
-  .btn{background:var(--panel);border:1px solid var(--line);color:var(--fg);border-radius:8px;
-       padding:6px 13px;cursor:pointer;font-family:inherit;font-size:12.5px}
-  .btn:hover{background:rgba(255,255,255,.10)}
-  .btn.on{border-color:var(--accent);color:var(--accent)}
-  footer{padding:0 28px 34px;color:var(--muted);font-size:12px;max-width:1560px;margin:0 auto}
+:root{--bg:#0a0c10;--card:#141820;--cyan:#00e5ff;--purple:#bb86fc;--text:#e0e6ed;--sub:#8b95a5;--border:#2a2f3a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);display:flex;justify-content:center;padding:30px 15px;min-height:100vh}
+.app{width:100%;max-width:900px;background:var(--card);border-radius:16px;padding:25px;border:1px solid var(--border);box-shadow:0 10px 40px rgba(0,0,0,.6),0 0 30px rgba(0,229,255,.1);display:flex;flex-direction:column;gap:20px}
+header{text-align:center;border-bottom:1px solid var(--border);padding-bottom:15px;position:relative}
+h1{font-size:1.8rem;background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+.subtitle{color:var(--sub);font-size:.9rem}
+.lang-btn{position:absolute;right:0;top:0;background:rgba(0,229,255,.08);border:1px solid var(--cyan);color:var(--cyan);padding:5px 12px;border-radius:6px;cursor:pointer;font-size:.8rem;font-weight:600}
+.lang-btn:hover,.lang-btn:focus-visible{background:var(--cyan);color:#000}
+.tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.tab{background:transparent;border:1px solid var(--border);color:var(--sub);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:.85rem}
+.tab:hover{border-color:var(--cyan);color:var(--text)}
+.tab[aria-selected=true]{background:rgba(0,229,255,.1);border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 10px rgba(0,229,255,.2)}
+:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.panel[hidden]{display:none}
+.box{background:#0f1218;border-radius:12px;border:1px solid var(--border);padding:15px}
+video{width:100%;max-height:480px;border-radius:8px;border:1px solid var(--cyan);background:#000}
+.note{color:var(--sub);font-size:.8rem;margin-top:10px;text-align:center}
+.warn{color:var(--purple)}
+.slider{display:flex;flex-direction:column;align-items:center}
+input[type=range]{-webkit-appearance:none;appearance:none;height:6px;background:#1f2530;border-radius:4px;outline-offset:6px;margin:15px 0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--cyan);cursor:pointer;box-shadow:0 0 10px rgba(0,229,255,.6)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border:0;border-radius:50%;background:var(--cyan);cursor:pointer}
+#stageSlider{width:85%}
+.labels{width:85%;display:flex;justify-content:space-between;gap:4px;font-size:.75rem;color:var(--sub)}
+.labels button{background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:2px 0;text-align:center;flex:1}
+.labels button.on{color:var(--cyan);font-weight:700}
+.stage{min-height:210px;margin-top:15px;display:flex;align-items:center;justify-content:center;text-align:center}
+.stage>div{width:100%}
+.stage>div[hidden]{display:none}
+.noise{font-family:monospace;font-size:.8rem;color:#667;line-height:1.5}
+.ste{font-size:1.1rem;line-height:1.9;color:var(--cyan);font-weight:500}
+.nodes{display:flex;align-items:center;gap:14px;justify-content:center;flex-wrap:wrap}
+.node{padding:8px 16px;border-radius:6px;border:1px solid}
+.playbtn{margin-top:14px;background:transparent;border:1px solid var(--purple);color:var(--purple);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.8rem}
+.playbtn:hover{background:var(--purple);color:#000}
+canvas{width:100%;max-width:480px;height:130px;background:var(--bg);border-radius:8px;border:1px solid var(--border);display:block;margin:8px auto}
+.ent{display:flex;align-items:center;justify-content:center;gap:10px;font-size:.8rem;color:var(--sub)}
+.ent input{width:160px;margin:0}
+.vid{width:90px;height:50px;background:#1a1f2b;border-radius:6px;border:1px solid var(--purple);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;color:var(--purple);font-size:1.3rem}
+.sup{color:var(--cyan);font-size:.95rem;font-weight:500}
+.mm{margin-bottom:18px}
+.mm h3{font-size:.9rem;color:var(--sub);margin-bottom:8px;font-weight:600}
+.mermaid{display:flex;justify-content:center;overflow-x:auto}
+pre{background:#0f1218;padding:15px;border-radius:12px;border:1px solid var(--border);overflow:auto;max-height:420px;color:#a9b7c6;font:.78rem/1.45 ui-monospace,Menlo,Consolas,monospace}
+h4{margin:14px 0 6px;font-size:.85rem;color:var(--cyan)}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+.card{margin-top:14px;padding:14px 16px;border-radius:12px;border:1px solid var(--border);background:#0f1218;text-align:left;font-size:.85rem;line-height:1.6}
+.card h3{font-size:1.05rem;margin-bottom:4px}
+.card .def{color:var(--text);margin-bottom:8px}
+.card dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;color:var(--sub)}
+.card dt{white-space:nowrap}
+.card dd{color:var(--text)}
+.badge{display:inline-block;padding:1px 8px;border-radius:10px;border:1px solid;font-size:.75rem;margin-right:6px}
+.src{margin-top:10px;font-size:.72rem;color:var(--sub)}
+svg.viz{width:100%;max-width:520px;height:auto;display:block;margin:0 auto}
+svg text{font-family:inherit}
+.path{cursor:pointer;transition:opacity .25s}.path:focus-visible{outline:2px solid var(--purple)}
+.cols{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap}
+.cols .arr{color:var(--purple);font-size:1.4rem}
+.mini{max-width:210px;font-size:.72rem;color:#667;font-family:monospace;line-height:1.5;text-align:left}
+
 </style>
 </head>
 <body>
-<header>
-  <h1>{{PROJECT_NAME}}　意义智能
-    <small>Six-Layer Application Stack · v{{VERSION}}</small>
-  </h1>
-  <div class="canon">理论正典 <b>{{CANON}}</b>　·　元智能＝对其他智能活动的方向性调控<br>
-    Canon: meta-intelligence is the directional regulation of other intelligent activities.</div>
-</header>
+<div class="app">
+  <header>
+    <h1 id="title"></h1>
+    <p class="subtitle" id="subtitle"></p>
+    <button class="lang-btn" id="langBtn" type="button"></button>
+  </header>
 
-<div class="wrap">
-  <nav id="tabs" aria-label="六层导航"></nav>
+  <div class="tabs" role="tablist" id="tabs"></div>
 
-  <main>
-    <div class="card">
-      <h2 id="lName">—<span id="lNameEn"></span></h2>
-      <div class="q" id="lQ"></div>
-      <div class="def" id="lDef"></div>
-      <div class="anchor" id="lAnchor"></div>
+  <section class="panel" role="tabpanel" id="p0" aria-labelledby="t0">
+    <div class="box">
+      <video id="video" controls preload="metadata"><source id="vsrc"></video>
+      <p class="note warn" id="vmiss" hidden></p>
+      <p class="note"><span id="vdesc"></span> · <span id="tlsrc"></span></p>
     </div>
+  </section>
 
-    <div class="card">
-      <h2 style="font-size:16px;margin-bottom:12px">逐层可操作演示
-        <span>Interactive per-layer demo</span></h2>
-      <canvas id="stage"></canvas>
-      <div class="ctrls" id="ctrls"></div>
+  <section class="panel" role="tabpanel" id="p1" aria-labelledby="t1" hidden>
+    <div class="slider">
+      <input type="range" id="stageSlider" min="1" value="1" step="1" aria-label="layer">
+      <div class="labels" id="labels"></div>
     </div>
+    <div class="box stage">
+      <div id="v1"><div class="cols">
+        <div class="mini" id="v1noise"></div><div class="arr" aria-hidden="true">→</div>
+        <div class="ste" id="v1ste"></div><div class="arr" aria-hidden="true">→</div>
+        <div class="nodes"><div class="node" id="n1"></div><div class="arr" aria-hidden="true">→</div><div class="node" id="n2"></div></div>
+      </div></div>
+      <div id="v2" hidden>
+        <p class="note" id="hint" style="margin:0"></p>
+        <canvas id="cv" role="img"></canvas>
+        <label class="ent"><span id="entLbl"></span><input type="range" id="entropy" min="0" max="100" value="75"></label>
+      </div>
+      <div id="v3" hidden><svg class="viz" id="svg3" viewBox="0 0 400 200" role="img"></svg></div>
+      <div id="v4" hidden><svg class="viz" id="svg4" viewBox="0 0 400 220" role="img"></svg></div>
+      <div id="v5" hidden><p class="note" id="pickHint" style="margin:0 0 6px"></p><svg class="viz" id="svg5" viewBox="0 0 400 200" role="group"></svg></div>
+      <div id="v6" hidden><svg class="viz" id="svg6" viewBox="0 0 400 220" role="img"></svg><p class="note" id="recNote"></p></div>
+    </div>
+    <div class="card" id="card"></div>
+    <p class="src" id="srcNote"></p>
+    <div style="text-align:center"><button class="playbtn" id="playStage" type="button"></button></div>
+  </section>
 
-    <div class="card">
-      <h2 style="font-size:16px;margin-bottom:12px">六幕动画同步
-        <span>Six-act animation</span></h2>
-      <video id="mainVideo" controls preload="metadata">
-        <source src="MeaningIntelligenceScene.mp4" type="video/mp4">
-        您的浏览器不支持 video 标签。
-      </video>
-      <div class="hint" id="statusAlert"></div>
-    </div>
-  </main>
+  <section class="panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden><div id="mmHost"></div></section>
+
+  <section class="panel" role="tabpanel" id="p3" aria-labelledby="t3" hidden>
+    <h4 id="srcPyH"></h4><pre><code id="srcPy"></code></pre>
+    <h4 id="srcCfgH"></h4><pre><code id="srcCfg"></code></pre>
+  </section>
 </div>
 
-<footer>
-  证据等级 E0–E6 与失败矩阵见正典；本项目承诺：任何模块达到失败阈值，将被标记或删除，而非辩护。<br>
-  Evidence levels E0–E6 and the Theory Failure Matrix follow the canon. Any module reaching its
-  failure threshold will be marked or removed — not defended.
-</footer>
-
 <script>
-const LAYERS   = {{LAYERS_JSON}};
-const BANDS    = {{BANDS_JSON}};
-const EVIDENCE = {{EVIDENCE_JSON}};
-const EV_NAMES = {{EVIDENCE_NAMES_JSON}};
-const TIMELINE = {{TIMELINE_DATA}};
-const SOURCE   = {{TIMELINE_SOURCE}};
+/* ---- injected by build.py from config.json (do not edit by hand) ---- */
+const CFG = __CONFIG_JSON__;
+const TIMELINE = __TIMELINE_JSON__;
+const TIMELINE_SOURCE = __TIMELINE_SOURCE__;
+const MERMAID = __MERMAID_JSON__;
+const SRC_PY = __SRC_PY__;
+const SRC_CFG = __SRC_CFG__;
+/* --------------------------------------------------------------------- */
+const $ = id => document.getElementById(id);
+const C = CFG.colors, LAYERS = CFG.layers, BANDS = CFG.bands, EV = CFG.evidence_scale;
+let lang = CFG.default_lang, tab = 0, stage = 1, chosen = CFG.demo.chosen_path;
+const ui = () => CFG.ui[lang];
+const bandOf = l => BANDS.find(b => b.id === l.band);
+const tierColor = l => C[bandOf(l).tier];
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const NS = 'http://www.w3.org/2000/svg';
 
-const evColor = k => EVIDENCE[k] || "#7A8CA3";
-const notes = [];
-const statusAlert = document.getElementById("statusAlert");
-function renderNotes(){ statusAlert.innerHTML = notes.join("<br>"); }
-if (SOURCE === "planned") {
-  notes.push("⚠️ 当前注入的是<b>预算时间轴</b>：未检测到实测 timeline.json，" +
-             "运行渲染后重建即可同步毫秒级数据。");
-}
+for (const [k, v] of Object.entries({bg:C.bg,card:C.dark,cyan:C.cyan,purple:C.purple,sub:C.gray}))
+  document.documentElement.style.setProperty('--' + k, v);
 
-/* ---------------------------------------------------------------- 导航 */
-let current = "L1";
-const tabsEl = document.getElementById("tabs");
-BANDS.forEach(band => {
-  const box = document.createElement("div");
-  box.className = "band";
-  box.innerHTML = '<div class="band-h"><span>' + band.name + " · " + band.en +
-                  "</span><em>" + band.solves + "</em></div>";
-  band.layers.forEach(key => {
-    const L = LAYERS[key];
-    const btn = document.createElement("button");
-    btn.className = "tab";
-    btn.type = "button";
-    btn.dataset.key = key;
-    btn.style.borderLeftColor = L.color;
-    btn.setAttribute("aria-selected", key === current ? "true" : "false");
-    btn.innerHTML = '<span class="id" style="color:' + L.color + '">' + key + "</span>" +
-      '<span class="nm">' + L.name + "<i>" + L.en + "</i></span>" +
-      '<span class="ev" style="background:' + evColor(L.evidence) + '">' + L.evidence + "</span>";
-    btn.addEventListener("click", () => select(key));
-    box.appendChild(btn);
-  });
-  tabsEl.appendChild(box);
-});
-
-/* ---------------------------------------------------------------- 视频 */
-const video = document.getElementById("mainVideo");
-let seeking = false;
-video.addEventListener("error", () => {
-  notes.push("🎬 未找到 <b>MeaningIntelligenceScene.mp4</b>：请先运行 run.ps1 / run.sh " +
-             "渲染并复制到本目录。");
-  renderNotes();
-});
-
-/* ---------------------------------------------------------------- 画布 */
-const canvas = document.getElementById("stage");
-const ctx = canvas.getContext("2d");
-const W = 1000, H = 430;      // 逻辑坐标空间
-let scale = 1;
-
-function fitCanvas(){
-  const rect = canvas.getBoundingClientRect();
-  const dpr = window.devicePixelRatio || 1;
-  canvas.width  = Math.max(1, Math.round(rect.width  * dpr));
-  canvas.height = Math.max(1, Math.round(rect.height * dpr));
-  scale = Math.min(rect.width / W, rect.height / H);
-  // setTransform 幂等；用 scale() 会在每次 resize 时累乘，窗口拖几次画面就会被放大
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.translate((rect.width - W*scale)/2, (rect.height - H*scale)/2);
-  ctx.scale(scale, scale);
-}
-function clear(){ ctx.clearRect(-2000, -2000, 6000, 6000); }
-function dot(x,y,r,fill){ ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fillStyle=fill; ctx.fill(); }
-function ring(x,y,r,stroke,w){ ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
-  ctx.strokeStyle=stroke; ctx.lineWidth=w||3; ctx.stroke(); }
-function label(txt,x,y,color,size,align){
-  ctx.fillStyle = color || "#7A8CA3";
-  ctx.font = (size||15) + 'px -apple-system,"Microsoft YaHei",sans-serif';
-  ctx.textAlign = align || "center"; ctx.textBaseline = "middle";
-  ctx.fillText(txt, x, y);
-}
-function rng(seed){ let s = seed>>>0; return () => (s = (s*1664525+1013904223)>>>0)/4294967296; }
-function toLocal(ev){
-  const r = canvas.getBoundingClientRect();
-  return [(ev.clientX - r.left - (r.width  - W*scale)/2)/scale,
-          (ev.clientY - r.top  - (r.height - H*scale)/2)/scale];
-}
-
-const state = {};
-
-/* ---- L1 减负 ---- */
-function initL1(){
-  const r = rng(20261007), pts = [], homes = [];
-  for (let i=0;i<120;i++) pts.push([r()*W, r()*H]);
-  for (let i=0;i<12;i++) homes.push([200 + (i%4)*200, 110 + ((i/4)|0)*105]);
-  state.L1 = { pts, homes, compress: 0.55 };
-}
-function drawL1(){
-  const s = state.L1, k = s.compress;
-  clear();
-  s.pts.forEach((p,i)=>{
-    const h = s.homes[i % 12];
-    dot(p[0]+(h[0]-p[0])*k, p[1]+(h[1]-p[1])*k, 2.4,
-        "rgba(196,155,59," + (0.30 + 0.70*(1-k)).toFixed(3) + ")");
-  });
-  s.homes.forEach(h=>{
-    ring(h[0], h[1], 13, "rgba(42,92,142," + (0.35+0.65*k).toFixed(3) + ")", 2);
-    if (k > 0.62) dot(h[0], h[1], 5.2, "#2A5C8E");
-  });
-  label("压缩率 compress = " + k.toFixed(2) + "　·　120 → 12　负荷从信息量转移到结构",
-        W/2, H-26);
-}
-
-/* ---- L2 可体验 ---- */
-function initL2(){
-  const homes = [];
-  for (let i=0;i<12;i++){
-    const a = (i/12)*Math.PI*2 - Math.PI/2;
-    homes.push([380*Math.cos(a), 150*Math.sin(a)]);
+/* ---------- skeleton ---------- */
+(() => {
+  for (let i = 0; i < 4; i++) {
+    const b = document.createElement('button');
+    b.className = 'tab'; b.id = 't' + i; b.type = 'button';
+    b.setAttribute('role', 'tab'); b.setAttribute('aria-controls', 'p' + i);
+    b.addEventListener('click', () => switchTab(i));
+    b.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') switchTab((tab + 1) % 4, true);
+      if (e.key === 'ArrowLeft') switchTab((tab + 3) % 4, true);
+    });
+    $('tabs').appendChild(b);
   }
-  state.L2 = { homes, spread: 0.9 };
-}
-function drawL2(){
-  const s = state.L2, k = s.spread;
-  clear();
-  ctx.save(); ctx.translate(W/2, H/2 - 14);
-  ring(0,0,150*0.45,"rgba(255,255,255,.10)",1);
-  ring(0,0,150*1.05,"rgba(255,255,255,.10)",1);
-  s.homes.forEach(h=>{
-    dot(h[0]*k, h[1]*k, 9, "#3B6EA5");
-    ring(h[0]*k, h[1]*k, 15, "rgba(59,110,165,.55)", 2);
+  $('stageSlider').max = LAYERS.length;
+  LAYERS.forEach((l, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.id = 'lbl' + (i + 1);
+    b.addEventListener('click', () => setStage(i + 1));
+    $('labels').appendChild(b);
   });
-  ctx.restore();
-  const tx0=120, tx1=W-120, ty=H-52;
-  ctx.strokeStyle="#7A8CA3"; ctx.lineWidth=3;
-  ctx.beginPath(); ctx.moveTo(tx0,ty); ctx.lineTo(tx1,ty); ctx.stroke();
-  dot(tx0 + (tx1-tx0)*((k-0.45)/0.9), ty, 9, "#3B6EA5");
-  label("spread = " + k.toFixed(2) + "　·　参数改变 → 结果可预测，这才是「可体验」而非「好看」",
-        W/2, H-20);
-}
+  $('stageSlider').addEventListener('input', e => setStage(+e.target.value));
+  $('langBtn').addEventListener('click', () => { lang = CFG.languages[(CFG.languages.indexOf(lang) + 1) % CFG.languages.length]; applyLang(); });
+  $('playStage').addEventListener('click', () => { switchTab(0); seek(LAYERS[stage - 1].id, true); });
+  $('vsrc').src = CFG.video.file;
+  $('vsrc').addEventListener('error', () => { $('vmiss').hidden = false; });
+  $('video').load();
+})();
 
-/* ---- L3 意义生成 ---- */
-function initL3(){ state.L3 = { d:0.7, v:0.5, b:0.4 }; }
-function drawL3(){
-  const s = state.L3;
-  clear();
-  const top=[W/2,80], left=[W/2-330,H-110], right=[W/2+330,H-110];
-  ctx.beginPath(); ctx.moveTo(top[0],top[1]); ctx.lineTo(left[0],left[1]);
-  ctx.lineTo(right[0],right[1]); ctx.closePath();
-  ctx.fillStyle="rgba(107,76,154,.10)"; ctx.fill();
-  ctx.strokeStyle="#6B4C9A"; ctx.lineWidth=2.5; ctx.stroke();
-  [[top,"方向 Direction"],[left,"价值 Value"],[right,"边界 Boundary"]].forEach(p=>{
-    dot(p[0][0],p[0][1],7,"#6B4C9A");
-    label(p[1], p[0][0], p[0][1]-26, "#F8FAFC", 16);
-  });
-  const sum = s.d+s.v+s.b || 1;
-  const x = (top[0]*s.d + left[0]*s.v + right[0]*s.b)/sum;
-  const y = (top[1]*s.d + left[1]*s.v + right[1]*s.b)/sum;
-  ring(x,y,22,"rgba(107,76,154,.45)",2);
-  dot(x,y,10,"#C49B3B");
-  label("意义坐标 (" + s.d.toFixed(1) + ", " + s.v.toFixed(1) + ", " + s.b.toFixed(1) + ")",
-        x, y+44, "#F8FAFC", 15);
-  label("三个维度同时成立，才构成一个可陈述的意义判断", W/2, H-18);
-}
-
-/* ---- L4 价值评估 ---- */
-function initL4(){
-  const nodes = [];
-  for (let i=0;i<12;i++){
-    nodes.push({ x:200 + (i%4)*200, y:110 + ((i/4)|0)*105, lv:i%7 });
+/* ---------- SVG helpers ---------- */
+const svg = (id, html) => { $(id).innerHTML = html; };
+const dotPositions = () => {                       // 9 nodes settled around the 3 vertices (same rule as the Manim act)
+  const V = [[200, 28], [62, 168], [338, 168]], c = [200, 121], out = [];
+  for (let i = 0; i < 9; i++) {
+    const v = V[i % 3], a = Math.floor(i / 3) * 2.1 + i;
+    out.push([v[0] + (c[0] - v[0]) * 0.24 + 15 * Math.cos(a), v[1] + (c[1] - v[1]) * 0.24 + 15 * Math.sin(a)]);
   }
-  state.L4 = { nodes };
-}
-function drawL4(){
-  clear();
-  state.L4.nodes.forEach(n=>{
-    const col = evColor("E"+n.lv);
-    ring(n.x, n.y, 26, col, 3.4);
-    dot(n.x, n.y, 9, col);
-    label("E"+n.lv, n.x, n.y+46, col, 14);
-  });
-  const keys=["E0","E1","E2","E3","E4","E5","E6"];
-  const bw=64, x0=W/2-(keys.length*bw)/2;
-  keys.forEach((k,i)=>{
-    ctx.fillStyle = evColor(k);
-    ctx.fillRect(x0+i*bw, H-56, bw-8, 20);
-    label(k, x0+i*bw+(bw-8)/2, H-46, "#0b1220", 13);
-    label(EV_NAMES[k][0], x0+i*bw+(bw-8)/2, H-26, "#7A8CA3", 12);
-  });
-  label("点击任一节点：循环提升其证据等级", W/2, 26);
-}
-
-/* ---- L5 方向选择 ---- */
-function initL5(){ state.L5 = { chosen: 1 }; }
-function bezier(p0,p1,p2,p3,t){
-  const u=1-t;
-  return [u*u*u*p0[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t*t*t*p3[0],
-          u*u*u*p0[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t*t*t*p3[1]];
-}
-function drawL5(){
-  const s = state.L5;
-  clear();
-  const p0=[120,H-90];
-  const ends=[[W-120,80],[W-110,H/2],[W-140,H-140]];
-  const ctrl=[[420,40],[470,H/2-30],[430,H-40]];
-  const names=["候选 A","候选 B","候选 C"];
-  for (let i=0;i<3;i++){
-    const on = i===s.chosen;
-    ctx.beginPath();
-    for (let t=0;t<=1.0001;t+=0.02){
-      const p = bezier(p0,ctrl[i],ctrl[i],ends[i],t);
-      if (t===0) ctx.moveTo(p[0],p[1]); else ctx.lineTo(p[0],p[1]);
-    }
-    ctx.strokeStyle = on ? "#C49B3B" : "rgba(122,140,163,.30)";
-    ctx.lineWidth   = on ? 6 : 2;
-    ctx.stroke();
-    label(names[i], ends[i][0]+8, ends[i][1]-30, on?"#C49B3B":"#7A8CA3", on?17:14, "right");
-    if (on) dot(ends[i][0], ends[i][1], 9, "#C49B3B");
-  }
-  dot(p0[0],p0[1],9,"#7A8CA3");
-  label("点击曲线切换选定方向　·　选定即承担代价，并预先声明偏离阈值", W/2, H-18);
-  label("一级 <10%　二级 10–30%　三级 >30%", W/2, 24);
-}
-
-/* ---- L6 反思与审视递归 ---- */
-function initL6(){ state.L6 = { t: 0 }; }
-function drawL6(){
-  const s = state.L6;
-  clear();
-  const cx=W/2, cy=H/2+12, turns=1.6, r0=40, r1=185;
-  ctx.beginPath();
-  const N = Math.max(2, Math.floor(600*s.t));
-  for (let i=0;i<=N;i++){
-    const t=i/600, a=-Math.PI/2 + t*turns*Math.PI*2, r=r0+(r1-r0)*t;
-    const x=cx+r*Math.cos(a), y=cy+r*Math.sin(a);
-    if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-  }
-  ctx.strokeStyle="#EF4444"; ctx.lineWidth=4; ctx.stroke();
-  dot(cx,cy,7,"#EF4444");
-  label("归零 Zeroing", cx, cy+32, "#EF4444", 14);
-  if (s.t > 0.98){
-    const a=-Math.PI/2 + turns*Math.PI*2, r=r1*1.13;
-    const x=cx+r*Math.cos(a), y=cy+r*Math.sin(a);
-    ring(x,y,17,"#EF4444",4);
-    label("L1′", x, y, "#EF4444", 15);
-    label("下一轮起点 Next-cycle entry", x+120, y, "#EF4444", 14, "left");
-  }
-  label("归零不是回到原点，而是回到同角度的更高一层起点", W/2, H-18);
-}
-
-/* ---- 各层控件定义 ---- */
-const DEMOS = {
-  L1:{init:initL1, draw:drawL1,
-      ctrls:[{k:"compress",label:"压缩率",min:0,max:1,step:0.01}]},
-  L2:{init:initL2, draw:drawL2,
-      ctrls:[{k:"spread",label:"spread",min:0.45,max:1.35,step:0.01}]},
-  L3:{init:initL3, draw:drawL3,
-      ctrls:[{k:"d",label:"方向",min:0,max:1,step:0.05},
-             {k:"v",label:"价值",min:0,max:1,step:0.05},
-             {k:"b",label:"边界",min:0,max:1,step:0.05}]},
-  L4:{init:initL4, draw:drawL4, ctrls:[]},
-  L5:{init:initL5, draw:drawL5, ctrls:[]},
-  L6:{init:initL6, draw:drawL6, ctrls:[]}
+  return { V, pts: out };
 };
 
-function buildCtrls(key){
-  const box = document.getElementById("ctrls");
-  box.innerHTML = "";
-  DEMOS[key].ctrls.forEach(c=>{
-    const wrap = document.createElement("label");
-    wrap.className = "ctrl";
-    wrap.innerHTML = c.label +
-      ' <input type="range" min="' + c.min + '" max="' + c.max + '" step="' + c.step +
-      '" value="' + state[key][c.k] + '"> <output>' +
-      Number(state[key][c.k]).toFixed(2) + "</output>";
-    const inp = wrap.querySelector("input"), out = wrap.querySelector("output");
-    inp.addEventListener("input", ()=>{
-      state[key][c.k] = parseFloat(inp.value);
-      out.textContent = Number(inp.value).toFixed(2);
-      DEMOS[key].draw();
-    });
-    box.appendChild(wrap);
+function renderTriangle(id, withRings) {
+  const { V, pts } = dotPositions(), K = CFG.content.axes[lang], col = C.purple;
+  let h = `<polygon points="${V.map(v => v.join(',')).join(' ')}" fill="${C.fill_purple}" fill-opacity=".6" stroke="${col}" stroke-width="2"/>`;
+  h += `<text x="200" y="16" text-anchor="middle" fill="${col}" font-size="13" font-weight="700">${esc(K[0])}</text>`;
+  h += `<text x="62" y="190" text-anchor="middle" fill="${col}" font-size="13" font-weight="700">${esc(K[1])}</text>`;
+  h += `<text x="338" y="190" text-anchor="middle" fill="${col}" font-size="13" font-weight="700">${esc(K[2])}</text>`;
+  pts.forEach(([x, y], i) => {
+    h += `<circle cx="${x}" cy="${y}" r="5" fill="${C.cyan}"/>`;
+    if (withRings) h += `<circle cx="${x}" cy="${y}" r="10" fill="none" stroke="${EV[CFG.demo.assess_levels[i]]}" stroke-width="3"/>`;
   });
-  if (key === "L6"){
-    const b = document.createElement("button");
-    b.className = "btn on"; b.type = "button"; b.textContent = "重新归零 Restart";
-    b.addEventListener("click", ()=>{ state.L6.t = 0; });
-    box.appendChild(b);
+  if (withRings) {
+    EV.forEach((c, i) => { h += `<rect x="${118 + i * 24}" y="198" width="20" height="10" fill="${c}"/>`; });
+    h += `<text x="110" y="207" text-anchor="end" fill="${C.gray}" font-size="9">E0</text><text x="${118 + 7 * 24 + 2}" y="207" fill="${C.gray}" font-size="9">E6</text>`;
+    h += `<text x="200" y="219" text-anchor="middle" fill="${C.gray}" font-size="8">${esc(CFG.content.illustrative[lang])}</text>`;
   }
-  if (key === "L4" || key === "L5"){
-    const t = document.createElement("span");
-    t.className = "ctrl";
-    t.textContent = key === "L4" ? "在画布上点击节点以提升证据等级"
-                                 : "在画布上点击曲线以选定方向";
-    box.appendChild(t);
-  }
+  svg(id, h);
 }
 
-canvas.addEventListener("click", ev=>{
-  const p = toLocal(ev);
-  if (current === "L4"){
-    let hit = false;
-    state.L4.nodes.forEach(n=>{
-      if (Math.hypot(n.x-p[0], n.y-p[1]) < 34){ n.lv = (n.lv+1)%7; hit = true; }
-    });
-    if (hit) drawL4();
-  } else if (current === "L5"){
-    state.L5.chosen = p[1] < H/3 ? 0 : (p[1] < 2*H/3 ? 1 : 2);
-    drawL5();
+function renderPaths() {
+  const cand = CFG.content.candidates[lang], ys = [38, 100, 162], x0 = 24, x1 = 300;
+  let h = `<circle cx="${x0}" cy="100" r="7" fill="#fff"/>`;
+  ys.forEach((y, i) => {
+    const on = i === chosen, col = on ? C.cyan : C.amber;
+    h += `<g class="path" data-i="${i}" tabindex="0" role="button" aria-label="${esc(cand[i])}" style="opacity:${on ? 1 : .2}">` +
+         `<path d="M${x0} 100 C${x0 + 120} 100 ${x1 - 120} ${y} ${x1} ${y}" fill="none" stroke="${col}" stroke-width="${on ? 5 : 3}"/>` +
+         `<path d="M${x0} 100 C${x0 + 120} 100 ${x1 - 120} ${y} ${x1} ${y}" fill="none" stroke="transparent" stroke-width="22" pointer-events="stroke"/>` +
+         `<circle cx="${x1}" cy="${y}" r="${on ? 9 : 6}" fill="${col}"/>` +
+         `<text x="${x1 + 16}" y="${y + 4}" fill="${col}" font-size="13">${esc(cand[i])}</text></g>`;
+  });
+  svg('svg5', h);
+  document.querySelectorAll('#svg5 .path').forEach(g => {
+    const pick = () => { chosen = +g.dataset.i; renderPaths(); };
+    g.addEventListener('click', pick);
+    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+}
+
+function renderSpiral() {
+  const cx = 200, cy = 134, pt = t => { const r = 24 + 46 * t / (2 * Math.PI), a = -Math.PI / 2 + t; return [cx + r * Math.cos(a), cy + r * Math.sin(a), Math.cos(a), Math.sin(a)]; };
+  let d = '';
+  for (let i = 0; i <= 80; i++) { const p = pt(i / 80 * 2 * Math.PI); d += (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }
+  let h = `<path d="${d}" fill="none" stroke="${C.amber}" stroke-width="3"/>`;
+  const a = pt(0), b = pt(2 * Math.PI);
+  h += `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#fff" stroke-dasharray="4 3"/>`;
+  for (let i = 0; i <= 6; i++) {
+    const p = pt(i * 2 * Math.PI / 6), name = i < 6 ? 'L' + (i + 1) : "L1′", col = i < 6 ? C.cyan : '#fff';
+    h += `<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="${col}"/><text x="${p[0] + p[2] * 15}" y="${p[1] + p[3] * 15 + 4}" text-anchor="middle" fill="${col}" font-size="11">${name}</text>`;
   }
-});
-
-/* L6 的螺旋需要逐帧推进；只在该层启动 rAF，切走即停 */
-let rafId = null;
-function loop(){
-  if (current !== "L6"){ rafId = null; return; }
-  const s = state.L6;
-  if (s.t < 1) s.t = Math.min(1, s.t + 0.012);
-  drawL6();
-  rafId = requestAnimationFrame(loop);
+  h += `<g transform="translate(200 20)"><ellipse rx="24" ry="10" fill="none" stroke="${C.cyan}" stroke-width="2"/><circle r="6" fill="${C.cyan}"/></g>`;
+  svg('svg6', h);
 }
-function startLoop(){ if (rafId === null) rafId = requestAnimationFrame(loop); }
 
-/* ---------------------------------------------------------------- 切换 */
-function select(key){
-  current = key;
-  document.querySelectorAll(".tab").forEach(b=>
-    b.setAttribute("aria-selected", b.dataset.key === key ? "true" : "false"));
+/* ---------- language ---------- */
+function applyLang() {
+  const u = ui(), K = CFG.content;
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
+  document.title = u.title;
+  $('title').textContent = u.title; $('subtitle').textContent = u.subtitle; $('langBtn').textContent = u.langBtn;
+  u.tabs.forEach((t, i) => $('t' + i).textContent = t);
+  LAYERS.forEach((l, i) => { $('lbl' + (i + 1)).textContent = l.id + ' ' + l.name[lang]; });
+  $('vdesc').textContent = u.videoDesc + ' · ' + CFG.video.quality;
+  $('tlsrc').textContent = u.timelineSrc[TIMELINE_SOURCE];
+  $('vmiss').textContent = u.videoMissing;
+  $('v1noise').textContent = K.overload_text[lang];
+  $('v1ste').replaceChildren(...K.ste_lines[lang].map(l => { const d = document.createElement('div'); d.textContent = l; return d; }));
+  $('n1').textContent = K.node1[lang]; $('n1').style.cssText = `color:${C.cyan};border-color:${C.cyan}`;
+  $('n2').textContent = K.node2[lang]; $('n2').style.cssText = `color:${C.purple};border-color:${C.purple}`;
+  $('hint').textContent = u.canvasHint; $('entLbl').textContent = u.entropy + ':';
+  $('pickHint').textContent = u.pickPath; $('recNote').textContent = u.recursion;
+  $('playStage').textContent = u.playStage;
+  $('srcNote').textContent = CFG.source_note[lang];
+  $('srcPyH').textContent = u.srcPy; $('srcCfgH').textContent = u.srcCfg;
+  $('srcPy').textContent = SRC_PY; $('srcCfg').textContent = SRC_CFG;
+  renderTriangle('svg3', false); renderTriangle('svg4', true); renderPaths(); renderSpiral();
+  setStage(stage, true);
+  mermaidDirty = true;
+  if (tab === 2) renderMermaid();
+}
 
-  const L = LAYERS[key];
-  document.getElementById("lName").firstChild.nodeValue = key + "　" + L.name;
-  document.getElementById("lNameEn").textContent = "　" + L.en;
-  document.getElementById("lQ").innerHTML = L.question + "<em>" + L.question_en + "</em>";
-  document.getElementById("lDef").innerHTML = L.definition + "<em>" + L.definition_en + "</em>";
-  document.getElementById("lAnchor").innerHTML =
-    "理论锚点 Anchor：" + L.anchor + "　·　证据等级 Evidence：" +
-    '<b style="color:' + evColor(L.evidence) + '">' + L.evidence + "</b>（" +
-    EV_NAMES[L.evidence][0] + " / " + EV_NAMES[L.evidence][1] + "）";
-
-  DEMOS[key].init();
-  buildCtrls(key);
-  DEMOS[key].draw();
-  if (key === "L6") startLoop();
-
-  const tl = TIMELINE[key];
-  if (tl && video && !seeking && video.readyState >= 1){
-    if (Math.abs(video.currentTime - tl.start) > 0.3){
-      seeking = true;
-      try { video.currentTime = tl.start; } catch(e){}
-      setTimeout(()=>{ seeking = false; }, 150);
-    }
+/* ---------- tabs ---------- */
+function switchTab(i, focus) {
+  tab = i;
+  for (let k = 0; k < 4; k++) {
+    $('p' + k).hidden = k !== i;
+    const b = $('t' + k);
+    b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1;
   }
+  if (focus) $('t' + i).focus();
+  if (i !== 0) $('video').pause();
+  syncCanvas();
+  if (i === 2) renderMermaid();
 }
 
-/* ---------------------------------------------------------------- 启动 */
-function boot(){
-  fitCanvas();
-  renderNotes();
-  select("L1");
+/* ---------- layers ---------- */
+function setStage(n, silent) {
+  stage = n;
+  const L = LAYERS[n - 1], B = bandOf(L), u = ui(), col = tierColor(L);
+  $('stageSlider').value = n;
+  $('stageSlider').setAttribute('aria-valuetext', `${L.id} ${L.name[lang]}`);
+  LAYERS.forEach((l, i) => {
+    const on = i + 1 === n;
+    $('lbl' + (i + 1)).classList.toggle('on', on);
+    $('lbl' + (i + 1)).style.color = on ? tierColor(l) : '';
+    $('v' + (i + 1)).hidden = !on;
+  });
+  const row = (k, v) => `<dt>${esc(k)}</dt><dd>${v}</dd>`;
+  $('card').innerHTML =
+    `<h3 style="color:${col}">${esc(L.id)} · ${esc(L.name[lang])} <span style="color:${C.gray};font-weight:400;font-size:.8rem">${lang === 'zh' ? esc(L.name.en) : esc(L.name.zh)}</span></h3>` +
+    `<div class="def">${esc(L.definition[lang])}</div><dl>` +
+    row(u.card.band, `<span class="badge" style="color:${col};border-color:${col}">${esc(B.label[lang])}</span>${esc(B.problem[lang])}`) +
+    row(u.card.anchor, esc(L.anchor[lang])) +
+    row(u.card.evidence, esc(L.evidence)) +
+    row(u.card.falsifier, esc(L.falsifier[lang])) + `</dl>`;
+  if (!silent) seek(L.id, false);
+  syncCanvas();
 }
-window.addEventListener("resize", ()=>{ fitCanvas(); DEMOS[current].draw(); });
-video.addEventListener("loadedmetadata", ()=>{
-  const tl = TIMELINE[current];
-  if (tl) { try { video.currentTime = tl.start; } catch(e){} }
-});
-boot();
+
+function seek(id, play) {
+  const v = $('video'), t = TIMELINE[id];
+  if (t === undefined) return;
+  const go = () => { v.currentTime = t; if (play) v.play().catch(() => {}); };
+  v.readyState > 0 ? go() : v.addEventListener('loadedmetadata', go, { once: true });
+}
+
+/* ---------- canvas (L2): particles converge to a grid as entropy -> 0 ---------- */
+const cv = $('cv'), ctx = cv.getContext('2d');
+let W = 460, H = 130, parts = [], raf = null;
+function rng(seed) { return () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296; }
+function hex2rgb(h) { const n = parseInt(h.slice(1), 16); return [n >> 16, n >> 8 & 255, n & 255]; }
+const CY = hex2rgb(C.cyan), PU = hex2rgb(C.purple);
+function setupCanvas() {
+  const r = cv.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  if (!r.width) return false;
+  W = r.width; H = 130;
+  cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const rnd = rng(7); parts = [];
+  for (let i = 0; i < 50; i++) parts.push({ bx: rnd() * W, by: rnd() * H, ph: rnd() * 6.28,
+    tx: W * (0.1 + 0.8 * (i % 10) / 9), ty: H * (0.15 + 0.7 * Math.floor(i / 10) / 4) });
+  return true;
+}
+function drawCanvas(now) {
+  const e = $('entropy').value / 100, k = reduceMotion ? 0 : now * 0.002;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = `rgb(${CY.map((c, j) => Math.round(c + (PU[j] - c) * e))})`;
+  parts.forEach(p => {
+    const x = p.tx + (p.bx - p.tx) * e + Math.sin(k + p.ph) * 12 * e;
+    const y = p.ty + (p.by - p.ty) * e + Math.cos(k + p.ph) * 12 * e;
+    ctx.beginPath(); ctx.arc(x, y, 3, 0, 6.2832); ctx.fill();
+  });
+  cv.setAttribute('aria-label', `${ui().entropy}: ${Math.round(e * 100)}%`);
+}
+function loop(now) { drawCanvas(now); raf = requestAnimationFrame(loop); }
+function syncCanvas() {
+  if (raf) { cancelAnimationFrame(raf); raf = null; }
+  if (tab !== 1 || stage !== 2) return;
+  if (!setupCanvas()) return;
+  reduceMotion ? drawCanvas(0) : (raf = requestAnimationFrame(loop));
+}
+$('entropy').addEventListener('input', () => { if (reduceMotion) drawCanvas(0); });
+addEventListener('resize', () => { if (tab === 1) syncCanvas(); });
+
+/* ---------- mermaid (pinned CDN; falls back to source) ---------- */
+let mermaidDirty = true;
+function renderMermaid() {
+  if (!mermaidDirty) return;
+  mermaidDirty = false;
+  const host = $('mmHost'), u = ui(), ok = !!window.mermaid, nodes = [];
+  host.replaceChildren();
+  if (!ok) { const p = document.createElement('p'); p.className = 'note warn'; p.textContent = u.mermaidFail; host.appendChild(p); }
+  ['pipeline', 'scenes', 'palette'].forEach((k, i) => {
+    const wrap = document.createElement('div'); wrap.className = 'mm';
+    const h = document.createElement('h3'); h.textContent = u.diagrams[i]; wrap.appendChild(h);
+    const box = document.createElement(ok ? 'div' : 'pre'); box.className = ok ? 'box mermaid' : '';
+    box.textContent = MERMAID[lang][k]; wrap.appendChild(box); host.appendChild(wrap);
+    if (ok) nodes.push(box);
+  });
+  if (ok) mermaid.run({ nodes }).catch(() => { mermaidDirty = true; });
+}
+window.addEventListener('load', () => { if (window.mermaid) mermaid.initialize({ startOnLoad: false, theme: 'dark' }); if (tab === 2) { mermaidDirty = true; renderMermaid(); } });
+
+applyLang();
+switchTab(0);
 </script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js" defer></script>
 </body>
 </html>

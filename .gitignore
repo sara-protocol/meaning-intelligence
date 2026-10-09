@@ -96,3 +96,6 @@ $RECYCLE.BIN/
 *.log
 *.tmp
 timeline.local.json
+# 一次性备份目录（不进仓，用 mi_v2_incoming 里对应的源文件即可复原）
+msi_v0.2_backup/
+
