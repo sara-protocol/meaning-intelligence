@@ -36,12 +36,15 @@ def main():
 
     mm = all_mermaid(cfg)
     html = (HERE / "templates" / "html_template.html").read_text(encoding="utf-8")
+    _src_py_path = HERE / "scenes" / "meaning_intelligence.py"
+    _src_py_text = _src_py_path.read_text(encoding="utf-8") if _src_py_path.exists() else "// (scenes/ not present in this build)\\n"
+
     repl = {
         "__CONFIG_JSON__": js(cfg),
         "__TIMELINE_JSON__": js(timeline),
         "__TIMELINE_SOURCE__": js(source),
         "__MERMAID_JSON__": js(mm),
-        "__SRC_PY__": js((HERE / "scenes" / "meaning_intelligence.py").read_text(encoding="utf-8")),
+        "__SRC_PY__": js(_src_py_text),
         "__SRC_CFG__": js((HERE / "config.json").read_text(encoding="utf-8")),
     }
     for k, v in repl.items():
