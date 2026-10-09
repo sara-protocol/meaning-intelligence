@@ -80,7 +80,7 @@ def main() -> int:
     # 3. 注入项抽查
     checks = {
         "TIMELINE 含 L6": bool(re.search(r"const TIMELINE\s*=\s*\{[^;]*\"L6\"", html, re.S)),
-        "SOURCE 为合法 JS 字符串": bool(re.search(r'const SOURCE\s*=\s*"(measured|planned)"', html)),
+        "SOURCE 为合法 JS 字符串": bool(re.search(r'const\s+(?:SOURCE|TIMELINE_SOURCE)\s*=\s*"(measured|planned)"', html)),
         "六层键齐全": all(f'"{k}"' in html for k in
                           ("L1", "L2", "L3", "L4", "L5", "L6")),
         "证据色阶存在": all(f'"{k}"' in html for k in

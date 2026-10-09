@@ -187,7 +187,7 @@ jobs:
               sys.exit(1)
 
           # 说明当前用的是哪条分支，便于排查（两条都是合法输入，因此只作信息输出）。
-          match = re.search(r'const\s+SOURCE\s*=\s*"(planned|measured)"', text)
+          match = re.search(r'const\s+(?:SOURCE|TIMELINE_SOURCE)\s*=\s*"(planned|measured)"', text)
           print(f"时间轴来源 / timeline source: {match.group(1) if match else 'unknown'}")
 
           print(f"OK   {page}（{len(text)} 字符，无残留占位符）")
@@ -204,7 +204,7 @@ jobs:
             exit 1
           fi
           cat "$PLANNED_DIR/planned-build.log"
-          if ! grep -Eq 'const +SOURCE *= *"planned"' "$PLANNED_DIR/meaning_intelligence.html"; then
+          if ! grep -Eq 'const +(SOURCE|TIMELINE_SOURCE) *= *"planned"' "$PLANNED_DIR/meaning_intelligence.html"; then
             echo "::error::planned 回退分支未产出 planned 时间轴"
             exit 1
           fi
