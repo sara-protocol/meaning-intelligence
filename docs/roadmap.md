@@ -43,7 +43,7 @@ that coordination is not weighted summation.
 
 ---
 
-## 三、当前版本 0.1.0 / Current Release 0.1.0
+## 三、当前版本 0.2.0 / Current Release 0.2.0
 
 **已完成 / Delivered:**
 

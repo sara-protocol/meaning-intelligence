@@ -104,7 +104,7 @@ This theory is most easily misread as a manifesto of the form "AI gives answers,
 
 
 
-**This project's "Meaning Intelligence" is a specific naming.** As of 2026, `Meaning Intelligence` is already in use across several directions — semantic/pragmatic analysis, decision support, and commercial products among them. This project's **Meaning Intelligence Theory (MIT)** refers to **the directional regulation of intelligent activities**. It is not identical to any of the following adjacent constructs.
+**This project's "Meaning Intelligence" is a specific naming.** As of 2026, `Meaning Intelligence` is already in use across several directions — semantic/pragmatic analysis, decision support, and commercial products among them. This project's **Meaning Intelligence Theory (MI Theory)** refers to **the directional regulation of intelligent activities**. It is not identical to any of the following adjacent constructs.
 
 
 
@@ -145,7 +145,7 @@ fields (Semantic/Pragmatic, Decision Intelligence, Metacognitive AI, AI Alignmen
 traditions).
 
 Naming collision is unavoidable — `Meaning Intelligence` is already in use across multiple
-directions. This project's **Meaning Intelligence Theory (MIT)** refers to **directional
+directions. This project's **Meaning Intelligence Theory (MI Theory)** refers to **directional
 regulation**, which is a **different construct** from same-named usage in semantic, pragmatic,
 or decision-oriented directions.
 

@@ -16,17 +16,17 @@
 
 
 
-This is the second public release of the application layer of *Meaning Intelligence:
+This is the second public release of the application layer of \*Meaning Intelligence:
 
-The Cognitive Operating System of Meaning Civilization*, V7.0. This release introduces no new
+The Cognitive Operating System of Meaning Civilization\*, V7.0. This release introduces no new
 
-theoretical claims. It does exactly one thing: **converge the theory from narrative into a
+theoretical claims. It does exactly one thing: \*\*converge the theory from narrative into a
 
-citable research system**.
+citable research system\*\*.
 
 
 
----
+\---
 
 
 
@@ -34,7 +34,7 @@ citable research system**.
 
 
 
-### 1. Claim Registry(`docs/claims.md`)
+### 1\. Claim Registry(`docs/claims.md`)
 
 
 
@@ -48,19 +48,13 @@ citable research system**.
 
 
 
-- 唯一 ID(`MI-C001` \~ `MI-C012`,新 claim 从 `MI-C100` 起)
-
-- 精确定义
-
-- 锚定正典章节
-
-- Evidence Status(E0–E6)
-
-- Claim Status(`Draft` / `Formalized` / `Under Test` / `Survived` / `Falsified` / `Withdrawn`)
-
-- 测试方式
-
-- **失败条件**(什么观察会让它作废)
+* 唯一 ID(`MI-C001` \~ `MI-C012`,新 claim 从 `MI-C100` 起)
+* 精确定义
+* 锚定正典章节
+* Evidence Status(E0–E6)
+* Claim Status(`Draft` / `Formalized` / `Under Test` / `Survived` / `Falsified` / `Withdrawn`)
+* 测试方式
+* **失败条件**(什么观察会让它作废)
 
 
 
@@ -80,7 +74,7 @@ citable research system**.
 
 
 
-### 2. Construct Boundary Map(Figure 3)
+### 2\. Construct Boundary Map(Figure 3)
 
 
 
@@ -88,11 +82,9 @@ citable research system**.
 
 
 
-- 内环(蓝):MIT —— 对智能活动的方向性调控
-
-- 中环(紫):IQ / EQ / SQ —— 平行能力,被元层约束
-
-- 外环(金):Semantic/Pragmatic · Decision Intelligence · Metacognitive AI · AI Alignment · Wisdom
+* 内环(蓝):MIT —— 对智能活动的方向性调控
+* 中环(紫):IQ / EQ / SQ —— 平行能力,被元层约束
+* 外环(金):Semantic/Pragmatic · Decision Intelligence · Metacognitive AI · AI Alignment · Wisdom
 
 
 
@@ -100,7 +92,7 @@ citable research system**.
 
 
 
-### 3. Single Version Source(`VERSION.yaml`)
+### 3\. Single Version Source(`VERSION.yaml`)
 
 
 
@@ -110,7 +102,7 @@ citable research system**.
 
 
 
-### 4. What This Theory Does NOT Claim(README)
+### 4\. What This Theory Does NOT Claim(README)
 
 
 
@@ -128,11 +120,11 @@ citable research system**.
 
 > 组成部分 / 多尺度意义产生协调问题 / 递归审视可能对长期稳定性是必要的 /
 
-> 以上主张都是**可检验、可证伪**的
+> 以上主张都是\\\\\\\\\\\\\\\*\\\\\\\\\\\\\\\*可检验、可证伪\\\\\\\\\\\\\\\*\\\\\\\\\\\\\\\*的
 
 
 
-### 5. Research Status Panel(README)
+### 5\. Research Status Panel(README)
 
 
 
@@ -156,7 +148,7 @@ README 顶部新增研究状态面板:
 
 
 
----
+\---
 
 
 
@@ -168,13 +160,10 @@ README 顶部新增研究状态面板:
 
 
 
-- **新增 Chapter:构造边界**(含 Figure 3)
-
-- **新增 Chapter:Claim Registry 摘要**(含 Table 8,12 claims)
-
-- 页数:19 → **21**
-
-- 版本号:1.0 → **1.1**
+* **新增 Chapter:构造边界**(含 Figure 3)
+* **新增 Chapter:Claim Registry 摘要**(含 Table 8,12 claims)
+* 页数:19 → **21**
+* 版本号:1.0 → **1.1**
 
 
 
@@ -184,7 +173,7 @@ README 顶部新增研究状态面板:
 
 
 
----
+\---
 
 
 
@@ -216,7 +205,7 @@ README 顶部新增研究状态面板:
 
 
 
----
+\---
 
 
 
@@ -232,7 +221,7 @@ README 顶部新增研究状态面板:
 
 | 版本单一源 | 无 | `VERSION.yaml` |
 
-| 构造边界图 | 无 | `fig3_construct_boundary.png` |
+| 构造边界图 | 无 | `fig3\\\\\\\\\\\\\\\_construct\\\\\\\\\\\\\\\_boundary.png` |
 
 | 研究状态面板 | 无 | README 顶部 |
 
@@ -244,7 +233,7 @@ README 顶部新增研究状态面板:
 
 
 
----
+\---
 
 
 
@@ -254,39 +243,28 @@ README 顶部新增研究状态面板:
 
 **新增**:
 
-- `VERSION.yaml` —— 单一版本源
-
-- `docs/claims.md` —— Claim Registry
-
-- `README.en.md` —— 英文版 README
-
-- `ROADMAP.md` —— 工程路线图
-
-- `whitepaper/figures/fig3_construct_boundary.png` —— 构造边界图
-
-- `tools/` 下若干维护脚本
+* `VERSION.yaml` —— 单一版本源
+* `docs/claims.md` —— Claim Registry
+* `README.en.md` —— 英文版 README
+* `ROADMAP.md` —— 工程路线图
+* `whitepaper/figures/fig3\\\\\\\\\\\\\\\_construct\\\\\\\\\\\\\\\_boundary.png` —— 构造边界图
+* `tools/` 下若干维护脚本
 
 
 
 **修改**:
 
-- `README.md` / `README.en.md` —— 加入研究状态面板、不声称声明、构造边界
-
-- `docs/architecture.md` —— 加入构造边界章节
-
-- `CITATION.cff` —— version 0.2.0
-
-- `CHANGELOG.md` —— 加入 [0.2.0] 段
-
-- `whitepaper/build_whitepaper.py` —— fig3 + Claim Registry 摘要
-
-- `whitepaper/docx_style.py` —— 输出文件名 v1.1
-
-- `whitepaper/dist/` —— 白皮书 v1.1(DOCX + PDF)
+* `README.md` / `README.en.md` —— 加入研究状态面板、不声称声明、构造边界
+* `docs/architecture.md` —— 加入构造边界章节
+* `CITATION.cff` —— version 0.2.0
+* `CHANGELOG.md` —— 加入 \[0.2.0] 段
+* `whitepaper/build\\\\\\\\\\\\\\\_whitepaper.py` —— fig3 + Claim Registry 摘要
+* `whitepaper/docx\\\\\\\\\\\\\\\_style.py` —— 输出文件名 v1.1
+* `whitepaper/dist/` —— 白皮书 v1.1(DOCX + PDF)
 
 
 
----
+\---
 
 
 
@@ -298,7 +276,7 @@ README 顶部新增研究状态面板:
 
 
 
-> 任何模块达到失败阈值,将被**标记或删除**,而不是被辩护。
+> 任何模块达到失败阈值,将被\\\\\\\\\\\\\\\*\\\\\\\\\\\\\\\*标记或删除\\\\\\\\\\\\\\\*\\\\\\\\\\\\\\\*,而不是被辩护。
 
 
 
@@ -308,7 +286,7 @@ README 顶部新增研究状态面板:
 
 
 
----
+\---
 
 
 
@@ -316,19 +294,15 @@ README 顶部新增研究状态面板:
 
 
 
-- 📄 白皮书:见本页附件(v1.1,21 页,中英双语,DOCX + PDF)
-
-- 🗂 Claim Registry:[`docs/claims.md`](../blob/main/docs/claims.md)
-
-- 🗺 路线图:[`ROADMAP.md`](../blob/main/ROADMAP.md)
-
-- 🧪 证伪报告:[Issue 模板](../issues/new?template=falsification_report.yml)
-
-- 💬 讨论:[Discussions](../discussions)
+* 📄 白皮书:见本页附件(v1.1,21 页,中英双语,DOCX + PDF)
+* 🗂 Claim Registry:[`docs/claims.md`](../blob/main/docs/claims.md)
+* 🗺 路线图:[`ROADMAP.md`](../blob/main/ROADMAP.md)
+* 🧪 证伪报告:[Issue 模板](../issues/new?template=falsification_report.yml)
+* 💬 讨论:[Discussions](../discussions)
 
 
 
----
+\---
 
 
 

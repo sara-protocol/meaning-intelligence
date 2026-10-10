@@ -7,7 +7,6 @@
 
 [![License: MIT](https://img.shields.io/badge/code-MIT-3B82F6.svg)](LICENSE)
 [![Docs: CC BY 4.0](https://img.shields.io/badge/docs-CC%20BY%204.0-C49B3B.svg)](LICENSE-DOCS)
-[![CI](https://github.com/sara-protocol/meaning-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/sara-protocol/meaning-intelligence/actions/workflows/ci.yml)
 [![Version](https://img.shields.io/badge/version-0.2.0-6B4C9A.svg)](CHANGELOG.md)
 
 </div>
@@ -57,7 +56,7 @@ The repository does three things:
 
 | 维度 | 当前状态 |
 |---|---|
-| 研究阶段 | `public-research` —— 0.x 表示 research formation,尚未进入实证检验阶段 |
+| 研究阶段 | `public-research` —— 0.x 表示 research formation;L4 量表信效度验证与 L6 RCT 正在进行中,六层栈整体仍是 E0(概念) |
 | 六层栈证据等级 | **E0(概念)** —— 未经独立检验 |
 | 白皮书版本 | v1.0(19 页,中英双语,DOCX + PDF) |
 | 版本源 | [`VERSION.yaml`](VERSION.yaml) —— 所有版本号以此为唯一真相 |
@@ -97,7 +96,7 @@ The repository does three things:
 ## 与近邻概念的区别
 
 **本项目的「意义智能」是一个特定命名。** 截至 2026 年,`Meaning Intelligence` 在语义/语用分析、
-决策支持、商业产品等多个方向已有使用。本项目的 **Meaning Intelligence Theory (MIT)**
+决策支持、商业产品等多个方向已有使用。本项目的 **Meaning Intelligence Theory (MI Theory)**
 指**对智能活动的方向性调控**,与下列方向不是同一构造。
 
 | 近邻概念 | 关注什么 | 与本项目的关系 |
@@ -120,12 +119,12 @@ The repository does three things:
 
 ![构造边界图](whitepaper/figures/fig3_construct_boundary.png)
 
-上图把 MIT 放在一个概念空间里:**内环**是 MIT 本身(元层,对智能活动的方向性调控);
+上图把 MI Theory 放在一个概念空间里:**内环**是 MI Theory 本身(元层,对智能活动的方向性调控);
 **中环**是 IQ / EQ / SQ(平行能力,被元层约束);**外环**是邻接场域
 (Semantic / Pragmatic、Decision Intelligence、Metacognitive AI、AI Alignment、Wisdom 传统)。
 
 命名冲突不可避免——`Meaning Intelligence` 一词在多个方向已被使用。本项目的
-**Meaning Intelligence Theory (MIT)** 指**方向性调控**,与语义/语用/决策方向的同名使用
+**Meaning Intelligence Theory (MI Theory)** 指**方向性调控**,与语义/语用/决策方向的同名使用
 是**不同的构造**。
 
 
@@ -133,12 +132,12 @@ The repository does three things:
 
 | 层 | 名称 | Layer | 一句话定义 | 锚定正典 | 证据等级 |
 |---|---|---|---|---|---|
-| **L1** | 减负 | Cognitive Load Reduction | 把认知负荷从信息量转移到结构 | 第1章 1.1；工具 A.1 | E1（机制 E3） |
+| **L1** | 减负 | Cognitive Load Reduction | 把认知负荷从信息量转移到结构 | 第1章 1.1；工具 A.1 | E1（机制 E3–E4） |
 | **L2** | 可体验 | Experiential Rendering | 把「读到」变成「操作到」 | 第3章；第9章 M1 | E1（机制 E3） |
 | **L3** | 意义生成 | Meaning Generation | 组织成方向·价值·边界 | 第3章 3.1 / 3.2；第8章 8.1 光谱带 | E0–E1 |
 | **L4** | 价值评估 | Value Assessment | 为判断标注证据强度 | 第6章 E0–E6；3.3 PE 方程 | E2（工具）/ E1（模型） |
 | **L5** | 方向选择 | Direction Selection | 在五尺度上选定值得的方向 | 第4章；DC 指标；三级修正 | E1 |
-| **L6** | 反思与审视递归 | Recursive Reflection and Review | 让系统审视自己的审视 | 第7章 7B.2/7B.3/7B.4 三特性；失败矩阵 | E2（案例）/ E1 |
+| **L6** | 反思与审视递归 | Recursive Reflection and Review | 让系统审视自己的审视 | 第7章 7B.2/7B.3/7B.4 三特性；失败矩阵 | E2（案例） |
 
 六层按认知距离分为三带：**界面带**（L1–L2，解决「信息进不来」）、**加工带**（L3–L4，解决「意义出不来」）、
 **元带**（L5–L6，解决「方向守不住」）。只有元带能改写下层前提——这是「元」的形式特征。
