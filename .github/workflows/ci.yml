@@ -38,14 +38,15 @@ jobs:
           python-version: "3.12"
 
       - name: 安装依赖 / Install dependencies
-      - name: 仓库一致性检查 / Repository consistency check
-        run: |
-          set -euo pipefail
-          python tools/verify_consistency.py
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
           python -m pip install python-docx pillow pyyaml
+
+      - name: 仓库一致性检查 / Repository consistency check
+        run: |
+          set -euo pipefail
+          python tools/verify_consistency.py
 
       # ------------------------------------------------------------------
       # 1. YAML / CFF 可解析性
