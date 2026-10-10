@@ -7,6 +7,7 @@
 
 [![License: MIT](https://img.shields.io/badge/code-MIT-3B82F6.svg)](LICENSE)
 [![Docs: CC BY 4.0](https://img.shields.io/badge/docs-CC%20BY%204.0-C49B3B.svg)](LICENSE-DOCS)
+[![CI](https://github.com/sara-protocol/meaning-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/sara-protocol/meaning-intelligence/actions/workflows/ci.yml)
 [![Version](https://img.shields.io/badge/version-0.2.0-6B4C9A.svg)](CHANGELOG.md)
 
 </div>
