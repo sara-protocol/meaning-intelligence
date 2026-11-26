@@ -144,7 +144,9 @@ Cross-layer proposals are especially welcome (for example, when L3 and L4 indica
 
 **中文**
 
-仓库包含四部分代码：`whitepaper/`（用 python-docx 生成中英双语 DOCX）、`msi/`（Manim 场景 + 单文件交互页构建脚本）、`meaning-agent/`（标准库离线智能体与双语本地 UI）、`web-mcp/`（Cloudflare Pages Function 与发布同步）。
+仓库包含六部分代码：`whitepaper/`（用 python-docx 生成中英双语 DOCX）、`msi/`（Manim 场景 + 单文件交互页构建脚本）、`meaning-agent/`（标准库离线智能体与双语本地 UI）、`web-mcp/`（Cloudflare Pages Function 与发布同步）、`pr_sdk_v2/`（SDK 0.3.0，未发布工程版本）、`audit/`（浏览器本地启发式审计/助手，可选 GitHub Models 或 Ollama）。
+
+SDK、审计/助手、Meaning Agent 与 Web MCP 都**不是实证验证**。`hypotheses.yaml` 中的 `registered` 只表示已有预注册元数据，`evidence_ceiling` 是设计上限，**不是已达到的证据等级**；通过代码测试也不能提升主张等级。SDK 入口见 [`pr_sdk_v2/pyproject.toml`](pr_sdk_v2/pyproject.toml)，助手见 [`audit/index.html`](audit/index.html)。
 
 流程：
 
@@ -164,6 +166,14 @@ Cross-layer proposals are especially welcome (for example, when L3 and L4 indica
 ```bash
 # YAML 可解析
 python -c "import pathlib,yaml; [yaml.safe_load(p.read_text(encoding='utf-8')) for p in pathlib.Path('.github').rglob('*.yml')]"
+
+# 仓库语义门槛（从仓库根运行）
+python tools/verify_consistency.py
+python tools/verify_issue_forms.py
+python tools/verify_planned_fallback.py
+python tools/verify_final.py
+python tools/verify_final.py --negative
+PYTHONPATH=pr_sdk_v2 python pr_sdk_v2/test_pr.py
 
 # 重建白皮书
 cd whitepaper
@@ -197,7 +207,9 @@ node web-mcp/scripts/sync-publication.mjs --check "../意义智能有声读物_�
 
 **English**
 
-The repository holds four code parts: `whitepaper/` (bilingual DOCX generated with python-docx), `msi/` (Manim scenes plus the single-file interactive page builder), `meaning-agent/` (standard-library offline agent and bilingual local UI), and `web-mcp/` (Cloudflare Pages Function and publication sync).
+The repository holds six code parts: `whitepaper/` (bilingual DOCX generated with python-docx), `msi/` (Manim scenes plus the single-file interactive page builder), `meaning-agent/` (standard-library offline agent and bilingual local UI), `web-mcp/` (Cloudflare Pages Function and publication sync), `pr_sdk_v2/` (SDK 0.3.0, unreleased engineering), and `audit/` (browser-local heuristic audit/assistant with optional GitHub Models or Ollama).
+
+The SDK, audit/assistant, Meaning Agent, and Web MCP are **not empirical validation**. In `hypotheses.yaml`, `registered` means only that preregistration metadata exists and `evidence_ceiling` is a design ceiling, **not achieved evidence**; passing code tests does not raise a claim's evidence level. SDK entry point: [`pr_sdk_v2/pyproject.toml`](pr_sdk_v2/pyproject.toml). Assistant: [`audit/index.html`](audit/index.html).
 
 Process:
 
@@ -217,6 +229,14 @@ Local checks (core commands; CI adds artifact-structure and isolated publication
 ```bash
 # YAML parses
 python -c "import pathlib,yaml; [yaml.safe_load(p.read_text(encoding='utf-8')) for p in pathlib.Path('.github').rglob('*.yml')]"
+
+# Repository semantic gates (from the repository root)
+python tools/verify_consistency.py
+python tools/verify_issue_forms.py
+python tools/verify_planned_fallback.py
+python tools/verify_final.py
+python tools/verify_final.py --negative
+PYTHONPATH=pr_sdk_v2 python pr_sdk_v2/test_pr.py
 
 # Rebuild the white paper
 cd whitepaper

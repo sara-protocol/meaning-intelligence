@@ -13,7 +13,10 @@ abstract: >-
   generation, L4 value assessment, L5 direction selection, L6 recursive reflection and review),
   the E0-E6 evidence level scheme, the H1-H18 testable hypothesis cards with preregistered
   falsification criteria, a theory failure matrix, and a demonstration system (MSI) built from
-  Manim scenes and a single-file interactive HTML page. The project treats meta-intelligence as a
+  Manim scenes and a single-file interactive HTML page. The repository also includes a hypothesis
+  registration SDK, a browser-local heuristic assistant, a deterministic offline Meaning Agent,
+  and an authenticated read-only Web MCP. These are software capabilities, not empirical
+  validation. The project treats meta-intelligence as a
   testable scientific hypothesis rather than a philosophical thesis, and commits to marking or
   removing any module that reaches its preregistered failure threshold.
 type: software

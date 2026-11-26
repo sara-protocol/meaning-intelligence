@@ -16,6 +16,7 @@ project:
   tagline_en: A Theory of Directional Regulation of Intelligence
   owner: sara-protocol
   homepage: https://msi.gojj.ccwu.cc/
+  upstream_homepage: https://sara-protocol.github.io/meaning-intelligence/
   repository: https://github.com/sara-protocol/meaning-intelligence
 
 # --- Layered version identity -------------------------------------------------
@@ -81,6 +82,23 @@ msi_demo:
   acts: 8
   runtime_seconds: 43
 
+components:
+  hypotheses_sdk:
+    version: "0.3.0"
+    status: "unreleased-engineering"
+    path: "pr_sdk_v2/"
+  meaning_agent:
+    version: "1.0.0"
+    status: "E0-engineering"
+    path: "meaning-agent/"
+  web_mcp:
+    version: "1.0.0"
+    status: "read-only-public-tooling"
+    path: "web-mcp/"
+  audit_web:
+    status: "heuristic-assistant"
+    path: "audit/"
+
 # --- Copyright ----------------------------------------------------------------
 
 copyright:
@@ -93,7 +111,7 @@ copyright:
 
 changelog:
   - version: "0.1.0"
-    date: "2025-10-07"
+    date: "2026-10-07"
     note: "First public release — white paper v1.0, MSI demo, 11 toolkit checklists"
   - version: "0.2.0"
     date: "2026-10-08"

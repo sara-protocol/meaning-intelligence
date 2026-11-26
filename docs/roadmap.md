@@ -49,11 +49,11 @@ as though it had already happened. Every item in the near-term list below stays 
    [`whitepaper/docx_style.py`](../whitepaper/docx_style.py)、[`whitepaper/make_figures.py`](../whitepaper/make_figures.py)），
    发布产物在 [`whitepaper/dist/`](../whitepaper/dist)。
    Bilingual white paper v1.1, generated end to end by scripts.
-3. **MSI 六层演示系统**：Manim 八幕动画（[`msi/scenes/`](../msi/scenes)）＋ 单文件交互页
+3. **MSI 六层演示系统**：Manim **八幕、43 秒**动画（[`msi/scenes/`](../msi/scenes)；实测时间轴末点 43.433 秒）＋ 单文件交互页
    [`msi/meaning_intelligence.html`](../msi/meaning_intelligence.html)，含时间轴联动、六层导航与实测/预算时间轴的分支处理（见
    [architecture.md](architecture.md)）。
-   The MSI eight-act demonstration system: Manim scenes plus a single-file interactive page with
-   timeline linking, six-layer navigation, and explicit measured/planned timeline branching.
+   The MSI eight-act, 43-second demonstration system: Manim scenes plus a single-file interactive page with
+   timeline linking, six-layer navigation, and explicit measured/planned timeline branching (measured end: 43.433 s).
 4. **V7.0 E0–E6 定义、正典五模块失败矩阵、H1–H18 与六层工程证伪草案分层归档**：正典阈值与工程草案不再混用（见 [failure-matrix.md](failure-matrix.md)），并配套
    [`falsification_report.yml`](../.github/ISSUE_TEMPLATE/falsification_report.yml) 证伪报告模板。
    V7.0 evidence definitions, the canon's five-module matrix, H1–H18, and engineering drafts are stored separately, with a falsification report template.
@@ -74,7 +74,51 @@ as though it had already happened. Every item in the near-term list below stays 
 
 ---
 
-## 四、近期待办 / Near-Term Work
+## 四、0.3.0 未发布工程增补（2026-11-27）/ Unreleased 0.3.0 Engineering Addendum (2026-11-27)
+
+本节是 **2026-10-08 发布的 v0.2.0 之后**的工程增补，不回写 v0.2.0 的原始交付范围。
+研究系统仍是 **v0.2.0**；Canon V7.0、操作栈 2.0/E0 与白皮书 v1.1（22 页 / 9 表 / 3 图）不变。
+
+- **SDK 0.3.0（未发布工程版本）**：[`pr_sdk_v2/`](../pr_sdk_v2) 提供配置读取、六层启发式与假说判定；草稿、缺数据、条件不足或未实现判定返回 `INCONCLUSIVE`。仅已实现的 L3-H1 名义 alpha 阈值可返回 `FALSIFIED` / `NOT_FALSIFIED`，二者均不授予实证等级，后者也不等于已证实。
+- **工程假说与门槛**：[`hypotheses.yaml`](../hypotheses.yaml)、[`tools/verify_final.py`](../tools/verify_final.py)（含 `--negative`）与 SDK 检查进入 CI。
+- **浏览器本地审计/助手**：[`audit/index.html`](../audit/index.html) 支持用户手动填写方向/价值/边界并生成启发式报告，以 `localStorage` 保存历史，并可选用 GitHub Models / 本地 Ollama 双引擎拆解；[`audit/qr.html`](../audit/qr.html) 是二维码入口。
+- **Windows token 诊断**：[`check-token.bat`](../check-token.bat) 只检查桌面 token 文件格式，不输出完整 token，也不证明鉴权或模型可用。
+- **本地智能体与公共只读 Web MCP**：[`meaning-agent/`](../meaning-agent) 与 [`web-mcp/`](../web-mcp) 属于 0.2.0 之后的本地工具增补；后者需要 Bearer 鉴权，本仓库不提供生产端点或凭据。
+
+`registered` 只表示预注册元数据存在，`evidence_ceiling` 是设计上限，**不是已取得证据**。
+SDK、审计/助手、Meaning Agent、Web MCP 及代码检查**都不是实证验证**；后续仍需按预注册设计收集独立数据。
+自定义域主页 <https://msi.gojj.ccwu.cc/> 与上游 GitHub Pages 入口
+<https://sara-protocol.github.io/meaning-intelligence/> 只是发布角色，本文不声称已完成部署、可访问或已产生下载。
+
+This section records engineering additions **after the v0.2.0 release of 2026-10-08** without rewriting that
+release's original scope. The research system remains **v0.2.0**; Canon V7.0, operational stack 2.0/E0, and
+white paper v1.1 (22 pages / 9 tables / 3 figures) are unchanged.
+
+- **SDK 0.3.0 (unreleased engineering):** [`pr_sdk_v2/`](../pr_sdk_v2) adds config loading, six-layer heuristics,
+  and hypothesis verdicts. Drafts, missing data, unmet conditions, and unimplemented rules return `INCONCLUSIVE`;
+  only the implemented L3-H1 nominal-alpha threshold returns `FALSIFIED` / `NOT_FALSIFIED`. Neither grants an
+  empirical evidence level, and the latter is not confirmation.
+- **Engineering registry and gates:** [`hypotheses.yaml`](../hypotheses.yaml),
+  [`tools/verify_final.py`](../tools/verify_final.py) (including `--negative`), and SDK checks run in CI.
+- **Browser-local audit/assistant:** [`audit/index.html`](../audit/index.html) lets users enter direction/value/boundary,
+  generates heuristic reports, saves history in `localStorage`, and offers optional GitHub Models / local Ollama decomposition;
+  [`audit/qr.html`](../audit/qr.html) is the QR entry.
+- **Windows token diagnostic:** [`check-token.bat`](../check-token.bat) checks only the desktop token-file format,
+  without printing the full token or proving authentication/model availability.
+- **Local agent and public read-only Web MCP:** [`meaning-agent/`](../meaning-agent) and
+  [`web-mcp/`](../web-mcp) are local-tooling additions after 0.2.0. The latter requires Bearer authentication;
+  this repository provides no production endpoint or credentials.
+
+`registered` means only that preregistration metadata exists; `evidence_ceiling` is a design ceiling,
+**not achieved evidence**. The SDK, audit/assistant, Meaning Agent, Web MCP, and code checks are **not empirical
+validation**; independent data still require preregistered study designs. The custom-domain homepage
+<https://msi.gojj.ccwu.cc/> and upstream GitHub Pages entry
+<https://sara-protocol.github.io/meaning-intelligence/> are publication roles, not claims here of completed
+deployment, availability, or downloads.
+
+---
+
+## 五、近期待办 / Near-Term Work
 
 分三类。这个分类不是进度管理，而是**承诺管理**：正典假设按已发布阈值处置；工程草案必须先预注册；设计产物本身不是可证伪命题。
 
@@ -96,7 +140,7 @@ Three categories distinguish commitment: canonical hypotheses use published thre
 
 ---
 
-## 五、版本号的含义 / What the Version Number Means
+## 六、版本号的含义 / What the Version Number Means
 
 `0.x` 表示六层工程栈与操作化**仍在演进**；V7.0 的 E0–E6 定义与 H1–H18 阈值不随工程版本静默改写。任何工程模块因预注册检验被标记或删除时，会在 [`CHANGELOG.md`](../CHANGELOG.md) 中**显式说明**。
 

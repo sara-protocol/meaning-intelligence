@@ -18,6 +18,15 @@ A note on version numbers: releases mark the state of both documents and enginee
 
 ### 新增 / Added
 
+- **SDK 0.3.0 工程集成（2026-11-27，未发布）。** [`pr_sdk_v2/`](pr_sdk_v2/) 增加 `meaning_intelligence` Python 包与 `mi` CLI，覆盖配置读取、六层启发式函数和假说判定；草稿、缺数据、条件不足或尚未实现的评估返回 `INCONCLUSIVE`，已实现的 L3-H1 名义 alpha 阈值可返回 `FALSIFIED` / `NOT_FALSIFIED`，后者不等于已证实。
+- **SDK 0.3.0 engineering integration (2026-11-27, unreleased).** [`pr_sdk_v2/`](pr_sdk_v2/) adds the `meaning_intelligence` package and `mi` CLI for config loading, six-layer heuristics, and hypothesis verdicts. Drafts, missing data, unmet conditions, and unevaluated rules return `INCONCLUSIVE`; the implemented L3-H1 nominal-alpha threshold can return `FALSIFIED` / `NOT_FALSIFIED`, and the latter does not mean confirmed.
+- **v0.3.0 配置、假说注册与语义门槛。** 接入 [`hypotheses.yaml`](hypotheses.yaml)、[`tools/verify_final.py`](tools/verify_final.py) 及其 `--negative` 用例；CI 增加最终门槛、负向用例和 `PYTHONPATH=pr_sdk_v2 python pr_sdk_v2/test_pr.py`。
+- **v0.3.0 configuration, hypothesis registry, and semantic gates.** Integrates [`hypotheses.yaml`](hypotheses.yaml), [`tools/verify_final.py`](tools/verify_final.py), and its `--negative` cases; CI adds the final gates, negative cases, and `PYTHONPATH=pr_sdk_v2 python pr_sdk_v2/test_pr.py`.
+- **浏览器本地审计/助手。** [`audit/index.html`](audit/index.html) 提供手动启发式自检、`localStorage` 历史，以及 GitHub Models / 本地 Ollama 双引擎可选拆解；[`audit/qr.html`](audit/qr.html) 提供二维码入口，[`check-token.bat`](check-token.bat) 只诊断桌面 token 文件格式，不输出完整 token。
+- **Browser-local audit/assistant.** [`audit/index.html`](audit/index.html) adds manual heuristic review, `localStorage` history, and optional GitHub Models / local Ollama decomposition; [`audit/qr.html`](audit/qr.html) is the QR entry, and [`check-token.bat`](check-token.bat) diagnoses only the desktop token-file format without printing the full token.
+- **AI 访问者提示。** 中英文 README 在开头保留同一提示：AI 评估者可先回答 `agent-network/protocol/ai-visitor-questions.json` 的三个问题。
+- **AI-visitor notice.** Both READMEs retain the opening notice inviting AI evaluators to answer the three questions in `agent-network/protocol/ai-visitor-questions.json` first.
+
 - **正典来源审计 `docs/canon-audit.md`。** 登记 KDP 定稿02 V7 主正典与英文母本的 SHA-256、权威顺序、重复副本、上游截断/冲突和缺失插图占位；正典原件未修改。
 - **Canon source audit `docs/canon-audit.md`.** Records SHA-256 hashes, authority order, duplicate copies, upstream truncation/conflicts, and missing-figure placeholders for the KDP V7 primary canon and English mother; canon originals were not modified.
 - **语义一致性门槛。** `tools/verify_consistency.py` 现在检查工程扩展来源、六层证据、正典假设映射、证伪范围、V7 E3/E6 判据、来源哈希，并从任意工作目录运行。
@@ -37,7 +46,17 @@ A note on version numbers: releases mark the state of both documents and enginee
 - `tools/publish.py` 新增标签自动创建（`ensure_labels()`）。GitHub 对不存在的标签是静默丢弃的，不建会让分诊无声失效。
 - `tools/publish.py` now creates the labels the workflows depend on. GitHub drops unknown labels silently, which would make triage fail without any error.
 
+### 证据与版本边界 / Evidence and Version Boundaries
+
+- **以上 SDK、审计/助手、Meaning Agent 与 Web MCP 增补均不是实证验证。** `registered` 仅表示预注册元数据存在，`evidence_ceiling` 是设计上限，不是已取得证据；代码检查通过也不提升证据等级。
+- **None of the SDK, audit/assistant, Meaning Agent, or Web MCP additions is empirical validation.** `registered` means preregistration metadata exists; `evidence_ceiling` is a design ceiling, not achieved evidence. Passing code checks does not raise evidence levels.
+- **研究系统仍为 v0.2.0（2026-10-08）**，Canon V7.0、操作栈 2.0/E0 与白皮书 v1.1（22 页 / 9 表 / 3 图）的范围不变；0.3.0 只是未发布工程组件版本。
+- **The research system remains v0.2.0 (2026-10-08).** Canon V7.0, operational stack 2.0/E0, and white paper v1.1 (22 pages / 9 tables / 3 figures) are unchanged; 0.3.0 is an unreleased engineering-component version only.
+
 ### 变更 / Changed
+
+- **MSI 时长口径补齐。** 当前演示明确为八幕、43 秒；`msi/timeline.json` 的实测末点为 43.433 秒，版本元数据按 43 秒记载。
+- **MSI runtime clarified.** The current demo is documented as eight acts and 43 seconds; the measured timeline ends at 43.433 seconds, while version metadata records 43 seconds.
 
 - **来源边界纠正。** 六层栈与三带明确为本项目 E0 工程扩展，不是正典固定层次；`anchor` 改为“正典概念关联”。正典 H1–H18、附录 D.7 与工程 MI-C / L1–L6 草案分开引用。
 - **Provenance corrected.** The six-layer stack and three bands are now explicitly an E0 engineering extension, not a fixed canon hierarchy; `anchor` is a canon concept link. Canon H1–H18 and Appendix D.7 are cited separately from engineering MI-C / L1–L6 drafts.

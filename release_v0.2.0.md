@@ -308,3 +308,41 @@ README 顶部新增研究状态面板:
 
 **理论引用请以正典为准**:《意义智能:意义文明的认知操作系统》V7.0。
 
+---
+
+## 发布后增补（2026-11-27）/ Post-Release Addendum (2026-11-27)
+
+> **范围边界 / Scope boundary：** 以上内容记录 **2026-10-08 发布的 v0.2.0**，不把后续能力回填为该版本交付。
+> 研究系统仍是 **v0.2.0**；Canon V7.0、操作栈 2.0/E0 与白皮书 v1.1（22 页 / 9 表 / 3 图）的范围不变。
+
+2026-11-27 的后续工程增补包括：
+
+- **SDK 0.3.0（未发布工程版本）**：[`pr_sdk_v2/`](pr_sdk_v2/) 提供配置读取、六层启发式与假说判定；结构门槛见 [`tools/verify_final.py`](tools/verify_final.py)（含 `--negative`）。
+- **浏览器本地审计/助手**：[`audit/index.html`](audit/index.html) 支持用户手动填写方向/价值/边界并生成启发式报告，以 `localStorage` 保存历史，并可选用 GitHub Models / 本地 Ollama 双引擎拆解；[`audit/qr.html`](audit/qr.html) 是二维码入口。
+- **Windows token 诊断**：[`check-token.bat`](check-token.bat) 只检查桌面 `gh_token.txt` 的格式元数据，不输出完整 token，也不证明鉴权或模型可用。
+- **本地 Meaning Agent 与公共只读 Web MCP**：[`meaning-agent/`](meaning-agent/) 与 [`web-mcp/`](web-mcp/) 是后续本地工具；后者要求 Bearer 鉴权，本仓库不提供生产端点或凭据。
+
+`registered` 只表示预注册元数据存在，`evidence_ceiling` 是设计上限，**不是已取得证据**。上述 SDK、审计/助手、
+Meaning Agent、Web MCP 以及代码检查**都不是实证验证**；本文不声称已完成线上部署、可访问性或下载验证。
+
+> **Scope boundary:** the text above records **v0.2.0, released 2026-10-08**; later capabilities are not
+> backfilled into that release. The research system remains **v0.2.0**; Canon V7.0, operational stack 2.0/E0,
+> and white paper v1.1 (22 pages / 9 tables / 3 figures) are unchanged.
+
+The engineering addendum dated 2026-11-27 comprises:
+
+- **SDK 0.3.0 (unreleased engineering):** [`pr_sdk_v2/`](pr_sdk_v2/) adds config loading, six-layer heuristics,
+  and hypothesis verdicts; structural gates are in [`tools/verify_final.py`](tools/verify_final.py), including `--negative`.
+- **Browser-local audit/assistant:** [`audit/index.html`](audit/index.html) lets users enter direction/value/boundary,
+  generates heuristic reports, saves history in `localStorage`, and offers optional GitHub Models / local Ollama decomposition;
+  [`audit/qr.html`](audit/qr.html) is the QR entry.
+- **Windows token diagnostic:** [`check-token.bat`](check-token.bat) checks only format metadata for desktop
+  `gh_token.txt`, without printing the full token or proving authentication/model availability.
+- **Local Meaning Agent and public read-only Web MCP:** [`meaning-agent/`](meaning-agent/) and
+  [`web-mcp/`](web-mcp/) are later local tooling. The latter requires Bearer authentication; this repository
+  provides no production endpoint or credentials.
+
+`registered` means only that preregistration metadata exists; `evidence_ceiling` is a design ceiling,
+**not achieved evidence**. None of the SDK, audit/assistant, Meaning Agent, Web MCP, or code checks is empirical
+validation. This addendum does not claim completed deployment, availability, or download verification.
+

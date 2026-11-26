@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>MI 日常助手 | 个人意义智能自检</title>
+    <style>
+        :root { --bg: #0f1115; --panel: #1a1d24; --text: #e2e8f0; --accent: #3b82f6; --border: #2d3748; --success: #10b981; --purple: #8b5cf6; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; padding-bottom: 80px; line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 20px; }
+        h1 { font-weight: 300; letter-spacing: 1px; font-size: 1.4rem; margin: 0; }
+        .header-btns { display: flex; gap: 8px; }
+        .icon-btn { background: var(--panel); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; }
+        .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .scene-selector { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 15px; margin-bottom: 15px; scrollbar-width: none; }
+        .scene-btn { flex: 1; min-width: 100px; background: var(--panel); border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.2s; white-space: nowrap; }
+        .scene-btn.active { border-color: var(--accent); background: rgba(59, 130, 246, 0.1); color: var(--accent); font-weight: bold; }
+        .step-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; transition: all 0.3s; }
+        .step-card.disabled { opacity: 0.3; pointer-events: none; }
+        .layer-badge { background: var(--accent); color: #fff; font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; font-weight: bold; margin-right: 10px; }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        @media (min-width: 600px) { .grid { grid-template-columns: 1fr 1fr; } }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.9rem; color: #94a3b8; margin-bottom: 6px; }
+        input[type="text"], textarea { width: 100%; background: #0f1115; border: 1px solid var(--border); color: var(--text); padding: 12px; border-radius: 8px; font-size: 1rem; }
+        input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--accent); }
+        textarea { resize: vertical; min-height: 100px; }
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
+        button { background: var(--accent); color: #fff; border: none; padding: 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: background 0.2s; flex: 1; }
+        button:hover { background: #2563eb; }
+        .btn-ai { background: var(--purple); }
+        .btn-ai:hover { background: #7c3aed; }
+        .btn-ai:disabled { background: var(--border); cursor: wait; }
+        .result-box { background: #1e293b; border-left: 4px solid var(--success); padding: 20px; border-radius: 8px; margin-top: 20px; white-space: pre-wrap; font-size: 0.95rem; }
+        .integrity-notice { background: rgba(245, 158, 11, 0.12); border: 1px solid #f59e0b; border-radius: 8px; padding: 14px; margin-bottom: 20px; color: #fde68a; font-size: 0.9rem; }
+        .integrity-notice p { margin: 6px 0 0; }
+        .tip { font-size: 0.85rem; color: #64748b; font-style: italic; margin-top: 8px; }
+        .drawer { position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100vh; background: var(--panel); box-shadow: -5px 0 15px rgba(0,0,0,0.5); transition: right 0.3s ease; z-index: 1000; padding: 20px; overflow-y: auto; }
+        .drawer.open { right: 0; }
+        .drawer-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 15px; }
+        .history-item { background: #0f1115; border: 1px solid var(--border); padding: 12px; border-radius: 6px; margin-bottom: 10px; cursor: pointer; }
+        .history-date { font-size: 0.75rem; color: #64748b; margin-bottom: 5px; }
+        .history-text { font-size: 0.9rem; color: var(--text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .modal-overlay.open { display: flex; }
+        .modal { background: var(--panel); padding: 25px; border-radius: 12px; width: 90%; max-width: 500px; border: 1px solid var(--border); }
+        .modal h3 { margin-top: 0; color: var(--accent); }
+        .modal select, .modal input { width: 100%; padding: 10px; margin-bottom: 15px; background: #0f1115; border: 1px solid var(--border); color: #fff; border-radius: 6px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div>
+            <a href="../" style="color: #64748b; text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 5px;">← 返回项目主页</a>
+            <h1>🧭 MI 日常助手</h1>
+        </div>
+        <div class="header-btns">
+            <button class="icon-btn" onclick="openSettings()">⚙️ AI 设置</button>
+            <button class="icon-btn" onclick="toggleDrawer()">📁 历史</button>
+        </div>
+    </div>
+    <div class="scene-selector">
+        <div class="scene-btn active" onclick="switchScene('work', this)">💼 工作复盘</div>
+        <div class="scene-btn" onclick="switchScene('study', this)">📚 学习卡点</div>
+        <div class="scene-btn" onclick="switchScene('life', this)">🌱 人生选择</div>
+    </div>
+    <div class="integrity-notice" role="note">
+        <strong>启发式演示 · 非科学验证 / Heuristic demo · Not scientific validation</strong>
+        <p>本页只提供反思辅助，所有输出保持 E0，不构成 E1–E6 证据。文字长度、表单完整度和 AI 生成内容都不是实证证据。</p>
+        <p lang="en">This page is a reflection aid only. All output remains E0 and is not E1–E6 evidence. Text length, form completeness, and AI-generated content are not empirical evidence.</p>
+    </div>
+    <div class="step-card" id="stepL1">
+        <h2><span class="layer-badge">L1 减负</span> <span id="sceneTitle">工作复盘</span></h2>
+        <div class="input-group">
+            <label id="scenePrompt">今天的工作中，让你感到最内耗或卡住的事情是什么？</label>
+            <textarea id="rawInput" placeholder="在这里倾诉，AI 会帮你理清思路..."></textarea>
+        </div>
+        <div class="btn-group">
+            <button class="btn-ai" id="btnAI" onclick="processAI()">✨ AI 自动拆解</button>
+            <button onclick="processL1()">手动拆解</button>
+        </div>
+        <p class="tip">提示：首次使用请点击右上角“⚙️ AI 设置”配置模型。</p>
+    </div>
+    <div class="step-card disabled" id="stepL2L3">
+        <h2><span class="layer-badge">L2-3 可体验</span> 明确方向、价值与边界</h2>
+        <div class="grid">
+            <div>
+                <h3 style="color:#cbd5e1; margin-bottom:10px;">路径 A</h3>
+                <div class="input-group"><label>方向</label><input type="text" id="dirA"></div>
+                <div class="input-group"><label>价值</label><input type="text" id="valA"></div>
+                <div class="input-group"><label>边界</label><input type="text" id="boundA"></div>
+            </div>
+            <div>
+                <h3 style="color:#cbd5e1; margin-bottom:10px;">路径 B</h3>
+                <div class="input-group"><label>方向</label><input type="text" id="dirB"></div>
+                <div class="input-group"><label>价值</label><input type="text" id="valB"></div>
+                <div class="input-group"><label>边界</label><input type="text" id="boundB"></div>
+            </div>
+        </div>
+        <button onclick="processL3()" style="width: 100%;">生成 E0 启发式报告并保存</button>
+    </div>
+    <div class="step-card disabled" id="stepL5L6">
+        <h2><span class="layer-badge">L4-6 反思</span> 最终决定与防线</h2>
+        <div class="result-box" id="finalReport"></div>
+        <p class="tip" style="margin-top:15px; color:#f59e0b;">注：助手不为你做决定。请阅读上述反思，由你自己选定最终方向。</p>
+    </div>
+</div>
+<div class="drawer" id="historyDrawer">
+    <div class="drawer-header"><h2 style="margin:0; font-size:1.2rem;">历史记录</h2><button class="icon-btn" onclick="toggleDrawer()">关闭</button></div>
+    <div id="historyList"></div>
+</div>
+<div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+        <h3>⚙️ AI 引擎设置</h3>
+        <label>引擎类型</label>
+        <select id="aiProvider" onchange="toggleProviderConfig()">
+            <option value="github">GitHub Models (免费公网)</option>
+            <option value="ollama">本地 Ollama (开发者)</option>
+        </select>
+        <div id="configGithub">
+            <label>GitHub Token（免费 AI 引擎）</label>
+            <input type="password" id="ghToken" placeholder="github_pat_..." autocomplete="off" spellcheck="false" style="margin-bottom: 10px;">
+
+            <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid var(--accent); padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+                <p style="margin: 0 0 8px 0; font-size: 0.85rem; color: #e2e8f0;">
+                    <strong>🛡️ 为什么需要它？</strong><br>
+                    为了不花钱就能用 AI，系统调用 GitHub 的免费模型。Token 仅保存在当前页面的内存中，不写入浏览器存储或 Cookie，并仅直接发送到 GitHub；刷新或关闭页面后需重新填写。
+                </p>
+                <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" style="display: inline-block; background: var(--accent); color: #fff; text-decoration: none; padding: 6px 12px; border-radius: 4px; font-size: 0.85rem; font-weight: bold;">
+                    🔗 一键去 GitHub 生成 Token
+                </a>
+                <p style="margin: 8px 0 0 0; font-size: 0.8rem; color: #94a3b8;">
+                    👉 生成时只需在“Account permissions”中勾选 <strong>Models (Read-only)</strong> 即可。
+                </p>
+            </div>
+        </div>
+        <div id="configOllama" style="display:none;">
+            <label>Ollama 模型名称</label>
+            <input type="text" id="ollamaModel" value="qwen2.5-coder:7b">
+        </div>
+        <div class="btn-group" style="margin-top: 25px;">
+            <button onclick="saveSettings()">保存设置</button>
+            <button onclick="closeSettings()" style="background: var(--border);">取消</button>
+        </div>
+    </div>
+</div>
+<script>
+    function getStored(key, fallback) {
+        try { return localStorage.getItem(key) || fallback; } catch (_) { return fallback; }
+    }
+    function setStored(key, value) {
+        try { localStorage.setItem(key, value); } catch (_) { /* Storage is optional for the offline demo. */ }
+    }
+    function removeStored(key) {
+        try { localStorage.removeItem(key); } catch (_) { /* Storage may be unavailable. */ }
+    }
+    let settings = {
+        provider: getStored('mi_provider', 'github'),
+        ghToken: '',
+        ollamaModel: getStored('mi_ollama_model', 'qwen2.5-coder:7b')
+    };
+    // Delete the obsolete persisted secret without reading or reusing it.
+    removeStored('mi_gh_token');
+    function openSettings() {
+        document.getElementById('aiProvider').value = settings.provider;
+        document.getElementById('ghToken').value = settings.ghToken;
+        document.getElementById('ollamaModel').value = settings.ollamaModel;
+        toggleProviderConfig();
+        document.getElementById('settingsModal').classList.add('open');
+    }
+    function closeSettings() {
+        document.getElementById('ghToken').value = '';
+        document.getElementById('settingsModal').classList.remove('open');
+    }
+    function toggleProviderConfig() {
+        const p = document.getElementById('aiProvider').value;
+        document.getElementById('configGithub').style.display = p === 'github' ? 'block' : 'none';
+        document.getElementById('configOllama').style.display = p === 'ollama' ? 'block' : 'none';
+    }
+    function saveSettings() {
+        settings.provider = document.getElementById('aiProvider').value;
+        settings.ghToken = document.getElementById('ghToken').value.trim();
+        settings.ollamaModel = document.getElementById('ollamaModel').value.trim();
+        setStored('mi_provider', settings.provider);
+        setStored('mi_ollama_model', settings.ollamaModel);
+        closeSettings();
+    }
+    window.addEventListener('pagehide', () => {
+        settings.ghToken = '';
+        document.getElementById('ghToken').value = '';
+    });
+    async function processAI() {
+        const raw = document.getElementById('rawInput').value;
+        if(!raw) return alert('请先写下你的困扰，AI 才能帮你拆解哦');
+        if (settings.provider === 'github' && !settings.ghToken) {
+            alert('请先在右上角【⚙️ AI 设置】中填入免费的 GitHub Token。'); openSettings(); return;
+        }
+        const btn = document.getElementById('btnAI');
+        btn.innerText = "思考中..."; btn.disabled = true;
+        const sysPrompt = `你是一个意义智能拆解助手。请提取出两个应对路径。严格按以下 JSON 格式返回，不要其他废话：\n{"A": {"dir": "方向", "val": "价值", "bound": "边界"}, "B": {"dir": "方向", "val": "价值", "bound": "边界"}}`;
+        const userPrompt = `用户困扰："${raw}"`;
+        try {
+            let resultJson = "";
+            if (settings.provider === 'ollama') {
+                const res = await fetch('http://localhost:11434/api/generate', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ model: settings.ollamaModel, system: sysPrompt, prompt: userPrompt, stream: false, format: 'json' })
+                });
+                if(!res.ok) throw new Error('Ollama 连接失败');
+                const data = await res.json(); resultJson = data.response;
+            } else {
+                const res = await fetch('https://models.github.ai/inference/chat/completions', {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': `Bearer ${settings.ghToken}` },
+                    body: JSON.stringify({
+                        model: 'gpt-4o-mini',
+                        messages: [ { role: 'system', content: sysPrompt }, { role: 'user', content: userPrompt } ],
+                        response_format: { type: 'json_object' }
+                    })
+                });
+                if(!res.ok) { throw new Error(res.status === 401 ? 'GitHub Token 无效或权限不足' : `GitHub 请求失败（HTTP ${res.status}）`); }
+                const data = await res.json(); resultJson = data.choices[0].message.content;
+            }
+            const result = JSON.parse(resultJson);
+            document.getElementById('dirA').value = result.A.dir; document.getElementById('valA').value = result.A.val; document.getElementById('boundA').value = result.A.bound;
+            document.getElementById('dirB').value = result.B.dir; document.getElementById('valB').value = result.B.val; document.getElementById('boundB').value = result.B.bound;
+            document.getElementById('stepL2L3').classList.remove('disabled');
+            document.getElementById('stepL2L3').scrollIntoView({ behavior: 'smooth' });
+        } catch (error) { alert('AI 拆解失败：请检查网络、Token 权限与模型返回格式。'); } finally { btn.innerText = "✨ AI 自动拆解"; btn.disabled = false; }
+    }
+    const scenes = { work: { title: "工作复盘", prompt: "今天的工作中，让你感到最内耗或卡住的事情是什么？" }, study: { title: "学习卡点", prompt: "在学习新知识或技能时，目前最大的阻碍是什么？" }, life: { title: "人生选择", prompt: "在生活的某个十字路口，你现在面临的纠结是什么？" } };
+    function switchScene(key, btn) {
+        document.querySelectorAll('.scene-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
+        document.getElementById('sceneTitle').innerText = scenes[key].title; document.getElementById('scenePrompt').innerText = scenes[key].prompt;
+        document.getElementById('rawInput').value = ''; document.getElementById('stepL2L3').classList.add('disabled'); document.getElementById('stepL5L6').classList.add('disabled');
+    }
+    function processL1() {
+        if(!document.getElementById('rawInput').value) return alert('请先写下你的困扰');
+        document.getElementById('stepL2L3').classList.remove('disabled'); document.getElementById('stepL2L3').scrollIntoView({ behavior: 'smooth' });
+    }
+    function processL3() {
+        const A = { dir: document.getElementById('dirA').value || "未填", val: document.getElementById('valA').value || "未填", bound: document.getElementById('boundA').value || "" };
+        const B = { dir: document.getElementById('dirB').value || "未填", val: document.getElementById('valB').value || "未填", bound: document.getElementById('boundB').value || "" };
+        const report = `【E0 启发式反思 · 非科学验证】\nHeuristic reflection only — not empirical validation.\n\n【路径对照（仅用于反思）】\n🅰️ 路径 A：去【${A.dir}】，因为【${A.val}】\n   └ 边界备忘（非证据）: ${A.bound || '未设定'}\n🅱️ 路径 B：去【${B.dir}】，因为【${B.val}】\n   └ 边界备忘（非证据）: ${B.bound || '未设定'}\n\n【L6 递归灵魂拷问】\n1. 如果选 A：当边界【${A.bound || '未设定'}】被打破时，你愿意认输吗？\n2. 如果选 B：当边界【${B.bound || '未设定'}】被打破时，你的 Plan B 是什么？\n3. 假设一年后都失败了，你更能接受哪种“失败”？\n4. 你现在是不敢选 A，还是不想选 B？`;
+        document.getElementById('finalReport').textContent = report; document.getElementById('stepL5L6').classList.remove('disabled');
+        document.getElementById('stepL5L6').scrollIntoView({ behavior: 'smooth' }); saveToHistory(report);
+    }
+    function asText(value) {
+        return value === null || value === undefined ? '' : String(value);
+    }
+    function readHistory() {
+        try {
+            const history = JSON.parse(getStored('mi_history', '[]'));
+            return Array.isArray(history) ? history.filter(record => record && typeof record === 'object') : [];
+        } catch (_) {
+            return [];
+        }
+    }
+    function saveToHistory(report) {
+        const history = readHistory();
+        history.unshift({ id: Date.now(), date: new Date().toLocaleString(), title: document.getElementById('sceneTitle').textContent, raw: document.getElementById('rawInput').value, report: report });
+        setStored('mi_history', JSON.stringify(history));
+        renderHistory(history);
+    }
+    function renderHistory(history = readHistory()) {
+        const list = document.getElementById('historyList');
+        list.replaceChildren();
+        if(history.length === 0) {
+            const empty = document.createElement('p');
+            empty.textContent = '暂无历史记录';
+            empty.style.color = '#64748b';
+            empty.style.textAlign = 'center';
+            list.appendChild(empty);
+            return;
+        }
+        const fragment = document.createDocumentFragment();
+        history.forEach(record => {
+            const item = document.createElement('div');
+            item.className = 'history-item';
+            const date = document.createElement('div');
+            date.className = 'history-date';
+            date.textContent = `${asText(record.date)} · ${asText(record.title)}`;
+            const text = document.createElement('div');
+            text.className = 'history-text';
+            text.textContent = asText(record.raw);
+            item.appendChild(date);
+            item.appendChild(text);
+            item.addEventListener('click', () => loadHistory(record.id));
+            fragment.appendChild(item);
+        });
+        list.appendChild(fragment);
+    }
+    function loadHistory(id) {
+        const record = readHistory().find(h => h.id === id);
+        if(record) {
+            document.getElementById('rawInput').value = asText(record.raw);
+            document.getElementById('finalReport').textContent = asText(record.report);
+            document.getElementById('stepL5L6').classList.remove('disabled'); toggleDrawer(); document.getElementById('stepL5L6').scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+    function toggleDrawer() { document.getElementById('historyDrawer').classList.toggle('open'); renderHistory(); }
+    renderHistory();
+</script>
+</body>
+</html>

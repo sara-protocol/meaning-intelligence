@@ -107,13 +107,44 @@ if hy.exists():
         import yaml
         data = yaml.safe_load(hy.read_text(encoding="utf-8"))
         hypothesis_data = data
-        expected = {f"H{i}" for i in range(1, 19)}
-        actual = set(data.get("hypotheses", {}).keys())
-        missing = expected - actual
-        if missing:
-            fail(f"hypotheses.yaml 缺少: {sorted(missing)}")
+        raw_hypotheses = data.get("hypotheses", {})
+        if isinstance(raw_hypotheses, dict):
+            hypothesis_ids = list(raw_hypotheses)
+        elif isinstance(raw_hypotheses, list):
+            hypothesis_ids = [item.get("id") for item in raw_hypotheses if isinstance(item, dict)]
         else:
-            ok(f"hypotheses.yaml 完整 ({len(actual)} 条)")
+            hypothesis_ids = []
+        if not hypothesis_ids or any(not isinstance(item, str) or not item for item in hypothesis_ids):
+            fail("hypotheses.yaml 存在缺少 id 的假说或为空")
+        elif len(hypothesis_ids) != len(set(hypothesis_ids)):
+            fail("hypotheses.yaml 存在重复 id")
+        elif isinstance(raw_hypotheses, dict):
+            expected = {f"H{i}" for i in range(1, 19)}
+            missing = expected - set(hypothesis_ids)
+            if missing:
+                fail(f"hypotheses.yaml 缺少正典假设: {sorted(missing)}")
+            else:
+                ok(f"hypotheses.yaml 正典假设完整 ({len(hypothesis_ids)} 条)")
+        else:
+            for item in raw_hypotheses:
+                if not isinstance(item, dict):
+                    fail("hypotheses.yaml 列表包含非映射记录")
+                    continue
+                if item.get("scope") not in {"layer", "stack"}:
+                    fail(f"工程假说 {item.get('id')} 缺少合法 scope")
+                if item.get("scope") == "layer" and item.get("layer") not in set(version_data.get("operational_stack", {}).get("layers", [])):
+                    fail(f"工程假说 {item.get('id')} 的 layer 无效")
+            ok(f"hypotheses.yaml 工程假说结构有效 ({len(hypothesis_ids)} 条)")
+            canon_hypotheses = data.get("canon_hypotheses", {})
+            if not isinstance(canon_hypotheses, dict):
+                fail("hypotheses.yaml 缺少 canon_hypotheses 映射")
+            else:
+                expected = {f"H{i}" for i in range(1, 19)}
+                missing = expected - set(canon_hypotheses)
+                if missing:
+                    fail(f"canon_hypotheses 缺少: {sorted(missing)}")
+                else:
+                    ok(f"canon_hypotheses 完整 ({len(canon_hypotheses)} 条)")
     except ImportError:
         print("INFO 未装 pyyaml,跳过 hypotheses.yaml 检查")
     except Exception as e:
@@ -245,7 +276,7 @@ if set(actual_layers) != set(expected_layers):
     fail(f"MSI 层 ID 不完整或重复: {sorted(actual_layers)}")
 else:
     ok("MSI 六层 ID 完整")
-available_hypotheses = set(hypothesis_data.get("hypotheses", {}))
+available_hypotheses = set(hypothesis_data.get("canon_hypotheses", hypothesis_data.get("hypotheses", {})))
 for layer_id, (evidence, hypotheses, scope) in expected_layers.items():
     layer = actual_layers.get(layer_id, {})
     if layer.get("evidence") != evidence:

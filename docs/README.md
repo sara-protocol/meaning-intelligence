@@ -13,11 +13,23 @@ stack, three bands, and engineering falsification drafts use [`msi/config.json`]
 as their data source, with provenance stated here. Engineering claims do not automatically become
 canonical propositions; the canon prevails on conflict.
 
+> **Evidence status: E0 (conceptual).** The six-layer stack is an **operational representation**, not the
+> theory itself, and has not been independently tested. A simpler partition may replace it.
+>
+> The public research system remains **v0.2.0 (2026-10-08)**, the operational stack **2.0 / E0**, and the
+> white paper **v1.1 (22 pages / 9 tables / 3 figures)**. SDK **0.3.0 is an unreleased engineering component**;
+> the SDK, audit/assistant, Meaning Agent, and Web MCP are not empirical validation. `registered` means
+> preregistration metadata exists; `evidence_ceiling` is a design ceiling, **not achieved evidence**.
+
 > **来源边界 / Provenance**：六层栈是本项目提出的 E0 工程扩展，不是正典固定层次。
 > MI-C001–MI-C012 是项目 claim registry，不自动等于正典 H1–H18；两类标识符必须分别引用。
 
 > **证据状态：E0（概念）。** 六层栈是本项目提出的**操作性表示**，
 > 不是理论本体，也未经独立检验。它可能被更简洁的切分替换。
+>
+> 当前公开研究系统为 **v0.2.0（2026-10-08）**，操作栈为 **2.0 / E0**，白皮书为 **v1.1（22 页 / 9 表 / 3 图）**。
+> SDK **0.3.0 是未发布工程组件**；SDK、审计/助手、Meaning Agent 与 Web MCP 都不是实证验证。
+> `registered` 只表示预注册元数据存在，`evidence_ceiling` 是设计上限，**不是已取得证据**。
 
 ---
 
@@ -25,13 +37,27 @@ canonical propositions; the canon prevails on conflict.
 
 | 文档 Document                                                              | 回答什么问题 / What it answers                                                                                                                                                                                                                                                                                                                             |
 | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [architecture.md](architecture.md)<br>系统架构 / System Architecture         | 仓库各部分如何分层；`config.json` 到 `meaning_intelligence.html` 的数据如何流动；为什么时间轴必须实测注入而不能手写；六层如何映射到正典的 M1/M2/M3 与 F1–F4。<br>How the repository is layered; how data flows from `config.json` to `meaning_intelligence.html`; why the timeline must be measured rather than hand-written; how the six layers map onto canon modules M1/M2/M3 and processes F1–F4. |
+| [architecture.md](architecture.md)<br>系统架构 / System Architecture         | 仓库各部分如何分层；`config.json` 到 `meaning_intelligence.html` 的数据如何流动；SDK、智能体、Web MCP 与浏览器助手如何读写配置或返回结果；为什么时间轴必须实测注入而不能手写；六层如何映射到正典的 M1/M2/M3 与 F1–F4。<br>How the repository is layered; how data flows from `config.json` to `meaning_intelligence.html`; how the SDK, agent, Web MCP, and browser assistant consume configuration or return results; why the timeline must be measured rather than hand-written; how the six layers map onto canon modules M1/M2/M3 and processes F1–F4. |
 | [evidence.md](evidence.md)<br>证据体系 / Evidence System                     | E0–E6 各自是什么；六层各自的证据等级是多少；为什么必须区分「本框架内的操作化等级」与「底层机制的证据等级」。<br>What E0–E6 each mean; the evidence level of each layer; why "operationalization level inside this framework" must be kept apart from "evidence level of the underlying mechanism".                                                                                                      |
 | [failure-matrix.md](failure-matrix.md)<br>理论失败矩阵 / Theory Failure Matrix | 正典附录 D.7、H1–H18 与工程 L1–L6 草案如何分开；工程草案何时才可正式处置。<br>How canon Appendix D.7, H1–H18, and engineering L1–L6 drafts stay separate, and when an engineering draft may be formally acted on.                                                                                                                                                          |
 | [claims.md](claims.md)<br>项目主张登记 / Claim Registry | MI-C001–MI-C012 的项目主张、证据与失败条件；为何不能把 MI-C 编号当作正典 H 编号。<br>Project claims MI-C001–MI-C012, their evidence and failure conditions, and why MI-C identifiers are not canon H identifiers. |
 | [canon-audit.md](canon-audit.md)<br>正典来源审计 / Canon Source Audit | 哪个 DOCX 是 V7 主正典、其 SHA-256、权威顺序、已发现的上游缺陷与未修改声明。<br>Which DOCX is the V7 primary canon, its SHA-256, authority order, upstream defects, and the no-modification declaration. |
-| [roadmap.md](roadmap.md)<br>路线图 / Roadmap                                | 正典五阶段路线图各阶段做什么；本仓库定位在哪一阶段；0.2.0 已完成什么、下一步做什么。<br>What each of the canon's five roadmap phases does; where this repository sits; what 0.2.0 already delivers and what comes next.                                                                                                                                                                     |
+| [roadmap.md](roadmap.md)<br>路线图 / Roadmap                                | 正典五阶段路线图各阶段做什么；本仓库定位在哪一阶段；what 0.2.0 already delivers；2026-11-27 的 0.3.0 未发布工程增补与下一步。<br>What each of the canon's five roadmap phases does; where this repository sits; what 0.2.0 already delivers; the unreleased 0.3.0 engineering addendum dated 2026-11-27 and what comes next.                                                                                                                                                                     |
 | [glossary.md](glossary.md)<br>术语对照 / Glossary                            | 一个术语（意义智能、PE、DC、BS、SD、RZ、MC、MCA/SA/AZ、M1–M3、F1–F4……）的中文、英文与正典出处；以及六层各自的中英文名。<br>The Chinese name, English name, and canon source of each term (meaning intelligence, PE, DC, BS, SD, RZ, MC, MCA/SA/AZ, M1–M3, F1–F4, …), plus the bilingual names of the six layers.                                                                                |
+
+---
+
+## 工程入口 / Engineering Entry Points
+
+- SDK 0.3.0（未发布工程版本）：[`pr_sdk_v2/pyproject.toml`](../pr_sdk_v2/pyproject.toml) · [`hypotheses.yaml`](../hypotheses.yaml) · [`tools/verify_final.py`](../tools/verify_final.py)。
+  SDK 0.3.0 (unreleased engineering): package metadata, engineering hypothesis registry, and final semantic gates.
+- 浏览器本地审计/助手：[`audit/index.html`](../audit/index.html) · [`audit/qr.html`](../audit/qr.html) · [`check-token.bat`](../check-token.bat)。
+  Browser-local audit/assistant, QR entry, and the Windows token-file diagnostic that does not print the full token.
+- 本地智能体与只读 Web MCP：[`meaning-agent/README.md`](../meaning-agent/README.md) · [`web-mcp/functions/api/mcp.js`](../web-mcp/functions/api/mcp.js)。
+  Local Meaning Agent and authenticated read-only Web MCP source; neither is empirical validation.
+
+这些入口的结构正确性与运行检查**不等于**理论、机制或用户效果得到实证验证。
+Structural correctness and passing runtime checks at these entry points **do not** empirically validate the theory, mechanisms, or user effects.
 
 ---
 

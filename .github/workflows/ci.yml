@@ -1,10 +1,11 @@
 # ============================================================================
 # CI —— 意义智能 / Meaning Intelligence
-# 目的：在每次 push 与 pull_request 上验证仓库的"可解析 + 可重建 + 可校验"四件事。
+# 目的：在每次 push 与 pull_request 上验证仓库的"可解析 + 可重建 + 可校验"五件事。
 #   1. 所有 YAML / CFF 能被解析（模板与工作流本身是仓库的对外接口，坏掉的模板等于坏掉的贡献入口）；
 #   2. 白皮书能由脚本重建出有效 DOCX（产物可重建，才谈得上可复核）；
 #   3. MSI 单文件交互页能构建出来、无残留占位符、内联 JavaScript 语法正确；
-#   4. meaning-agent 的 Python/UI 测试与 web-mcp 的传输、发布同步测试可离线复现。
+#   4. meaning-agent 的 Python/UI 测试与 web-mcp 的传输、发布同步测试可离线复现；
+#   5. v0.3.0 最终语义门槛、负向用例与 pr_sdk_v2 SDK 检查从仓库根通过。
 # 有意不做的事：
 #   - 不渲染 Manim（渲染耗时且需要系统级依赖，代价远高于它带来的检查价值）。
 #     因此 MSI 部分除了构建工作区中的页面，还会在临时目录里显式验证"无 timeline.json"
@@ -53,6 +54,17 @@ jobs:
         run: |
           set -euo pipefail
           python tools/verify_consistency.py
+
+      - name: 校验 v0.3.0 最终语义门槛 / Validate final v0.3.0 semantic gates
+        run: |
+          set -euo pipefail
+          python tools/verify_final.py
+          python tools/verify_final.py --negative
+
+      - name: 校验 SDK 0.3.0 / Validate SDK 0.3.0
+        run: |
+          set -euo pipefail
+          PYTHONPATH=pr_sdk_v2 python pr_sdk_v2/test_pr.py
 
       # ------------------------------------------------------------------
       # 附加检查 / Additional checks：离线智能体与公共 Web MCP
