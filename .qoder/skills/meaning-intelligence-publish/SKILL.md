@@ -80,6 +80,17 @@ wrangler pages deploy . --project-name=msi --branch=main --commit-dirty=true
 - 未获得用户明确授权时，只构建和验证，不部署，不修改共享域名配置。
 - `MI_MCP_PUBLIC_TOKEN` 只从部署环境密钥读取，不写入前端、日志、文档、提交或输出。
 
+## 3A. GitHub Pages 静态发布
+
+当现有 Cloudflare Pages 被 Access 拦截时，可在用户明确授权后使用现有 GitHub Pages 域名发布静态部署集：
+
+1. 运行 `build_deploy_zip.py`，从 staging 复制静态文件到独立 `gh-pages` 工作树；排除 `functions/`，保留 `.nojekyll` 与现有 `CNAME`。
+2. 在工作树运行 `browser_verify.mjs --deployment` 和 `verify_package.py`，确认跳转链接、标题层级、双语切换、下载、Range 与媒体证据通过。
+3. 提交并推送 `gh-pages`，只把 Pages 构建源改为该分支根目录；不要修改 DNS、域名或 Access。
+4. 构建完成后运行 `browser_verify.mjs --online` 和 `verify_site.py --deep`，记录分支、提交、构建与线上证据。
+
+GitHub Pages 不执行 Pages Functions，因此 `/api/mcp` 仍只能在 Cloudflare Pages 验证；不得把静态站点通过写成生产 Web MCP 通过。
+
 ## 4. 线上机器验收
 
 ```bash
