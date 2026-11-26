@@ -1,0 +1,37 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:24.119
+Chapter 10. Human approval gate and the no-execution rule. Any action affecting an external system defaults to approval.status=pending. Approval records a human decision only; approval.execution_authorized is always false, and the tool executes no decisions, commands, or file operations.
+
+2
+00:00:24.439 --> 00:00:47.244
+The approval record contains status, human_required, recorded_from, execution_authorized, and a note. Default pending comes from the system; approved or rejected must come from explicit human input. A state change does not turn the analyzer into an executor.
+
+3
+00:00:47.564 --> 00:01:07.475
+Revision invalidates old approval. When review detects material feedback, replaced text, or revision_required, revised_analysis.approval returns to pending. This prevents approval of an old version from silently authorizing a new one.
+
+4
+00:01:07.795 --> 00:01:30.595
+High-risk domains call for professional review. Recursive review does not prove impartiality, truth, or safety and does not replace legal, medical, psychological, security, or governance judgment. Silence is not neutrality, and heterogeneous harms cannot be converted into one score.
+
+5
+00:01:30.915 --> 00:01:37.873
+Default: pending.
+
+6
+00:01:38.193 --> 00:01:46.085
+Human decision: approved or rejected.
+
+7
+00:01:46.405 --> 00:01:54.538
+Execution authorization: always false.
+
+8
+00:01:54.858 --> 00:02:02.656
+After revision: approval resets.
+
+9
+00:02:02.976 --> 00:02:17.547
+Try one step: Create a review from an approved analysis, replace the text, and confirm the new result returns to pending with execution.performed=false.

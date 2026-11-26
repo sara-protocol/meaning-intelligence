@@ -1,0 +1,37 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:27.684
+Chapter 6. Mapping canon mechanisms to the engineering stack. Canon mechanisms include three modules—M1 perception, M2 judgment, M3 action—and four processes: F1 meaning identification, F2 meaning assessment, F3 meaning decision, F4 meaning feedback. The six-layer stack is a testable engineering translation, not the canon mechanism itself.
+
+2
+00:00:28.004 --> 00:00:52.164
+L1 and L2 mainly sit on M1's input and presentation side and support F1; L3 and L4 mainly map to M2 and F2; L5 maps to M3 and F3; L6 reconnects M1–M3 and writes back through F4. This mapping explains engineering intent; it does not grant evidence status.
+
+3
+00:00:52.484 --> 00:01:16.819
+The interface band L1–L2 addresses information not getting in; processing L3–L4 addresses meaning not coming out; meta L5–L6 addresses direction not holding. Only the meta band can rewrite lower premises. L6's return to L1 creates a spiral, not a one-pass pipeline.
+
+4
+00:01:17.139 --> 00:01:39.019
+The architecture distinguishes measured from planned timelines. During rendering, self.mark() records actual act entry and exit. Only when measured data is absent does the builder extrapolate from configuration and label it planned. Experienceable is not the same as validated.
+
+5
+00:01:39.339 --> 00:01:49.421
+Three modules: M1 perception, M2 judgment, M3 action.
+
+6
+00:01:49.741 --> 00:02:01.568
+Four processes: F1 identification, F2 assessment, F3 decision, F4 feedback.
+
+7
+00:02:01.888 --> 00:02:12.001
+Six-layer mapping: engineering explanation, not canon layer definitions.
+
+8
+00:02:12.321 --> 00:02:21.574
+Timeline: measured first, visibly degraded when absent.
+
+9
+00:02:21.894 --> 00:02:35.080
+Try one step: Trace one output from L1 to L6, naming the modules and processes it crosses and the step allowed to rewrite premises.

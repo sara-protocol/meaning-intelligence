@@ -1,0 +1,19 @@
+[00:00:00,000] Chapter 9。Runnable agent: setup, commands, and outputs。meaning-agent needs only Python 3.10+ and the standard library. Without a model key it runs in mode=offline and returns six-layer structure, evidence boundaries, falsification conditions, clarification needs, and approval.status=pending.
+
+[00:00:21,281] After extracting source-v0.2.0.zip, enter meaning-agent. The minimal analysis command is python -m meaning_agent analyze --text "Should the pilot expand?" --json. python -m meaning_agent demo runs the built-in example; python -m meaning_agent serve --port 8766 starts a loopback-only Web UI.
+
+[00:00:43,945] The Python API exposes analyze, review, demo, and to_markdown. review accepts feedback; action=replace_text or corrected_text triggers reanalysis and returns an invalidated approval to pending. execution.performed remains false.
+
+[00:01:01,581] The optional LLM reads only MI_LLM_BASE_URL, MI_LLM_API_KEY, and MI_LLM_MODEL. Remote URLs require HTTPS, timeout is 15 seconds, responses are capped at 1 MiB, redirects are forbidden, and strict JSON plus field allowlists are required. Never place keys in commands, documents, or output.
+
+[00:01:27,255] Runnable commands: python -m meaning_agent analyze --text "Should the pilot expand?" --json；python -m meaning_agent demo；python -m meaning_agent serve --port 8766
+
+[00:01:40,702] Requirement: Python 3.10+, no third-party runtime dependency.
+
+[00:01:46,385] Offline mode: mode=offline.
+
+[00:01:49,709] LLM success: mode=llm; fallback: offline_fallback.
+
+[00:01:55,953] Web default: 127.0.0.1:8766.
+
+[00:02:02,221] Try one step: In the extracted source directory, run the minimal analysis and confirm mode=offline, six skills, approval=pending, and execution_authorized=false.

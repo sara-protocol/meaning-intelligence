@@ -1,0 +1,17 @@
+[00:00:00,000] Chapter 17。Automated checks, browser acceptance, and criteria。Acceptance covers file presence, structure, hashes, media streams, caption timelines, document containers, language switching, playback, and downloads. An automated pass is not a human accessibility, mobile, or production pass.
+
+[00:00:22,300] verify.py checks 18 chapters, 36 chapter audio files, 72 SRT/VTT files, 36 transcripts, figure and download paths, manifest hashes, codecs and durations, monotonic caption timing, PDF/DOCX/EPUB/ZIP containers, JavaScript syntax, and browser self-tests.
+
+[00:00:44,546] Browser self-tests run in headless Chrome/Edge and switch languages while checking body text, navigation, captions, download labels, audio source, track language, speed, progress, current subtitle, chapter changes, and external network requests.
+
+[00:01:01,897] Human acceptance still covers keyboard order, visible focus, screen readers, mobile width, print output, Windows high contrast, narration quality, publication rights, and production endpoints. Every unperformed item remains pending in verification.json.
+
+[00:01:18,579] Automated: structure, media, hashes, captions, containers, syntax.
+
+[00:01:25,427] Browser: switching, playback, progress, subtitles, chapters, offline.
+
+[00:01:32,406] Human: accessibility, mobile, content, rights.
+
+[00:01:37,364] Production: URLs, authentication, rate limits, deployed resources.
+
+[00:01:43,403] Try one step: Run python verify.py --browser and inspect every detail in verification.json. Do not treat summary.ok alone as complete acceptance.

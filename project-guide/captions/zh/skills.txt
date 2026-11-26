@@ -1,0 +1,17 @@
+[00:00:00,000] 第8章。六个智能体技能与注册契约。meaning-agent 的 engine.py 编排六个确定性技能，skills/registry.py 是唯一注册入口。每个技能信封包含名称、描述、层、输入、输出、状态、待澄清信息和数据。
+
+[00:00:22,017] 六个注册名依次是 reduce-cognitive-load、model-experiential-interface、map-direction-value-boundary、grade-evidence-falsification、calibrate-five-scales、recursive-review-zeroing。名称与层号必须在注册表、技能文档、测试和 MCP 目录中保持一致。
+
+[00:00:49,292] L1 保留未验证标记；L2 只生成本地显示建议；L3 不替人选择；L4 不自动认定实证状态；L5 禁止加权求和；L6 最多三轮递归审视，不删除数据或执行操作。
+
+[00:01:06,329] 技能输出是结构化草稿，不是事实核查、心理测量、法律意见或安全认证。缺少材料时返回 needs_clarification；可选 LLM 只能提供未核验的语言建议，不能改变确定性技能、证据等级、尺度聚合或批准。
+
+[00:01:27,611] 唯一注册入口：skills/registry.py。
+
+[00:01:31,639] 唯一编排入口：engine.py。
+
+[00:01:34,971] 六份 SKILL.md：可复用的输入输出与边界契约。
+
+[00:01:40,091] 输出必须可追溯到层、来源和限制。
+
+[00:01:44,576] 动手一步：在测试中遍历六个注册名，确认每层只运行一次、输出信封完整、待澄清信息不被默认值覆盖。

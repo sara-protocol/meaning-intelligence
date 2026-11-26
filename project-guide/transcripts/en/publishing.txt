@@ -1,0 +1,39 @@
+Meaning Intelligence
+Chapter: Publishing, operations, and change order
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: publishing.mp3
+Duration: 184.279 seconds
+
+[00:00:00,000 --> 00:00:30,324]
+Chapter 15. Publishing, operations, and change order. The recommended order is: edit source material, rebuild media and documents, run tests, verify the package, perform human browser acceptance, build a deployment ZIP, deploy only with explicit authorization, then run online machine checks. Without authorization, do not deploy, alter shared domains, or write credentials.
+
+[00:00:30,644 --> 00:00:50,364]
+Dashboard ZIP uploads previously produced successful deployments with incomplete assets. Prefer wrangler pages deploy and ensure index.html is at the ZIP root. The deployment ZIP's member set must match the publication package.
+
+[00:00:50,684 --> 00:01:10,015]
+Content changes start at source: caption edits cannot stop at the page; audio changes require timeline updates; figure changes require both language folders and captions; version changes start only in VERSION.yaml before rebuilding derivatives.
+
+[00:01:10,335 --> 00:01:35,364]
+Online acceptance covers home, listening, downloads, MCP, project-guide, audio, video, captions, EPUB, DOCX/PDF, PPTX, source, and the full ZIP. A custom domain may require human verification; resource checks and real-browser checks must be recorded separately.
+
+[00:01:35,684 --> 00:01:49,986]
+Runnable commands: python build.py --source-root ../; python verify.py --browser; python -m http.server 8000
+
+[00:01:50,306 --> 00:01:58,194]
+Source → build → test → verify → human acceptance.
+
+[00:01:58,514 --> 00:02:07,607]
+ZIP root: index.html with no enclosing folder.
+
+[00:02:07,927 --> 00:02:15,685]
+Deploy only with explicit authorization.
+
+[00:02:16,005 --> 00:02:25,557]
+After deployment: machine checks + browser checks + hash review.
+
+[00:02:25,877 --> 00:02:42,119]
+Try one step: Before copying into the publication root, run only build and local acceptance. Leave deployment, domain, and token operations to the explicitly authorized release owner.
+
+[00:02:42,439 --> 00:03:04,279]
+Pending verification: The guide builder writes only inside this directory and performs no Git or Pages operations. Commit, push, deployment, and online results are established by external repository records, deployment-report.json, and online acceptance reports.

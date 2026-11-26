@@ -1,0 +1,417 @@
+{
+  "schema": "meaning-intelligence-release-video-verification-v2",
+  "ok": true,
+  "verified_utc": "2026-11-26T20:53:45.825710+00:00",
+  "duration_seconds": 164.010667,
+  "chapter_count": 12,
+  "editions": {
+    "zh": {
+      "path": "meaning_intelligence_zh.mp4",
+      "sha256": "a4de33c434daf16d727b1f5ab12ed65d0b19eacb0aad0e93f07475d96b5a535d",
+      "size_bytes": 68106321,
+      "duration_seconds": 164.010667,
+      "video": {
+        "codec_name": "h264",
+        "profile": "High",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuvj420p",
+        "r_frame_rate": "24/1",
+        "nb_frames": "3936",
+        "bit_rate": "3125510",
+        "duration": "164.000000"
+      },
+      "audio": [
+        {
+          "codec_name": "aac",
+          "sample_rate": "48000",
+          "channels": 2,
+          "channel_layout": "stereo",
+          "bit_rate": "192000",
+          "duration": "164.010667",
+          "language": "und"
+        }
+      ],
+      "subtitles": [
+        {
+          "index": 2,
+          "language": "zho",
+          "codec_name": "mov_text",
+          "nb_frames": 83,
+          "duration": "161.647000",
+          "cue_count": 41
+        },
+        {
+          "index": 3,
+          "language": "eng",
+          "codec_name": "mov_text",
+          "nb_frames": 89,
+          "duration": "160.830000",
+          "cue_count": 44
+        }
+      ],
+      "chapters": [
+        {
+          "number": 1,
+          "start_seconds": 0.0,
+          "end_seconds": 11.0,
+          "title_zh": "意义智能",
+          "title_en": "Meaning Intelligence"
+        },
+        {
+          "number": 2,
+          "start_seconds": 11.0,
+          "end_seconds": 23.0,
+          "title_zh": "能力与值得性",
+          "title_en": "Capability vs. Worth"
+        },
+        {
+          "number": 3,
+          "start_seconds": 23.0,
+          "end_seconds": 36.0,
+          "title_zh": "“意义”的含义",
+          "title_en": "What “Meaning” Means"
+        },
+        {
+          "number": 4,
+          "start_seconds": 36.0,
+          "end_seconds": 49.0,
+          "title_zh": "意义势能",
+          "title_en": "Meaning Potential"
+        },
+        {
+          "number": 5,
+          "start_seconds": 49.0,
+          "end_seconds": 63.0,
+          "title_zh": "意义智能运行机制",
+          "title_en": "The MI Engine"
+        },
+        {
+          "number": 6,
+          "start_seconds": 63.0,
+          "end_seconds": 79.0,
+          "title_zh": "可运行的智能体",
+          "title_en": "A Runnable Agent"
+        },
+        {
+          "number": 7,
+          "start_seconds": 79.0,
+          "end_seconds": 99.0,
+          "title_zh": "六层工程栈",
+          "title_en": "The Six-Layer Stack"
+        },
+        {
+          "number": 8,
+          "start_seconds": 99.0,
+          "end_seconds": 113.0,
+          "title_zh": "五尺度导航",
+          "title_en": "Five-Scale Navigation"
+        },
+        {
+          "number": 9,
+          "start_seconds": 113.0,
+          "end_seconds": 126.0,
+          "title_zh": "方向、价值、边界",
+          "title_en": "Direction, Value, Boundary"
+        },
+        {
+          "number": 10,
+          "start_seconds": 126.0,
+          "end_seconds": 140.0,
+          "title_zh": "主动归零",
+          "title_en": "Active Zeroing"
+        },
+        {
+          "number": 11,
+          "start_seconds": 140.0,
+          "end_seconds": 153.0,
+          "title_zh": "意义自检",
+          "title_en": "A Meaning Self-Check"
+        },
+        {
+          "number": 12,
+          "start_seconds": 153.0,
+          "end_seconds": 164.0,
+          "title_zh": "迈向值得的方向",
+          "title_en": "Toward What Is Worthwhile"
+        }
+      ],
+      "video_stream_sha256": "4a1d9e9a001bd73f5a0f9347ff2c57c0d6a38d952ebb91bc3cf2eaea59a49738",
+      "full_decode_passed": true,
+      "mean_volume_db": -19.5,
+      "max_volume_db": -4.5,
+      "silence_threshold_db": -45.0,
+      "silence_threshold_seconds": 3.0,
+      "silence_events_over_3_seconds": [],
+      "chapter_transition_silences_over_3_seconds": [],
+      "unexplained_silence_events_over_3_seconds": []
+    },
+    "en": {
+      "path": "meaning_intelligence_en.mp4",
+      "sha256": "c225ad9cb95b555774ea7dfda2a1e08661de7c9467743359847efd6acfe209d3",
+      "size_bytes": 68106326,
+      "duration_seconds": 164.010667,
+      "video": {
+        "codec_name": "h264",
+        "profile": "High",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuvj420p",
+        "r_frame_rate": "24/1",
+        "nb_frames": "3936",
+        "bit_rate": "3125510",
+        "duration": "164.000000"
+      },
+      "audio": [
+        {
+          "codec_name": "aac",
+          "sample_rate": "48000",
+          "channels": 2,
+          "channel_layout": "stereo",
+          "bit_rate": "192000",
+          "duration": "164.010667",
+          "language": "und"
+        }
+      ],
+      "subtitles": [
+        {
+          "index": 2,
+          "language": "zho",
+          "codec_name": "mov_text",
+          "nb_frames": 83,
+          "duration": "161.647000",
+          "cue_count": 41
+        },
+        {
+          "index": 3,
+          "language": "eng",
+          "codec_name": "mov_text",
+          "nb_frames": 89,
+          "duration": "160.830000",
+          "cue_count": 44
+        }
+      ],
+      "chapters": [
+        {
+          "number": 1,
+          "start_seconds": 0.0,
+          "end_seconds": 11.0,
+          "title_zh": "意义智能",
+          "title_en": "Meaning Intelligence"
+        },
+        {
+          "number": 2,
+          "start_seconds": 11.0,
+          "end_seconds": 23.0,
+          "title_zh": "能力与值得性",
+          "title_en": "Capability vs. Worth"
+        },
+        {
+          "number": 3,
+          "start_seconds": 23.0,
+          "end_seconds": 36.0,
+          "title_zh": "“意义”的含义",
+          "title_en": "What “Meaning” Means"
+        },
+        {
+          "number": 4,
+          "start_seconds": 36.0,
+          "end_seconds": 49.0,
+          "title_zh": "意义势能",
+          "title_en": "Meaning Potential"
+        },
+        {
+          "number": 5,
+          "start_seconds": 49.0,
+          "end_seconds": 63.0,
+          "title_zh": "意义智能运行机制",
+          "title_en": "The MI Engine"
+        },
+        {
+          "number": 6,
+          "start_seconds": 63.0,
+          "end_seconds": 79.0,
+          "title_zh": "可运行的智能体",
+          "title_en": "A Runnable Agent"
+        },
+        {
+          "number": 7,
+          "start_seconds": 79.0,
+          "end_seconds": 99.0,
+          "title_zh": "六层工程栈",
+          "title_en": "The Six-Layer Stack"
+        },
+        {
+          "number": 8,
+          "start_seconds": 99.0,
+          "end_seconds": 113.0,
+          "title_zh": "五尺度导航",
+          "title_en": "Five-Scale Navigation"
+        },
+        {
+          "number": 9,
+          "start_seconds": 113.0,
+          "end_seconds": 126.0,
+          "title_zh": "方向、价值、边界",
+          "title_en": "Direction, Value, Boundary"
+        },
+        {
+          "number": 10,
+          "start_seconds": 126.0,
+          "end_seconds": 140.0,
+          "title_zh": "主动归零",
+          "title_en": "Active Zeroing"
+        },
+        {
+          "number": 11,
+          "start_seconds": 140.0,
+          "end_seconds": 153.0,
+          "title_zh": "意义自检",
+          "title_en": "A Meaning Self-Check"
+        },
+        {
+          "number": 12,
+          "start_seconds": 153.0,
+          "end_seconds": 164.0,
+          "title_zh": "迈向值得的方向",
+          "title_en": "Toward What Is Worthwhile"
+        }
+      ],
+      "video_stream_sha256": "4a1d9e9a001bd73f5a0f9347ff2c57c0d6a38d952ebb91bc3cf2eaea59a49738",
+      "full_decode_passed": true,
+      "mean_volume_db": -20.6,
+      "max_volume_db": -4.4,
+      "silence_threshold_db": -45.0,
+      "silence_threshold_seconds": 3.0,
+      "silence_events_over_3_seconds": [
+        {
+          "start": 96.488208,
+          "end": 99.788729,
+          "duration": 3.301
+        }
+      ],
+      "chapter_transition_silences_over_3_seconds": [
+        {
+          "start": 96.488208,
+          "end": 99.788729,
+          "duration": 3.301
+        }
+      ],
+      "unexplained_silence_events_over_3_seconds": []
+    }
+  },
+  "subtitles": {
+    "zho": {
+      "cue_count": 41,
+      "first_start": 0.61,
+      "last_end": 161.647,
+      "max_gap_seconds": 2.947,
+      "overlap_count": 0,
+      "srt_vtt_valid": true,
+      "srt": {
+        "path": "subtitles.zh.srt",
+        "sha256": "a4c0ad211b3e062d6249c2f224211b0251fd4939d1ccf8c7fc9bfb147b390372",
+        "size_bytes": 4172
+      },
+      "vtt": {
+        "path": "subtitles.zh.vtt",
+        "sha256": "8e7dec7cdf0f37dc1d195b814cd9097de198f078f2338f549b02758a9a4e1da4",
+        "size_bytes": 4027
+      },
+      "identical_in_both_editions": true
+    },
+    "eng": {
+      "cue_count": 44,
+      "first_start": 0.61,
+      "last_end": 160.83,
+      "max_gap_seconds": 3.869,
+      "overlap_count": 0,
+      "srt_vtt_valid": true,
+      "srt": {
+        "path": "subtitles.en.srt",
+        "sha256": "d0c1099c8caf8882a02f512193b5dd7cc84667f4e3025737172e297a48ef8006",
+        "size_bytes": 4310
+      },
+      "vtt": {
+        "path": "subtitles.en.vtt",
+        "sha256": "f4d5e441ac0612c57ee86c7eda003e787cd8af9b6db8adc46ecf78f245f43f14",
+        "size_bytes": 4153
+      },
+      "identical_in_both_editions": true
+    }
+  },
+  "narration": {
+    "zho": {
+      "path": "narration_zh.txt",
+      "sha256": "e772f01a84bdf1be3caf0fa4a1e08c9a9ea19d78bf4f453bdb4d3d718a999793",
+      "size_bytes": 3646
+    },
+    "eng": {
+      "path": "narration_en.txt",
+      "sha256": "460a59278b02ee9c340cfe440bd52486b0959cb835805b26d62154b193207152",
+      "size_bytes": 3664
+    }
+  },
+  "chapter_manifest": {
+    "path": "chapter_manifest.json",
+    "sha256": "3c349b87b852655f4ad2ca84d46f52a3e4723e2822ad0d48b6b5db42a0904f2e",
+    "size_bytes": 9911
+  },
+  "support_files": [
+    {
+      "path": "subtitles.zh.srt",
+      "sha256": "a4c0ad211b3e062d6249c2f224211b0251fd4939d1ccf8c7fc9bfb147b390372",
+      "size_bytes": 4172
+    },
+    {
+      "path": "subtitles.zh.vtt",
+      "sha256": "8e7dec7cdf0f37dc1d195b814cd9097de198f078f2338f549b02758a9a4e1da4",
+      "size_bytes": 4027
+    },
+    {
+      "path": "subtitles.en.srt",
+      "sha256": "d0c1099c8caf8882a02f512193b5dd7cc84667f4e3025737172e297a48ef8006",
+      "size_bytes": 4310
+    },
+    {
+      "path": "subtitles.en.vtt",
+      "sha256": "f4d5e441ac0612c57ee86c7eda003e787cd8af9b6db8adc46ecf78f245f43f14",
+      "size_bytes": 4153
+    },
+    {
+      "path": "narration_zh.txt",
+      "sha256": "e772f01a84bdf1be3caf0fa4a1e08c9a9ea19d78bf4f453bdb4d3d718a999793",
+      "size_bytes": 3646
+    },
+    {
+      "path": "narration_en.txt",
+      "sha256": "460a59278b02ee9c340cfe440bd52486b0959cb835805b26d62154b193207152",
+      "size_bytes": 3664
+    },
+    {
+      "path": "chapter_manifest.json",
+      "sha256": "3c349b87b852655f4ad2ca84d46f52a3e4723e2822ad0d48b6b5db42a0904f2e",
+      "size_bytes": 9911
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "3c349b87b852655f4ad2ca84d46f52a3e4723e2822ad0d48b6b5db42a0904f2e",
+      "size_bytes": 9911
+    }
+  ],
+  "checks": {
+    "duration_over_120": true,
+    "h264_1920x1080_24fps": true,
+    "frame_count_3936": true,
+    "aac_48khz_stereo": true,
+    "twelve_contiguous_chapters": true,
+    "full_decode": true,
+    "audio_non_silent": true,
+    "no_unexplained_silence_over_3_seconds": true,
+    "bilingual_mov_text_subtitles": true,
+    "subtitle_tracks_identical_across_editions": true,
+    "video_stream_identical_across_editions": true,
+    "master_hashes_verified": true,
+    "external_subtitle_vtt_and_narration_match": true
+  }
+}

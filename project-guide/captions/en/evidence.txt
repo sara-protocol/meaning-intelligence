@@ -1,0 +1,17 @@
+[00:00:00,000] Chapter 3。E0–E6: evidence status is not a quality score。E0–E6 describes how far a claim has been tested, not how good, useful, or believable it is. In V7.0, E3 means a preregistered hypothesis with data collection under way, and E5 has two exits: falsified or survived.
+
+[00:00:20,975] E0 means the construct is defined; E1 a mathematical model exists; E2 an instrument exists with reliability and validity under validation; E3 a preregistered hypothesis is in data collection; E4 independent-laboratory replication; E5 the preregistered falsification criterion has been tested; E6 generalization across contexts, cultures, and time.
+
+[00:00:42,515] Earlier project documents described E3 as correct prediction on new data and E6 as confirmation outside the framework. Those were not V7.0 definitions and are retired. Raising a level requires a reviewable project evidence chain, not a wording change.
+
+[00:00:58,417] Mechanism maturity does not transfer automatically to an engineering operationalization. Mature cognitive-load literature does not make the project's L1 package E4. The stack itself remains E0; code, animation, and agent integration do not raise it.
+
+[00:01:14,118] E3 does not mean prediction has succeeded.
+
+[00:01:17,287] E5 does not mean highly reliable; falsification is also a valid result.
+
+[00:01:22,586] Evidence level and claim status are separate fields.
+
+[00:01:26,095] Engineering falsification drafts require preregistration before formal disposition.
+
+[00:01:31,343] Try one step: For one conclusion, write its evidence level, claim status, source, and failure condition. Mark it pending if any field is missing.

@@ -1,0 +1,33 @@
+意义智能
+章节: 人工批准门与不执行原则
+语言: 中文
+旁白: Microsoft Huihui Desktop (本地 Windows SAPI)
+音频: approval.mp3
+时长: 163.925 秒
+
+[00:00:00,000 --> 00:00:26,958]
+第10章。人工批准门与不执行原则。任何影响外部系统的动作默认 approval.status=pending。批准只记录人工决定；approval.execution_authorized 始终为 false，工具不执行决策、命令或文件操作。
+
+[00:00:27,278 --> 00:00:54,877]
+批准记录包含 status、human_required、recorded_from、execution_authorized 和说明。默认 pending 来自系统默认值；approved 或 rejected 必须来自显式人工输入。状态变化不会把分析器变成执行器。
+
+[00:00:55,197 --> 00:01:20,303]
+修订会使旧批准失效。review 检测到关键反馈、替换文本或 revision_required 时，revised_analysis.approval 回到 pending。这样避免“人批准了旧版本，系统却悄悄执行新版本”。
+
+[00:01:20,623 --> 00:01:45,818]
+高风险领域应提示专业复核。递归审视不能证明无偏、真实或安全，也不能替代法律、医疗、心理、安全或组织治理判断。沉默不等于中立，异质伤害不能换算为共同分数。
+
+[00:01:46,138 --> 00:01:55,180]
+默认：pending。
+
+[00:01:55,500 --> 00:02:05,840]
+人工决定：approved 或 rejected。
+
+[00:02:06,160 --> 00:02:16,159]
+执行授权：始终 false。
+
+[00:02:16,479 --> 00:02:26,060]
+修订后：批准重置。
+
+[00:02:26,380 --> 00:02:43,925]
+动手一步：构造一次 approved 后再替换文本的 review，确认新结果回到 pending，并检查 execution.performed=false。

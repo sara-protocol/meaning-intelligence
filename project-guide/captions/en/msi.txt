@@ -1,0 +1,17 @@
+[00:00:00,000] Chapter 12。MSI's eight acts and the 45/3/2/9 counts。MSI v2.1 contains eight acts and measures 43.433 seconds in the research-repository render. Configured counts are 45 overload fragments, three core statements, two structural nodes, and nine L3 illustration points; the old README's 120/12 numbers are retired.
+
+[00:00:25,109] The eight acts are information overload, text reduction, structure diagram, operable interface, meaning placement, evidence rings, path selection, and recursive spiral. The measured timeline starts at zero, the final act enters at 32.600 seconds, and rendering ends at 43.433 seconds.
+
+[00:00:46,110] Evidence rings are visual illustrations, not real ratings. L3 uses nine points and the structure diagram uses two nodes. Counts come from msi/config.json and scene implementation, not old communication copy.
+
+[00:01:01,066] The smaller publication-package MeaningIntelligenceScene.mp4 is 13.533 seconds, 854×480, 15 fps, and silent. The research-repository file with the same name is 43.433 seconds, 1920×1080, 60 fps, and silent. This guide bundles and plays the latter, with exact media facts in the manifest.
+
+[00:01:26,031] Eight acts; 43.433 seconds measured.
+
+[00:01:30,389] 45: random overload fragments.
+
+[00:01:33,888] Three: core statements after controlled-language reduction.
+
+[00:01:38,042] Two: structural nodes; nine: L3 illustration points.
+
+[00:01:43,211] Try one step: Start from any act button and compare the frame with the measured timeline. Never infer real evidence levels from the rings.

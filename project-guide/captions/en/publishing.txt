@@ -1,0 +1,21 @@
+[00:00:00,000] Chapter 15。Publishing, operations, and change order。The recommended order is: edit source material, rebuild media and documents, run tests, verify the package, perform human browser acceptance, build a deployment ZIP, deploy only with explicit authorization, then run online machine checks. Without authorization, do not deploy, alter shared domains, or write credentials.
+
+[00:00:25,710] Dashboard ZIP uploads previously produced successful deployments with incomplete assets. Prefer wrangler pages deploy and ensure index.html is at the ZIP root. The deployment ZIP's member set must match the publication package.
+
+[00:00:39,596] Content changes start at source: caption edits cannot stop at the page; audio changes require timeline updates; figure changes require both language folders and captions; version changes start only in VERSION.yaml before rebuilding derivatives.
+
+[00:00:54,288] Online acceptance covers home, listening, downloads, MCP, project-guide, audio, video, captions, EPUB, DOCX/PDF, PPTX, source, and the full ZIP. A custom domain may require human verification; resource checks and real-browser checks must be recorded separately.
+
+[00:01:14,544] Runnable commands: python build.py --source-root ../；python verify.py --browser；python -m http.server 8000
+
+[00:01:23,307] Source → build → test → verify → human acceptance.
+
+[00:01:26,571] ZIP root: index.html with no enclosing folder.
+
+[00:01:30,920] Deploy only with explicit authorization.
+
+[00:01:33,924] After deployment: machine checks + browser checks + hash review.
+
+[00:01:38,607] Try one step: Before copying into the publication root, run only build and local acceptance. Leave deployment, domain, and token operations to the explicitly authorized release owner.
+
+[00:01:50,080] Pending verification: This task did not commit, push, deploy, or modify the publication package root. Production release and online acceptance remain with the main owner.

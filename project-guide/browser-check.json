@@ -1,0 +1,364 @@
+{
+  "schema": "meaning-intelligence-browser-check-v1",
+  "ok": true,
+  "engine": "chrome.exe",
+  "modes": [
+    {
+      "ok": true,
+      "mode": "http",
+      "checks": [
+        {
+          "name": "zh-title",
+          "ok": true,
+          "detail": "给智能装上方向舵"
+        },
+        {
+          "name": "zh-navigation",
+          "ok": true,
+          "detail": "01项目总览与使用方式02V7.0 正典、版本与来源审计03E0–E6：证据等级不是质量评分04连续意义光谱与判断维度05五个不可通约尺度与递归校准06正典机制与工程栈的映射07六层工程栈：L1–L6 与三带08六个智能体技能与注册契约09"
+        },
+        {
+          "name": "zh-downloads",
+          "ok": true,
+          "detail": "download labels"
+        },
+        {
+          "name": "zh-figure",
+          "ok": true,
+          "detail": "Chinese figure source"
+        },
+        {
+          "name": "audio-metadata",
+          "ok": true,
+          "detail": "161.77325s"
+        },
+        {
+          "name": "en-title",
+          "ok": true,
+          "detail": "A rudder for intelligence"
+        },
+        {
+          "name": "en-navigation",
+          "ok": true,
+          "detail": "English navigation"
+        },
+        {
+          "name": "en-downloads",
+          "ok": true,
+          "detail": "English download labels"
+        },
+        {
+          "name": "en-figure",
+          "ok": true,
+          "detail": "English figure source"
+        },
+        {
+          "name": "en-audio-source",
+          "ok": true,
+          "detail": "http://127.0.0.1:60496/audio/en/overview.mp3"
+        },
+        {
+          "name": "en-track",
+          "ok": true,
+          "detail": "http://127.0.0.1:60496/captions/en/overview.vtt"
+        },
+        {
+          "name": "chapter-count",
+          "ok": true,
+          "detail": "18 chapters"
+        },
+        {
+          "name": "i18n-complete",
+          "ok": true,
+          "detail": "38 localized nodes"
+        },
+        {
+          "name": "image-alt",
+          "ok": true,
+          "detail": "5 images"
+        },
+        {
+          "name": "button-names",
+          "ok": true,
+          "detail": "53 buttons"
+        },
+        {
+          "name": "mobile-layout",
+          "ok": true,
+          "detail": "1334px content / 1349px viewport; SPAN.sr-only:1214/270, DIV.timeline:1027/792, LABEL.sr-only:239/127, LABEL.sr-only:49/123"
+        },
+        {
+          "name": "images-loaded",
+          "ok": true,
+          "detail": "5/5 images"
+        },
+        {
+          "name": "duration-match",
+          "ok": true,
+          "detail": "161.77325s vs 161.77325s"
+        },
+        {
+          "name": "playback-speed",
+          "ok": true,
+          "detail": "1.25"
+        },
+        {
+          "name": "current-subtitle",
+          "ok": true,
+          "detail": "Each chapter stands alone, while the sequence moves from concept to evidence, engineering, execution, publishing, and acceptance. The player uses dedicated Chinese and English synthetic narration. Captions and transcripts are generated from the actual audio segments rather than borrowed from an older audiobook timeline."
+        },
+        {
+          "name": "progress-slider",
+          "ok": true,
+          "detail": "72.8/161.77325"
+        },
+        {
+          "name": "subtitle-toggle-off",
+          "ok": true,
+          "detail": "hidden"
+        },
+        {
+          "name": "subtitle-toggle-on",
+          "ok": true,
+          "detail": "visible"
+        },
+        {
+          "name": "transcript-seeking",
+          "ok": true,
+          "detail": "0.03s vs 0s"
+        },
+        {
+          "name": "chapter-search",
+          "ok": true,
+          "detail": "4 matches"
+        },
+        {
+          "name": "figure-dialog",
+          "ok": true,
+          "detail": "dialog opened"
+        },
+        {
+          "name": "audio-playback",
+          "ok": true,
+          "detail": "0.122082s paused=false"
+        },
+        {
+          "name": "chapter-switch",
+          "ok": true,
+          "detail": "http://127.0.0.1:60496/audio/en/provenance.mp3"
+        },
+        {
+          "name": "chapter-progress-seek",
+          "ok": true,
+          "detail": "0.2999999969475907"
+        },
+        {
+          "name": "language-audio-switch",
+          "ok": true,
+          "detail": "http://127.0.0.1:60496/audio/zh/provenance.mp3"
+        },
+        {
+          "name": "language-caption-switch",
+          "ok": true,
+          "detail": "2026-11-26 的来源审计确认，KDP 定稿02与 V5 副本的 SHA-256 相同，都是 0fedff1ee5775bbc6812cea24f6024e36e54d43fac4776ba6f94c402ff4cb574；它们不是两个独立版本。英文母本 Meaning IntelligenceV7.docx 的记录哈希为 b4225b6371d0ea013fe2ae4db9ac396537e2bf30f94cbda5a2c342e5f570396b。"
+        },
+        {
+          "name": "language-progress-preserved",
+          "ok": true,
+          "detail": "0.2999999969475907 → 0.2999999935897931"
+        },
+        {
+          "name": "no-external-resources",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "javascript-errors",
+          "ok": true,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "mode": "file",
+      "checks": [
+        {
+          "name": "zh-title",
+          "ok": true,
+          "detail": "给智能装上方向舵"
+        },
+        {
+          "name": "zh-navigation",
+          "ok": true,
+          "detail": "01项目总览与使用方式02V7.0 正典、版本与来源审计03E0–E6：证据等级不是质量评分04连续意义光谱与判断维度05五个不可通约尺度与递归校准06正典机制与工程栈的映射07六层工程栈：L1–L6 与三带08六个智能体技能与注册契约09"
+        },
+        {
+          "name": "zh-downloads",
+          "ok": true,
+          "detail": "download labels"
+        },
+        {
+          "name": "zh-figure",
+          "ok": true,
+          "detail": "Chinese figure source"
+        },
+        {
+          "name": "audio-metadata",
+          "ok": true,
+          "detail": "161.77325s"
+        },
+        {
+          "name": "en-title",
+          "ok": true,
+          "detail": "A rudder for intelligence"
+        },
+        {
+          "name": "en-navigation",
+          "ok": true,
+          "detail": "English navigation"
+        },
+        {
+          "name": "en-downloads",
+          "ok": true,
+          "detail": "English download labels"
+        },
+        {
+          "name": "en-figure",
+          "ok": true,
+          "detail": "English figure source"
+        },
+        {
+          "name": "en-audio-source",
+          "ok": true,
+          "detail": "file:///C:/Users/gog98/Documents/lingxi-claw/users/247656584/projects/11955814199197869/workspace/%E6%84%8F%E4%B9%89%E6%99%BA%E8%83%BD/deliverables/project-guide/audio/en/overview.mp3"
+        },
+        {
+          "name": "en-track",
+          "ok": true,
+          "detail": "file:///C:/Users/gog98/Documents/lingxi-claw/users/247656584/projects/11955814199197869/workspace/%E6%84%8F%E4%B9%89%E6%99%BA%E8%83%BD/deliverables/project-guide/captions/en/overview.vtt"
+        },
+        {
+          "name": "chapter-count",
+          "ok": true,
+          "detail": "18 chapters"
+        },
+        {
+          "name": "i18n-complete",
+          "ok": true,
+          "detail": "38 localized nodes"
+        },
+        {
+          "name": "image-alt",
+          "ok": true,
+          "detail": "5 images"
+        },
+        {
+          "name": "button-names",
+          "ok": true,
+          "detail": "53 buttons"
+        },
+        {
+          "name": "mobile-layout",
+          "ok": true,
+          "detail": "485px content / 500px viewport; SPAN.sr-only:389/270, DIV.timeline:450/419, LABEL.sr-only:35/127, LABEL.sr-only:39/123"
+        },
+        {
+          "name": "images-loaded",
+          "ok": true,
+          "detail": "5/5 images"
+        },
+        {
+          "name": "duration-match",
+          "ok": true,
+          "detail": "161.77325s vs 161.77325s"
+        },
+        {
+          "name": "playback-speed",
+          "ok": true,
+          "detail": "1.25"
+        },
+        {
+          "name": "current-subtitle",
+          "ok": true,
+          "detail": "Each chapter stands alone, while the sequence moves from concept to evidence, engineering, execution, publishing, and acceptance. The player uses dedicated Chinese and English synthetic narration. Captions and transcripts are generated from the actual audio segments rather than borrowed from an older audiobook timeline."
+        },
+        {
+          "name": "progress-slider",
+          "ok": true,
+          "detail": "72.8/161.77325"
+        },
+        {
+          "name": "subtitle-toggle-off",
+          "ok": true,
+          "detail": "hidden"
+        },
+        {
+          "name": "subtitle-toggle-on",
+          "ok": true,
+          "detail": "visible"
+        },
+        {
+          "name": "transcript-seeking",
+          "ok": true,
+          "detail": "0.03s vs 0s"
+        },
+        {
+          "name": "chapter-search",
+          "ok": true,
+          "detail": "4 matches"
+        },
+        {
+          "name": "figure-dialog",
+          "ok": true,
+          "detail": "dialog opened"
+        },
+        {
+          "name": "audio-playback",
+          "ok": true,
+          "detail": "0.030021s paused=false"
+        },
+        {
+          "name": "chapter-switch",
+          "ok": true,
+          "detail": "file:///C:/Users/gog98/Documents/lingxi-claw/users/247656584/projects/11955814199197869/workspace/%E6%84%8F%E4%B9%89%E6%99%BA%E8%83%BD/deliverables/project-guide/audio/en/provenance.mp3"
+        },
+        {
+          "name": "chapter-progress-seek",
+          "ok": true,
+          "detail": "0.2999999969475907"
+        },
+        {
+          "name": "language-audio-switch",
+          "ok": true,
+          "detail": "file:///C:/Users/gog98/Documents/lingxi-claw/users/247656584/projects/11955814199197869/workspace/%E6%84%8F%E4%B9%89%E6%99%BA%E8%83%BD/deliverables/project-guide/audio/zh/provenance.mp3"
+        },
+        {
+          "name": "language-caption-switch",
+          "ok": true,
+          "detail": "2026-11-26 的来源审计确认，KDP 定稿02与 V5 副本的 SHA-256 相同，都是 0fedff1ee5775bbc6812cea24f6024e36e54d43fac4776ba6f94c402ff4cb574；它们不是两个独立版本。英文母本 Meaning IntelligenceV7.docx 的记录哈希为 b4225b6371d0ea013fe2ae4db9ac396537e2bf30f94cbda5a2c342e5f570396b。"
+        },
+        {
+          "name": "language-progress-preserved",
+          "ok": true,
+          "detail": "0.2999999969475907 → 0.2999999935897931"
+        },
+        {
+          "name": "no-external-resources",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "javascript-errors",
+          "ok": true,
+          "detail": ""
+        }
+      ]
+    }
+  ],
+  "checks_total": 68,
+  "checks_passed": 68,
+  "pending": [
+    "Human keyboard, screen-reader, visual mobile, print, and rights review."
+  ]
+}

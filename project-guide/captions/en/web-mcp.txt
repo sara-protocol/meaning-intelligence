@@ -1,0 +1,19 @@
+[00:00:00,000] Chapter 11。Read-only Web MCP and local MCP boundaries。Web MCP exposes only fixed resources, read-only analysis, and the download manifest. It offers no arbitrary URL, file, command, or credential access. The local Python MCP and Cloudflare Pages Function are separate transports with different protocol versions and body limits.
+
+[00:00:23,760] The Cloudflare Pages Function uses POST /api/mcp, protocol 2025-03-26, a 32 KiB body cap, and a default 60 requests per minute per source IP. Public binding requires MI_MCP_PUBLIC_TOKEN of at least 32 characters in deployment secrets; MI_MCP_ALLOWED_ORIGINS is an exact Origin allowlist.
+
+[00:00:48,479] Web tools include meaning_analyze, meaning_review, resource_catalog, evidence_levels, and download_manifest. Resources include mi://canon/v7, mi://evidence/e0-e6, mi://chapters/zh, mi://chapters/en, mi://skills/l1-l6, and mi://downloads. URIs are virtual identifiers, not filesystem paths.
+
+[00:01:18,037] The local Python MCP defaults to 127.0.0.1:8767, protocol 2024-11-05, and a 512 KiB core request cap; its public transport policy also defaults to loopback. Non-loopback binding requires a strong token. Both remain read-only. This guide did not access or read credentials.
+
+[00:01:41,242] Web: POST /api/mcp; 2025-03-26; 32 KiB.
+
+[00:01:48,786] Local MCP: 127.0.0.1:8767; 2024-11-05; 512 KiB.
+
+[00:01:59,253] Read-only: fixed resources, analysis, review, download manifest.
+
+[00:02:05,337] Forbidden: arbitrary URLs, paths, shell, credential reads.
+
+[00:02:11,280] Try one step: In an authorized test environment, verify unauthorized rejection, tools/list, resources/read, and both read-only tools. Never write a test token to logs or documents.
+
+[00:02:24,533] Pending verification: The production endpoint, deployment token, Origin allowlist, rate limiting, and authorized calls were not verified in this task; the release owner must check them in an authorized environment.

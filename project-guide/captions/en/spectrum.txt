@@ -1,0 +1,17 @@
+[00:00:00,000] Chapter 4。The continuous meaning spectrum and judgment dimensions。V7.0 Chapter 8 replaces fixed levels with a continuous spectrum band. Meaning can move continuously along abstraction and time horizon. Direction, value, and boundary are analytical dimensions of a meaning judgment, not three fixed levels.
+
+[00:00:19,941] In the earlier discrete model, the meta-meaning level sat at the abstract end and contextual meaning at the concrete end, with no gap. The spectrum model remains an E0 draft under MI-C004 and needs longitudinal tests of continuity rather than an a priori declaration.
+
+[00:00:35,682] Direction asks where to go; value asks why it is worthwhile and for whom; boundary asks about scope, limits, and stopping conditions. MI-C003 proposes factor or structural tests of these dimensions. If one dimension explains more than 90% of variance, the canon H2 failure condition is triggered.
+
+[00:00:54,902] Do not confuse direction–value–boundary with the C/V/E/A four-dimensional bonding-strength analysis. The former belongs to §3.2 meaning judgment; the latter is a different construct. The agent treats spectrum position only as a heuristic label, not a psychometric measurement.
+
+[00:01:12,388] Continuous spectrum: abstract ↔ concrete, long horizon ↔ short horizon.
+
+[00:01:19,406] Judgment dimensions: direction, value, boundary.
+
+[00:01:23,915] A separate four-dimensional model: C/V/E/A for bonding strength.
+
+[00:01:29,528] Spectrum position is neither a score nor an evidence level.
+
+[00:01:33,182] Try one step: For a real decision, write direction, value, and boundary separately, then place it on the spectrum with a reason. Do not substitute high/medium/low labels for evidence.

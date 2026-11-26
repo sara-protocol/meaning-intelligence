@@ -1,0 +1,133 @@
+{
+  "schema": "meaning-intelligence-publication-browser-check-v1",
+  "generated": "2026-11-26T22:23:22.547Z",
+  "base_url": "http://127.0.0.1:58945",
+  "engine": "chrome-cdp-static-preview",
+  "ok": true,
+  "checks_passed": 24,
+  "checks_total": 24,
+  "failed": [],
+  "fatal_error": null,
+  "checks": [
+    {
+      "name": "index.html-loaded",
+      "ok": true,
+      "detail": "《意义智能》：给智能装上方向舵 · 可视可听有声读物"
+    },
+    {
+      "name": "index.html-english",
+      "ok": true,
+      "detail": "http://127.0.0.1:58945/assets_en/audio_en.mp3"
+    },
+    {
+      "name": "index.html-english-audio",
+      "ok": true,
+      "detail": "1130.601497"
+    },
+    {
+      "name": "index.html-chinese",
+      "ok": true,
+      "detail": "http://127.0.0.1:58945/assets/audio-web.mp3"
+    },
+    {
+      "name": "index.html-mobile",
+      "ok": true,
+      "detail": "horizontal overflow 0px"
+    },
+    {
+      "name": "listen.html-loaded",
+      "ok": true,
+      "detail": "《意义智能》：给智能装上方向舵 · 可视可听有声读物"
+    },
+    {
+      "name": "listen.html-english",
+      "ok": true,
+      "detail": "http://127.0.0.1:58945/assets_en/audio_en.mp3"
+    },
+    {
+      "name": "listen.html-english-audio",
+      "ok": true,
+      "detail": "1130.601497"
+    },
+    {
+      "name": "listen.html-chinese",
+      "ok": true,
+      "detail": "http://127.0.0.1:58945/assets/audio-web.mp3"
+    },
+    {
+      "name": "listen.html-mobile",
+      "ok": true,
+      "detail": "horizontal overflow 0px"
+    },
+    {
+      "name": "downloads-resources",
+      "ok": true,
+      "detail": "44 resource cards"
+    },
+    {
+      "name": "downloads-english",
+      "ok": true,
+      "detail": "下载中心Downloads"
+    },
+    {
+      "name": "download-range-request",
+      "ok": true,
+      "detail": "206; bytes 0-1023/731017872; application/octet-stream"
+    },
+    {
+      "name": "download-manifest",
+      "ok": true,
+      "detail": "44 entries; complete_category=true; max_limit_ok=false; mode=local"
+    },
+    {
+      "name": "download-package-boundary",
+      "ok": true,
+      "detail": "local manifest and cards include the complete package"
+    },
+    {
+      "name": "downloads-web-media-links",
+      "ok": true,
+      "detail": "[\"assets/audio-web.mp3\",\"assets/video/release/meaning_intelligence_zh-web.mp4\",\"assets/video/release/meaning_intelligence_en-web.mp4\"]"
+    },
+    {
+      "name": "mcp-english",
+      "ok": true,
+      "detail": "Not connected / 尚未连接"
+    },
+    {
+      "name": "mcp-empty-token-safe",
+      "ok": true,
+      "detail": "Enter an access token first. / 请先输入访问令牌。"
+    },
+    {
+      "name": "mcp-no-token-storage",
+      "ok": true,
+      "detail": "localStorage/sessionStorage/cookie"
+    },
+    {
+      "name": "mcp-read-only-copy",
+      "ok": true,
+      "detail": "read-only boundary copy"
+    },
+    {
+      "name": "packaged-guide-loaded",
+      "ok": true,
+      "detail": "意义智能 · 双语图文音频项目手册 · V7.0"
+    },
+    {
+      "name": "packaged-guide-evidence",
+      "ok": true,
+      "detail": "{\"verification\":{\"build_complete\":true,\"checks\":[{\"category\":\"structure\",\"name\":\"parse-runtime-content\",\"ok\":true,\"detail\":\"18 chapters with narration\"},{\"category\":\"structure\",\"name\":\"parse-audio-metadata\",\"ok\":true,\"detail\":\"36 chapter voices\"},{\"category\":\"structure\",\"name\":\"parse-manifest-json\",\"ok\":true,\"detail\":\"meaning-intelligence-project-guide-manifest-v1\"},{\"category\":\"structure\",\"name\":\"chapter-count-unique\",\"ok\":true,\"detail\":\"18 chapters, 18 unique\"},{\"category\":\"structure\",\"name\":\"six-skill-registry\",\"ok\":true,\"detail\":\"reduce-cognitive-load, model-experiential-interface, map-direction-value-boundary, grade-evidence-falsification, calibrate-five-scales, recursive-review-zeroing\"},{\"category\":\"structure\",\"name\":\"five-scales-eight-acts\",\"ok\":true,\"detail\":\"5 scales, 8 acts\"},{\"category\":\"bilingual\",\"name\":\"chapter-localization-complete\",\"ok\":true,\"detail\":\"all chapter fields have zh/en\"},{\"category\":\"bilingual\",\"name\":\"ui-localization-parity\",\"ok\":true,\"detail\":\"105 UI keys per language\"},{\"category\":\"bilingual\",\"name\":\"no-known-mixed-wording\",\"ok\":true,\"detail\":\"known mixed-language fragments removed\"},{\"category\":\"structure\",\"name\":\"version-identities\",\"ok\":true,\"deta"
+    },
+    {
+      "name": "no-runtime-exceptions",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "browser-run-completed",
+      "ok": true,
+      "detail": "all applicable checks executed"
+    }
+  ]
+}

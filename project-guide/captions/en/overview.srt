@@ -1,0 +1,35 @@
+1
+00:00:00,000 --> 00:00:24,339
+Chapter 1. Project overview and how to use this guide. Meaning Intelligence is defined as the directional regulation of other intelligent activities. The project keeps the V7.0 canon, research system, engineering operationalization, and publication assets separate so that a runnable prototype is not mistaken for a confirmed theory.
+
+2
+00:00:24,659 --> 00:00:52,818
+Read in this order: version and provenance, evidence status, then engineering behavior. Canon V7.0 is the theoretical source; research system v0.2.0 is the current public implementation; operational stack v2.0 is an E0 engineering extension; white paper v1.1 is an application-layer summary. Their version numbers are not interchangeable.
+
+3
+00:00:53,138 --> 00:01:17,183
+Each chapter stands alone, while the sequence moves from concept to evidence, engineering, execution, publishing, and acceptance. The player uses dedicated Chinese and English synthetic narration. Captions and transcripts are generated from the actual audio segments rather than borrowed from an older audiobook timeline.
+
+4
+00:01:17,503 --> 00:01:38,793
+Keep the complete project-guide directory when using it offline. HTML, scripts, figures, audio, captions, and downloads use relative paths. No CDN, font service, API key, or network connection is required.
+
+5
+00:01:39,113 --> 00:01:50,755
+Identify the object: canon, research system, engineering stack, or publication asset.
+
+6
+00:01:51,075 --> 00:02:03,063
+Identify the status: verified, engineering draft, mechanism pending, or human decision pending.
+
+7
+00:02:03,383 --> 00:02:13,375
+For runnable behavior, go directly to the agent and read-only MCP chapters.
+
+8
+00:02:13,695 --> 00:02:23,812
+For delivery, use the download center, build script, and verification report.
+
+9
+00:02:24,132 --> 00:02:41,773
+Try one step: Use the top language control once and confirm that body text, figure captions, navigation, download labels, audio, and subtitles change together; then play any chapter.

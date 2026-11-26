@@ -1,0 +1,37 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:25.669
+Chapter 3. E0–E6: evidence status is not a quality score. E0–E6 describes how far a claim has been tested, not how good, useful, or believable it is. In V7.0, E3 means a preregistered hypothesis with data collection under way, and E5 has two exits: falsified or survived.
+
+2
+00:00:25.989 --> 00:00:52.248
+E0 means the construct is defined; E1 a mathematical model exists; E2 an instrument exists with reliability and validity under validation; E3 a preregistered hypothesis is in data collection; E4 independent-laboratory replication; E5 the preregistered falsification criterion has been tested; E6 generalization across contexts, cultures, and time.
+
+3
+00:00:52.568 --> 00:01:13.123
+Earlier project documents described E3 as correct prediction on new data and E6 as confirmation outside the framework. Those were not V7.0 definitions and are retired. Raising a level requires a reviewable project evidence chain, not a wording change.
+
+4
+00:01:13.443 --> 00:01:35.003
+Mechanism maturity does not transfer automatically to an engineering operationalization. Mature cognitive-load literature does not make the project's L1 package E4. The stack itself remains E0; code, animation, and agent integration do not raise it.
+
+5
+00:01:35.323 --> 00:01:43.281
+E3 does not mean prediction has succeeded.
+
+6
+00:01:43.601 --> 00:01:53.644
+E5 does not mean highly reliable; falsification is also a valid result.
+
+7
+00:01:53.964 --> 00:02:02.127
+Evidence level and claim status are separate fields.
+
+8
+00:02:02.447 --> 00:02:12.449
+Engineering falsification drafts require preregistration before formal disposition.
+
+9
+00:02:12.769 --> 00:02:27.246
+Try one step: For one conclusion, write its evidence level, claim status, source, and failure condition. Mark it pending if any field is missing.

@@ -1,0 +1,33 @@
+Meaning Intelligence
+Chapter: White paper v1.1, Claim Registry, and boundaries
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: whitepaper.mp3
+Duration: 148.061 seconds
+
+[00:00:00,000 --> 00:00:26,160]
+Chapter 13. White paper v1.1, Claim Registry, and boundaries. White paper v1.1 is a bilingual application-layer summary with 22 pages, 9 tables, and 3 figures. It summarizes 12 claims and adds a construct-boundary figure; detailed tests and failure conditions remain governed by repository documents.
+
+[00:00:26,480 --> 00:00:47,505]
+Compared with v1.0, v1.1 adds a construct-boundary chapter, a third figure, and a Claim Registry summary table, growing from 19 to 22 pages. Counts were verified from the actual PDF and DOCX structures, not estimated by hand.
+
+[00:00:47,825 --> 00:01:10,110]
+MI-C001 through MI-C012 cover definition, meta-layer relation, three dimensions, spectrum, multi-scale coordination, recursive review, and layer effects. New claims start at MI-C100; existing IDs are never renumbered, and withdrawn claims keep their IDs.
+
+[00:01:10,430 --> 00:01:36,424]
+The white paper does not replace the canon. Theoretical citations return to canon sections, H1–H18, or Appendix D.7. Engineering citations need a claim ID, evidence level, status, and failure condition. The boundary map distinguishes this directional-regulation construct from same-named fields without claiming exclusivity.
+
+[00:01:36,744 --> 00:01:45,367]
+22 pages: actual PDF page count.
+
+[00:01:45,687 --> 00:01:53,775]
+9 tables: actual DOCX table count.
+
+[00:01:54,095 --> 00:02:02,642]
+3 figures: actual DOCX inline-shape count.
+
+[00:02:02,962 --> 00:02:13,265]
+12 claims: summary; detailed governance in docs/claims.md.
+
+[00:02:13,585 --> 00:02:28,061]
+Try one step: Select one white-paper statement, trace it to a claim ID, and inspect its canon link, evidence level, claim status, and failure condition.

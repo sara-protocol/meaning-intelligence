@@ -1,0 +1,33 @@
+Meaning Intelligence
+Chapter: The six-layer engineering stack: L1–L6 and three bands
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: stack.mp3
+Duration: 142.513 seconds
+
+[00:00:00,000 --> 00:00:25,819]
+Chapter 7. The six-layer engineering stack: L1–L6 and three bands. The six-layer stack is an integrative structure proposed by this project at E0 and has not been independently tested. It comprises interface, processing, and meta bands; each layer has inputs, outputs, canon links, and testable engineering boundaries.
+
+[00:00:26,139 --> 00:00:47,319]
+L1 structures information; L2 turns structure into an operable interface; L3 organizes direction, value, and boundary; L4 labels evidence; L5 handles five-scale conflicts; L6 reviews premises, triggers revision, and supports reversible zeroing.
+
+[00:00:47,639 --> 00:01:08,595]
+Layer statuses differ: L1/L2 are framework E1 with mechanisms pending; L3 is E0–E1; L4 tools are E2 and model E1; L5 is E1; L6 is E2. These labels describe current records and do not upgrade the stack as a whole.
+
+[00:01:08,915 --> 00:01:27,355]
+If a simpler partition with greater explanatory power appears, replace the stack rather than defend it. An engineering failure condition disposes of its operationalization, not automatically of canon H hypotheses or external mechanisms.
+
+[00:01:27,675 --> 00:01:37,628]
+Interface band: L1 load reduction, L2 experiential rendering.
+
+[00:01:37,948 --> 00:01:47,870]
+Processing band: L3 meaning generation, L4 value assessment.
+
+[00:01:48,190 --> 00:01:57,888]
+Meta band: L5 direction selection, L6 recursive review.
+
+[00:01:58,208 --> 00:02:07,820]
+Stack as a whole: E0; layer labels cannot be added together.
+
+[00:02:08,140 --> 00:02:22,512]
+Try one step: Map each step of a current workflow to L1–L6. Mark steps with no match as external processes rather than forcing them into the stack.
