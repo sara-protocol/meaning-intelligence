@@ -87,7 +87,11 @@ wrangler pages deploy . --project-name=msi --branch=main --commit-dirty=true
 1. 运行 `build_deploy_zip.py`，从 staging 复制静态文件到独立 `gh-pages` 工作树；排除 `functions/`，保留 `.nojekyll` 与现有 `CNAME`。
 2. 在工作树运行 `browser_verify.mjs --deployment` 和 `verify_package.py`，确认跳转链接、标题层级、双语切换、下载、Range 与媒体证据通过。
 3. 提交并推送 `gh-pages`，只把 Pages 构建源改为该分支根目录；不要修改 DNS、域名或 Access。
-4. 构建完成后运行 `browser_verify.mjs --online` 和静态 Pages 验收，记录分支、提交、构建与线上证据。
+4. 构建完成后运行 `browser_verify.mjs --online`，并用 `verify_github_pages.py` 校验 UTF-8 页面、嵌套资源、完整 GET 哈希与媒体元数据：
+   ```bash
+   python scripts/verify_github_pages.py https://<pages-url> --manifest <部署集>/download/manifest.json
+   ```
+   该验收器会把 GitHub Pages 的 Range 不支持状态单独记录，不把完整 GET 通过冒充 HTTP 206 通过。
 
 若凭据只有推送权、没有 Pages 管理权，保持现有 `main` 根目录构建源，把静态部署文件并入 `main` 并保留项目源码；不要删除源码或修改域名。发布文本参与 manifest 哈希时，在 `.gitattributes` 对发布路径设置 `-text -eol`，并逐个比较 Git blob 与交付文件字节。源码归档必须排除 `download/`、`project-guide/` 等生成输出，避免源码包哈希自引用。
 
