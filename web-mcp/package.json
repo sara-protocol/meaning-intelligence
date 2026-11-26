@@ -1,0 +1,15 @@
+{
+  "name": "meaning-intelligence-web-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Read-only Meaning Intelligence Web MCP function and transport tests",
+  "scripts": {
+    "test": "node --test tests/*.mjs",
+    "sync:publication": "node scripts/sync-publication.mjs",
+    "test:publication": "node scripts/sync-publication.mjs --check"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,110 +1,89 @@
-# 理论失败矩阵（六层版）/ Theory Failure Matrix, Six-Layer Edition
+# 理论失败矩阵 / Theory Failure Matrix
 
-> 这份文档回答一个问题：**每一层在什么观察下会作废，作废之后怎么处理？**
-> This document answers one question: **under what observation does each layer become void, and what happens to it then?**
+> 这份文档回答一个问题：**哪一条主张在什么观察下作废，作废之后怎么处理？**
+> This document answers one question: **which claim is void under which observation, and what happens next?**
 
-本表沿用正典「理论失败矩阵」的体例，逐层给出**支持证据 / 部分支持 / 失败阈值 / 失败后操作**。
-它是本仓库最应该被先读的一页：如果一项主张没有写清什么观察会让它作废，它就不是本项目的成员。
+本文件区分三个对象，不能混用：
 
-This table follows the canon's Theory Failure Matrix, giving each layer its **supporting evidence /
-partial support / failure threshold / post-failure action**. It is the page to read first: a claim with
-no stated refuting observation is not a member of this project.
+1. **正典附录 D.7 的五个理论模块**——V7.0 正典失败矩阵。
+2. **正典 H1–H18 假设卡片**——逐条预注册证伪条件。
+3. **本项目六层工程栈**——E0 工程扩展；其中多数证伪条件只是草案，须另行预注册。
 
 ---
 
-## 一、六层失败矩阵 / The Six-Layer Failure Matrix
+## 一、正典附录 D.7：五模块失败矩阵 / Canon Appendix D.7
 
-| 层 Layer | 支持证据 Supporting evidence | 部分支持 Partial support | 失败阈值 Failure threshold | 失败后操作 Post-failure action |
+以下五项逐条取自 V7.0 正典，不是六层栈的阈值。
+
+| 核心模块 Module | 支持证据 Supporting evidence | 部分支持 Partial support | 失败阈值 Failure threshold | 失败后操作 Post-failure action |
 |---|---|---|---|---|
-| **L1 减负**<br>Cognitive Load Reduction | 受控语言降低误读率<br>Controlled language reduces misreading | 特定文本类型有效<br>Effective for certain text types | 降维后决策质量无提升（d&lt;0.3）<br>No improvement in decision quality after reduction (d&lt;0.3) | 重设压缩比或放弃字数硬限<br>Reset the compression ratio or drop the hard word limit |
-| **L2 可体验**<br>Experiential Rendering | 交互提升结构回忆<br>Interaction improves recall of structure | 特定概念类型有效<br>Effective for certain concept types | 交互组与静态组无显著差异<br>No significant difference between interactive and static groups | 降为可选增强，不作必需层<br>Demote to optional enhancement, not a required layer |
-| **L3 意义生成**<br>Meaning Generation | 三维度可被独立评分<br>The three dimensions can be scored independently | 特定文化背景下成立<br>Holds in certain cultural contexts | 意义判断方差被单一维度解释&gt;90%<br>A single dimension explains &gt;90% of the variance in meaning judgment | 接受 H2 被证伪，重构结构模型<br>Accept that H2 is falsified and rebuild the structural model |
-| **L4 价值评估**<br>Value Assessment | 证据标注提升判断一致性<br>Evidence labelling improves judgment consistency | 领域专家群体内有效<br>Effective within groups of domain experts | 标注与判断质量无相关<br>No correlation between labelling and judgment quality | 退回定性评估<br>Revert to qualitative assessment |
-| **L5 方向选择**<br>Direction Selection | 跨尺度一致者生存更久<br>Cross-scale consistency survives longer | 特定尺度组合成立<br>Holds for certain scale combinations | 长期背离却无危机（H8 反例）<br>Long-term divergence without crisis (a counterexample to H8) | 标记 H8 被证伪，重估五尺度模型<br>Mark H8 as falsified and reassess the five-scale model |
-| **L6 反思与审视递归**<br>Recursive Reflection and Review | 归零缓解僵化<br>Zeroing relieves ossification | 案例层面成立<br>Holds at the case level | RCT 无显著差异（d&lt;0.3）<br>No significant difference in the RCT (d&lt;0.3) | 放弃有效性主张，仅保留为操作规程<br>Drop the efficacy claim; keep it only as a procedural rule |
-
-**几点必须连带读出的信息 / What must be read alongside the table:**
-
-- **「支持证据」一列不是该层的证据等级。** 它是该层所依赖的机制或现象，
-  其证据等级见 [evidence.md](evidence.md) 第二节的「底层机制」列。这两列不可互换。
-  The "supporting evidence" column is **not** the layer's evidence level. It names the mechanism or
-  phenomenon the layer leans on; its level is the "underlying mechanism" column in
-  [evidence.md](evidence.md). The two are not interchangeable.
-- **阈值是预注册的。** 它们在此处被写出，目的正是让任何人都能在看到数据之前知道
-  「什么结果算失败」。事后放宽或改写阈值属于 HARKing，见 [CONTRIBUTING.md](../CONTRIBUTING.md)。
-  The thresholds are preregistered, so that anyone can know **before** seeing the data what would
-  count as failure. Relaxing or rewriting a threshold afterwards is HARKing; see CONTRIBUTING.md.
-- **阈值指向的是可观测的量。** 「d&lt;0.3」是对效应量的判定；「&gt;90% 方差」是对结构模型的判定；
-  「无相关」「无显著差异」是对关联强度的判定。它们都可以被一次设计良好的观测判定为满足或不满足。
-  Each threshold names an observable quantity — an effect size, a share of variance, a correlation, a
-  group difference — so a well-designed observation can settle whether it is met.
+| **SG 假说** | 与危机正相关 | 特定时期相关 | 3 个历史时期无显著相关 | 重参或放弃 |
+| **Spectrum Spiral** | Leap 可被 R/S/T 检测 | 部分跃迁符合 | 90% 以上变化无法捕获 | 修改或放弃 |
+| **Witness→Leap** | 训练后 Leap ↑ | 特定人群有效 | RCT 无显著差异 | 放弃有效性 |
+| **MI-AI 优势** | 决策质量 ↑ | 特定领域有效 | 3 次实验均无优势 | 修改或放弃 |
+| **Weaving Sovereignty** | 五项权利 → 自主性 ↑ | 特定环境有效 | 跨 5 种环境均无效 | 重构理论 |
 
 ---
 
-## 二、使用规则 / How the Matrix Is Used
+## 二、正典 H1–H18：逐条证伪条件 / Canonical Hypotheses
 
-1. **任何一层触及失败阈值，该层将在后续版本中被标记或删除，而不是被辩护。**
-   这是本项目的学术诚信承诺，适用于我们自己提出的模块，包括 L1 与 L2 这两层机制基础最强的层。
-   **If any layer reaches its failure threshold, that layer will be marked or removed in a later
-   version — not defended.** This commitment applies to modules we proposed ourselves, including L1
-   and L2, the two layers with the strongest mechanistic basis.
-2. **处置方式只有两种：标记或删除。** 二者都不等于「保留但降低声量」。
-   - *标记*：该层仍可作为规程或经验做法存在，但**不再主张有效性**（L6 的失败后操作即此）。
-   - *删除*：该层从六层栈中移除，并触发对相邻层关系的重新表述。
-   Only two outcomes exist: **marked** or **removed**. Neither means "kept but discussed less".
-   *Marked*: the layer may remain as a procedure or heuristic, but with **no efficacy claim** (this is
-   L6's post-failure action). *Removed*: the layer leaves the stack, which forces the neighbouring
-   layers' relations to be restated.
-3. **处置必须留痕。** 变更记录在 [`CHANGELOG.md`](../CHANGELOG.md) 的
-   「移除或标记 / Removed or Flagged」段落，并注明依据（证据等级、样本、失败判据）。
-   Disposition leaves a trace: under "Removed or Flagged" in the changelog, together with its basis
-   (evidence level, sample, failure criterion).
-4. **不因「整体说得通」而免检。** 「内部一致」与「符合直觉」都不是提升证据等级的正当理由。
-   No layer is exempt because the whole "makes sense". Internal consistency and intuitive appeal are
-   not valid grounds for raising an evidence level.
-5. **一次失败只推翻被检验的那一条主张。** 例如 d&lt;0.3 的失败推翻的是「这一层的操作化产生了
-   可察觉的决策质量提升」，而不自动推翻它所依赖的底层机制——后者由独立文献支撑。
-   One failure refutes only the claim that was tested. An effect-size failure refutes "this layer's
-   operationalization produces a detectable improvement in decision quality"; it does not
-   automatically refute the underlying mechanism, which rests on independent literature.
-6. **六层栈整体是 E0。** 即使六层全部未触及阈值，也只说明这个表征未被推翻，不说明整合结构已被证实。
-   The stack as a whole is E0. Even if no layer reaches its threshold, that means the representation
-   has not been refuted — not that the integrative structure is confirmed.
+当前等级按 V7.0 假设卡片记录。`hypotheses.yaml` 是引用与自动化载体，不替代正典；若冲突，以正典卡片为准。
+
+| ID | 名称 | 预注册证伪条件（摘要） | 当前等级 |
+|---|---|---|---|
+| **H1** | 意义智能必要性 | 无 MI 系统在 10 年模拟决策中的方向漂移率 ≤ 有 MI 系统（d < 0.3，p > 0.05，功效 ≥ 0.80） | E1 |
+| **H2** | 意义不可还原性 | 意义判断方差被单一维度解释 > 90% | E0 |
+| **H3** | 无 MI 方向漂移 | 长期运行（>10 年）的无 MI 系统方向漂移率 < 5%/年 | E1 |
+| **H4** | 势能驱动行动 | PE 高位但行动意图 < 3/10，或行动后 PE 变化 < 5% | E2 |
+| **H5** | 稳定性–适应性倒 U 型 | 稳定性与适应性呈线性正相关（r > 0.7）或线性负相关（r < −0.7） | E0 |
+| **H6** | 螺旋速率与意义危机 | 极快（>2 SD/月）但危机指数 < 3/10，或极慢（<0.1 SD/年）但意义状态健康 | E0 |
+| **H7** | 跨尺度一致性–生存 | 两尺度长期不一致（一致性 < 0.5）但生存概率高于高一致性对照组 | E1 |
+| **H8** | 尺度背离–危机 | 两尺度长期背离（>10 年，一致性 < 0.4）但均未出现可测意义危机 | E1 |
+| **H9** | 冲突校准 | 无法由元意义层校准的冲突通过其他方式解决且未导致分裂 | E0 |
+| **H10** | 变量可测性 | 到 2031 年，MC、BS、SD 等核心变量仍无信度 > 0.7 的量表 | E2 |
+| **H11** | MI-AI 优势 | 连续 3 次对照实验中，MI 辅助决策未优于人类专家组（d < 0.3，p > 0.05） | E1 |
+| **H12** | 归零防僵化 | 主动归零后僵化程度未缓解（变化 < 5%）或加剧 | E2 |
+| **H13** | 元认知–判断质量 | RCT 中训练组与对照组的意义判断质量无显著差异（d < 0.3，p > 0.05） | E2 |
+| **H14** | 无归零–僵化 | 长期运行（>20 年）的无归零系统意义螺旋持续上升（SD 持续 > 0）而未停滞 | E1 |
+| **H15** | 三特性协同 | 协同组与最优单一特性组无显著差异（d < 0.3，p > 0.05） | E0 |
+| **H16** | 系缚–健康 | BS > 0.8 但文明明显衰退，或 BS < 0.4 但文明繁荣 | E1 |
+| **H17** | 转型–归零重构 | 任一公认重大转型不符合归零–重构模型（经 3 位独立历史学家认定） | E1 |
+| **H18** | 当代窗口 | 到 2050 年，>60% 受访者认为文明方向未发生根本变化 | E1 |
+
+**正典内部待修问题：** 附录 D.2 的 H5 等级单元格被截断为 `r`，且 H6 简表与假设卡片对“极慢速率”的表述不一致。本文件采用信息更完整的假设卡片，并在 [canon-audit.md](canon-audit.md) 留痕；未修改用户提供的正典原件。
 
 ---
 
-## 三、如何提交一份能触发处置的报告 / Filing a Report That Can Trigger Disposition
+## 三、六层工程栈：证伪草案 / Engineering Falsification Drafts
 
-最有价值的贡献**不是**加功能，而是提交证伪报告。一份足以触发上表处置的报告需要：
+六层栈本身是 E0 工程扩展。除 L3 直接引用 H2 外，下表条件均为**工程草案**；没有预注册时间戳、样本量与统计方案，不能仅凭本表触发正式“标记或删除”。
 
-The most valuable contribution is **not** a feature; it is a falsification report. A report strong
-enough to trigger disposition needs:
+| 层 Layer | 条件来源 Scope | 失败观察 Failure observation | 失败后建议 Suggested action | 正典假设关联（不等同） |
+|---|---|---|---|---|
+| **L1 减负** | 工程草案 | 结构化压缩相对原文的决策质量提升 d < 0.3 | 重设压缩比或放弃字数硬限；不自动推翻认知负荷机制 | 无直接 H 映射 |
+| **L2 可体验** | 工程草案 | 预注册迁移任务中交互组与静态组无显著差异 | 降为可选增强，不作必需层 | 无直接 H 映射 |
+| **L3 意义生成** | **正典 H2** | 意义判断方差被单一维度解释 > 90% | 接受 H2 被证伪，重构结构模型 | **H2** |
+| **L4 价值评估** | 工程草案 | 证据标注跨评审者不一致，或与后续检验结果无单调关系 | 退回定性评估；先补预注册阈值 | H10 只检验量表信度，不是本条件 |
+| **L5 方向选择** | 工程草案 | 该层选出的方向在事后评估中不优于基线或随机选择 | 删除或重做方向选择操作化 | H7/H8 检验生存与危机，不是选路优势 |
+| **L6 反思与审视递归** | 工程草案 | 预注册后续轮次中递归审视的纠错率不高于无审视对照 | 仅移除递归组件，不自动推翻归零或元认知机制 | H12/H13/H14 分别检验归零、元认知与无归零僵化 |
 
-1. **指明对象**：哪一层（L1–L6）或哪条假设（H1–H18）。
-   **Name the target**: which layer, or which hypothesis.
-2. **对准预注册标准**：引用上表阈值的具体条款，并说明结果**如何**满足它。
-   **Match the preregistered criterion**: quote the specific threshold and explain **how** the result
-   satisfies it.
-3. **给出可复核的数字**：效应量、p 值、统计功效、样本量与抽样方式。
-   **Give checkable numbers**: effect size, p value, statistical power, sample size, sampling.
-4. **交代数据可得性**与限制。
-   **State data availability** and its restrictions.
-5. **自评不确定性**：你本人最担心这份报告的哪一点。
-   **Self-assess uncertainty**: what worries you most about your own report.
+### 工程草案转为正式阈值的门槛
 
-模板：[`.github/ISSUE_TEMPLATE/falsification_report.yml`](../.github/ISSUE_TEMPLATE/falsification_report.yml)。
-报告不满足阈值时我们仍然会读，但按定义它不构成证伪——如实说明这一点比把它写成证伪更有用。
-
-Template: `.github/ISSUE_TEMPLATE/falsification_report.yml`. Reports that do not meet the threshold are
-still read, but by definition they are not falsifications — saying so plainly is more useful than
-presenting them as such.
-
-**核心行为期待：可以攻击理论，不可以攻击人。**
-
-**Core behavioural expectation: attack the theory, not the person.**
+1. 在观察数据前登记假设、样本量、统计检验、最小可判别效应与处置规则。
+2. 明确它属于哪一个组件；L6 的“递归审视”“主动归零”“无归零僵化”不得共用一个失败结论。
+3. 在 `hypotheses.yaml` 或新的工程假设登记册中保存时间戳与版本。
+4. 报告必须给出可复核数字；未达到阈值的结果仍应公开，但不得写成证伪。
 
 ---
 
-后续阅读：[证据体系](evidence.md) · [路线图](roadmap.md) · [术语对照](glossary.md)
+## 四、处置规则 / Disposition Rules
 
-Further reading: [Evidence System](evidence.md) · [Roadmap](roadmap.md) · [Glossary](glossary.md)
+- **正典假设按正典处置。** H1–H18 与附录 D.7 的阈值不得被工程草案覆盖。
+- **工程草案先登记，后处置。** 未预注册的条件只能指导探索，不能触发正式删除。
+- **一次失败只推翻被检验的主张。** 工程层失败不自动推翻外部机制；H12 失败也不自动推翻 H13。
+- **处置必须留痕。** 在 `CHANGELOG.md` 记录对象、版本、证据与处置理由。
+- **整体切分仍可被替换。** 即使各层未达到阈值，也不等于六层栈已被证实；它仍是 E0。
+
+---
+
+后续阅读：[证据体系](evidence.md) · [正典审计](canon-audit.md) · [路线图](roadmap.md) · [术语对照](glossary.md)

@@ -34,7 +34,7 @@ Layers are divided by **blast radius**, not directory size. Dependencies run one
   ┌──────────────────────────┐  ┌───────────────────────────────┐
   │ msi/scenes/              │  │ msi/mi_common.py              │
   │  meaning_intelligence.py │  │  load_config()                │
-  │ 六幕动画 Act1…Act6       │  │  calculate_layer_             │
+  │ 八幕动画 Act1…Act8       │  │  calculate_layer_             │
   │ 每幕 self.mark() 打点     │  │   timestamps()（预算时间轴）   │
   └────────────┬─────────────┘  └───────────────┬───────────────┘
                │ export_timeline()              │ 仅在缺失时回退
@@ -75,9 +75,8 @@ cannot drift on layer order or names — order is defined once, in `LAYER_ORDER`
 
 ## 三、MSI 数据流：四步 / The MSI Data Flow in Four Steps
 
-1. **配置**：[`msi/config.json`](../msi/config.json) 定义每层的 `name` / `en` / `color` / `evidence` /
-   `mechanism_evidence` / `duration`，以及三带与 E0–E6 色阶。文案修改一律从它开始。
-   **Config**: per-layer names, colour, evidence level, mechanism evidence level, and duration, plus bands and palette.
+1. **配置**：[`msi/config.json`](../msi/config.json) 定义每层的中英文名、定义、正典概念关联、证据等级与证伪条件来源，以及八幕的进入/停留时长、三带和 E0–E6 色阶。六层栈是 E0 工程扩展，不是正典固定层次；文案与演示参数修改一律从它开始。
+   **Config**: bilingual layer names, definitions, canon concept links, evidence levels, falsifier scope, eight-act timing, bands, and palette. The stack is an E0 engineering extension, not a canon hierarchy.
 2. **渲染**：[`msi/scenes/meaning_intelligence.py`](../msi/scenes/meaning_intelligence.py) 逐幕推进，
    每幕用 `self.mark()` 记录进入与退出时刻，结束时 `export_timeline()` 写出
    [`msi/timeline.json`](../msi/timeline.json)。
@@ -105,9 +104,9 @@ copy is not optional — the page references a file name in its own directory, o
 **The point: animation duration is decided by the render, not by the intent written in the script.**
 
 - **手写会错位。** 每一幕的实际耗时取决于 `run_time`、等待、以及 Manim 自身的排布与字体度量，这些
-  只有在渲染完成时才是确定的。手写时间轴会与画面逐渐错开——到第六幕时，页面指向的秒数与屏幕上
+  只有在渲染完成时才是确定的。手写时间轴会与画面逐渐错开——到第八幕时，页面指向的秒数与屏幕上
   正在发生的事情已经不是同一件事。
-  **Hand-writing drifts.** Real duration depends on `run_time`, waits, and Manim's layout and font metrics, known only after rendering. By act six the page points at a moment that no longer matches the screen.
+  **Hand-writing drifts.** Real duration depends on `run_time`, waits, and Manim's layout and font metrics, known only after rendering. By act eight the page points at a moment that no longer matches the screen.
 - **打点位置在场景里。** `self.mark()` 记录的是渲染时钟 `self.renderer.time`，因此时间轴描述的是
   **实际发生过的**推进，而不是计划中的推进。实测值的形状见 [`msi/timeline.json`](../msi/timeline.json)。
   **The stamps live in the scene.** `self.mark()` records `self.renderer.time`, so the timeline describes what happened, not what was planned.
@@ -128,10 +127,9 @@ concrete engineering instance of this project's stance on evidence.
 ## 五、六层栈与正典运行机制的映射 / Mapping onto Canon Mechanisms
 
 正典的运行机制是**三模块**（M1 感知 / M2 判断 / M3 行动）与**四流程**（F1 意义识别 / F2 意义评估 /
-F3 意义决策 / F4 意义反馈）。六层栈不是另起一套机制，而是同一套机制在应用层的分层落点（白皮书表 2）。
+F3 意义决策 / F4 意义反馈）。六层栈不是正典机制，而是本项目把这些机制转译为应用层工程结构的一种**待检验假设**（白皮书表 2）。
 
-The canon's mechanisms are **three modules** (M1 / M2 / M3) and **four processes** (F1–F4). The stack is
-where that same mechanism lands at the application layer (white paper Table 2).
+The canon's mechanisms are **three modules** (M1 / M2 / M3) and **four processes** (F1–F4). The stack is not a canon mechanism; it is a **testable engineering hypothesis** about how to translate those mechanisms into an application structure (white paper Table 2).
 
 | 六层 Layer | 正典三模块 Canon modules | 正典四流程 Canon processes | 主要产出 Primary output |
 |---|---|---|---|

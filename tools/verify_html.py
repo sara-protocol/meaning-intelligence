@@ -21,6 +21,21 @@ import sys
 import tempfile
 from pathlib import Path
 
+for stream in (sys.stdout, sys.stderr):
+    if hasattr(stream, "reconfigure"):
+        stream.reconfigure(encoding="utf-8", errors="backslashreplace")
+
+
+def js_json(html: str, name: str):
+    match = re.search(rf"const\s+{re.escape(name)}\s*=\s*", html)
+    if not match:
+        return None
+    try:
+        value, _ = json.JSONDecoder().raw_decode(html[match.end():])
+    except json.JSONDecodeError:
+        return None
+    return value
+
 
 def main() -> int:
     ap = argparse.ArgumentParser()
@@ -78,13 +93,33 @@ def main() -> int:
                     pass
 
     # 3. 注入项抽查
+    cfg = js_json(html, "CFG") or {}
+    timeline = js_json(html, "TIMELINE") or {}
+    source = js_json(html, "TIMELINE_SOURCE")
+    if source is None:
+        source = js_json(html, "SOURCE")
+    layers = cfg.get("layers", [])
+    layer_ids = {layer.get("id") for layer in layers if isinstance(layer, dict)}
+    evidence_scale = cfg.get("evidence_scale", [])
+    demo = cfg.get("demo", {})
+    assess_levels = demo.get("assess_levels", []) if isinstance(demo, dict) else []
     checks = {
-        "TIMELINE 含 L6": bool(re.search(r"const TIMELINE\s*=\s*\{[^;]*\"L6\"", html, re.S)),
-        "SOURCE 为合法 JS 字符串": bool(re.search(r'const\s+(?:SOURCE|TIMELINE_SOURCE)\s*=\s*"(measured|planned)"', html)),
-        "六层键齐全": all(f'"{k}"' in html for k in
-                          ("L1", "L2", "L3", "L4", "L5", "L6")),
-        "证据色阶存在": all(f'"{k}"' in html for k in
-                            ("E0", "E1", "E2", "E3", "E4", "E5", "E6")),
+        "TIMELINE 含 L6": isinstance(timeline, dict) and "L6" in timeline,
+        "SOURCE 为合法 JS 字符串": source in ("measured", "planned"),
+        "六层键齐全": layer_ids == {"L1", "L2", "L3", "L4", "L5", "L6"},
+        "证据色阶配置完整": (
+            isinstance(evidence_scale, list)
+            and len(evidence_scale) == 7
+            and all(isinstance(color, str) and re.fullmatch(r"#[0-9a-fA-F]{6}", color)
+                    for color in evidence_scale)
+        ),
+        "证据评级索引合法": (
+            isinstance(assess_levels, list)
+            and bool(assess_levels)
+            and all(type(level) is int and 0 <= level < len(evidence_scale)
+                    for level in assess_levels)
+        ),
+        "证据标签存在": ">E0<" in html and ">E6<" in html,
     }
     for name, passed in checks.items():
         print(f"[3/3] {name} : {'OK' if passed else 'FAIL'}")

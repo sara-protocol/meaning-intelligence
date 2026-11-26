@@ -3,15 +3,18 @@
 > 这份索引回答一个问题：**我想知道某件事时，该读哪一份文档？**
 > This index answers one question: **which document should I read to learn a given thing?**
 
-本目录是仓库的**说明性文档层**，它不新增任何理论主张。所有构念定义、证据等级与失败阈值均以正典
-《意义智能：意义文明的认知操作系统》V7.0 与白皮书生成脚本为准；本目录只做一件事——
-把已经写下的东西**整理成可查、可引用、可被逐条检验**的形式。
+本目录是仓库的**说明性与工程主张文档层**。正典构念定义、证据等级与 H1–H18 阈值以 V7.0 正典为准；
+六层栈、三带及工程证伪草案以 [`msi/config.json`](../msi/config.json) 为数据源，并在本目录说明其来源边界。
+工程主张不自动成为正典命题；正典与工程表述冲突时，正典优先。
 
-This directory is the repository's **explanatory documentation layer**. It introduces no new
-theoretical claims. All construct definitions, evidence levels, and failure thresholds follow the
-canon *Meaning Intelligence: The Cognitive Operating System of Meaning Civilization*, V7.0, and the
-white paper generator script. This directory does exactly one thing: it arranges what has already
-been written into something that can be looked up, cited, and tested item by item.
+This directory is the repository's **explanatory and engineering-claim documentation layer**. Canonical
+construct definitions, evidence levels, and H1–H18 thresholds follow the V7.0 canon. The six-layer
+stack, three bands, and engineering falsification drafts use [`msi/config.json`](../msi/config.json)
+as their data source, with provenance stated here. Engineering claims do not automatically become
+canonical propositions; the canon prevails on conflict.
+
+> **来源边界 / Provenance**：六层栈是本项目提出的 E0 工程扩展，不是正典固定层次。
+> MI-C001–MI-C012 是项目 claim registry，不自动等于正典 H1–H18；两类标识符必须分别引用。
 
 > **证据状态：E0（概念）。** 六层栈是本项目提出的**操作性表示**，
 > 不是理论本体，也未经独立检验。它可能被更简洁的切分替换。
@@ -24,8 +27,10 @@ been written into something that can be looked up, cited, and tested item by ite
 | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [architecture.md](architecture.md)<br>系统架构 / System Architecture         | 仓库各部分如何分层；`config.json` 到 `meaning_intelligence.html` 的数据如何流动；为什么时间轴必须实测注入而不能手写；六层如何映射到正典的 M1/M2/M3 与 F1–F4。<br>How the repository is layered; how data flows from `config.json` to `meaning_intelligence.html`; why the timeline must be measured rather than hand-written; how the six layers map onto canon modules M1/M2/M3 and processes F1–F4. |
 | [evidence.md](evidence.md)<br>证据体系 / Evidence System                     | E0–E6 各自是什么；六层各自的证据等级是多少；为什么必须区分「本框架内的操作化等级」与「底层机制的证据等级」。<br>What E0–E6 each mean; the evidence level of each layer; why "operationalization level inside this framework" must be kept apart from "evidence level of the underlying mechanism".                                                                                                      |
-| [failure-matrix.md](failure-matrix.md)<br>理论失败矩阵 / Theory Failure Matrix | 每一层的支持证据、部分支持、失败阈值与失败后操作分别是什么；触及阈值后按什么规则处置。<br>Each layer's supporting evidence, partial support, failure threshold, and post-failure action; the rule applied once a threshold is reached.                                                                                                                                                          |
-| [roadmap.md](roadmap.md)<br>路线图 / Roadmap                                | 正典五阶段路线图各阶段做什么；本仓库定位在哪一阶段；0.2.0 已完成什么、下一步做什么。<br>What each of the canon's five roadmap phases does; where this repository sits; what 0.1.0 already delivers and what comes next.                                                                                                                                                                     |
+| [failure-matrix.md](failure-matrix.md)<br>理论失败矩阵 / Theory Failure Matrix | 正典附录 D.7、H1–H18 与工程 L1–L6 草案如何分开；工程草案何时才可正式处置。<br>How canon Appendix D.7, H1–H18, and engineering L1–L6 drafts stay separate, and when an engineering draft may be formally acted on.                                                                                                                                                          |
+| [claims.md](claims.md)<br>项目主张登记 / Claim Registry | MI-C001–MI-C012 的项目主张、证据与失败条件；为何不能把 MI-C 编号当作正典 H 编号。<br>Project claims MI-C001–MI-C012, their evidence and failure conditions, and why MI-C identifiers are not canon H identifiers. |
+| [canon-audit.md](canon-audit.md)<br>正典来源审计 / Canon Source Audit | 哪个 DOCX 是 V7 主正典、其 SHA-256、权威顺序、已发现的上游缺陷与未修改声明。<br>Which DOCX is the V7 primary canon, its SHA-256, authority order, upstream defects, and the no-modification declaration. |
+| [roadmap.md](roadmap.md)<br>路线图 / Roadmap                                | 正典五阶段路线图各阶段做什么；本仓库定位在哪一阶段；0.2.0 已完成什么、下一步做什么。<br>What each of the canon's five roadmap phases does; where this repository sits; what 0.2.0 already delivers and what comes next.                                                                                                                                                                     |
 | [glossary.md](glossary.md)<br>术语对照 / Glossary                            | 一个术语（意义智能、PE、DC、BS、SD、RZ、MC、MCA/SA/AZ、M1–M3、F1–F4……）的中文、英文与正典出处；以及六层各自的中英文名。<br>The Chinese name, English name, and canon source of each term (meaning intelligence, PE, DC, BS, SD, RZ, MC, MCA/SA/AZ, M1–M3, F1–F4, …), plus the bilingual names of the six layers.                                                                                |
 
 ---

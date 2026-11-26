@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""生成白皮书插图：六层元智能栈 + 递归螺旋闭合。
+"""生成白皮书插图：六层工程应用栈（E0）+ 递归螺旋闭合。
 配色沿用《意义智能》V7.0 视觉语言：
   书卷白 #F7F4EE / 阅读灰 #1F2937 / 标题深蓝 #1B3A5C / 辅助灰 #7A8CA3 / 次级 #4A5A70
   光谱蓝 #2A5C8E(认知) / 光谱紫 #6B4C9A(价值) / 光谱金 #C49B3B(存在)
@@ -142,8 +142,8 @@ def fig_stack():
 
     x0, x1 = 250, 1690
     top, bh, gap = 44, 142, 14
-    bands = [("界面层", "Interface", 0, 1), ("加工层", "Processing", 2, 3),
-             ("元层", "Meta", 4, 5)]
+    bands = [("界面带", "Interface", 0, 1), ("加工带", "Processing", 2, 3),
+             ("元带", "Meta", 4, 5)]
 
     for gzh, gen, a, b in bands:
         y_top = top + a * (bh + gap)
@@ -173,10 +173,10 @@ def fig_stack():
         d.text((x0 + 500, y + 76), den, font=f_defen, fill=SECOND)
 
     d.text((60, H - 62),
-           "递归：L6 的输出回写为 L1 的输入，六层构成闭合螺旋，而非单向流水线。",
+           "工程扩展（E0，非正典固定层次）。递归：L6 输出回写为 L1 输入，六层构成闭合螺旋。",
            font=f_defzh, fill=SECOND)
     d.text((60, H - 32),
-           "Recursion: L6 output is rewritten as L1 input — the six layers form a closed spiral, not a linear pipeline.",
+           "Engineering extension (E0; not a fixed canon hierarchy). L6 output is rewritten as L1 input, closing the spiral.",
            font=f_defen, fill=GRAY)
 
     img.save(OUT / "fig1_six_layer_stack.png", dpi=(300, 300))

@@ -6,18 +6,18 @@
 flowchart LR
     subgraph B0["界面带 · 信息进不来"]
         direction LR
-        L1["L1 · 减负<br/>把认知负荷从信息量转移到结构<br/>E1(机制 E3)"]:::cyan
-        L2["L2 · 可体验<br/>把「读到」变成「操作到」<br/>E1(机制 E3)"]:::cyan
+        L1["L1 · 减负<br/>把认知负荷从信息量转移到结构<br/>本框架 E1；机制待核验"]:::cyan
+        L2["L2 · 可体验<br/>把「读到」变成「操作到」<br/>本框架 E1；机制待核验"]:::cyan
     end
     subgraph B1["加工带 · 意义出不来"]
         direction LR
-        L3["L3 · 意义生成<br/>组织成方向·价值·边界<br/>E0–E1"]:::purple
-        L4["L4 · 价值评估<br/>为判断标注证据强度<br/>E2(工具)/ E1(模型)"]:::purple
+        L3["L3 · 意义生成<br/>组织成方向·价值·边界<br/>本框架 E0–E1；机制 E0"]:::purple
+        L4["L4 · 价值评估<br/>为判断标注证据强度<br/>本框架 E2（工具）/ E1（模型）"]:::purple
     end
     subgraph B2["元带 · 方向守不住"]
         direction LR
-        L5["L5 · 方向选择<br/>在五尺度上选定值得的方向<br/>E1"]:::amber
-        L6["L6 · 反思与审视递归<br/>让系统审视自己的审视<br/>E2(案例)/ E1"]:::amber
+        L5["L5 · 方向选择<br/>在五尺度上选定值得的方向<br/>本框架 E1；关联 H7/H8（E1）"]:::amber
+        L6["L6 · 反思与审视递归<br/>让系统审视自己的审视<br/>本框架 E2；关联 H12/H13（E2）、H14（E1）"]:::amber
     end
     L1 --> L2 --> L3 --> L4 --> L5 --> L6
     L6 -. "L1′" .-> L1
@@ -74,18 +74,18 @@ flowchart LR
 flowchart LR
     subgraph B0["Interface band · Information can't get in"]
         direction LR
-        L1["L1 · Cognitive Load Reduction<br/>Shift cognitive load from information volume to structure<br/>E1(机制 E3)"]:::cyan
-        L2["L2 · Experiential Rendering<br/>Turn "read" into "operated"<br/>E1(机制 E3)"]:::cyan
+        L1["L1 · Cognitive Load Reduction<br/>Shift cognitive load from information volume to structure<br/>本框架 E1；机制待核验"]:::cyan
+        L2["L2 · Experiential Rendering<br/>Turn "read" into "operated"<br/>本框架 E1；机制待核验"]:::cyan
     end
     subgraph B1["Processing band · Meaning can't come out"]
         direction LR
-        L3["L3 · Meaning Generation<br/>Organise into direction · value · boundary<br/>E0–E1"]:::purple
-        L4["L4 · Value Assessment<br/>Label every judgement with its strength of evidence<br/>E2(工具)/ E1(模型)"]:::purple
+        L3["L3 · Meaning Generation<br/>Organise into direction · value · boundary<br/>本框架 E0–E1；机制 E0"]:::purple
+        L4["L4 · Value Assessment<br/>Label every judgement with its strength of evidence<br/>本框架 E2（工具）/ E1（模型）"]:::purple
     end
     subgraph B2["Meta band · Direction can't hold"]
         direction LR
-        L5["L5 · Direction Selection<br/>Choose the worthwhile direction across five scales<br/>E1"]:::amber
-        L6["L6 · Recursive Reflection and Review<br/>Let the system review its own reviewing<br/>E2(案例)/ E1"]:::amber
+        L5["L5 · Direction Selection<br/>Choose the worthwhile direction across five scales<br/>本框架 E1；关联 H7/H8（E1）"]:::amber
+        L6["L6 · Recursive Reflection and Review<br/>Let the system review its own reviewing<br/>本框架 E2；关联 H12/H13（E2）、H14（E1）"]:::amber
     end
     L1 --> L2 --> L3 --> L4 --> L5 --> L6
     L6 -. "L1′" .-> L1

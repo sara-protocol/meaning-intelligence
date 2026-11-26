@@ -10,6 +10,10 @@ import sys
 import tempfile
 from pathlib import Path
 
+for stream in (sys.stdout, sys.stderr):
+    if hasattr(stream, "reconfigure"):
+        stream.reconfigure(encoding="utf-8", errors="backslashreplace")
+
 ROOT = Path(__file__).resolve().parent.parent
 
 FILES = ["msi/build.py", "msi/mi_common.py", "msi/config.json"]

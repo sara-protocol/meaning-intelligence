@@ -12,6 +12,10 @@ from pathlib import Path
 
 import yaml
 
+for stream in (sys.stdout, sys.stderr):
+    if hasattr(stream, "reconfigure"):
+        stream.reconfigure(encoding="utf-8", errors="backslashreplace")
+
 ROOT = Path(__file__).resolve().parent.parent   # 仓库根（tools/ 的上一级）
 TPL_DIR = ROOT / ".github" / "ISSUE_TEMPLATE"
 

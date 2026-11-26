@@ -1,4 +1,4 @@
-"""修复 publish.py 里被破坏的 _read_whitepaper_version 函数。
+r"""修复 publish.py 里被破坏的 _read_whitepaper_version 函数。
 用 raw triple-quoted 字符串,保证写回的内容里 \s 和 " 都原样保留。"""
 from pathlib import Path
 

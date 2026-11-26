@@ -15,7 +15,7 @@ project:
   tagline_zh: 智能活动的方向性调控理论
   tagline_en: A Theory of Directional Regulation of Intelligence
   owner: sara-protocol
-  homepage: https://sara-protocol.github.io/meaning-intelligence/
+  homepage: https://msi.gojj.ccwu.cc/
   repository: https://github.com/sara-protocol/meaning-intelligence
 
 # --- Layered version identity -------------------------------------------------
@@ -28,6 +28,21 @@ canon:
   name_en: "Meaning Intelligence: The Cognitive Operating System of Meaning Civilization"
   version: "V7.0"
   # Canon is not versioned by this repository. Cite it as-is.
+  audited: "2026-11-26"
+  primary_artifact:
+    file: "意义智能_V7升级版_KDP中英双语.docx"
+    source_copy: "KDP 定稿02"
+    sha256: "0fedff1ee5775bbc6812cea24f6024e36e54d43fac4776ba6f94c402ff4cb574"
+    duplicate_copy: "KDP V5（同 SHA-256，应明确归档）"
+  english_mother:
+    file: "Meaning IntelligenceV7.docx"
+    sha256: "b4225b6371d0ea013fe2ae4db9ac396537e2bf30f94cbda5a2c342e5f570396b"
+  authority_order:
+    - "KDP 定稿02中文 V7"
+    - "Meaning IntelligenceV7 英文母本"
+    - "whitepaper"
+    - "msi/config.json"
+    - "README/CHANGELOG"
 
 research_system:
   # The public research system defined by this repository.
@@ -49,9 +64,9 @@ operational_stack:
 
 whitepaper:
   version: "1.1"
-  pages: 19
-  tables: 7
-  figures: 2
+  pages: 22
+  tables: 9
+  figures: 3
   languages: [zh, en]
   formats: [docx, pdf]
 

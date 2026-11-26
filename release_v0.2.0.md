@@ -140,7 +140,7 @@ README 顶部新增研究状态面板:
 
 | 六层栈证据等级 | **E0(概念)** |
 
-| 白皮书 | v1.1(21 页) |
+| 白皮书 | v1.1(22 页) |
 
 | 版本源 | `VERSION.yaml` |
 
@@ -162,7 +162,7 @@ README 顶部新增研究状态面板:
 
 * **新增 Chapter:构造边界**(含 Figure 3)
 * **新增 Chapter:Claim Registry 摘要**(含 Table 8,12 claims)
-* 页数:19 → **21**
+* 页数:19 → **22**
 * 版本号:1.0 → **1.1**
 
 
@@ -227,7 +227,7 @@ README 顶部新增研究状态面板:
 
 | What It Does NOT Claim | 无 | README 显著位置 |
 
-| 白皮书版本 | v1.0(19 页) | v1.1(21 页) |
+| 白皮书版本 | v1.0(19 页) | v1.1(22 页) |
 
 | 白皮书 Claim 摘要 | 无 | Table 8 |
 
@@ -294,7 +294,7 @@ README 顶部新增研究状态面板:
 
 
 
-* 📄 白皮书:见本页附件(v1.1,21 页,中英双语,DOCX + PDF)
+* 📄 白皮书:见本页附件(v1.1,22 页,中英双语,DOCX + PDF)
 * 🗂 Claim Registry:[`docs/claims.md`](../blob/main/docs/claims.md)
 * 🗺 路线图:[`ROADMAP.md`](../blob/main/ROADMAP.md)
 * 🧪 证伪报告:[Issue 模板](../issues/new?template=falsification_report.yml)

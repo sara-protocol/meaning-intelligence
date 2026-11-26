@@ -294,8 +294,8 @@ function setStage(n, silent) {
     `<div class="def">${esc(L.definition[lang])}</div><dl>` +
     row(u.card.band, `<span class="badge" style="color:${col};border-color:${col}">${esc(B.label[lang])}</span>${esc(B.problem[lang])}`) +
     row(u.card.anchor, esc(L.anchor[lang])) +
-    row(u.card.evidence, esc(L.evidence)) +
-    row(u.card.falsifier, esc(L.falsifier[lang])) + `</dl>`;
+    row(u.card.evidence, esc(lang === "zh" ? L.evidence : L.evidence_en)) +
+    row(L.falsifier_scope === "canon" ? u.card.canonFalsifier : u.card.falsifier, esc(L.falsifier[lang])) + `</dl>`;
   if (!silent) seek(L.id, false);
   syncCanvas();
 }

@@ -1,9 +1,10 @@
 # ============================================================================
 # CI —— 意义智能 / Meaning Intelligence
-# 目的：在每次 push 与 pull_request 上验证仓库的"可解析 + 可重建 + 可校验"三件事。
+# 目的：在每次 push 与 pull_request 上验证仓库的"可解析 + 可重建 + 可校验"四件事。
 #   1. 所有 YAML / CFF 能被解析（模板与工作流本身是仓库的对外接口，坏掉的模板等于坏掉的贡献入口）；
 #   2. 白皮书能由脚本重建出有效 DOCX（产物可重建，才谈得上可复核）；
-#   3. MSI 单文件交互页能构建出来、无残留占位符、内联 JavaScript 语法正确。
+#   3. MSI 单文件交互页能构建出来、无残留占位符、内联 JavaScript 语法正确；
+#   4. meaning-agent 的 Python/UI 测试与 web-mcp 的传输、发布同步测试可离线复现。
 # 有意不做的事：
 #   - 不渲染 Manim（渲染耗时且需要系统级依赖，代价远高于它带来的检查价值）。
 #     因此 MSI 部分除了构建工作区中的页面，还会在临时目录里显式验证"无 timeline.json"
@@ -37,6 +38,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: 安装 Node.js 22 / Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
       - name: 安装依赖 / Install dependencies
         run: |
           set -euo pipefail
@@ -47,6 +53,51 @@ jobs:
         run: |
           set -euo pipefail
           python tools/verify_consistency.py
+
+      # ------------------------------------------------------------------
+      # 附加检查 / Additional checks：离线智能体与公共 Web MCP
+      # （无需 npm 依赖或 hosted secrets）
+      # ------------------------------------------------------------------
+      - name: 校验意义智能体 / Validate the Meaning Agent
+        run: |
+          set -euo pipefail
+          cd meaning-agent
+          python -m compileall -q meaning_agent
+          python -m unittest discover -s tests -v
+          node --check meaning_agent/static/app.js
+
+      - name: 校验公共 Web MCP / Validate the public Web MCP
+        run: |
+          set -euo pipefail
+          cd web-mcp
+          node --test tests/mcp.test.mjs
+
+      - name: 校验发布同步 / Validate publication sync
+        run: |
+          set -euo pipefail
+          # 发布包不在本仓库中；用临时副本同时验证 check 与修复同步，
+          # 避免 CI 依赖工作区路径、外部文件或任何凭据。
+          python - <<'PY'
+          import shutil
+          import subprocess
+          import tempfile
+          from pathlib import Path
+
+          source = Path("web-mcp/functions/api/mcp.js")
+          script = Path("web-mcp/scripts/sync-publication.mjs")
+          with tempfile.TemporaryDirectory(prefix="mi-publication-") as directory:
+              root = Path(directory)
+              target = root / "functions" / "api" / "mcp.js"
+              target.parent.mkdir(parents=True)
+              shutil.copyfile(source, target)
+              subprocess.run(["node", str(script), "--check", str(root)], check=True)
+              target.write_text("stale publication copy\n", encoding="utf-8")
+              subprocess.run(["node", str(script), str(root)], check=True)
+              if target.read_bytes() != source.read_bytes():
+                  raise SystemExit("publication sync did not reproduce source bytes")
+              subprocess.run(["node", str(script), "--check", str(root)], check=True)
+          print("OK   publication sync check and repair are byte-identical")
+          PY
 
       # ------------------------------------------------------------------
       # 1. YAML / CFF 可解析性
@@ -165,6 +216,11 @@ jobs:
           cd msi
           python build.py
           cd ..
+
+      - name: 校验 MSI 配置与页面 / Validate MSI config and page
+        run: |
+          set -euo pipefail
+          python tools/verify_html.py msi/meaning_intelligence.html
 
           # 断言：产物存在、由本次构建写出、无残留占位符、内联时间轴已注入。
           python - <<'PY'

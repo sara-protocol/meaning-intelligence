@@ -40,7 +40,7 @@ Thank you for spending attention on this project. Before you start, read this se
 
 **后果是明确的：若证伪成立，对应模块将在后续版本中被标记或删除，而不是被辩护。** 这是我们对学术诚信的具体承诺，也适用于我们自己提出的任何模块。
 
-**复制性报告同样欢迎。** 与正典预测一致的结果，只有在独立数据上重复出现（对应 E4 复制）才有证据价值。请同样说明样本、分析与偏差控制。
+**复制性报告同样欢迎。** 与正典预测一致的结果，只有在独立实验室复现（对应 E4 复制）后才有此等级的证据价值。请同样说明样本、分析与偏差控制；仅在独立数据上重复出现并不自动等于 E4。
 
 **English**
 
@@ -56,7 +56,7 @@ Please:
 
 **The consequence is explicit: if the falsification holds, the module will be marked or removed in a later version, not defended.** That is our concrete commitment to research integrity, and it applies to modules we proposed ourselves.
 
-**Replication reports are just as welcome.** Results consistent with a canonical prediction carry evidential weight only when they recur on independent data (evidence level E4, replicated). State sample, analysis, and bias controls there too.
+**Replication reports are just as welcome.** Results consistent with a canonical prediction reach evidence level E4 only through independent-laboratory replication. Recurrence on independent data alone does not automatically qualify. State sample, analysis, and bias controls there too.
 
 ---
 
@@ -73,7 +73,7 @@ Please:
 3. **构念定义与操作化指标**——这个构念用什么被测量出来，单位与计分方式是什么。
 4. **预测**——在什么条件下、预测观察到什么方向与量级的结果。
 5. **预注册证伪标准**——阈值、样本量、统计判据、以及"若结果落在何处即判定为证伪"。此条为必需项。
-6. **当前证据等级**——按 E0 概念 / E1 形式化 / E2 操作化 / E3 预测性 / E4 复制 / E5 证伪或存活 / E6 外部验证 标注，并说明依据。
+6. **当前证据等级**——按 V7.0：E0 概念 / E1 形式化 / E2 操作化 / E3 有预注册假设，数据收集中 / E4 独立实验室复现 / E5 预注册标准已检验 / E6 跨情境、跨文化、跨时间泛化，并说明依据。
 7. **与六层栈的对应**——涉及 L1–L6 中的哪一层或哪几层。
 8. **失败后操作**——若达到失败阈值，这条卡片应当被标记还是删除，理由是什么。
 
@@ -94,7 +94,7 @@ A card needs at least:
 3. **Construct definition and operationalization** — how the construct is measured, with units and scoring.
 4. **Prediction** — under what conditions, what direction and magnitude of result is expected.
 5. **Preregistered falsification criterion** — threshold, sample size, statistical rule, and where a result counts as falsifying. This one is mandatory.
-6. **Current evidence level** — one of E0 conceptual, E1 formalized, E2 operationalized, E3 predictive, E4 replicated, E5 falsified or surviving, E6 externally validated, with the basis for the label.
+6. **Current evidence level** — V7.0: E0 conceptual, E1 formalized, E2 operationalized, E3 preregistered hypothesis with data collection under way, E4 independent-lab replication, E5 preregistered criterion tested, E6 generalization across contexts, cultures, and time; state the basis.
 7. **Mapping to the six-layer stack** — which of L1–L6 it touches.
 8. **Post-failure action** — whether the card should be marked or removed on reaching its failure threshold, and why.
 
@@ -110,7 +110,7 @@ Revision rules (**more important than the format**):
 
 **中文**
 
-六层应用栈是：L1 减负 / L2 可体验 / L3 意义生成 / L4 价值评估 / L5 方向选择 / L6 反思与审视递归；三带划分为界面带（L1–L2）、加工带（L3–L4）、元带（L5–L6）。
+六层应用栈是：L1 减负 / L2 可体验 / L3 意义生成 / L4 价值评估 / L5 方向选择 / L6 反思与审视递归；三带划分为界面带（L1–L2）、加工带（L3–L4）、元带（L5–L6）。它是本项目提出的 E0 工程扩展，不是正典固定层次；正典 H1–H18 与附录 D.7 优先。
 
 "某层不好用"不是可处理的贡献；"某层的某个指标可以这样测"才是。为某一层提交操作化改进时，请给出：
 
@@ -125,7 +125,7 @@ Revision rules (**more important than the format**):
 
 **English**
 
-The six-layer application stack is L1 Cognitive Load Reduction, L2 Experiential Rendering, L3 Meaning Generation, L4 Value Assessment, L5 Direction Selection, and L6 Recursive Reflection and Review, grouped into the interface band (L1–L2), the processing band (L3–L4), and the meta band (L5–L6).
+The six-layer application stack is L1 Cognitive Load Reduction, L2 Experiential Rendering, L3 Meaning Generation, L4 Value Assessment, L5 Direction Selection, and L6 Recursive Reflection and Review, grouped into the interface band (L1–L2), the processing band (L3–L4), and the meta band (L5–L6). It is an E0 engineering extension proposed by this project, not a fixed hierarchy in the canon. Canon H1–H18 and Appendix D.7 prevail; engineering falsification drafts require preregistration before formal disposition.
 
 "This layer is not useful" is not an actionable contribution; "this indicator of this layer can be measured this way" is. For an operationalization proposal on any layer, provide:
 
@@ -144,7 +144,7 @@ Cross-layer proposals are especially welcome (for example, when L3 and L4 indica
 
 **中文**
 
-仓库包含两部分代码：`whitepaper/`（用 python-docx 生成中英双语 DOCX）与 `msi/`（Manim 场景 + 单文件交互页构建脚本）。
+仓库包含四部分代码：`whitepaper/`（用 python-docx 生成中英双语 DOCX）、`msi/`（Manim 场景 + 单文件交互页构建脚本）、`meaning-agent/`（标准库离线智能体与双语本地 UI）、`web-mcp/`（Cloudflare Pages Function 与发布同步）。
 
 流程：
 
@@ -159,27 +159,45 @@ Cross-layer proposals are especially welcome (for example, when L3 and L4 indica
 - 正文说明**为什么**改，以及是否影响某条主张的证据等级；
 - 不用夸张措辞描述改动规模。
 
-本地校验（与 CI 一致）：
+本地校验（核心命令；CI 另做产物结构与隔离发布同步检查）：
 
 ```bash
 # YAML 可解析
 python -c "import pathlib,yaml; [yaml.safe_load(p.read_text(encoding='utf-8')) for p in pathlib.Path('.github').rglob('*.yml')]"
 
 # 重建白皮书
-cd whitepaper && python make_figures.py && python build_whitepaper.py
+cd whitepaper
+python make_figures.py
+python build_whitepaper.py
+cd ..
 
-# 构建 MSI 交互页
-cd msi && python build.py
+# 构建并校验 MSI 交互页
+cd msi
+python build.py
+cd ..
+python tools/verify_html.py msi/meaning_intelligence.html
 
-# 校验生成页面的内联 JavaScript 语法
-node --check <抽出的内联脚本>
+# 意义智能体（Python 3.10+，Node.js 20+；无需安装依赖）
+cd meaning-agent
+python -m compileall -q meaning_agent
+python -m unittest discover -s tests -v
+node --check meaning_agent/static/app.js
+cd ..
+
+# 公共 Web MCP
+cd web-mcp
+node --test tests/mcp.test.mjs
+cd ..
+
+# 发布包存在时，校验副本与仓库源码逐字节一致
+node web-mcp/scripts/sync-publication.mjs --check "../意义智能有声读物_发布包"
 ```
 
 关于产物：`whitepaper/dist/` 是**有意入库**的发布产物，更新白皮书内容时请重新构建并一并提交；其余构建产物（Manim 的 `media/`、渲染出的 `*.mp4`）不入库，规则见 [`.gitignore`](.gitignore)。CI **不渲染 Manim**（太重），只跑 `planned` 时间轴分支。
 
 **English**
 
-The repository holds two code parts: `whitepaper/` (bilingual DOCX generated with python-docx) and `msi/` (Manim scenes plus the single-file interactive page builder).
+The repository holds four code parts: `whitepaper/` (bilingual DOCX generated with python-docx), `msi/` (Manim scenes plus the single-file interactive page builder), `meaning-agent/` (standard-library offline agent and bilingual local UI), and `web-mcp/` (Cloudflare Pages Function and publication sync).
 
 Process:
 
@@ -194,20 +212,38 @@ Commit message style (a suggestion, not a rule):
 - The body explains **why**, and whether any claim's evidence level is affected;
 - Do not describe the size of a change in grandiose terms.
 
-Local checks (the same ones CI runs):
+Local checks (core commands; CI adds artifact-structure and isolated publication-sync checks):
 
 ```bash
 # YAML parses
 python -c "import pathlib,yaml; [yaml.safe_load(p.read_text(encoding='utf-8')) for p in pathlib.Path('.github').rglob('*.yml')]"
 
 # Rebuild the white paper
-cd whitepaper && python make_figures.py && python build_whitepaper.py
+cd whitepaper
+python make_figures.py
+python build_whitepaper.py
+cd ..
 
-# Build the MSI interactive page
-cd msi && python build.py
+# Build and validate the MSI interactive page
+cd msi
+python build.py
+cd ..
+python tools/verify_html.py msi/meaning_intelligence.html
 
-# Check inline JavaScript syntax in the generated page
-node --check <extracted inline script>
+# Meaning Agent (Python 3.10+, Node.js 20+; no dependency install)
+cd meaning-agent
+python -m compileall -q meaning_agent
+python -m unittest discover -s tests -v
+node --check meaning_agent/static/app.js
+cd ..
+
+# Public Web MCP
+cd web-mcp
+node --test tests/mcp.test.mjs
+cd ..
+
+# When the publication root exists, verify byte identity
+node web-mcp/scripts/sync-publication.mjs --check "../意义智能有声读物_发布包"
 ```
 
 Artifacts: `whitepaper/dist/` is a release artifact and is **intentionally tracked** — rebuild and commit it when the white paper content changes. Other build outputs (Manim's `media/`, rendered `*.mp4`) are not tracked; see [`.gitignore`](.gitignore). CI **does not render Manim** (too heavy) and only exercises the `planned` timeline branch.

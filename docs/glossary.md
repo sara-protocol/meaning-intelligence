@@ -31,23 +31,23 @@ the layer names, bands, levels and dimensions, the M/F identifiers, and the hypo
 | 证据等级（E0–E6） | Evidence Level (E0–E6) | 正典绪论、第 6 章 / Canon Introduction, Ch.6 |
 
 MCA、SA、AZ 在正典中合称「三特性」，三条定义同属**第 7 章**的 7B 节
-（7B.2 元认知觉察 / 7B.3 螺旋上升 / 7B.4 主动归零 / 7B.5 三者协同）；L6 反思与审视递归直接锚定这三者。
+（7B.2 元认知觉察 / 7B.3 螺旋上升 / 7B.4 主动归零 / 7B.5 三者协同）；L6 反思与审视递归与这三者作概念关联，但 L6 本身不是正典层定义。
 E0–E6 的逐级判据见 [evidence.md](evidence.md)——只写等级名不足以使用这套标注。
 
 MCA, SA, and AZ are collectively the canon's "three properties"; all three are defined in the same
-7B section of **Chapter 7** (§7B.2, §7B.3, §7B.4; §7B.5 covers their synergy). L6 anchors directly to
-them. For the criterion of each evidence level see [evidence.md](evidence.md) — the names alone are
-not enough to use the scheme.
+7B section of **Chapter 7** (§7B.2, §7B.3, §7B.4; §7B.5 covers their synergy). L6 is conceptually
+related to them but is not a canon layer definition. For the criterion of each evidence level see
+[evidence.md](evidence.md) — the names alone are not enough to use the scheme.
 
-| 等级 Level | 中文 | English |
-|---|---|---|
-| E0 | 概念 | Conceptual |
-| E1 | 形式化 | Formalized |
-| E2 | 操作化 | Operationalized |
-| E3 | 预测性 | Predictive |
-| E4 | 复制 | Replicated |
-| E5 | 证伪或存活 | Falsified or Survived |
-| E6 | 外部验证 | Externally Validated |
+| 等级 Level | 中文 | English | V7.0 判据 |
+|---|---|---|---|
+| E0 | 概念 | Conceptual | 理论构念已定义 |
+| E1 | 形式化 | Formalized | 已建立数学模型 |
+| E2 | 操作化 | Operationalized | 已有测量工具，信效度验证中 |
+| E3 | 预测性 | Predictive | 有预注册假设，数据收集中 |
+| E4 | 复制 | Replicated | 独立实验室复现结果 |
+| E5 | 证伪或存活 | Falsified or Survived | 预注册证伪标准已检验 |
+| E6 | 外部验证 | Externally Validated | 跨情境、跨文化、跨时间泛化 |
 
 ---
 

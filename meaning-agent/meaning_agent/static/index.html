@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="离线优先的意义智能体，支持六层技能、证据边界与人工批准门。">
+  <title>意义智能体 · Meaning Agent</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="意义智能体首页">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span><strong>意义智能体</strong><small>MEANING AGENT</small></span>
+    </a>
+    <div class="top-actions">
+      <span class="mode-pill" id="engine-mode"><i></i><span data-i18n="checking">检查模式</span></span>
+      <div class="language-switch" role="group" aria-label="语言 / Language">
+        <button class="text-button active" id="lang-zh" type="button" aria-pressed="true">中文</button>
+        <button class="text-button" id="lang-en" type="button" aria-pressed="false">English</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <section class="intro">
+      <div>
+        <p class="eyebrow" data-i18n="eyebrow">方向 · 价值 · 边界</p>
+        <h1 data-i18n="title">让信息成为可审问的意义。</h1>
+        <p class="lede" data-i18n="lede">六个技能协同工作，保留不确定性、尺度冲突与人工决定。</p>
+      </div>
+      <div class="provenance-stamp">
+        <span>E0</span>
+        <p data-i18n="stamp">六层为工程扩展<br>不是正典固定层次</p>
+      </div>
+    </section>
+
+    <div class="layout">
+      <aside class="panel input-panel">
+        <form id="analysis-form">
+          <div class="section-heading">
+            <span class="step">01</span>
+            <div><h2 data-i18n="inputTitle">输入材料</h2><p data-i18n="inputHint">陈述、问题与条件尽量分开。</p></div>
+          </div>
+          <label class="field-label" for="text" data-i18n="textLabel">待分析文本</label>
+          <textarea id="text" maxlength="20000" required placeholder="例如：团队报告……是否应该……？"></textarea>
+          <div class="field-meta"><span id="char-count">0</span><span data-i18n="charLimit">/ 20,000</span></div>
+
+          <fieldset class="scale-fieldset">
+            <legend data-i18n="scaleTitle">选择尺度</legend>
+            <p class="field-help" data-i18n="scaleHint">尺度不可通约，系统不会加权求和。</p>
+            <div class="scale-grid">
+              <label><input type="checkbox" name="scale" value="individual" checked><span data-i18n="individual">个人</span></label>
+              <label><input type="checkbox" name="scale" value="organization" checked><span data-i18n="organization">组织</span></label>
+              <label><input type="checkbox" name="scale" value="city" checked><span data-i18n="city">城市</span></label>
+              <label><input type="checkbox" name="scale" value="national" checked><span data-i18n="national">国家</span></label>
+              <label><input type="checkbox" name="scale" value="humanity" checked><span data-i18n="humanity">人类</span></label>
+            </div>
+          </fieldset>
+
+          <details class="context-box">
+            <summary data-i18n="contextTitle">情境与证据（可选 JSON）</summary>
+            <p class="field-help" data-i18n="contextHint">可填写 direction、boundaries、scale_positions、costs、scale_priorities、expires_on、evidence。</p>
+            <textarea id="context" rows="7" spellcheck="false" aria-label="Context JSON">{}</textarea>
+          </details>
+
+          <div class="form-actions">
+            <button class="primary-button" id="run-button" type="submit"><span data-i18n="run">运行分析</span><b aria-hidden="true">→</b></button>
+            <button class="secondary-button" id="sample-button" type="button" data-i18n="sample">载入示例</button>
+          </div>
+          <p class="privacy-note" data-i18n="privacy">仅在本地处理。服务不读取任意文件、不执行命令、不保存分析。</p>
+        </form>
+      </aside>
+
+      <section class="panel result-panel" id="result-panel" aria-live="polite">
+        <div class="empty-state" id="empty-state">
+          <div class="orbit" aria-hidden="true"><i></i><i></i><i></i><span></span></div>
+          <h2 data-i18n="emptyTitle">等待一次意义审视</h2>
+          <p data-i18n="emptyText">输入材料并运行后，这里会展示六层结果、证据边界、证伪条件与批准门。</p>
+          <div class="empty-layers"><span>L1</span><span>L2</span><span>L3</span><span>L4</span><span>L5</span><span>L6</span></div>
+        </div>
+
+        <div id="result-content" hidden>
+          <div class="result-header">
+            <div><p class="eyebrow" data-i18n="resultEyebrow">分析结果</p><h2 id="result-summary">—</h2></div>
+            <div class="status-stack"><span class="status-badge" id="result-status">—</span><span class="mode-badge" id="result-mode">offline</span></div>
+          </div>
+          <div class="approval-gate" id="approval-gate">
+            <span class="gate-icon" aria-hidden="true">!</span>
+            <div><strong data-i18n="approvalTitle">人工批准门</strong><p id="approval-text">pending · 自动化批准关闭</p></div>
+            <span class="gate-status" id="approval-status">PENDING</span>
+          </div>
+          <div class="clarification-banner" id="clarification-banner" hidden>
+            <strong data-i18n="clarificationTitle">需要澄清</strong>
+            <ul id="clarification-list"></ul>
+          </div>
+
+          <nav class="tabs" role="tablist" aria-label="Result sections">
+            <button type="button" role="tab" aria-selected="true" data-tab="overview" data-i18n="tabOverview">意义结构</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="evidence" data-i18n="tabEvidence">证据与证伪</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="direction" data-i18n="tabDirection">方向与冲突</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="review" data-i18n="tabReview">递归审视</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="json" data-i18n="tabJson">JSON</button>
+          </nav>
+
+          <div class="tab-panel" id="tab-overview" role="tabpanel">
+            <div class="dimension-grid">
+              <article><span class="dimension-index">D1</span><h3 data-i18n="direction">方向</h3><p id="dimension-direction">—</p></article>
+              <article><span class="dimension-index">V1</span><h3 data-i18n="value">价值</h3><p id="dimension-value">—</p></article>
+              <article><span class="dimension-index">B1</span><h3 data-i18n="boundary">边界</h3><p id="dimension-boundary">—</p></article>
+            </div>
+            <section class="subsection">
+              <div class="subsection-title"><h3 data-i18n="spectrumTitle">连续意义光谱带</h3><span id="spectrum-label">—</span></div>
+              <div class="spectrum"><span id="spectrum-marker" hidden></span></div>
+              <div class="spectrum-axis"><span data-i18n="situational">情境 / 具体 / 短时距</span><span data-i18n="meta">元意义 / 抽象 / 长时距</span></div>
+              <p class="field-help" id="spectrum-method"></p>
+            </section>
+            <div class="two-column">
+              <section class="subsection"><h3 data-i18n="statementsTitle">文本陈述 · 未核实</h3><ul class="clean-list" id="statements-list"></ul></section>
+              <section class="subsection"><h3 data-i18n="questionsTitle">待决问题</h3><ul class="clean-list" id="questions-list"></ul></section>
+            </div>
+            <section class="subsection experience-section">
+              <div class="subsection-title"><div><h3 data-i18n="experienceTitle">结构体验</h3><p class="field-help" data-i18n="experienceHint">调节参数只改变呈现，不增加证据。</p></div><button class="secondary-button small" id="download-html" type="button" data-i18n="download">下载 HTML</button></div>
+              <label class="range-label" for="detail-range"><span data-i18n="detailLevel">细节层级</span><output id="detail-count">1</output></label>
+              <input id="detail-range" type="range" min="1" max="1" value="1">
+              <div class="concept-cloud" id="concept-list"></div>
+            </section>
+          </div>
+
+          <div class="tab-panel" id="tab-evidence" role="tabpanel" hidden>
+            <div class="notice"><strong data-i18n="noAutoLevel">实证等级不自动授予</strong><p data-i18n="noAutoLevelText">E0–E6 描述知识状态，不是质量分数。用户声明与独立核验始终分开。</p></div>
+            <section class="subsection"><h3 data-i18n="evidenceScale">正典 V7.0 证据标尺</h3><div class="table-wrap"><table><thead><tr><th data-i18n="level">等级</th><th data-i18n="meaning">含义</th></tr></thead><tbody id="evidence-table"></tbody></table></div></section>
+            <section class="subsection"><h3 data-i18n="evidenceItems">用户提供的证据</h3><ul class="clean-list" id="evidence-list"></ul></section>
+            <div class="two-column">
+              <section class="subsection"><h3 data-i18n="hypothesisTitle">相关正典假设</h3><div id="hypothesis-list" class="card-list"></div></section>
+              <section class="subsection"><h3 data-i18n="d7Title">附录 D.7</h3><div id="d7-list" class="card-list"></div></section>
+            </div>
+            <section class="subsection"><h3 data-i18n="draftTitle">工程证伪草案 · 未预注册</h3><div id="draft-list" class="card-list"></div><p class="field-help" data-i18n="draftHint">这些条件只能指导探索，不能触发正式删除或覆盖正典阈值。</p></section>
+          </div>
+
+          <div class="tab-panel" id="tab-direction" role="tabpanel" hidden>
+            <div class="notice amber"><strong data-i18n="noSum">不可加权求和</strong><p data-i18n="noSumText">个人、组织、城市、国家、人类的意义不可通约。冲突须回到元意义层校准。</p></div>
+            <section class="subsection"><h3 data-i18n="provisionalTitle">临时方向 · 尚非承诺</h3><p id="provisional-direction">—</p></section>
+            <section class="subsection"><h3 data-i18n="scaleMatrix">五尺度检查</h3><div class="table-wrap"><table><thead><tr><th data-i18n="scale">尺度</th><th data-i18n="direction">方向</th><th data-i18n="alignment">对齐</th><th data-i18n="cost">代价</th></tr></thead><tbody id="scale-table"></tbody></table></div></section>
+            <div class="two-column">
+              <section class="subsection"><h3 data-i18n="conflictTitle">冲突校准</h3><div id="conflict-list" class="card-list"></div></section>
+              <section class="subsection"><h3 data-i18n="priorityTitle">优先级与代价</h3><p id="priority-list">—</p><p id="cost-list">—</p></section>
+            </div>
+            <section class="subsection"><h3 data-i18n="triggerTitle">修正触发条件</h3><ul class="clean-list" id="trigger-list"></ul><p class="field-help" id="expiry-line"></p></section>
+          </div>
+
+          <div class="tab-panel" id="tab-review" role="tabpanel" hidden>
+            <div class="two-column">
+              <section class="subsection"><h3 data-i18n="metaTitle">元认知问题</h3><ul class="clean-list" id="meta-list"></ul></section>
+              <section class="subsection"><h3 data-i18n="reviewTriggerTitle">复核触发</h3><div id="review-trigger-list" class="card-list"></div></section>
+            </div>
+            <section class="subsection"><h3 data-i18n="revisionTitle">修订建议</h3><ul class="clean-list" id="revision-list"></ul></section>
+            <section class="subsection zeroing"><h3 data-i18n="zeroTitle">受控归零</h3><p id="zero-summary">—</p><div id="zero-details"></div></section>
+            <section class="subsection professional-note"><h3 data-i18n="professionalTitle">专业判断边界</h3><p data-i18n="professionalText">本工具不能替代医疗、法律、财务、安全等领域的专业判断。高影响决定必须由有资格的人复核。</p><p id="professional-domains"></p></section>
+          </div>
+
+          <div class="tab-panel" id="tab-json" role="tabpanel" hidden>
+            <section class="subsection"><div class="subsection-title"><h3 data-i18n="rawTitle">结构化结果</h3><button class="secondary-button small" id="copy-json" type="button" data-i18n="copy">复制 JSON</button></div><pre id="raw-json"></pre></section>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer><span>MEANING AGENT / LOCAL FIRST</span><p data-i18n="footer">正典 H1–H18 与附录 D.7 优先 · 六层工程草案不冒充已证实结论 · 人类最终批准</p></footer>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

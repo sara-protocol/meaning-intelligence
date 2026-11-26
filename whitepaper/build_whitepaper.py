@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""《意义智能 · 元智能理论与分层应用》中英双语公开发布白皮书 v1.0"""
+"""《意义智能 · 元智能理论与分层应用》中英双语公开发布白皮书 v1.1"""
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Cm, Pt
@@ -39,14 +39,15 @@ set_font(p.add_run("\u3000Aligned with the canonical text: Meaning Intelligence:
 # ================================================================ 发布声明
 h(doc, "发布声明", "Release Statement", size=17, before=6)
 body(doc,
-     "本白皮书是《意义智能》V7.0 的应用层配套文档。它不新增本体论主张：所有理论命题、"
-     "构念定义与证据等级一律以 V7.0 正典为准。本白皮书只承担一件事——把正典中的元智能理论，"
-     "转译为可分层操作、可逐层检验的应用栈。",
+     "本白皮书是《意义智能》V7.0 的应用层配套文档。它不新增本体论，也不创设正典新层次："
+     "所有理论命题、构念定义与证据等级一律以 V7.0 正典为准。六层栈与三带是本项目提出的 E0 工程扩展，"
+     "不是正典固定层次；本白皮书只把正典元智能理论转译为工程操作化，而该操作化是可检验草案。",
      "This white paper is a companion document at the application layer of Meaning "
-     "Intelligence V7.0. It introduces no new ontological claims: all theoretical "
-     "propositions, construct definitions, and evidence levels follow the V7.0 canon. "
-     "It does exactly one thing — translate the meta-intelligence theory of the canon "
-     "into an application stack that can be operated layer by layer and tested layer by layer.")
+     "Intelligence V7.0. It adds no ontology and creates no new canonical levels: all theoretical "
+     "propositions, construct definitions, and evidence levels follow the V7.0 canon. The six-layer "
+     "stack and its three bands are E0 engineering extensions proposed by this project, not fixed "
+     "hierarchies in the canon. The white paper translates the canon's meta-intelligence theory into "
+     "engineering operationalizations, which are testable drafts.")
 
 label(doc, "三条自我约束", "[Three Self-Imposed Constraints]")
 bullet(doc, "理论从属：凡本白皮书与正典冲突之处，以正典为准。",
@@ -54,11 +55,12 @@ bullet(doc, "理论从属：凡本白皮书与正典冲突之处，以正典为�
 bullet(doc, "证据诚实：每一层均标注证据等级并给出证伪条件；不确定处标注「待检验」，不写成「已成立」。",
        "Evidence honesty: every layer carries an evidence level and a falsification condition; "
        "what is uncertain is marked \"to be tested\", never written as \"established\".")
-bullet(doc, "结构标明：六层栈本身是本白皮书提出的整合结构，当前证据等级为 E0（概念），"
-            "尚未经过独立检验。请把它当作一个待检验的组织工具，而非一个已证实的发现。",
-       "Structural disclosure: the six-layer stack itself is an integrative structure proposed by "
-       "this white paper. Its current evidence level is E0 (conceptual); it has not been "
-       "independently tested. Treat it as a testable organizing tool, not a confirmed finding.")
+bullet(doc, "结构标明：六层栈与三带是本项目提出的 E0 工程扩展，不是正典固定层次，尚未经过独立检验。"
+            "请把工程操作化当作可检验草案，而非已证实的发现或正典层定义。",
+       "Structural disclosure: the six-layer stack and its three bands are E0 engineering extensions "
+       "proposed by this project, not fixed hierarchies in the canon, and have not been independently "
+       "tested. Treat engineering operationalizations as testable drafts, not confirmed findings or "
+       "canonical layer definitions.")
 
 note(doc,
      "说明：正典《意义智能》V7.0 的中英双语版本仅在标题与图表题层面双语。本白皮书作为独立发布物，"
@@ -99,13 +101,13 @@ figure(doc, FIG / "fig1_six_layer_stack.png", 14.6,
        "图 1　元智能六层栈", "Figure 1  The Six-Layer Meta-Intelligence Stack")
 
 table(doc,
-      ["层", "名称", "一句话定义", "理论锚点（正典）", "证据等级"],
-      [["L1", "减负", "把认知负荷从信息量转移到结构", "第1章 1.1；工具 A.1", "机制 E3 / 本框架 E1"],
-       ["L2", "可体验", "把「读到」变成「操作到」", "第3章；第9章 M1", "机制 E3 / 本框架 E1"],
-       ["L3", "意义生成", "组织成方向·价值·边界", "第3章 3.1 / 3.2；第8章 8.1", "E0–E1"],
-       ["L4", "价值评估", "为判断标注证据强度", "第6章 E0–E6；3.3 PE 方程", "E2（工具）/ E1（模型）"],
-       ["L5", "方向选择", "在五尺度上选定值得的方向", "第4章；DC 指标；三级修正", "E1"],
-       ["L6", "反思与审视递归", "让系统审视自己的审视", "三特性；理论失败矩阵", "E2（案例）/ E1"]],
+      ["层", "名称", "一句话定义", "正典概念关联", "证据等级"],
+      [["L1", "减负", "把认知负荷从信息量转移到结构", "第1章 1.1；工具 A.1（非层定义）", "本框架 E1；机制待核验"],
+       ["L2", "可体验", "把「读到」变成「操作到」", "第3章；第9章 M1（非层定义）", "本框架 E1；机制待核验"],
+       ["L3", "意义生成", "组织成方向·价值·边界", "正典 3.1 / 3.2；第8章 8.1 光谱带；H2", "本框架 E0–E1；机制 E0"],
+       ["L4", "价值评估", "为判断标注证据强度", "正典第6章 E0–E6；3.3 PE 方程（工程组合）", "本框架 E2（工具）/ E1（模型）"],
+       ["L5", "方向选择", "在五尺度上选定值得的方向", "正典第4章；DC 指标；H7/H8（工程组合）", "本框架 E1；关联 H7/H8（E1）"],
+       ["L6", "反思与审视递归", "让系统审视自己的审视", "正典 7B.2–7B.4；H12/H13/H14（工程组合）", "本框架 E2；关联 H12/H13（E2）、H14（E1）"]],
       widths=[1.2, 2.6, 4.0, 4.0, 2.8],
       caption="表 1　六层总表", caption_en="Table 1  Overview of the Six Layers")
 
@@ -154,6 +156,10 @@ table(doc,
        ["L6 反思与审视递归", "M1→M2→M3 回环", "F4 意义反馈", "前提改写＋螺旋回环"]],
       widths=[2.6, 3.6, 3.2, 5.2],
       caption="表 2　六层与正典运行机制的对应", caption_en="Table 2  Mapping the Six Layers onto Canon Mechanisms")
+note(doc,
+     "说明：表 2 仅是工程层与正典机制的概念对应，不是正典层定义；六层栈与三带仍为 E0 工程扩展。",
+     "Note: Table 2 is a conceptual correspondence between engineering layers and canon mechanisms, "
+     "not a definition of canonical layers; the six-layer stack and its bands remain E0 engineering extensions.")
 
 # ================================================================ 构造边界
 h(doc, "构造边界", "Construct Boundaries", size=17)
@@ -181,8 +187,8 @@ note(doc,
 
 # ================================================================ 六层详解
 h(doc, "六层详解", "The Six Layers in Detail", size=17)
-note(doc, "每层按统一体例展开：本层追问 / 定义 / 理论锚点 / 操作 / 证据等级 / 常见误区 / 与相邻层的关系。",
-     "Each layer follows a uniform template: Core Question / Definition / Theoretical Anchor / "
+note(doc, "每层按统一体例展开：本层追问 / 定义 / 正典概念关联 / 操作 / 证据等级 / 常见误区 / 与相邻层的关系。",
+     "Each layer follows a uniform template: Core Question / Definition / Canon Concept Link / "
      "Practice / Evidence Level / Common Misconception / Relation to Adjacent Layers.")
 
 # ---- L1
@@ -197,7 +203,7 @@ body(doc,
      "To reduce the total cognitive load per unit of time without losing the key structure needed "
      "for decision. Load reduction is not deleting information; it shifts load from \"processing raw "
      "information\" to \"understanding already-structured relations\".")
-label(doc, "【理论锚点】", "[Theoretical Anchor]")
+label(doc, "【正典概念关联】", "[Canon Concept Link]")
 body(doc, "正典第1章 1.1 智能的「方向性盲区」；附录 A 工具 A.1 意义自检卡。",
      "Canon §1.1, the \"directional blind spot\" of intelligence; Appendix A, Tool A.1, the Meaning Self-Check Card.")
 label(doc, "【操作】", "[Practice]")
@@ -212,9 +218,11 @@ bullet(doc, "强制分离两份清单：「核心事实」与「待决问题」�
 bullet(doc, "原始长文归档而非删除——减负不等于销毁证据。",
        "Archive the original long text rather than delete it — load reduction is not the destruction of evidence.")
 label(doc, "【证据等级】", "[Evidence Level]")
-body(doc, "底层机制 E3–E4（认知负荷与受控语言有长期实证积累）；本框架下的操作化 E1。",
-     "Underlying mechanisms E3–E4 (cognitive load and controlled language have a long empirical "
-     "record); operationalization within this framework E1.")
+body(doc, "本框架 E1；机制待核验。认知负荷与受控语言的外部机制证据须按 V7.0 逐条核验，"
+            "不得把外部机制证据或等级转移到本工程层。",
+     "This framework: E1; mechanisms to be verified. External evidence on cognitive load and "
+     "controlled language must be checked item by item against V7.0; external mechanism evidence "
+     "or levels must not be transferred to this engineering layer.")
 label(doc, "【常见误区】", "[Common Misconception]")
 bullet(doc, "把减负等同于「摘要」。摘要仍是被动阅读；减负的目标是让读者从「读」转为「判断」。",
        "Equating load reduction with summarization. A summary is still passive reading; the goal is "
@@ -236,7 +244,7 @@ body(doc,
      "把抽象关系转译为可操作、可回放的感知对象，使主体通过「动手」而非「阅读」获得结构直觉。",
      "To translate abstract relations into operable, replayable perceptual objects, so that the "
      "subject acquires structural intuition by doing rather than by reading.")
-label(doc, "【理论锚点】", "[Theoretical Anchor]")
+label(doc, "【正典概念关联】", "[Canon Concept Link]")
 body(doc, "正典第3章 意义的结构与层次；第9章 M1 感知模块。本项目 MSI（意义智能演示系统）为本层的一个参考实现。",
      "Canon Chapter 3, the structure and levels of meaning; Chapter 9, module M1 (perception). The "
      "MSI (Meaning Intelligence demonstration system) in this project is one reference implementation of this layer.")
@@ -251,9 +259,11 @@ bullet(doc, "保留「可丢弃产物」思维：用完即弃，不占用记忆�
 bullet(doc, "交互产物应附带时间轴标注，使「看到」与「读到」可对齐。",
        "Interactive artifacts should carry timeline annotations so that seeing and reading can be aligned.")
 label(doc, "【证据等级】", "[Evidence Level]")
-body(doc, "机制 E3（多媒体学习与双通道效应有实证支持）；本框架下的操作化 E1。",
-     "Mechanisms E3 (multimedia learning and dual-channel effects have empirical support); "
-     "operationalization within this framework E1.")
+body(doc, "本框架 E1；机制待核验。多媒体学习与双通道效应的外部机制证据须按 V7.0 逐条核验，"
+            "不得把外部机制证据或等级转移到本工程层。",
+     "This framework: E1; mechanisms to be verified. External evidence on multimedia learning and "
+     "the dual-channel effect must be checked item by item against V7.0; external mechanism evidence "
+     "or levels must not be transferred to this engineering layer.")
 label(doc, "【常见误区】", "[Common Misconception]")
 bullet(doc, "把「好看」当「可体验」。判据是用户能否改变参数并预测结果，而非页面是否精致。",
        "Mistaking good-looking for experiential. The criterion is whether the user can change a "
@@ -274,7 +284,7 @@ body(doc,
      "把材料组织为方向、价值、边界三个维度，并沿意义光谱带定位其抽象程度与时间尺度。",
      "To organize material along three dimensions — direction, value, boundary — and to locate its "
      "level of abstraction and time scale along the meaning spectrum.")
-label(doc, "【理论锚点】", "[Theoretical Anchor]")
+label(doc, "【正典概念关联】", "[Canon Concept Link]")
 body(doc, "正典第3章 3.1（三层次）与 3.2（三维度）；**第8章 8.1 光谱带模型**。",
      "Canon §3.1 (three levels) and §3.2 (three dimensions); **Chapter 8 §8.1, the spectral band model**.")
 note(doc,
@@ -305,8 +315,8 @@ bullet(doc, "光谱定位：它落在光谱带的哪一段？越靠上端越抽�
        "abstract, longer in time scale, and lower in frequency; the lower the end, the more concrete, "
        "shorter in time scale, and higher in frequency.")
 label(doc, "【证据等级】", "[Evidence Level]")
-body(doc, "E0（构念已定义）至 E1（已形式化）。",
-     "E0 (construct defined) to E1 (formalized).")
+body(doc, "本框架 E0–E1；机制 E0。",
+     "This framework: E0–E1; mechanism: E0.")
 label(doc, "【常见误区】", "[Common Misconception]")
 bullet(doc, "层次混淆——把情境层的即时判断当作元意义层的终极方向。正典 3.4 指出：意义的丧失往往不是「没有意义」，"
             "而是意义结构出了问题。",
@@ -327,7 +337,7 @@ body(doc,
      "用统一标尺为意义判断标注证据强度与不确定性，并估计意义势能的变化方向。",
      "To label meaning judgments with evidence strength and uncertainty on a common scale, and to "
      "estimate the direction of change of meaning potential.")
-label(doc, "【理论锚点】", "[Theoretical Anchor]")
+label(doc, "【正典概念关联】", "[Canon Concept Link]")
 body(doc, "正典第6章 E0–E6 证据等级；第3章 3.3 意义势能（PE）动态方程。",
      "Canon Chapter 6, the E0–E6 evidence levels; §3.3, the dynamic equation of meaning potential (PE).")
 p = para(doc, spacing=1.4, before=4, after=4, align=WD_ALIGN_PARAGRAPH.CENTER)
@@ -350,9 +360,8 @@ bullet(doc, "明确适用尺度——个人尺度的评估不能直接套用到�
        "State the applicable scale — an assessment at the individual scale cannot be directly applied "
        "at the organizational scale (Canon Axiom Three: multi-scale meanings are incommensurable).")
 label(doc, "【证据等级】", "[Evidence Level]")
-body(doc, "测量工具 E2（量表信效度验证中）；PE 动态模型 E1（H4 势能驱动行动假说）。",
-     "Measurement instruments E2 (scale reliability and validity under validation); the dynamic PE "
-     "model E1 (hypothesis H4, potential drives action).")
+body(doc, "本框架 E2（工具）/ E1（模型）。",
+     "This framework: E2 (instruments) / E1 (model).")
 label(doc, "【常见误区】", "[Common Misconception]")
 bullet(doc, "把「我相信」当作证据等级。",
        "Treating \"I believe it\" as an evidence level.")
@@ -373,7 +382,7 @@ body(doc,
      "在五尺度框架下选定一个方向并显式承担其代价，同时输出该选择的修正触发条件。",
      "To select one direction within the five-scale framework while explicitly bearing its cost, and "
      "to output the correction triggers for that choice.")
-label(doc, "【理论锚点】", "[Theoretical Anchor]")
+label(doc, "【正典概念关联】", "[Canon Concept Link]")
 body(doc, "正典第4章五尺度导航（个人／组织／城市／国家／人类）；DC 方向一致性指标；三级修正机制。",
      "Canon Chapter 4, five-scale navigation (individual / organizational / urban / national / "
      "humanity); the DC direction-consistency indicator; the three-level correction mechanism.")
@@ -390,8 +399,8 @@ bullet(doc, "输出「方向声明＋预先声明的偏离阈值」：一级修�
 bullet(doc, "设定自动失效日期，防止方向因惯性而长期未经检验。",
        "Set an automatic expiry date so that a direction is not left untested for long out of inertia.")
 label(doc, "【证据等级】", "[Evidence Level]")
-body(doc, "E1（H7 跨尺度一致性-生存假说；H8 尺度背离-危机假说）。",
-     "E1 (hypothesis H7, cross-scale consistency and survival; hypothesis H8, scale divergence and crisis).")
+body(doc, "本框架 E1；关联 H7/H8（E1）。",
+     "This framework: E1; associated with H7/H8 (E1).")
 label(doc, "【常见误区】", "[Common Misconception]")
 bullet(doc, "把「共识」当「方向」。共识是分布，方向是承诺。",
        "Mistaking consensus for direction. Consensus is a distribution; direction is a commitment.")
@@ -413,7 +422,7 @@ body(doc,
      "The system re-judges its own meaning-judgment process, including review of the judging framework "
      "itself, and periodic zeroing and reconstruction. This is the closing link of the six-layer stack "
      "and where the word \"meta\" lands.")
-label(doc, "【理论锚点】", "[Theoretical Anchor]")
+label(doc, "【正典概念关联】", "[Canon Concept Link]")
 body(doc,
      "正典三特性：MCA 元认知觉察、SA 螺旋上升、AZ 主动归零；F1–F4 四流程的元认知部署；"
      "理论失败矩阵；H12 归零防僵化、H13 元认知-判断质量、H14 无归零-僵化。",
@@ -437,9 +446,8 @@ bullet(doc, "递归闭合：把 L6 的产出（更新后的元意义理解）回
        "Recursive closure: write the output of L6 — the updated meta-meaning understanding — back as "
        "the input criteria of L1.")
 label(doc, "【证据等级】", "[Evidence Level]")
-body(doc, "E2（案例支持：主动归零防僵化、元认知训练提升判断质量；随机对照实验进行中）。",
-     "E2 (case-supported: zeroing prevents ossification, metacognitive training improves judgment "
-     "quality; randomized controlled trials in progress).")
+body(doc, "本框架 E2；关联 H12/H13（E2）、H14（E1）。",
+     "This framework: E2; associated with H12/H13 (E2), H14 (E1).")
 label(doc, "【常见误区】", "[Common Misconception]")
 bullet(doc, "过度元认知导致决策瘫痪——这是正典明确列出的边界之一。",
        "Excessive metacognition causing decision paralysis — one of the boundaries explicitly listed in the canon.")
@@ -495,34 +503,49 @@ note(doc,
 h(doc, "证据、失败与边界", "Evidence, Failure, and Boundaries", size=17)
 label(doc, "一、六层证据等级一览", "[Evidence Levels at a Glance]")
 table(doc,
-      ["层", "本框架证据等级", "底层机制证据", "当前状态"],
-      [["L1 减负", "E1", "E3–E4", "机制成熟，框架内操作化待测"],
-       ["L2 可体验", "E1", "E3", "机制成熟，框架内操作化待测"],
-       ["L3 意义生成", "E0–E1", "E0", "构念已定义并形式化"],
-       ["L4 价值评估", "E2（工具）/ E1（模型）", "E1–E2", "量表信效度验证中"],
-       ["L5 方向选择", "E1", "E1", "假设 H7／H8 待检验"],
-       ["L6 反思与审视递归", "E2", "E2", "案例支持，RCT 进行中"],
-       ["六层栈本身", "E0", "—", "本白皮书提出的整合结构，未经独立检验"]],
+      ["层", "本框架证据等级", "正典关联或机制", "当前状态"],
+      [["L1 减负", "本框架 E1；机制待核验", "外部机制待按 V7.0 逐条核验", "机制等级待核验，不转移至工程层"],
+       ["L2 可体验", "本框架 E1；机制待核验", "外部机制待按 V7.0 逐条核验", "机制等级待核验，不转移至工程层"],
+       ["L3 意义生成", "本框架 E0–E1；机制 E0", "H2（E0）；3.2 三维度、8.1 光谱带", "构念已定义并形式化"],
+       ["L4 价值评估", "本框架 E2（工具）/ E1（模型）", "H10（E2）；E0–E6 标注规程", "工具信效度按正典核验"],
+       ["L5 方向选择", "本框架 E1；关联 H7/H8（E1）", "H7/H8（E1）", "正典假设待检验"],
+       ["L6 反思与审视递归", "本框架 E2；关联 H12/H13（E2）、H14（E1）", "H12/H13（E2）；H14（E1）", "正典假设另按正典检验"],
+       ["六层栈本身", "E0", "非正典结构", "E0 工程扩展，未经独立检验"]],
       widths=[3.0, 3.6, 2.8, 6.0],
       caption="表 5　证据等级一览", caption_en="Table 5  Evidence Levels at a Glance")
+table(doc,
+      ["分类", "项目来源 / Claim scope", "与正典的关系 / Relationship to the canon"],
+      [["正典 H1–H18", "正典假设 / Canonical hypotheses", "阈值与处置以正典为准 / Canon thresholds and disposition govern"],
+       ["正典附录 D.7", "理论失败矩阵 / Theory Failure Matrix", "保持独立，不由工程表替代 / Kept separate; not replaced by the engineering table"],
+       ["工程证伪草案与正典假设映射", "本项目六层工程栈 / This project's six-layer engineering stack", "E0 可检验草案，须预注册 / Testable E0 drafts requiring preregistration"]],
+      widths=[3.4, 5.8, 7.2],
+      caption="表 5A　来源边界：工程草案与正典附录 D.7", caption_en="Table 5A  Provenance: Engineering Drafts and Canon Appendix D.7")
 
-label(doc, "二、失败矩阵：六层版的证伪条件", "[Failure Matrix: Falsification Conditions per Layer]")
+label(doc, "二、工程证伪草案与正典假设映射", "[Engineering Falsification Drafts and Canonical Hypothesis Mapping]")
 body(doc,
-     "沿用正典「理论失败矩阵」的体例：每一层给出支持证据、部分支持、失败阈值与失败后操作。"
-     "任何一层触及失败阈值，该层将在后续版本中被标记或删除。",
-     "Following the canon's Theory Failure Matrix: each layer states supporting evidence, partial "
-     "support, the failure threshold, and the operation after failure. If any layer reaches its "
-     "failure threshold, that layer will be marked or removed in a later version.")
+     "本表不是正典附录 D.7，而是六层工程栈的证伪草案与正典假设映射，不复制或覆盖正典阈值。"
+     "「支持证据」与「部分支持」只记录证据状态；无项目内证据时标为「待项目内检验」，不作成立断言。",
+     "This table is not Canon Appendix D.7. It maps falsification drafts for the E0 engineering stack "
+     "to canonical hypotheses without reproducing or overriding canonical thresholds. The "
+     "supporting-evidence and partial-support columns record evidence status only; absent "
+     "project-internal evidence, they read \"pending project-internal testing\" and make no claim of support.")
 table(doc,
       ["层", "支持证据", "部分支持", "失败阈值", "失败后操作"],
-      [["L1 减负", "受控语言降低误读率", "特定文本类型有效", "降维后决策质量无提升（d<0.3）", "重设压缩比或放弃字数硬限"],
-       ["L2 可体验", "交互提升结构回忆", "特定概念类型有效", "交互组与静态组无显著差异", "降为可选增强，不作必需层"],
-       ["L3 意义生成", "三维度可被独立评分", "特定文化背景下成立", "意义判断方差被单一维度解释>90%", "接受 H2 被证伪，重构结构模型"],
-       ["L4 价值评估", "证据标注提升判断一致性", "领域专家群体内有效", "标注与判断质量无相关", "退回定性评估"],
-       ["L5 方向选择", "跨尺度一致者生存更久", "特定尺度组合成立", "长期背离却无危机（H8 反例）", "标记 H8 被证伪，重估五尺度模型"],
-       ["L6 反思与审视递归", "归零缓解僵化", "案例层面成立", "RCT 无显著差异（d<0.3）", "放弃有效性主张，仅保留为操作规程"]],
+      [["L1 减负", "待项目内检验", "待项目内检验", "工程草案：结构化压缩相对原文的决策质量提升 d<0.3", "重设压缩比或放弃字数硬限；不自动推翻认知负荷机制"],
+       ["L2 可体验", "待项目内检验", "待项目内检验", "工程草案：预注册迁移任务中交互组与静态组无显著差异", "降为可选增强，不作必需层"],
+       ["L3 意义生成", "待项目内检验", "待项目内检验", "正典 H2：意义判断方差被单一维度解释 > 90%", "按正典程序处置 H2；另行评估 L3 工程界面"],
+       ["L4 价值评估", "待项目内检验", "待项目内检验", "工程草案：证据标注跨评审者不一致，或与后续检验结果无单调关系", "退回定性评估；H10 另按正典检验"],
+       ["L5 方向选择", "待项目内检验", "待项目内检验", "工程草案：所选方向在事后评估中不优于基线或随机选择", "仅处置 L5 工程草案；H7/H8 的正式处置归正典，不自动触发"],
+       ["L6 反思与审视递归", "待项目内检验", "待项目内检验", "工程草案：预注册后续轮次中递归审视纠错率不高于无审视对照", "仅处置 L6 递归组件；H12/H13/H14 的正式处置归正典，不自动触发"]],
       widths=[2.4, 3.2, 2.9, 4.0, 3.0],
-      caption="表 6　六层失败矩阵", caption_en="Table 6  Six-Layer Failure Matrix")
+      caption="表 6　工程证伪草案与正典假设映射", caption_en="Table 6  Engineering Falsification Drafts and Canonical Hypothesis Mapping")
+note(doc,
+     "处置门槛：没有预注册时间戳、样本量与统计方案，不得据此正式标记或删除工程层、组件或正典假设。"
+     "正典 H1–H18 与附录 D.7 优先；工程草案不自动触发正式处置。",
+     "Disposition gate: without a preregistration timestamp, sample size, and statistical plan, no "
+     "engineering layer, component, or canonical hypothesis may be formally marked or removed on this "
+     "basis. Canon H1–H18 and Appendix D.7 prevail; engineering drafts do not automatically trigger "
+     "formal disposition.")
 
 label(doc, "三、边界", "[Boundaries]")
 bullet(doc, "不适用于无主体系统。纯物理系统不适用。",
@@ -570,11 +593,14 @@ bullet(doc, "建立一张失败矩阵看板：把本组织依赖的关键假设�
 # ================================================================ Claim Registry 摘要
 h(doc, "Claim Registry 摘要", "Claim Registry — Summary", size=17)
 note(doc,
-     "每个理论主张在此有一个唯一 ID。论文、网站、实验、工具都应引用 claim ID（如 MI-C003），"
-     "而非笼统引用「L6」或「六层栈」。完整版（含测试方式与失败条件）见仓库 docs/claims.md。",
-     "Every theoretical claim has a unique ID here. Papers, websites, experiments, and tools should "
-     "reference the claim ID (e.g., MI-C003), not loosely reference L6 or the six-layer stack. "
-     "The full version with test methods and falsification criteria lives at docs/claims.md in the repository.")
+     "MI-C001–MI-C012 是本项目 registry 的工程主张编号，不自动等于正典 H1–H18；"
+     "正典假设的等级、检验与处置仍以正典为准。论文、网站、实验、工具应引用对应的 claim ID"
+     "（如 MI-C003），而非笼统引用「L6」或「六层栈」。完整版（含测试方式与失败条件）见仓库 docs/claims.md。",
+     "MI-C001–MI-C012 are engineering-claim IDs in this project's registry; they do not automatically "
+     "correspond to canonical H1–H18. The levels, tests, and disposition of canonical hypotheses remain "
+     "governed by the canon. Papers, websites, experiments, and tools should reference the relevant "
+     "claim ID (e.g., MI-C003), rather than loosely reference L6 or the six-layer stack. The full "
+     "version with test methods and falsification criteria lives at docs/claims.md in the repository.")
 
 table(doc,
       ["ID", "陈述（摘要）", "证据", "状态"],

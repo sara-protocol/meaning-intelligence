@@ -8,9 +8,9 @@ This file records externally visible changes to this repository.
 
 It follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
-关于版本号的一点说明：本项目的版本号同时标记**文档与理论模块**的状态。`0.x` 阶段的含义是：六层栈与证据等级体系仍在演进，任何模块都可能因为未通过其预注册的证伪标准而被标记或删除——这类变更会在下面的"变更"段落中显式说明，而不是悄悄修改。
+关于版本号的一点说明：本项目的版本号同时标记**文档与工程模块**的状态。`0.x` 阶段的含义是：六层工程栈与操作化仍在演进；V7.0 的 E0–E6 定义与 H1–H18 阈值不随工程版本静默改写。工程模块只有经过预注册检验才可正式标记或删除，这类变更会在下面的“变更”段落中显式说明。
 
-A note on version numbers: releases mark the state of both the documents and the theoretical modules. `0.x` means the six-layer stack and the evidence level scheme are still evolving, and any module may be marked or removed for failing its preregistered falsification criteria. Such changes are stated explicitly under "Changed" below rather than edited silently.
+A note on version numbers: releases mark the state of both documents and engineering modules. `0.x` means the six-layer engineering stack and its operationalizations are still evolving. V7.0 evidence definitions and H1–H18 thresholds are not silently rewritten with engineering releases. An engineering module is marked or removed only after a preregistered test, and such changes are stated explicitly below.
 
 ---
 
@@ -18,12 +18,17 @@ A note on version numbers: releases mark the state of both the documents and the
 
 ### 新增 / Added
 
+- **正典来源审计 `docs/canon-audit.md`。** 登记 KDP 定稿02 V7 主正典与英文母本的 SHA-256、权威顺序、重复副本、上游截断/冲突和缺失插图占位；正典原件未修改。
+- **Canon source audit `docs/canon-audit.md`.** Records SHA-256 hashes, authority order, duplicate copies, upstream truncation/conflicts, and missing-figure placeholders for the KDP V7 primary canon and English mother; canon originals were not modified.
+- **语义一致性门槛。** `tools/verify_consistency.py` 现在检查工程扩展来源、六层证据、正典假设映射、证伪范围、V7 E3/E6 判据、来源哈希，并从任意工作目录运行。
+- **Semantic consistency gates.** `tools/verify_consistency.py` now checks engineering-extension provenance, layer evidence, canon-hypothesis mappings, falsifier scope, V7 E3/E6 criteria, and source hashes, and runs from any working directory.
+
 - **Issue 分诊与定时维护自动化。** 两个工作流，权限被刻意收窄，治理规则见 [docs/automation.md](docs/automation.md)：
   - `triage.yml`：issue 打开时检查证伪报告的必备字段是否齐全（**缺失不等于不成立**，只是提示补充）、依据固定字段名机械打标签；若配置了 `LLM_API_KEY`，额外生成一份自标为「机器草稿」的归类说明。
   - `maintenance.yml`：每周一汇总仓库状态；把超过 14 天无人回复的证伪报告**升级**给维护者（加 `needs-maintainer-review` 标签），而不是清理它们。
   - **本仓库不自动关闭任何 issue**（`days-before-issue-close: -1`）。对一个以可失败性为承诺的仓库，静默关闭一条未回复的批评是最坏的自动化。
 - **Issue triage and scheduled maintenance automation.** Two workflows with deliberately narrow permissions; governance rules in [docs/automation.md](docs/automation.md). The repository **never auto-closes issues** — silently closing an unanswered criticism would be the worst possible automation for a repository whose commitment is falsifiability.
-- **公开发布落地页 `index.html`。** 单文件、**零外部资源**——没有 CDN、没有字体外链、没有统计脚本，离线打开亦完整可用。含六层栈、证据等级与失败矩阵、六幕截图、参与方式。配套 `.nojekyll`，可直接用 GitHub Pages（Source 设为 `main` / `(root)`）发布。
+- **公开发布落地页 `index.html`。** 单文件、**零外部资源**——没有 CDN、没有字体外链、没有统计脚本，离线打开亦完整可用。含六层栈、证据等级与失败矩阵、六层截图、参与方式。配套 `.nojekyll`，可直接用 GitHub Pages（Source 设为 `main` / `(root)`）发布。
 - **Landing page `index.html`.** A single file with **zero external resources** — no CDN, no web fonts, no analytics; it works fully offline.
 - **`toolkit/`：十份可填写的实践工具模板**，对应正典附录 A 的工具 1–10（意义自检卡、个人/组织归零协议、生命叙事螺旋图、使命压力测试、组织监测仪表盘、城市普查问卷、城市归零工作坊、螺旋回环跟踪表、归零安全检查清单）。每份含出处、用途、适用尺度与频率、关联层级、可填写区、判读标准、失败即删提示与边界。
 - **`toolkit/`: ten fillable practice templates** corresponding to canon Appendix A tools 1–10, each with provenance, purpose, scale and cadence, the layer it serves, a fillable form, reading criteria, its falsification trigger, and boundaries.
@@ -34,6 +39,19 @@ A note on version numbers: releases mark the state of both the documents and the
 
 ### 变更 / Changed
 
+- **来源边界纠正。** 六层栈与三带明确为本项目 E0 工程扩展，不是正典固定层次；`anchor` 改为“正典概念关联”。正典 H1–H18、附录 D.7 与工程 MI-C / L1–L6 草案分开引用。
+- **Provenance corrected.** The six-layer stack and three bands are now explicitly an E0 engineering extension, not a fixed canon hierarchy; `anchor` is a canon concept link. Canon H1–H18 and Appendix D.7 are cited separately from engineering MI-C / L1–L6 drafts.
+- **V7 证据与失败规则对齐。** E3 恢复为“有预注册假设，数据收集中”，E4 恢复为“独立实验室复现”，E6 恢复为“跨情境、跨文化、跨时间泛化”；L1/L2 外部机制改标待核验；工程草案无预注册时间戳、样本量与统计方案不得正式触发标记或删除。
+- **V7 evidence and failure rules aligned.** E3, E4, and E6 now use the V7 definitions; unverified L1/L2 mechanisms are marked pending audit; engineering drafts cannot trigger formal disposition without a preregistration timestamp, sample size, and statistical plan.
+- **MSI 实现计数纠正。** 文档按实际实现写为 45 条随机文本收敛为 3 条核心语句，再转为 2 个结构节点；删除未经实现的 120 粒子与 12 节点描述。
+- **MSI counts corrected.** Documentation now matches the implementation: 45 random text fragments converge to 3 core statements, then 2 structure nodes; unsupported 120-particle and 12-node descriptions were removed.
+
+- **版本与产物元数据对齐。** 白皮书当前版本统一为 v1.1；根据实际 PDF 与生成脚本将页数修正为 22 页、插图修正为 3 图；CITATION 发布日期与 `VERSION.yaml` 统一为 2026-10-08。
+- **Release metadata aligned.** The current white paper is v1.1; page and figure counts now match the actual PDF and generator (22 pages, 3 figures); the citation release date matches `VERSION.yaml` (2026-10-08).
+- **校验器可移植性与误报修复。** Windows 默认 GBK 控制台不再导致校验脚本崩溃；HTML 证据色阶改为解析真实 `CFG.evidence_scale` 与评级索引；一致性检查新增白皮书版本、页数、幕数、时长、toolkit 数量与引用日期门槛，并接入 CI。
+- **Verifier portability and false-positive fixes.** Validation scripts now run under the default Windows GBK console; HTML evidence checks parse the real configuration; CI now checks white-paper metadata, demo acts/runtime, toolkit count, and citation date.
+- **文档渲染修复。** 重写中文 README 的损坏转义，恢复图片、链接、分隔线和命令；中英文 README、首页、路线图与架构文档的六幕描述统一为八幕。
+- **Documentation rendering repaired.** The Chinese README was rewritten to restore images, links, separators, and commands; current Chinese and English docs now describe the eight-act demo consistently.
 - **正典引用勘误。** 术语表中三特性 MCA / SA / AZ 的出处原写作「第 12 章 / 第 13 章」，经逐条比对正典原文，正确出处为**第 7 章的 7B.2 / 7B.3 / 7B.4 节**。
 - **Canon citation correction.** The three properties MCA / SA / AZ were cited as Chapters 12 and 13; verification against the canon text shows they are defined in **Chapter 7, §7B.2 / §7B.3 / §7B.4**.
 - **L3 锚点修正。** 原写「归位到元意义／中介意义／情境意义三个层次」，而 V7 正典**第 8 章 8.1「光谱带模型取代固定层次」**已把离散三层次重释为连续光谱带。L3 的定义与操作已相应改写，并区分了「三维度＝方向·价值·边界（3.2）」与「四维度＝认知C·价值V·存在E·行动A（8.2）」这两组不可混用的概念。

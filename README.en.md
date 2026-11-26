@@ -8,7 +8,7 @@
 
 
 
-[![Live Page](https://img.shields.io/badge/live-page-00e5ff?style=flat-square)](https://sara-protocol.github.io/meaning-intelligence/)
+[![Live Page](https://img.shields.io/badge/live-page-00e5ff?style=flat-square)](https://msi.gojj.ccwu.cc/)
 
 [![Release](https://img.shields.io/github/v/release/sara-protocol/meaning-intelligence?style=flat-square&color=bb86fc)](https://github.com/sara-protocol/meaning-intelligence/releases/latest)
 
@@ -37,8 +37,8 @@
 | Dimension | Current status |
 |---|---|
 | Research phase | `public-research` — 0.x signals research formation, not yet empirically tested |
-| Stack evidence level | **E0 (conceptual)** — not independently tested |
-| White paper | v1.0 (19 pages, bilingual, DOCX + PDF) |
+| Stack evidence level | **2.0 / E0 (conceptual)** — engineering extension, not independently tested or a fixed canon hierarchy |
+| White paper | v1.1 (22 pages, bilingual, DOCX + PDF) |
 | Version source | [`VERSION.yaml`](VERSION.yaml) — single source of truth for all version numbers |
 | Falsification path | [Failure matrix](docs/failure-matrix.md) · [Falsification report template](.github/ISSUE_TEMPLATE/falsification_report.yml) |
 | Scholarly commitment | Any module reaching its failure threshold will be **marked or removed**, not defended |
@@ -184,6 +184,10 @@ L6's output is written back as L1's input. The six layers form a **closed spiral
 
 
 
+> ### Provenance boundary
+>
+> The six-layer stack, three bands, and MSI implementation are an **engineering extension proposed by this project**, not a fixed hierarchy in the V7.0 canon. The canon's three levels are reinterpreted as a continuous spectrum in Chapter 8; H1–H18 and Appendix D.7 prevail over engineering drafts.
+
 > ### ⚠️ A note on the stack itself
 
 >
@@ -200,9 +204,13 @@ L6's output is written back as L1's input. The six layers form a **closed spiral
 
 |---|---|
 
-| `whitepaper/` | Bilingual public-release white paper v1.0 (19 pages, 7 tables, 2 figures), DOCX + PDF, generation scripts |
+| `meaning-agent/` | Offline-first deterministic Python agent: exactly six registered skills, bilingual loopback UI, optional LLM adapter, local read-only MCP, tests |
 
-| `msi/` | Meaning Intelligence Demonstration System — six-act Manim animation, single-file interactive page, per-layer screenshots |
+| `web-mcp/` | Public read-only Cloudflare Pages Function: MCP `2025-03-26`, transport tests, publication sync |
+
+| `whitepaper/` | Bilingual public-release white paper v1.1 (22 pages, 9 tables, 3 figures), DOCX + PDF, generation scripts |
+
+| `msi/` | Meaning Intelligence Demonstration System — eight-act Manim animation, single-file interactive page, per-layer screenshots |
 
 | `toolkit/` | 11 fillable checklists derived from Canon Appendix A (A.1–A.10) |
 
@@ -214,47 +222,128 @@ L6's output is written back as L1's input. The six layers form a **closed spiral
 
 ## Quick Start
 
+Run the commands below from the repository root. The agent runtime requires Python 3.10+ and only the
+standard library; agent UI syntax checks and Web MCP validation require Node.js 20+ and no `npm install`.
 
+### Runnable Meaning Agent
+
+`meaning-agent/` is an offline-first, deterministic agent. It registers **exactly six skills**, returns
+bilingual JSON or Markdown, and keeps human approval pending. It does not invent empirical evidence levels.
+The skills are part of **operational stack 2.0 at E0**, an engineering extension above Canon V7.0 — not a
+fixed canon hierarchy and not independently tested.
 
 ```bash
+cd meaning-agent
+python -m meaning_agent analyze --text "A report claims higher efficiency but gives no source. Should autonomy be preserved?" --offline --json
+python -m meaning_agent demo --offline
+python -m meaning_agent serve --port 8766
+cd ..
+```
 
-# 1. Clone
+Open <http://127.0.0.1:8766> for the bilingual local UI; the server binds only to loopback. Without LLM
+configuration, results report `mode=offline`. The optional adapter reads only `MI_LLM_BASE_URL`,
+`MI_LLM_API_KEY`, and `MI_LLM_MODEL`; it may suggest unverified prose but cannot change deterministic skills,
+evidence levels, five-scale aggregation, or approval. A local read-only MCP endpoint is also available:
 
-git clone https://github.com/sara-protocol/meaning-intelligence.git
+```bash
+cd meaning-agent
+python -m meaning_agent mcp --transport http --port 8767
+# http://127.0.0.1:8767/mcp
+cd ..
+```
 
-cd meaning-intelligence
+| Layer | Registered skill | Responsibility |
+|---|---|---|
+| L1 | `reduce-cognitive-load` | Separate statements from questions and extract structure without verifying facts |
+| L2 | `model-experiential-interface` | Suggest parameters and safe local interactive fragments |
+| L3 | `map-direction-value-boundary` | Generate direction, value, boundary, and continuous-spectrum candidates |
+| L4 | `grade-evidence-falsification` | Preserve E0–E6 boundaries and falsification plans without assigning empirical levels |
+| L5 | `calibrate-five-scales` | Recursively calibrate individual, organization, city, nation, and humanity; no weighted summation |
+| L6 | `recursive-review-zeroing` | Bounded review, feedback revision, reversible zeroing, and approval reset |
 
+See [`meaning-agent/README.md`](meaning-agent/README.md) for the API, CLI, six reusable skill definitions,
+and safety limits.
 
+### Public Read-Only Web MCP
 
-# 2. Read the white paper
+[`web-mcp/functions/api/mcp.js`](web-mcp/functions/api/mcp.js) is a Cloudflare Pages Function using MCP
+`2025-03-26`. It exposes six whitelisted bilingual resources and five read-only tools: analysis, review,
+resource catalog, evidence levels, and download manifest. A deployed endpoint requires a strong Bearer
+`MI_MCP_PUBLIC_TOKEN`; optional `MI_MCP_ALLOWED_ORIGINS` accepts exact origins only. This repository contains
+no production endpoint or credentials. The Function never executes input as code and exposes no arbitrary
+file, URL, or command access; analysis remains offline and approval remains pending. Publication copies
+must be byte-identical to the tracked source.
 
-#    → whitepaper/dist/意义智能_元智能理论与分层应用_公开发布白皮书_v1.0_中英双语.pdf
+### White Paper
 
+The bilingual public-release white paper, *Meaning Intelligence: Meta-Intelligence Theory and Layered
+Applications*, is **v1.1** (22 pages, 9 tables, 3 figures):
+[PDF](whitepaper/dist/意义智能_元智能理论与分层应用_公开发布白皮书_v1.1_中英双语.pdf) ·
+[DOCX](whitepaper/dist/意义智能_元智能理论与分层应用_公开发布白皮书_v1.1_中英双语.docx).
 
+```bash
+cd whitepaper
+python -m pip install python-docx pillow
+python make_figures.py
+python build_whitepaper.py
+cd ..
+```
 
-# 3. Watch the six-act animation
+Outputs are in `whitepaper/dist/`. **Do not edit the DOCX directly**; change its generator scripts.
 
-#    → msi/MeaningIntelligenceScene.mp4
+### Publication and Media
 
+- [Publication & media guide (DOCX)](https://msi.gojj.ccwu.cc/download/documents/意义智能_有声读物_发布指南与操作手册_v3.0.docx): publication-package, media-acceptance, and Web MCP operations.
+- [v0.2.0 release notes](release_v0.2.0.md), [Claim Registry](docs/claims.md), and [Evidence System](docs/evidence.md): preserve the Canon V7.0 / operational stack 2.0 E0 provenance boundary in public wording.
+- Reusable figures are in `whitepaper/figures/`; six-layer demo screenshots are in `msi/screenshots/`. Animation and interfaces are not empirical validation.
 
+### Demonstration System
 
-# 4. Open the interactive dashboard
+```bash
+# Linux / macOS / Git Bash
+cd msi
+python -m pip install manim
+./run.sh
+cd ..
+```
 
-#    → msi/meaning_intelligence.html  (double-click; no server required)
+```powershell
+# Windows PowerShell
+cd msi
+python -m pip install manim
+./run.ps1
+cd ..
+```
 
+To build only the interactive page without rendering animation, run `python build.py` inside `msi/`; it
+uses the planned timeline and labels that fallback explicitly.
 
+### Local Verification
 
-# 5. Rebuild the white paper (optional)
+```bash
+# Meaning Agent
+cd meaning-agent
+python -m compileall -q meaning_agent
+python -m unittest discover -s tests -v
+node --check meaning_agent/static/app.js
+cd ..
 
-python whitepaper/build_whitepaper.py
+# Public Web MCP
+cd web-mcp
+node --test tests/mcp.test.mjs
+cd ..
 
+# When the sibling publication root exists, verify byte identity
+node web-mcp/scripts/sync-publication.mjs --check "../意义智能有声读物_发布包"
 
+# Existing repository checks
+python tools/verify_consistency.py
+python tools/verify_issue_forms.py
+python tools/verify_planned_fallback.py
+python tools/verify_html.py msi/meaning_intelligence.html
+```
 
-# 6. Re-render the animation (optional, requires manim)
-
-cd msi && python run.ps1     # Windows
-
-cd msi && bash run.sh        # macOS / Linux
-
-
+CI also rebuilds the white paper and MSI page and tests both `--check` and repair synchronization against
+an isolated temporary publication copy. It does not render Manim, access the external publication package,
+use hosted secrets, or commit generated artifacts.
 

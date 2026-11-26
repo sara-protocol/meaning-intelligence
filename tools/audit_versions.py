@@ -1,8 +1,13 @@
 """扫描所有文件里的版本数字,找出不一致处。"""
 import re
+import sys
 from pathlib import Path
 
-ROOT = Path(".")
+for stream in (sys.stdout, sys.stderr):
+    if hasattr(stream, "reconfigure"):
+        stream.reconfigure(encoding="utf-8", errors="backslashreplace")
+
+ROOT = Path(__file__).resolve().parents[1]
 
 SCAN = ["README.md", "README.en.md", "index.html", "CHANGELOG.md", "CITATION.cff"]
 PATTERNS = [
