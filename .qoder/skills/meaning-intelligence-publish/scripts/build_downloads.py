@@ -303,11 +303,19 @@ def guide_source_files() -> list[Path]:
 def collect_repository_sources(members: dict[str, Path]) -> int:
     count = 0
     root_names = {".gitattributes", ".gitignore", "CNAME", "LICENSE", "LICENSE-DOCS"}
+    publication_outputs = {
+        "index.html", "listen.html", "downloads.html", "mcp.html",
+        "publication-browser-check.json", "web-media-verification.json",
+        "subtitles.json", "subtitles.vtt", "subtitles_en.json", "subtitles_en.vtt",
+        "subtitles_zh.vtt", "timeline_en.json",
+    }
     for source in sorted(REPO.rglob("*")):
         if not source.is_file():
             continue
         relative = safe_relative(source, REPO)
-        if relative.parts[0] in {"meaning-agent", "web-mcp", ".qoder"}:
+        if relative.parts[0] in {"meaning-agent", "web-mcp", ".qoder", "download", "project-guide"}:
+            continue
+        if relative.as_posix() in publication_outputs:
             continue
         if excluded(relative):
             continue
