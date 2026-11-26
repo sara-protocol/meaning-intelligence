@@ -438,7 +438,7 @@ def download_card(entry: dict) -> str:
     href = quote(entry["path"], safe="/")
     return (
         f'<article class="download"><div><span class="kind">{html.escape(str(entry.get("kind", "")))}</span>'
-        f'<h3>{html.escape(str(entry.get("label_zh", "")))}</h3>'
+        f'<h2>{html.escape(str(entry.get("label_zh", "")))}</h2>'
         f'<p class="en">{html.escape(str(entry.get("label_en", "")))}</p>'
         f'<small>{human_size(int(entry["bytes"]))} · SHA-256 {entry["sha256"][:16]}…</small></div>'
         f'<a href="{href}" download>下载 / Download</a></article>'
