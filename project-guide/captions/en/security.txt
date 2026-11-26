@@ -1,0 +1,17 @@
+[00:00:00,000] Chapter 16。Security, privacy, licensing, and minimal exposure。Security boundaries include loopback binding, fixed resource allowlists, input redaction, body caps, strict JSON, CSP, frame denial, same-origin assets, authentication, Origin allowlists, and rate limiting. Public exposure requires additional review.
+
+[00:00:23,030] Local Web binds to 127.0.0.1 and validates Host/Origin; static assets use a fixed allowlist, with no arbitrary file read, path parameter, shell, or command API. Input and context redact common secrets, errors are sanitized, analyses are not stored, and access logs are disabled.
+
+[00:00:44,256] A public MCP token lives only in deployment secrets and must never enter frontend code, logs, documents, manifests, test snapshots, or commits. Origins use an exact allowlist, not a wildcard. Proxy deployments also need trusted client identification and rate limiting.
+
+[00:01:02,972] Code uses the MIT license and documentation uses the project's LICENSE-DOCS. Confirm publication rights for audio, scripts, figures, decks, and downloads before release. Pages should identify themselves as audio interpretations, not full book text, and state copyright ownership.
+
+[00:01:22,058] Loopback, read-only, and no storage by default.
+
+[00:01:26,202] Credentials belong only in environment secrets, never content.
+
+[00:01:30,676] Limit bodies, fields, paths, origins, and request rates.
+
+[00:01:35,210] Before public exposure: TLS, authentication, rate limits, human approval.
+
+[00:01:41,648] Try one step: Use a fictitious token for rejection tests and confirm errors never echo it. Inspect frontend code, logs, manifests, and downloads for real credentials.

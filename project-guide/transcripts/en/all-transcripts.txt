@@ -1,0 +1,684 @@
+Meaning Intelligence
+Language: English
+Complete synchronized chapter transcripts
+
+===== 01 Project overview and how to use this guide =====
+
+Meaning Intelligence
+Chapter: Project overview and how to use this guide
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: overview.mp3
+Duration: 161.773 seconds
+
+[00:00:00,000 --> 00:00:24,339]
+Chapter 1. Project overview and how to use this guide. Meaning Intelligence is defined as the directional regulation of other intelligent activities. The project keeps the V7.0 canon, research system, engineering operationalization, and publication assets separate so that a runnable prototype is not mistaken for a confirmed theory.
+
+[00:00:24,659 --> 00:00:52,818]
+Read in this order: version and provenance, evidence status, then engineering behavior. Canon V7.0 is the theoretical source; research system v0.2.0 is the current public implementation; operational stack v2.0 is an E0 engineering extension; white paper v1.1 is an application-layer summary. Their version numbers are not interchangeable.
+
+[00:00:53,138 --> 00:01:17,183]
+Each chapter stands alone, while the sequence moves from concept to evidence, engineering, execution, publishing, and acceptance. The player uses dedicated Chinese and English synthetic narration. Captions and transcripts are generated from the actual audio segments rather than borrowed from an older audiobook timeline.
+
+[00:01:17,503 --> 00:01:38,793]
+Keep the complete project-guide directory when using it offline. HTML, scripts, figures, audio, captions, and downloads use relative paths. No CDN, font service, API key, or network connection is required.
+
+[00:01:39,113 --> 00:01:50,755]
+Identify the object: canon, research system, engineering stack, or publication asset.
+
+[00:01:51,075 --> 00:02:03,063]
+Identify the status: verified, engineering draft, mechanism pending, or human decision pending.
+
+[00:02:03,383 --> 00:02:13,375]
+For runnable behavior, go directly to the agent and read-only MCP chapters.
+
+[00:02:13,695 --> 00:02:23,812]
+For delivery, use the download center, build script, and verification report.
+
+[00:02:24,132 --> 00:02:41,773]
+Try one step: Use the top language control once and confirm that body text, figure captions, navigation, download labels, audio, and subtitles change together; then play any chapter.
+
+
+===== 02 V7.0 canon, versions, and provenance audit =====
+
+Meaning Intelligence
+Chapter: V7.0 canon, versions, and provenance audit
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: provenance.mp3
+Duration: 196.566 seconds
+
+[00:00:00,000 --> 00:00:28,639]
+Chapter 2. V7.0 canon, versions, and provenance audit. Canon V7.0 is Meaning Intelligence: The Cognitive Operating System of Meaning Civilization. Authority runs from the KDP Final 02 Chinese V7 text to the English proof mother, white paper, MSI configuration, and finally README/CHANGELOG. VERSION.yaml is the only version source.
+
+[00:00:28,959 --> 00:01:14,059]
+The 2026-11-26 provenance audit records the same SHA-256 for KDP Final 02 and the V5 archive copy: 0fedff1ee5775bbc6812cea24f6024e36e54d43fac4776ba6f94c402ff4cb574. They are not independent versions. The English proof mother, Meaning IntelligenceV7.docx, has recorded hash b4225b6371d0ea013fe2ae4db9ac396537e2bf30f94cbda5a2c342e5f570396b.
+
+[00:01:14,379 --> 00:01:37,749]
+The audit also records unresolved upstream issues: a truncated H5 table cell, an H6 summary/card conflict, incomplete English body text, and candidate DOCX files without embedded images and with placeholders. The project did not silently edit the canon; it retained these conflicts in the audit.
+
+[00:01:38,069 --> 00:02:01,778]
+Research system v0.2.0 uses 0.x to signal research formation. Version 1.0 requires construct validation, a first predictive study, and independent replication. Operational stack v2.0 and MSI v2.1 evolve separately and never replace the canon version.
+
+[00:02:02,098 --> 00:02:11,466]
+Primary canon: KDP Final 02 Chinese V7.
+
+[00:02:11,786 --> 00:02:20,704]
+English proof mother: Meaning IntelligenceV7.docx.
+
+[00:02:21,024 --> 00:02:31,041]
+Same-hash V5 copy: archive only; do not maintain in parallel.
+
+[00:02:31,361 --> 00:02:41,504]
+Cite canon sections, H identifiers, or claim IDs for theoretical statements.
+
+[00:02:41,824 --> 00:02:58,480]
+Try one step: Before writing any claim, record its object, version, source file, and evidence status. If sources conflict, stop and cite canon-audit.md.
+
+[00:02:58,800 --> 00:03:16,566]
+Pending verification: Upstream H5/H6 conflicts, English-body completeness, and image/appendix placeholders remain pending in the canon master project. This guide reports them without claiming repair.
+
+
+===== 03 E0–E6: evidence status is not a quality score =====
+
+Meaning Intelligence
+Chapter: E0–E6: evidence status is not a quality score
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: evidence.mp3
+Duration: 147.246 seconds
+
+[00:00:00,000 --> 00:00:25,669]
+Chapter 3. E0–E6: evidence status is not a quality score. E0–E6 describes how far a claim has been tested, not how good, useful, or believable it is. In V7.0, E3 means a preregistered hypothesis with data collection under way, and E5 has two exits: falsified or survived.
+
+[00:00:25,989 --> 00:00:52,248]
+E0 means the construct is defined; E1 a mathematical model exists; E2 an instrument exists with reliability and validity under validation; E3 a preregistered hypothesis is in data collection; E4 independent-laboratory replication; E5 the preregistered falsification criterion has been tested; E6 generalization across contexts, cultures, and time.
+
+[00:00:52,568 --> 00:01:13,123]
+Earlier project documents described E3 as correct prediction on new data and E6 as confirmation outside the framework. Those were not V7.0 definitions and are retired. Raising a level requires a reviewable project evidence chain, not a wording change.
+
+[00:01:13,443 --> 00:01:35,003]
+Mechanism maturity does not transfer automatically to an engineering operationalization. Mature cognitive-load literature does not make the project's L1 package E4. The stack itself remains E0; code, animation, and agent integration do not raise it.
+
+[00:01:35,323 --> 00:01:43,281]
+E3 does not mean prediction has succeeded.
+
+[00:01:43,601 --> 00:01:53,644]
+E5 does not mean highly reliable; falsification is also a valid result.
+
+[00:01:53,964 --> 00:02:02,127]
+Evidence level and claim status are separate fields.
+
+[00:02:02,447 --> 00:02:12,449]
+Engineering falsification drafts require preregistration before formal disposition.
+
+[00:02:12,769 --> 00:02:27,246]
+Try one step: For one conclusion, write its evidence level, claim status, source, and failure condition. Mark it pending if any field is missing.
+
+
+===== 04 The continuous meaning spectrum and judgment dimensions =====
+
+Meaning Intelligence
+Chapter: The continuous meaning spectrum and judgment dimensions
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: spectrum.mp3
+Duration: 150.134 seconds
+
+[00:00:00,000 --> 00:00:24,584]
+Chapter 4. The continuous meaning spectrum and judgment dimensions. V7.0 Chapter 8 replaces fixed levels with a continuous spectrum band. Meaning can move continuously along abstraction and time horizon. Direction, value, and boundary are analytical dimensions of a meaning judgment, not three fixed levels.
+
+[00:00:24,904 --> 00:00:45,414]
+In the earlier discrete model, the meta-meaning level sat at the abstract end and contextual meaning at the concrete end, with no gap. The spectrum model remains an E0 draft under MI-C004 and needs longitudinal tests of continuity rather than an a priori declaration.
+
+[00:00:45,734 --> 00:01:09,774]
+Direction asks where to go; value asks why it is worthwhile and for whom; boundary asks about scope, limits, and stopping conditions. MI-C003 proposes factor or structural tests of these dimensions. If one dimension explains more than 90% of variance, the canon H2 failure condition is triggered.
+
+[00:01:10,094 --> 00:01:32,304]
+Do not confuse direction–value–boundary with the C/V/E/A four-dimensional bonding-strength analysis. The former belongs to §3.2 meaning judgment; the latter is a different construct. The agent treats spectrum position only as a heuristic label, not a psychometric measurement.
+
+[00:01:32,624 --> 00:01:44,400]
+Continuous spectrum: abstract ↔ concrete, long horizon ↔ short horizon.
+
+[00:01:44,720 --> 00:01:53,948]
+Judgment dimensions: direction, value, boundary.
+
+[00:01:54,268 --> 00:02:04,596]
+A separate four-dimensional model: C/V/E/A for bonding strength.
+
+[00:02:04,916 --> 00:02:13,288]
+Spectrum position is neither a score nor an evidence level.
+
+[00:02:13,608 --> 00:02:30,134]
+Try one step: For a real decision, write direction, value, and boundary separately, then place it on the spectrum with a reason. Do not substitute high/medium/low labels for evidence.
+
+
+===== 05 Five incommensurable scales and recursive calibration =====
+
+Meaning Intelligence
+Chapter: Five incommensurable scales and recursive calibration
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: scales.mp3
+Duration: 145.461 seconds
+
+[00:00:00,000 --> 00:00:25,379]
+Chapter 5. Five incommensurable scales and recursive calibration. Meaning at the individual, organizational, city, national, and human scales is incommensurable. Cross-scale coordination is not weighted summation; it requires explicit conflicts, priorities, costs, triggers, and feedback.
+
+[00:00:25,699 --> 00:00:46,865]
+Axiom 3 and §4.3 forbid converting heterogeneous values into one compensatory total. Gain at one scale does not automatically cancel harm at another. The agent's L5 therefore outputs conflicts and priorities, not a weighted_score.
+
+[00:00:47,185 --> 00:01:07,815]
+Recursive calibration first preserves each scale's direction statement, then checks pairwise conflicts, priority order, who bears costs, and pause triggers. Missing input produces needs_clarification rather than invented defaults.
+
+[00:01:08,135 --> 00:01:29,620]
+Claims about cross-scale consistency remain research-stage. MI-C005 is E1/Formalized; MI-C010 is E1/Under Test. The engineering rule against weighted summation must not be rewritten as proof that cross-scale consistency predicts survival.
+
+[00:01:29,940 --> 00:01:41,052]
+Five scales: individual, organization, city, national, humanity.
+
+[00:01:41,372 --> 00:01:50,025]
+Incommensurable: reject compensatory aggregation.
+
+[00:01:50,345 --> 00:02:00,733]
+Required outputs: conflicts, priorities, costs, triggers.
+
+[00:02:01,053 --> 00:02:09,815]
+Missing information: explicit clarification request.
+
+[00:02:10,135 --> 00:02:25,461]
+Try one step: List directions at all five scales for one organizational decision, identify at least one real conflict, and state who bears the cost and what signal triggers a pause.
+
+
+===== 06 Mapping canon mechanisms to the engineering stack =====
+
+Meaning Intelligence
+Chapter: Mapping canon mechanisms to the engineering stack
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: mechanisms.mp3
+Duration: 155.080 seconds
+
+[00:00:00,000 --> 00:00:27,684]
+Chapter 6. Mapping canon mechanisms to the engineering stack. Canon mechanisms include three modules—M1 perception, M2 judgment, M3 action—and four processes: F1 meaning identification, F2 meaning assessment, F3 meaning decision, F4 meaning feedback. The six-layer stack is a testable engineering translation, not the canon mechanism itself.
+
+[00:00:28,004 --> 00:00:52,164]
+L1 and L2 mainly sit on M1's input and presentation side and support F1; L3 and L4 mainly map to M2 and F2; L5 maps to M3 and F3; L6 reconnects M1–M3 and writes back through F4. This mapping explains engineering intent; it does not grant evidence status.
+
+[00:00:52,484 --> 00:01:16,819]
+The interface band L1–L2 addresses information not getting in; processing L3–L4 addresses meaning not coming out; meta L5–L6 addresses direction not holding. Only the meta band can rewrite lower premises. L6's return to L1 creates a spiral, not a one-pass pipeline.
+
+[00:01:17,139 --> 00:01:39,019]
+The architecture distinguishes measured from planned timelines. During rendering, self.mark() records actual act entry and exit. Only when measured data is absent does the builder extrapolate from configuration and label it planned. Experienceable is not the same as validated.
+
+[00:01:39,339 --> 00:01:49,421]
+Three modules: M1 perception, M2 judgment, M3 action.
+
+[00:01:49,741 --> 00:02:01,568]
+Four processes: F1 identification, F2 assessment, F3 decision, F4 feedback.
+
+[00:02:01,888 --> 00:02:12,001]
+Six-layer mapping: engineering explanation, not canon layer definitions.
+
+[00:02:12,321 --> 00:02:21,574]
+Timeline: measured first, visibly degraded when absent.
+
+[00:02:21,894 --> 00:02:35,080]
+Try one step: Trace one output from L1 to L6, naming the modules and processes it crosses and the step allowed to rewrite premises.
+
+
+===== 07 The six-layer engineering stack: L1–L6 and three bands =====
+
+Meaning Intelligence
+Chapter: The six-layer engineering stack: L1–L6 and three bands
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: stack.mp3
+Duration: 142.513 seconds
+
+[00:00:00,000 --> 00:00:25,819]
+Chapter 7. The six-layer engineering stack: L1–L6 and three bands. The six-layer stack is an integrative structure proposed by this project at E0 and has not been independently tested. It comprises interface, processing, and meta bands; each layer has inputs, outputs, canon links, and testable engineering boundaries.
+
+[00:00:26,139 --> 00:00:47,319]
+L1 structures information; L2 turns structure into an operable interface; L3 organizes direction, value, and boundary; L4 labels evidence; L5 handles five-scale conflicts; L6 reviews premises, triggers revision, and supports reversible zeroing.
+
+[00:00:47,639 --> 00:01:08,595]
+Layer statuses differ: L1/L2 are framework E1 with mechanisms pending; L3 is E0–E1; L4 tools are E2 and model E1; L5 is E1; L6 is E2. These labels describe current records and do not upgrade the stack as a whole.
+
+[00:01:08,915 --> 00:01:27,355]
+If a simpler partition with greater explanatory power appears, replace the stack rather than defend it. An engineering failure condition disposes of its operationalization, not automatically of canon H hypotheses or external mechanisms.
+
+[00:01:27,675 --> 00:01:37,628]
+Interface band: L1 load reduction, L2 experiential rendering.
+
+[00:01:37,948 --> 00:01:47,870]
+Processing band: L3 meaning generation, L4 value assessment.
+
+[00:01:48,190 --> 00:01:57,888]
+Meta band: L5 direction selection, L6 recursive review.
+
+[00:01:58,208 --> 00:02:07,820]
+Stack as a whole: E0; layer labels cannot be added together.
+
+[00:02:08,140 --> 00:02:22,512]
+Try one step: Map each step of a current workflow to L1–L6. Mark steps with no match as external processes rather than forcing them into the stack.
+
+
+===== 08 Six agent skills and the registry contract =====
+
+Meaning Intelligence
+Chapter: Six agent skills and the registry contract
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: skills.mp3
+Duration: 149.181 seconds
+
+[00:00:00,000 --> 00:00:26,759]
+Chapter 8. Six agent skills and the registry contract. meaning-agent's engine.py orchestrates six deterministic skills, with skills/registry.py as the sole registry. Each skill envelope includes name, description, layer, input, output, status, clarification needs, and data.
+
+[00:00:27,079 --> 00:00:48,774]
+The registered names are reduce-cognitive-load, model-experiential-interface, map-direction-value-boundary, grade-evidence-falsification, calibrate-five-scales, and recursive-review-zeroing. Names and layer IDs must stay aligned across the registry, skill documents, tests, and MCP catalog.
+
+[00:00:49,094 --> 00:01:10,134]
+L1 retains unverified markers; L2 only suggests local display behavior; L3 never chooses for a human; L4 never asserts empirical status; L5 forbids weighted summation; L6 allows at most three review passes and never deletes data or executes actions.
+
+[00:01:10,454 --> 00:01:35,479]
+Skill outputs are structured drafts, not fact-checking, psychometrics, legal advice, or safety certification. Missing material produces needs_clarification. An optional LLM can only suggest unverified language; it cannot alter deterministic skills, evidence levels, scale aggregation, or approval.
+
+[00:01:35,799 --> 00:01:44,786]
+Single registry entry: skills/registry.py.
+
+[00:01:45,106 --> 00:01:53,484]
+Single orchestration entry: engine.py.
+
+[00:01:53,804 --> 00:02:04,261]
+Six SKILL.md files: reusable input/output and boundary contracts.
+
+[00:02:04,581 --> 00:02:13,459]
+Every output must trace to a layer, source, and limitation.
+
+[00:02:13,779 --> 00:02:29,181]
+Try one step: In tests, iterate all six registered names and confirm each layer runs once, envelopes are complete, and clarification needs are not overwritten by defaults.
+
+
+===== 09 Runnable agent: setup, commands, and outputs =====
+
+Meaning Intelligence
+Chapter: Runnable agent: setup, commands, and outputs
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: runnable-agent.mp3
+Duration: 187.057 seconds
+
+[00:00:00,000 --> 00:00:26,000]
+Chapter 9. Runnable agent: setup, commands, and outputs. meaning-agent needs only Python 3.10+ and the standard library. Without a model key it runs in mode=offline and returns six-layer structure, evidence boundaries, falsification conditions, clarification needs, and approval.status=pending.
+
+[00:00:26,320 --> 00:00:55,093]
+After extracting source-v0.2.0.zip, enter meaning-agent. The minimal analysis command is python -m meaning_agent analyze --text "Should the pilot expand?" --json. python -m meaning_agent demo runs the built-in example; python -m meaning_agent serve --port 8766 starts a loopback-only Web UI.
+
+[00:00:55,413 --> 00:01:17,663]
+The Python API exposes analyze, review, demo, and to_markdown. review accepts feedback; action=replace_text or corrected_text triggers reanalysis and returns an invalidated approval to pending. execution.performed remains false.
+
+[00:01:17,983 --> 00:01:48,341]
+The optional LLM reads only MI_LLM_BASE_URL, MI_LLM_API_KEY, and MI_LLM_MODEL. Remote URLs require HTTPS, timeout is 15 seconds, responses are capped at 1 MiB, redirects are forbidden, and strict JSON plus field allowlists are required. Never place keys in commands, documents, or output.
+
+[00:01:48,661 --> 00:02:08,001]
+Runnable commands: python -m meaning_agent analyze --text "Should the pilot expand?" --json; python -m meaning_agent demo; python -m meaning_agent serve --port 8766
+
+[00:02:08,321 --> 00:02:18,723]
+Requirement: Python 3.10+, no third-party runtime dependency.
+
+[00:02:19,043 --> 00:02:27,146]
+Offline mode: mode=offline.
+
+[00:02:27,466 --> 00:02:38,439]
+LLM success: mode=llm; fallback: offline_fallback.
+
+[00:02:38,759 --> 00:02:49,601]
+Web default: 127.0.0.1:8766.
+
+[00:02:49,921 --> 00:03:07,057]
+Try one step: In the extracted source directory, run the minimal analysis and confirm mode=offline, six skills, approval=pending, and execution_authorized=false.
+
+
+===== 10 Human approval gate and the no-execution rule =====
+
+Meaning Intelligence
+Chapter: Human approval gate and the no-execution rule
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: approval.mp3
+Duration: 137.547 seconds
+
+[00:00:00,000 --> 00:00:24,119]
+Chapter 10. Human approval gate and the no-execution rule. Any action affecting an external system defaults to approval.status=pending. Approval records a human decision only; approval.execution_authorized is always false, and the tool executes no decisions, commands, or file operations.
+
+[00:00:24,439 --> 00:00:47,244]
+The approval record contains status, human_required, recorded_from, execution_authorized, and a note. Default pending comes from the system; approved or rejected must come from explicit human input. A state change does not turn the analyzer into an executor.
+
+[00:00:47,564 --> 00:01:07,475]
+Revision invalidates old approval. When review detects material feedback, replaced text, or revision_required, revised_analysis.approval returns to pending. This prevents approval of an old version from silently authorizing a new one.
+
+[00:01:07,795 --> 00:01:30,595]
+High-risk domains call for professional review. Recursive review does not prove impartiality, truth, or safety and does not replace legal, medical, psychological, security, or governance judgment. Silence is not neutrality, and heterogeneous harms cannot be converted into one score.
+
+[00:01:30,915 --> 00:01:37,873]
+Default: pending.
+
+[00:01:38,193 --> 00:01:46,085]
+Human decision: approved or rejected.
+
+[00:01:46,405 --> 00:01:54,538]
+Execution authorization: always false.
+
+[00:01:54,858 --> 00:02:02,656]
+After revision: approval resets.
+
+[00:02:02,976 --> 00:02:17,547]
+Try one step: Create a review from an approved analysis, replace the text, and confirm the new result returns to pending with execution.performed=false.
+
+
+===== 11 Read-only Web MCP and local MCP boundaries =====
+
+Meaning Intelligence
+Chapter: Read-only Web MCP and local MCP boundaries
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: web-mcp.mp3
+Duration: 209.073 seconds
+
+[00:00:00,000 --> 00:00:28,354]
+Chapter 11. Read-only Web MCP and local MCP boundaries. Web MCP exposes only fixed resources, read-only analysis, and the download manifest. It offers no arbitrary URL, file, command, or credential access. The local Python MCP and Cloudflare Pages Function are separate transports with different protocol versions and body limits.
+
+[00:00:28,674 --> 00:00:58,042]
+The Cloudflare Pages Function uses POST /api/mcp, protocol 2025-03-26, a 32 KiB body cap, and a default 60 requests per minute per source IP. Public binding requires MI_MCP_PUBLIC_TOKEN of at least 32 characters in deployment secrets; MI_MCP_ALLOWED_ORIGINS is an exact Origin allowlist.
+
+[00:00:58,362 --> 00:01:32,554]
+Web tools include meaning_analyze, meaning_review, resource_catalog, evidence_levels, and download_manifest. Resources include mi://canon/v7, mi://evidence/e0-e6, mi://chapters/zh, mi://chapters/en, mi://skills/l1-l6, and mi://downloads. URIs are virtual identifiers, not filesystem paths.
+
+[00:01:32,874 --> 00:02:00,683]
+The local Python MCP defaults to 127.0.0.1:8767, protocol 2024-11-05, and a 512 KiB core request cap; its public transport policy also defaults to loopback. Non-loopback binding requires a strong token. Both remain read-only. This guide did not access or read credentials.
+
+[00:02:01,003 --> 00:02:13,295]
+Web: POST /api/mcp; 2025-03-26; 32 KiB.
+
+[00:02:13,615 --> 00:02:28,817]
+Local MCP: 127.0.0.1:8767; 2024-11-05; 512 KiB.
+
+[00:02:29,137 --> 00:02:39,789]
+Read-only: fixed resources, analysis, review, download manifest.
+
+[00:02:40,109 --> 00:02:50,632]
+Forbidden: arbitrary URLs, paths, shell, credential reads.
+
+[00:02:50,952 --> 00:03:08,888]
+Try one step: In an authorized test environment, verify unauthorized rejection, tools/list, resources/read, and both read-only tools. Never write a test token to logs or documents.
+
+[00:03:09,208 --> 00:03:29,073]
+Pending verification: Local focused tests do not replace production acceptance. The release owner must verify the public token, Origin allowlist, rate limits, headers, and authorized calls in an authorized environment and record them in the external deployment report.
+
+
+===== 12 MSI's eight acts and the 45/3/2/9 counts =====
+
+Meaning Intelligence
+Chapter: MSI's eight acts and the 45/3/2/9 counts
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: msi.mp3
+Duration: 163.373 seconds
+
+[00:00:00,000 --> 00:00:32,193]
+Chapter 12. MSI's eight acts and the 45/3/2/9 counts. MSI v2.1 contains eight acts and measures 43.433 seconds in the research-repository render. Configured counts are 45 overload fragments, three core statements, two structural nodes, and nine L3 illustration points; the old README's 120/12 numbers are retired.
+
+[00:00:32,513 --> 00:00:58,133]
+The eight acts are information overload, text reduction, structure diagram, operable interface, meaning placement, evidence rings, path selection, and recursive spiral. The measured timeline starts at zero, the final act enters at 32.600 seconds, and rendering ends at 43.433 seconds.
+
+[00:00:58,453 --> 00:01:18,173]
+Evidence rings are visual illustrations, not real ratings. L3 uses nine points and the structure diagram uses two nodes. Counts come from msi/config.json and scene implementation, not old communication copy.
+
+[00:01:18,493 --> 00:01:52,840]
+The source audit recorded a smaller publication-package MeaningIntelligenceScene.mp4 at 13.533 seconds, 854×480, 15 fps, and silent; the research-repository file with the same name is 43.433 seconds, 1920×1080, 60 fps, and silent. This guide bundles and plays the latter, with exact media facts in the manifest. That historical record does not replace current publication acceptance.
+
+[00:01:53,160 --> 00:02:02,273]
+Eight acts; 43.433 seconds measured.
+
+[00:02:02,593 --> 00:02:10,736]
+45: random overload fragments.
+
+[00:02:11,056 --> 00:02:19,934]
+Three: core statements after controlled-language reduction.
+
+[00:02:20,254 --> 00:02:30,046]
+Two: structural nodes; nine: L3 illustration points.
+
+[00:02:30,366 --> 00:02:43,373]
+Try one step: Start from any act button and compare the frame with the measured timeline. Never infer real evidence levels from the rings.
+
+
+===== 13 White paper v1.1, Claim Registry, and boundaries =====
+
+Meaning Intelligence
+Chapter: White paper v1.1, Claim Registry, and boundaries
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: whitepaper.mp3
+Duration: 148.061 seconds
+
+[00:00:00,000 --> 00:00:26,160]
+Chapter 13. White paper v1.1, Claim Registry, and boundaries. White paper v1.1 is a bilingual application-layer summary with 22 pages, 9 tables, and 3 figures. It summarizes 12 claims and adds a construct-boundary figure; detailed tests and failure conditions remain governed by repository documents.
+
+[00:00:26,480 --> 00:00:47,505]
+Compared with v1.0, v1.1 adds a construct-boundary chapter, a third figure, and a Claim Registry summary table, growing from 19 to 22 pages. Counts were verified from the actual PDF and DOCX structures, not estimated by hand.
+
+[00:00:47,825 --> 00:01:10,110]
+MI-C001 through MI-C012 cover definition, meta-layer relation, three dimensions, spectrum, multi-scale coordination, recursive review, and layer effects. New claims start at MI-C100; existing IDs are never renumbered, and withdrawn claims keep their IDs.
+
+[00:01:10,430 --> 00:01:36,424]
+The white paper does not replace the canon. Theoretical citations return to canon sections, H1–H18, or Appendix D.7. Engineering citations need a claim ID, evidence level, status, and failure condition. The boundary map distinguishes this directional-regulation construct from same-named fields without claiming exclusivity.
+
+[00:01:36,744 --> 00:01:45,367]
+22 pages: actual PDF page count.
+
+[00:01:45,687 --> 00:01:53,775]
+9 tables: actual DOCX table count.
+
+[00:01:54,095 --> 00:02:02,642]
+3 figures: actual DOCX inline-shape count.
+
+[00:02:02,962 --> 00:02:13,265]
+12 claims: summary; detailed governance in docs/claims.md.
+
+[00:02:13,585 --> 00:02:28,061]
+Try one step: Select one white-paper statement, trace it to a claim ID, and inspect its canon link, evidence level, claim status, and failure condition.
+
+
+===== 14 Ebooks, audio, video, and download governance =====
+
+Meaning Intelligence
+Chapter: Ebooks, audio, video, and download governance
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: library.mp3
+Duration: 157.201 seconds
+
+[00:00:00,000 --> 00:00:28,589]
+Chapter 14. Ebooks, audio, video, and download governance. Publication assets include the bilingual white paper, three EPUB interpretation ebooks, older Chinese and English audiobooks, lecture and MSI decks, MSI video, runnable source, and a download manifest. Every asset needs a version, language, purpose, and limitation.
+
+[00:00:28,909 --> 00:00:54,404]
+This guide bundles the white paper DOCX/PDF, three EPUBs, the 43.433-second MSI video, two PPTX decks, v0.2.0 source, and this guide's DOCX. Chapter audio, SRT/VTT, and transcripts are downloadable from the player.
+
+[00:00:54,724 --> 00:01:19,014]
+The EPUBs are audio-reading interpretations, not the full canon or substitutes for the white paper. Older audiobooks and this guide's narration are separate assets; never mix their captions or timelines. After replacing media, re-probe duration, streams, codecs, bytes, and SHA-256.
+
+[00:01:19,334 --> 00:01:42,109]
+The download manifest uses relative paths and rejects absolute paths, .., and symlink escapes. EPUB checks include mimetype, META-INF/container.xml, OPF manifest/spine, and XHTML anchors. A ZIP must be inspected beyond its header.
+
+[00:01:42,429 --> 00:01:51,237]
+Documents: white paper v1.1 and guide DOCX.
+
+[00:01:51,557 --> 00:02:00,774]
+Ebooks: Chinese, English, and bilingual EPUB.
+
+[00:02:01,094 --> 00:02:11,622]
+Media: 43.433-second MSI and per-chapter bilingual audio.
+
+[00:02:11,942 --> 00:02:22,239]
+Source and decks: v0.2.0 ZIP and two PPTX files.
+
+[00:02:22,559 --> 00:02:37,201]
+Try one step: Open manifest.json, recompute SHA-256 and bytes for any three files, and inspect video and audio streams with ffprobe.
+
+
+===== 15 Publishing, operations, and change order =====
+
+Meaning Intelligence
+Chapter: Publishing, operations, and change order
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: publishing.mp3
+Duration: 184.279 seconds
+
+[00:00:00,000 --> 00:00:30,324]
+Chapter 15. Publishing, operations, and change order. The recommended order is: edit source material, rebuild media and documents, run tests, verify the package, perform human browser acceptance, build a deployment ZIP, deploy only with explicit authorization, then run online machine checks. Without authorization, do not deploy, alter shared domains, or write credentials.
+
+[00:00:30,644 --> 00:00:50,364]
+Dashboard ZIP uploads previously produced successful deployments with incomplete assets. Prefer wrangler pages deploy and ensure index.html is at the ZIP root. The deployment ZIP's member set must match the publication package.
+
+[00:00:50,684 --> 00:01:10,015]
+Content changes start at source: caption edits cannot stop at the page; audio changes require timeline updates; figure changes require both language folders and captions; version changes start only in VERSION.yaml before rebuilding derivatives.
+
+[00:01:10,335 --> 00:01:35,364]
+Online acceptance covers home, listening, downloads, MCP, project-guide, audio, video, captions, EPUB, DOCX/PDF, PPTX, source, and the full ZIP. A custom domain may require human verification; resource checks and real-browser checks must be recorded separately.
+
+[00:01:35,684 --> 00:01:49,986]
+Runnable commands: python build.py --source-root ../; python verify.py --browser; python -m http.server 8000
+
+[00:01:50,306 --> 00:01:58,194]
+Source → build → test → verify → human acceptance.
+
+[00:01:58,514 --> 00:02:07,607]
+ZIP root: index.html with no enclosing folder.
+
+[00:02:07,927 --> 00:02:15,685]
+Deploy only with explicit authorization.
+
+[00:02:16,005 --> 00:02:25,557]
+After deployment: machine checks + browser checks + hash review.
+
+[00:02:25,877 --> 00:02:42,119]
+Try one step: Before copying into the publication root, run only build and local acceptance. Leave deployment, domain, and token operations to the explicitly authorized release owner.
+
+[00:02:42,439 --> 00:03:04,279]
+Pending verification: The guide builder writes only inside this directory and performs no Git or Pages operations. Commit, push, deployment, and online results are established by external repository records, deployment-report.json, and online acceptance reports.
+
+
+===== 16 Security, privacy, licensing, and minimal exposure =====
+
+Meaning Intelligence
+Chapter: Security, privacy, licensing, and minimal exposure
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: security.mp3
+Duration: 159.385 seconds
+
+[00:00:00,000 --> 00:00:27,744]
+Chapter 16. Security, privacy, licensing, and minimal exposure. Security boundaries include loopback binding, fixed resource allowlists, input redaction, body caps, strict JSON, CSP, frame denial, same-origin assets, authentication, Origin allowlists, and rate limiting. Public exposure requires additional review.
+
+[00:00:28,064 --> 00:00:53,994]
+Local Web binds to 127.0.0.1 and validates Host/Origin; static assets use a fixed allowlist, with no arbitrary file read, path parameter, shell, or command API. Input and context redact common secrets, errors are sanitized, analyses are not stored, and access logs are disabled.
+
+[00:00:54,314 --> 00:01:17,804]
+A public MCP token lives only in deployment secrets and must never enter frontend code, logs, documents, manifests, test snapshots, or commits. Origins use an exact allowlist, not a wildcard. Proxy deployments also need trusted client identification and rate limiting.
+
+[00:01:18,124 --> 00:01:43,164]
+Code uses the MIT license and documentation uses the project's LICENSE-DOCS. Confirm publication rights for audio, scripts, figures, decks, and downloads before release. Pages should identify themselves as audio interpretations, not full book text, and state copyright ownership.
+
+[00:01:43,484 --> 00:01:52,301]
+Loopback, read-only, and no storage by default.
+
+[00:01:52,621 --> 00:02:01,759]
+Credentials belong only in environment secrets, never content.
+
+[00:02:02,079 --> 00:02:11,197]
+Limit bodies, fields, paths, origins, and request rates.
+
+[00:02:11,517 --> 00:02:22,699]
+Before public exposure: TLS, authentication, rate limits, human approval.
+
+[00:02:23,019 --> 00:02:39,385]
+Try one step: Use a fictitious token for rejection tests and confirm errors never echo it. Inspect frontend code, logs, manifests, and downloads for real credentials.
+
+
+===== 17 Automated checks, browser acceptance, and criteria =====
+
+Meaning Intelligence
+Chapter: Automated checks, browser acceptance, and criteria
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: acceptance.mp3
+Duration: 165.019 seconds
+
+[00:00:00,000 --> 00:00:26,894]
+Chapter 17. Automated checks, browser acceptance, and criteria. Acceptance covers file presence, structure, hashes, media streams, caption timelines, document containers, language switching, playback, and downloads. An automated pass is not a human accessibility, mobile, or production pass.
+
+[00:00:27,214 --> 00:00:53,989]
+verify.py checks 18 chapters, 36 chapter audio files, 72 SRT/VTT files, 36 transcripts, figure and download paths, manifest hashes, codecs and durations, monotonic caption timing, PDF/DOCX/EPUB/ZIP containers, JavaScript syntax, and browser self-tests.
+
+[00:00:54,309 --> 00:01:16,279]
+Browser self-tests run in headless Chrome/Edge and switch languages while checking body text, navigation, captions, download labels, audio source, track language, speed, progress, current subtitle, chapter changes, and external network requests.
+
+[00:01:16,599 --> 00:01:41,933]
+Human acceptance still covers keyboard order, visible focus, screen readers, mobile width, print output, Windows high contrast, narration quality, publication rights, and production endpoints. Unperformed items remain pending in verification.json; external release results are recorded in deployment and online acceptance reports.
+
+[00:01:42,253 --> 00:01:53,720]
+Automated: structure, media, hashes, captions, containers, syntax.
+
+[00:01:54,040 --> 00:02:05,783]
+Browser: switching, playback, progress, subtitles, chapters, offline.
+
+[00:02:06,103 --> 00:02:15,675]
+Human: accessibility, mobile, content, rights.
+
+[00:02:15,995 --> 00:02:29,017]
+External production: URLs, authentication, rate limits, and deployed resources, as evidenced by the online acceptance report.
+
+[00:02:29,337 --> 00:02:45,019]
+Try one step: Run python verify.py --browser and inspect every detail in verification.json. Do not treat summary.ok alone as complete acceptance.
+
+
+===== 18 Pending register, maintenance entry points, and next steps =====
+
+Meaning Intelligence
+Chapter: Pending register, maintenance entry points, and next steps
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: pending.mp3
+Duration: 151.441 seconds
+
+[00:00:00,000 --> 00:00:28,679]
+Chapter 18. Pending register, maintenance entry points, and next steps. This guide completes local build and automatically verifiable work. Canon upstream revisions, independent empirical studies, human accessibility, and rights confirmation remain pending. Production status for Git, Pages, and public MCP is established by external deployment and online acceptance reports.
+
+[00:00:28,999 --> 00:00:47,730]
+Maintenance starts in content.json; interface, chapters, figures, skills, downloads, and narration share one data source. The rebuild script writes only inside this directory and needs a source-root containing publication assets.
+
+[00:00:48,050 --> 00:01:10,895]
+After narration changes, regenerate MP3, SRT, VTT, transcripts, and the manifest. Never edit timings by hand. Preserve both language sources and captions when changing figures. Recompute bytes and SHA-256 after download changes.
+
+[00:01:11,215 --> 00:01:35,769]
+Priorities are: repair the canon master, preregister validation, confirm rights, run full-package acceptance, deploy under the existing authorization, then verify online. Git and Pages status are recorded in external reports. Record owner, date, and evidence for each step; never rewrite pending as completed.
+
+[00:01:36,089 --> 00:01:46,862]
+Verified: local files, media facts, bilingual runtime, hashes.
+
+[00:01:47,182 --> 00:01:55,969]
+Pending: canon master and independent empirical levels.
+
+[00:01:56,289 --> 00:02:07,082]
+Pending: human accessibility, mobile, expert narration review, and rights.
+
+[00:02:07,402 --> 00:02:18,854]
+External records: Git, Pages, public MCP configuration, and online acceptance.
+
+[00:02:19,174 --> 00:02:31,441]
+Try one step: Assign each pending item an owner and acceptance evidence. Update status only when evidence exists.
+

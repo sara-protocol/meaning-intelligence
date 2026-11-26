@@ -1,0 +1,460 @@
+{
+  "version": "1.1",
+  "generated": "2026-11-27",
+  "canon": "V7.0",
+  "files": [
+    {
+      "path": "assets/audio-web.mp3",
+      "label_zh": "中文有声读物（网页版）",
+      "label_en": "Chinese audio book (web)",
+      "kind": "音频 / Audio (Web)",
+      "category": "audio",
+      "language": "zh",
+      "bytes": 24111405,
+      "sha256": "79c8176f84f292042dc276d5e42211dd8e931d2277c6aa70da9a0c5bd2844032",
+      "web_derivative": true,
+      "replaces": "assets/audio.mp3"
+    },
+    {
+      "path": "assets_en/audio_en.mp3",
+      "label_zh": "英文有声读物",
+      "label_en": "English audio book",
+      "kind": "音频 / Audio",
+      "category": "audio",
+      "language": "en",
+      "bytes": 9045516,
+      "sha256": "79325d5cd6b34f5651562a75a76b2ce68456e2b0c5fdef98e4b790c156d37455"
+    },
+    {
+      "path": "download/Meaning_Intelligence_Audio_Book_v1.1_ZH-EN.epub",
+      "label_zh": "双语电子书",
+      "label_en": "Bilingual EPUB",
+      "kind": "电子书 / EPUB",
+      "category": "ebook",
+      "language": "bilingual",
+      "bytes": 105038,
+      "sha256": "dbeee7e107d0e500c34394e88ad4d2c222c4370294bac7a75e5f55bee247e61e"
+    },
+    {
+      "path": "download/Meaning_Intelligence_Audio_Book_v1.1_ZH.epub",
+      "label_zh": "中文电子书",
+      "label_en": "Chinese EPUB",
+      "kind": "电子书 / EPUB",
+      "category": "ebook",
+      "language": "zh",
+      "bytes": 95636,
+      "sha256": "3eb02e14276447e712e10c14ed612afcc3d9dc21169d7683cac257ee38c125c4"
+    },
+    {
+      "path": "download/Meaning_Intelligence_Audio_Book_v1.1_EN.epub",
+      "label_zh": "英文电子书",
+      "label_en": "English EPUB",
+      "kind": "电子书 / EPUB",
+      "category": "ebook",
+      "language": "en",
+      "bytes": 88180,
+      "sha256": "dc1047eb812f06fe4f34c9b06db5201eed038236edb4415dc64b6a160fd32bc5"
+    },
+    {
+      "path": "download/Meaning_Intelligence_Chinese_subtitles.srt",
+      "label_zh": "中文有声书字幕",
+      "label_en": "Chinese audio-book subtitles",
+      "kind": "字幕 / Subtitles",
+      "category": "subtitles",
+      "language": "zh",
+      "bytes": 56867,
+      "sha256": "9fdd385ebb61178d17133f023c69c11d2edb6eff1ed305fb40083855e82efd73"
+    },
+    {
+      "path": "download/Meaning_Intelligence_English_subtitles.srt",
+      "label_zh": "英文有声书字幕",
+      "label_en": "English audio-book subtitles",
+      "kind": "字幕 / Subtitles",
+      "category": "subtitles",
+      "language": "en",
+      "bytes": 25561,
+      "sha256": "9fede6dc0c9d90681afedcf3810b52c78d0af78c3e164ea79090e19561f4dc3c"
+    },
+    {
+      "path": "download/video/meaning_intelligence_zh.srt",
+      "label_zh": "中文发布视频字幕",
+      "label_en": "Chinese release-video subtitles",
+      "kind": "字幕 / Subtitles",
+      "category": "subtitles",
+      "language": "zh",
+      "bytes": 4172,
+      "sha256": "a4c0ad211b3e062d6249c2f224211b0251fd4939d1ccf8c7fc9bfb147b390372"
+    },
+    {
+      "path": "download/video/meaning_intelligence_zh.vtt",
+      "label_zh": "中文发布视频字幕",
+      "label_en": "Chinese release-video subtitles",
+      "kind": "字幕 / Subtitles",
+      "category": "subtitles",
+      "language": "zh",
+      "bytes": 4027,
+      "sha256": "8e7dec7cdf0f37dc1d195b814cd9097de198f078f2338f549b02758a9a4e1da4"
+    },
+    {
+      "path": "download/video/meaning_intelligence_en.srt",
+      "label_zh": "英文发布视频字幕",
+      "label_en": "English release-video subtitles",
+      "kind": "字幕 / Subtitles",
+      "category": "subtitles",
+      "language": "en",
+      "bytes": 4310,
+      "sha256": "d0c1099c8caf8882a02f512193b5dd7cc84667f4e3025737172e297a48ef8006"
+    },
+    {
+      "path": "download/video/meaning_intelligence_en.vtt",
+      "label_zh": "英文发布视频字幕",
+      "label_en": "English release-video subtitles",
+      "kind": "字幕 / Subtitles",
+      "category": "subtitles",
+      "language": "en",
+      "bytes": 4153,
+      "sha256": "f4d5e441ac0612c57ee86c7eda003e787cd8af9b6db8adc46ecf78f245f43f14"
+    },
+    {
+      "path": "subtitles.vtt",
+      "label_zh": "中文兼容字幕",
+      "label_en": "Chinese compatibility subtitles",
+      "kind": "字幕 / Subtitles",
+      "category": "subtitles",
+      "language": "zh",
+      "bytes": 56875,
+      "sha256": "a7675f8da8a279b44627afcaa1d37ae0e6c06beb7d99c85d9d63e8c95d1f6f3b"
+    },
+    {
+      "path": "download/video/narration_zh.txt",
+      "label_zh": "中文发布视频旁白稿",
+      "label_en": "Chinese release-video narration",
+      "kind": "旁白 / Narration",
+      "category": "narration",
+      "language": "zh",
+      "bytes": 3646,
+      "sha256": "e772f01a84bdf1be3caf0fa4a1e08c9a9ea19d78bf4f453bdb4d3d718a999793"
+    },
+    {
+      "path": "download/video/narration_en.txt",
+      "label_zh": "英文发布视频旁白稿",
+      "label_en": "English release-video narration",
+      "kind": "旁白 / Narration",
+      "category": "narration",
+      "language": "en",
+      "bytes": 3664,
+      "sha256": "460a59278b02ee9c340cfe440bd52486b0959cb835805b26d62154b193207152"
+    },
+    {
+      "path": "download/video/cover.jpg",
+      "label_zh": "发布视频封面",
+      "label_en": "Release-video cover",
+      "kind": "封面 / Cover",
+      "category": "cover",
+      "language": "bilingual",
+      "bytes": 391729,
+      "sha256": "726353d9fd8a1d680e4e6aaa55f9d18ad302783b35afa6bde03985b1de582bed"
+    },
+    {
+      "path": "download/video/chapter_manifest.json",
+      "label_zh": "发布视频章节清单",
+      "label_en": "Release-video chapter manifest",
+      "kind": "清单 / Manifest",
+      "category": "verification",
+      "language": "bilingual",
+      "bytes": 9911,
+      "sha256": "3c349b87b852655f4ad2ca84d46f52a3e4723e2822ad0d48b6b5db42a0904f2e"
+    },
+    {
+      "path": "download/video/build/verification.json",
+      "label_zh": "发布视频验证报告",
+      "label_en": "Release-video verification report",
+      "kind": "验证 / Verification",
+      "category": "verification",
+      "language": "und",
+      "bytes": 12349,
+      "sha256": "c98d4b5ab1ad210e8d22f49c4235a5cf1882ae1f449ecb1d4fc7fa9936ed53d0"
+    },
+    {
+      "path": "download/Meaning_Intelligence_White_Paper_v1.1_DOCX.docx",
+      "label_zh": "中英双语白皮书",
+      "label_en": "Bilingual white paper",
+      "kind": "文档 / DOCX",
+      "category": "document",
+      "language": "bilingual",
+      "bytes": 425836,
+      "sha256": "3736d1340f11e7c7af04798be559ee64f7efe4ecf4990b097302975e6eefe673"
+    },
+    {
+      "path": "download/Meaning_Intelligence_White_Paper_v1.1_PDF.pdf",
+      "label_zh": "中英双语白皮书",
+      "label_en": "Bilingual white paper",
+      "kind": "文档 / PDF",
+      "category": "document",
+      "language": "bilingual",
+      "bytes": 1467382,
+      "sha256": "bb2341e4dad40779e8c528bdd5a6c80972a60614adefdf89a15026d190d24330"
+    },
+    {
+      "path": "download/意义智能_讲课展示.pptx",
+      "label_zh": "讲课展示（含语音）",
+      "label_en": "Lecture deck with narration",
+      "kind": "演示 / PPTX",
+      "category": "presentation",
+      "language": "bilingual",
+      "bytes": 16755881,
+      "sha256": "c2aabf50c27c02c9a0e0ffd663f7237ca73d06c963879c1c412bf7b945e48846"
+    },
+    {
+      "path": "download/MSI演进视频讲解版.pptx",
+      "label_zh": "MSI 演进讲解（含语音）",
+      "label_en": "MSI evolution deck with narration",
+      "kind": "演示 / PPTX",
+      "category": "presentation",
+      "language": "bilingual",
+      "bytes": 3635838,
+      "sha256": "f81fb0ff0d0d0215282b3f0099630b11b46c5da03303197fe03bee4d56365bf4"
+    },
+    {
+      "path": "assets/video/MeaningIntelligenceScene.mp4",
+      "label_zh": "MSI 演进短视频",
+      "label_en": "MSI evolution video",
+      "kind": "视频 / Video",
+      "category": "video",
+      "language": "bilingual",
+      "bytes": 215609,
+      "sha256": "e10736a903eb86b4bdb3aab33d3701b4f85a0f692307ac469e0bf82770c45cbf"
+    },
+    {
+      "path": "download/Meaning_Intelligence_Source_v0.2.0.zip",
+      "label_zh": "可运行项目源代码",
+      "label_en": "Runnable project source code",
+      "kind": "代码 / Source",
+      "category": "source",
+      "language": "bilingual",
+      "bytes": 6968561,
+      "sha256": "e1e0b8463bf34f05f4a442dfe28d30ba4458b03851d4eed43b15c16a93b5a2e8"
+    },
+    {
+      "path": "assets/video/release/meaning_intelligence_zh-web.mp4",
+      "label_zh": "中文发布讲解视频（网页版）",
+      "label_en": "Chinese release explainer video (web)",
+      "kind": "视频 / Video (Web)",
+      "category": "video",
+      "language": "zh",
+      "bytes": 19240242,
+      "sha256": "acd4043dabf29a45c866bdc716a1a81ed69d978480dee069938b2fe1e5639c7b",
+      "web_derivative": true,
+      "replaces": "assets/video/release/meaning_intelligence_zh.mp4"
+    },
+    {
+      "path": "assets/video/release/meaning_intelligence_en-web.mp4",
+      "label_zh": "英文发布讲解视频（网页版）",
+      "label_en": "English release explainer video (web)",
+      "kind": "视频 / Video (Web)",
+      "category": "video",
+      "language": "en",
+      "bytes": 19107172,
+      "sha256": "7ff9c08c5b9e57972cfc8c733a515b6aa3b5eace1d1d5059a0fdf6b442ef7bfe",
+      "web_derivative": true,
+      "replaces": "assets/video/release/meaning_intelligence_en.mp4"
+    },
+    {
+      "path": "download/documents/意义智能_书稿勘误与补充说明_2026-11-26.docx",
+      "label_zh": "意义智能_书稿勘误与补充说明_2026-11-26",
+      "label_en": "意义智能_书稿勘误与补充说明_2026-11-26",
+      "kind": "文档 / Document",
+      "category": "document",
+      "language": "zh",
+      "bytes": 48747,
+      "sha256": "8b65ddd8fba0ce030c18958f88f527cc71f1ee2e46b4796a9da17170bd978983"
+    },
+    {
+      "path": "download/documents/意义智能_有声读物_发布指南与操作手册_v3.0.docx",
+      "label_zh": "意义智能_有声读物_发布指南与操作手册_v3.0",
+      "label_en": "意义智能_有声读物_发布指南与操作手册_v3.0",
+      "kind": "文档 / Document",
+      "category": "document",
+      "language": "bilingual",
+      "bytes": 49214,
+      "sha256": "1bbf4a84197d1e9cc603141acb882dc8725776379e4bc02e1fa05d785978595e"
+    },
+    {
+      "path": "download/documents/意义智能_有声读物_发布指南与操作手册_v3.0.pdf",
+      "label_zh": "意义智能_有声读物_发布指南与操作手册_v3.0",
+      "label_en": "意义智能_有声读物_发布指南与操作手册_v3.0",
+      "kind": "文档 / Document",
+      "category": "document",
+      "language": "bilingual",
+      "bytes": 695546,
+      "sha256": "d456312cc5f3314dee623dee53b7d343e82720d3e67e1f3542480ffa5c39642f"
+    },
+    {
+      "path": "download/documents/意义智能_附件衍生更新版_2026-11-26.docx",
+      "label_zh": "意义智能_附件衍生更新版_2026-11-26",
+      "label_en": "意义智能_附件衍生更新版_2026-11-26",
+      "kind": "文档 / Document",
+      "category": "document",
+      "language": "zh",
+      "bytes": 404073,
+      "sha256": "de523b1676e5389653f8b15055bc6e678470d5ebdf65acdf122577b5b4b36025"
+    },
+    {
+      "path": "download/documents/意义智能_项目审查与优化报告_2026-11-26.docx",
+      "label_zh": "意义智能_项目审查与优化报告_2026-11-26",
+      "label_en": "意义智能_项目审查与优化报告_2026-11-26",
+      "kind": "文档 / Document",
+      "category": "document",
+      "language": "zh",
+      "bytes": 50745,
+      "sha256": "60f5fc9c060b1d46be3eeac546ceb1b6493433bb5e616577d7182fd236bd3e6c"
+    },
+    {
+      "path": "download/documents/意义智能_项目审查与优化报告_2026-11-26.md",
+      "label_zh": "意义智能_项目审查与优化报告_2026-11-26",
+      "label_en": "意义智能_项目审查与优化报告_2026-11-26",
+      "kind": "文档 / Document",
+      "category": "document",
+      "language": "zh",
+      "bytes": 15229,
+      "sha256": "5814266e402111debb49a1d79a9b58e46c6b59872b3b25da8cf8eb5c6e972b53"
+    },
+    {
+      "path": "download/documents/意义智能_项目审查与优化报告_2026-11-26.pdf",
+      "label_zh": "意义智能_项目审查与优化报告_2026-11-26",
+      "label_en": "意义智能_项目审查与优化报告_2026-11-26",
+      "kind": "文档 / Document",
+      "category": "document",
+      "language": "zh",
+      "bytes": 759821,
+      "sha256": "89921b0e09bad48b3fcc9c071e033386c420a64a35697ba8d2e55e0a357575d7"
+    },
+    {
+      "path": "download/documents/意义智能_书稿勘误与补充说明_2026-11-26.pdf",
+      "label_zh": "意义智能_书稿勘误与补充说明_2026-11-26",
+      "label_en": "意义智能_书稿勘误与补充说明_2026-11-26",
+      "kind": "文档 / Document",
+      "category": "document",
+      "language": "zh",
+      "bytes": 708776,
+      "sha256": "11e6bb045e180b551412c8be73e36d5996e7e5fb0d71348a0a062987c7b3e3af"
+    },
+    {
+      "path": "download/documents/意义智能_附件衍生更新版_2026-11-26.pdf",
+      "label_zh": "意义智能_附件衍生更新版_2026-11-26",
+      "label_en": "意义智能_附件衍生更新版_2026-11-26",
+      "kind": "文档 / Document",
+      "category": "document",
+      "language": "zh",
+      "bytes": 1500505,
+      "sha256": "3eec0c5fbee3b427cc056ee7e79da0c2949b4bfeee508350065e3fbc9f951865"
+    },
+    {
+      "path": "download/documents/意义智能有声读物_发布指南与操作手册.md",
+      "label_zh": "意义智能有声读物_发布指南与操作手册",
+      "label_en": "意义智能有声读物_发布指南与操作手册",
+      "kind": "文档 / Document",
+      "category": "document",
+      "language": "bilingual",
+      "bytes": 13938,
+      "sha256": "06d86691e0c44c14734110737187ea670c832bf6055a3e2e40e0d4a60284108e"
+    },
+    {
+      "path": "project-guide/index.html",
+      "label_zh": "双语图文音频项目说明书",
+      "label_en": "Bilingual illustrated audio project guide",
+      "kind": "指南 / Guide",
+      "category": "guide",
+      "language": "bilingual",
+      "bytes": 9631,
+      "sha256": "1b3f55157c35abf34f5f17e3cbb939249c0f21fc58b02e06335abd871d525028"
+    },
+    {
+      "path": "project-guide/downloads/project-guide-bilingual.pdf",
+      "label_zh": "项目说明书 PDF",
+      "label_en": "Project guide PDF",
+      "kind": "指南 / Guide",
+      "category": "guide",
+      "language": "bilingual",
+      "bytes": 621303,
+      "sha256": "4ad921d66bf6dcb07cd08410058d729f3a6d3fca1ab231630d16c5032efb4f82"
+    },
+    {
+      "path": "project-guide/downloads/project-guide-bilingual.docx",
+      "label_zh": "项目说明书 Word",
+      "label_en": "Project guide Word document",
+      "kind": "指南 / Guide",
+      "category": "guide",
+      "language": "bilingual",
+      "bytes": 50403,
+      "sha256": "e72572e56055a2273669e3a5f426421f5ce28d9aee16485f809be473058d2382"
+    },
+    {
+      "path": "project-guide/downloads/guide-narration-zh-web.mp3",
+      "label_zh": "项目说明书中文音频（网页版）",
+      "label_en": "Chinese project-guide narration (web)",
+      "kind": "音频 / Audio (Web)",
+      "category": "audio",
+      "language": "zh",
+      "bytes": 20181549,
+      "sha256": "25a04cf8fc47fb36c7c84e2b7956f65a7b059873a8ed750d82648c7ef32c7712",
+      "web_derivative": true,
+      "replaces": "project-guide/downloads/guide-narration-zh.mp3"
+    },
+    {
+      "path": "project-guide/downloads/guide-narration-en-web.mp3",
+      "label_zh": "项目说明书英文音频（网页版）",
+      "label_en": "English project-guide narration (web)",
+      "kind": "音频 / Audio (Web)",
+      "category": "audio",
+      "language": "en",
+      "bytes": 17462829,
+      "sha256": "4d01fca6f65dcd01af32cae07c0bc5194fe28aa75704ded6cf28b02f2a93a3d9",
+      "web_derivative": true,
+      "replaces": "project-guide/downloads/guide-narration-en.mp3"
+    },
+    {
+      "path": "download/verification.json",
+      "label_zh": "交付构建验证报告",
+      "label_en": "Delivery build verification report",
+      "kind": "验证 / Verification",
+      "category": "verification",
+      "language": "und",
+      "bytes": 7270,
+      "sha256": "662cb49e45c4e391868a89e3690aa27f39a2209e92be4269ddb2d43980b55678"
+    },
+    {
+      "path": "publication-browser-check.json",
+      "label_zh": "发布页真实浏览器检查",
+      "label_en": "Publication real-browser check",
+      "kind": "验证 / Verification",
+      "category": "verification",
+      "language": "und",
+      "bytes": 4723,
+      "sha256": "d47ba03b7045ab759385f9932b069661ce8dec54b7b13ba0677dd4e3be5bb363"
+    },
+    {
+      "path": "web-media-verification.json",
+      "label_zh": "流媒体派生验证",
+      "label_en": "Streaming-media derivative verification",
+      "kind": "验证 / Verification",
+      "category": "verification",
+      "language": "und",
+      "bytes": 1970,
+      "sha256": "84ffe0188073556d9d48252d5ba9c6bb18b84ea79d4dbbb1e95b02ecfea2ea48"
+    }
+  ],
+  "deployment": {
+    "schema": "meaning-intelligence-deployment-manifest-v1",
+    "kind": "cloudflare-pages",
+    "max_file_bytes": 26214400,
+    "complete_package_included": false,
+    "web_derivatives": [
+      "assets/audio-web.mp3",
+      "assets/video/release/meaning_intelligence_zh-web.mp4",
+      "assets/video/release/meaning_intelligence_en-web.mp4",
+      "project-guide/downloads/guide-narration-zh-web.mp3",
+      "project-guide/downloads/guide-narration-en-web.mp3"
+    ]
+  }
+}

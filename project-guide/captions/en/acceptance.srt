@@ -1,0 +1,35 @@
+1
+00:00:00,000 --> 00:00:26,894
+Chapter 17. Automated checks, browser acceptance, and criteria. Acceptance covers file presence, structure, hashes, media streams, caption timelines, document containers, language switching, playback, and downloads. An automated pass is not a human accessibility, mobile, or production pass.
+
+2
+00:00:27,214 --> 00:00:53,989
+verify.py checks 18 chapters, 36 chapter audio files, 72 SRT/VTT files, 36 transcripts, figure and download paths, manifest hashes, codecs and durations, monotonic caption timing, PDF/DOCX/EPUB/ZIP containers, JavaScript syntax, and browser self-tests.
+
+3
+00:00:54,309 --> 00:01:16,279
+Browser self-tests run in headless Chrome/Edge and switch languages while checking body text, navigation, captions, download labels, audio source, track language, speed, progress, current subtitle, chapter changes, and external network requests.
+
+4
+00:01:16,599 --> 00:01:41,933
+Human acceptance still covers keyboard order, visible focus, screen readers, mobile width, print output, Windows high contrast, narration quality, publication rights, and production endpoints. Unperformed items remain pending in verification.json; external release results are recorded in deployment and online acceptance reports.
+
+5
+00:01:42,253 --> 00:01:53,720
+Automated: structure, media, hashes, captions, containers, syntax.
+
+6
+00:01:54,040 --> 00:02:05,783
+Browser: switching, playback, progress, subtitles, chapters, offline.
+
+7
+00:02:06,103 --> 00:02:15,675
+Human: accessibility, mobile, content, rights.
+
+8
+00:02:15,995 --> 00:02:29,017
+External production: URLs, authentication, rate limits, and deployed resources, as evidenced by the online acceptance report.
+
+9
+00:02:29,337 --> 00:02:45,019
+Try one step: Run python verify.py --browser and inspect every detail in verification.json. Do not treat summary.ok alone as complete acceptance.

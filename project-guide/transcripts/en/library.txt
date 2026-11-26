@@ -1,0 +1,33 @@
+Meaning Intelligence
+Chapter: Ebooks, audio, video, and download governance
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: library.mp3
+Duration: 157.201 seconds
+
+[00:00:00,000 --> 00:00:28,589]
+Chapter 14. Ebooks, audio, video, and download governance. Publication assets include the bilingual white paper, three EPUB interpretation ebooks, older Chinese and English audiobooks, lecture and MSI decks, MSI video, runnable source, and a download manifest. Every asset needs a version, language, purpose, and limitation.
+
+[00:00:28,909 --> 00:00:54,404]
+This guide bundles the white paper DOCX/PDF, three EPUBs, the 43.433-second MSI video, two PPTX decks, v0.2.0 source, and this guide's DOCX. Chapter audio, SRT/VTT, and transcripts are downloadable from the player.
+
+[00:00:54,724 --> 00:01:19,014]
+The EPUBs are audio-reading interpretations, not the full canon or substitutes for the white paper. Older audiobooks and this guide's narration are separate assets; never mix their captions or timelines. After replacing media, re-probe duration, streams, codecs, bytes, and SHA-256.
+
+[00:01:19,334 --> 00:01:42,109]
+The download manifest uses relative paths and rejects absolute paths, .., and symlink escapes. EPUB checks include mimetype, META-INF/container.xml, OPF manifest/spine, and XHTML anchors. A ZIP must be inspected beyond its header.
+
+[00:01:42,429 --> 00:01:51,237]
+Documents: white paper v1.1 and guide DOCX.
+
+[00:01:51,557 --> 00:02:00,774]
+Ebooks: Chinese, English, and bilingual EPUB.
+
+[00:02:01,094 --> 00:02:11,622]
+Media: 43.433-second MSI and per-chapter bilingual audio.
+
+[00:02:11,942 --> 00:02:22,239]
+Source and decks: v0.2.0 ZIP and two PPTX files.
+
+[00:02:22,559 --> 00:02:37,201]
+Try one step: Open manifest.json, recompute SHA-256 and bytes for any three files, and inspect video and audio streams with ffprobe.

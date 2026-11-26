@@ -1,0 +1,188 @@
+{
+  "schema": "meaning-intelligence-release-video-manifest-v2",
+  "title": "意义智能 / Meaning Intelligence — Illustrated Explainer",
+  "language": "zh-CN / en-US",
+  "languages": [
+    "zh-CN",
+    "en-US"
+  ],
+  "duration_seconds": 164.010667,
+  "chapter_count": 12,
+  "chapters": [
+    {
+      "number": 1,
+      "start": 0,
+      "end": 11,
+      "title_zh": "意义智能",
+      "title_en": "Meaning Intelligence",
+      "duration_seconds": 11,
+      "narration_zh": "如果智能越来越强， 我们为什么仍会走到不想去的方向？ 接下来，用一次短片，理解意义智能 它不替代能力，而是追问能力该去向哪里。",
+      "cue_count_zh": 3,
+      "narration_en": "If intelligence grows stronger, why can we still move toward a future we do not want? This short film introduces Meaning Intelligence. It does not replace capability. It asks where capability should lead.",
+      "cue_count_en": 4
+    },
+    {
+      "number": 2,
+      "start": 11,
+      "end": 23,
+      "title_zh": "能力与值得性",
+      "title_en": "Capability vs. Worth",
+      "duration_seconds": 12,
+      "narration_zh": "我们擅长回答，怎么做。 意义智能追问的是，为什么做，为谁做， 在多大尺度上做。 它研究的是方向性判断， 而不是又一种与智商并列的能力。",
+      "cue_count_zh": 3,
+      "narration_en": "We are good at asking how. Meaning Intelligence asks why, for whom, and at what scale. It studies directional judgment, not another ability ranked alongside intelligence quotients.",
+      "cue_count_en": 3
+    },
+    {
+      "number": 3,
+      "start": 23,
+      "end": 36,
+      "title_zh": "“意义”的含义",
+      "title_en": "What “Meaning” Means",
+      "duration_seconds": 13,
+      "narration_zh": "在书稿的框架里， 意义被理解为行动与更大系统之间的值得性关系。 它不只是主观感觉，也要说明对象、方向和边界。 任何判断都不完整，因此需要持续修正。",
+      "cue_count_zh": 3,
+      "narration_en": "In the book's framework, meaning is a worthwhile relation between action and a larger system. It is more than a feeling. A judgment names direction, value, and boundary, and remains open to revision.",
+      "cue_count_en": 3
+    },
+    {
+      "number": 4,
+      "start": 36,
+      "end": 49,
+      "title_zh": "意义势能",
+      "title_en": "Meaning Potential",
+      "duration_seconds": 13,
+      "narration_zh": "意义势能描述当前状态与理想方向之间的价值距离。 它不是幸福分数，也不是成功概率， 而是一种随新信息更新的动态量。 我们用它组织问题， 而不是宣称它已经得到充分验证。",
+      "cue_count_zh": 3,
+      "narration_en": "Meaning potential describes the value distance between the present state and an ideal direction. It is not a happiness score or a probability of success. It is dynamic, and still a construct to test.",
+      "cue_count_en": 3
+    },
+    {
+      "number": 5,
+      "start": 49,
+      "end": 63,
+      "title_zh": "意义智能运行机制",
+      "title_en": "The MI Engine",
+      "duration_seconds": 14,
+      "narration_zh": "书稿中的运行机制可以概括为三模块： 感知、判断、行动 以及四流程：识别、评估、决策、反馈。 它们不是各自孤立的盒子， 而是同一个螺旋循环的不同阶段。",
+      "cue_count_zh": 3,
+      "narration_en": "The book's mechanism has three modules: perception, judgment, and action and four processes: identification, evaluation, decision, and feedback. They are phases of one spiral cycle, not isolated boxes.",
+      "cue_count_en": 3
+    },
+    {
+      "number": 6,
+      "start": 63,
+      "end": 79,
+      "title_zh": "可运行的智能体",
+      "title_en": "A Runnable Agent",
+      "duration_seconds": 16,
+      "narration_zh": "可运行的智能体让这套机制进入具体场景：接收信号 解释情境，提出方向建议，交由人确认， 再观察结果。 关键决策可追溯，人保有最终否决权。 这是工程设计，不是效果证明。",
+      "cue_count_zh": 4,
+      "narration_en": "A runnable agent puts the mechanism into context. It receives signals, interprets the situation, proposes a direction, asks for human confirmation, and monitors results. Critical choices remain traceable and vetoable. That is design, not proof of effectiveness.",
+      "cue_count_en": 4
+    },
+    {
+      "number": 7,
+      "start": 79,
+      "end": 99,
+      "title_zh": "六层工程栈",
+      "title_en": "The Six-Layer Stack",
+      "duration_seconds": 20,
+      "narration_zh": "六层栈从减负、可体验， 到意义生成、价值评估、方向选择和反思递归。 请注意：它是本项目提出的E0工程扩展 不是正典的固定层次，也尚未经过独立检验。 工程L1到L6，也不等同于正典L1到L3。",
+      "cue_count_zh": 4,
+      "narration_en": "The six-layer stack moves from reducing load to experiencing generating meaning, assessing value, choosing direction, and recursive review. It is an E-zero engineering extension, not fixed canon, and not independently tested. Its one-to-six labels are not the canon's one-to-three labels.",
+      "cue_count_en": 4
+    },
+    {
+      "number": 8,
+      "start": 99,
+      "end": 113,
+      "title_zh": "五尺度导航",
+      "title_en": "Five-Scale Navigation",
+      "duration_seconds": 14,
+      "narration_zh": "意义判断跨越五个尺度： 个人、组织、城市、国家和人类文明。 不同尺度有不可相互还原的意义逻辑。 协调不是简单加权平均；发生冲突时， 要回到元意义方向重新校准。",
+      "cue_count_zh": 3,
+      "narration_en": "Meaning judgment spans five scales: individual, organization, city, nation, and civilization. Their meaning logics cannot be reduced to one another. Coordination is not a weighted average; conflict calls for recalibration from the meta-meaning level.",
+      "cue_count_en": 3
+    },
+    {
+      "number": 9,
+      "start": 113,
+      "end": 126,
+      "title_zh": "方向、价值、边界",
+      "title_en": "Direction, Value, Boundary",
+      "duration_seconds": 13,
+      "narration_zh": "完整的方向判断还要同时说明：方向，价值，边界。 如果只看收益，可能忽略关系代价；如果只看当下， 可能忘记长期影响。 边界不是限制想象，而是让选择可以被审视。",
+      "cue_count_zh": 3,
+      "narration_en": "A complete directional judgment names direction, value, and boundary. Looking only at gains can hide relational costs. Looking only at now can forget long-term effects. Boundaries make choices open to scrutiny.",
+      "cue_count_en": 4
+    },
+    {
+      "number": 10,
+      "start": 126,
+      "end": 140,
+      "title_zh": "主动归零",
+      "title_en": "Active Zeroing",
+      "duration_seconds": 14,
+      "narration_zh": "当既有意义结构失效，主动归零不是放弃， 而是有意识地重设关键前提。 反思的结果回写到下一轮输入 让循环不是原地打转，而是带着修正继续上升。",
+      "cue_count_zh": 3,
+      "narration_en": "When a meaning structure fails, active zeroing is not surrender. It deliberately resets key premises. Reflection rewrites the next cycle's input so the loop does not repeat unchanged; it continues with revision.",
+      "cue_count_en": 4
+    },
+    {
+      "number": 11,
+      "start": 140,
+      "end": 153,
+      "title_zh": "意义自检",
+      "title_en": "A Meaning Self-Check",
+      "duration_seconds": 13,
+      "narration_zh": "你可以从一个问题开始：我正在做的事，值得吗？ 为谁值得？ 边界在哪里？ 写下证据，也写下不确定性。 意义智能不提供唯一正确答案， 它提供的是一套更清醒的提问方式。",
+      "cue_count_zh": 5,
+      "narration_en": "Begin with three questions: Is what I am doing worthwhile? For whom? Within what boundary? Write down the evidence and the uncertainty. Meaning Intelligence offers no single right answer, only a clearer way to ask.",
+      "cue_count_en": 5
+    },
+    {
+      "number": 12,
+      "start": 153,
+      "end": 164,
+      "title_zh": "迈向值得的方向",
+      "title_en": "Toward What Is Worthwhile",
+      "duration_seconds": 11,
+      "narration_zh": "让每一次收敛，都朝着值得的方向。 理解意义智能，不是把世界压缩成一个结论 而是保有判断、修正与停止的勇气。 谢谢观看。",
+      "cue_count_zh": 4,
+      "narration_en": "May every convergence move toward what is worthwhile. Understanding Meaning Intelligence is not forcing the world into one conclusion. It is keeping the courage to judge, revise, and stop. Thank you.",
+      "cue_count_en": 4
+    }
+  ],
+  "videos": [
+    {
+      "language": "zh",
+      "path": "meaning_intelligence_zh.mp4",
+      "sha256": "a4de33c434daf16d727b1f5ab12ed65d0b19eacb0aad0e93f07475d96b5a535d",
+      "size_bytes": 68106321
+    },
+    {
+      "language": "en",
+      "path": "meaning_intelligence_en.mp4",
+      "sha256": "c225ad9cb95b555774ea7dfda2a1e08661de7c9467743359847efd6acfe209d3",
+      "size_bytes": 68106326
+    }
+  ],
+  "subtitles": {
+    "zho": {
+      "srt": "subtitles.zh.srt",
+      "vtt": "subtitles.zh.vtt"
+    },
+    "eng": {
+      "srt": "subtitles.en.srt",
+      "vtt": "subtitles.en.vtt"
+    }
+  },
+  "narration": {
+    "zho": "narration_zh.txt",
+    "eng": "narration_en.txt"
+  },
+  "build_command": "python build_video.py --verify-release",
+  "generated_at_utc": "2026-11-26T20:53:45.729153+00:00",
+  "verification": "build/verification.json"
+}

@@ -1,0 +1,33 @@
+Meaning Intelligence
+Chapter: Security, privacy, licensing, and minimal exposure
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: security.mp3
+Duration: 159.385 seconds
+
+[00:00:00,000 --> 00:00:27,744]
+Chapter 16. Security, privacy, licensing, and minimal exposure. Security boundaries include loopback binding, fixed resource allowlists, input redaction, body caps, strict JSON, CSP, frame denial, same-origin assets, authentication, Origin allowlists, and rate limiting. Public exposure requires additional review.
+
+[00:00:28,064 --> 00:00:53,994]
+Local Web binds to 127.0.0.1 and validates Host/Origin; static assets use a fixed allowlist, with no arbitrary file read, path parameter, shell, or command API. Input and context redact common secrets, errors are sanitized, analyses are not stored, and access logs are disabled.
+
+[00:00:54,314 --> 00:01:17,804]
+A public MCP token lives only in deployment secrets and must never enter frontend code, logs, documents, manifests, test snapshots, or commits. Origins use an exact allowlist, not a wildcard. Proxy deployments also need trusted client identification and rate limiting.
+
+[00:01:18,124 --> 00:01:43,164]
+Code uses the MIT license and documentation uses the project's LICENSE-DOCS. Confirm publication rights for audio, scripts, figures, decks, and downloads before release. Pages should identify themselves as audio interpretations, not full book text, and state copyright ownership.
+
+[00:01:43,484 --> 00:01:52,301]
+Loopback, read-only, and no storage by default.
+
+[00:01:52,621 --> 00:02:01,759]
+Credentials belong only in environment secrets, never content.
+
+[00:02:02,079 --> 00:02:11,197]
+Limit bodies, fields, paths, origins, and request rates.
+
+[00:02:11,517 --> 00:02:22,699]
+Before public exposure: TLS, authentication, rate limits, human approval.
+
+[00:02:23,019 --> 00:02:39,385]
+Try one step: Use a fictitious token for rejection tests and confirm errors never echo it. Inspect frontend code, logs, manifests, and downloads for real credentials.

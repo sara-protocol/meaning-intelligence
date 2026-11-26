@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="离线可用的项目导航、正典边界、工程栈、智能体、只读 MCP、媒体与发布验收手册。">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="dark light">
+  <title>Meaning Intelligence / 意义智能</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+  <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Meaning Intelligence">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20"></circle><path d="M24 7v31M8 24h31M24 11l5 13-5 13-5-13z"></path></svg>
+      <span class="brand-copy"><strong id="brand-title">Meaning Intelligence</strong><small id="brand-sub">Project guide</small></span>
+    </a>
+    <nav class="topnav" aria-label="Primary" id="topnav">
+      <a href="#contents" data-i18n="contents">Contents</a>
+      <a href="#listen" data-i18n="listen">Listen</a>
+      <a href="#downloads" data-i18n="downloads">Downloads</a>
+      <a href="#verification" data-i18n="verification">Verification</a>
+    </nav>
+    <div class="language-control">
+      <span class="sr-only" id="language-label" data-i18n="languageLabel">Language</span>
+      <button type="button" id="language-toggle" class="language-toggle" aria-labelledby="language-label language-toggle"><span id="language-toggle-text">English</span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow" id="hero-eyebrow"></p>
+        <h1 id="hero-title"></h1>
+        <p class="hero-subtitle" id="hero-subtitle"></p>
+        <p class="hero-description" id="hero-description"></p>
+        <div class="hero-actions">
+          <a class="button primary" href="#contents" id="start-reading" data-i18n="startReading">Start reading</a>
+          <button class="button secondary" type="button" id="start-listening" data-i18n="startListening">Play chapter 1</button>
+        </div>
+        <div class="chip-row" id="hero-chips"></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 560 470" role="img">
+          <defs>
+            <radialGradient id="halo"><stop offset="0" stop-color="#18c8d8" stop-opacity=".22"></stop><stop offset="1" stop-color="#18c8d8" stop-opacity="0"></stop></radialGradient>
+            <linearGradient id="spectrum" x1="0" x2="1"><stop stop-color="#62d9e8"></stop><stop offset=".5" stop-color="#b69cf6"></stop><stop offset="1" stop-color="#f1bd62"></stop></linearGradient>
+          </defs>
+          <circle cx="290" cy="235" r="215" fill="url(#halo)"></circle>
+          <circle cx="290" cy="235" r="152" class="orbit"></circle>
+          <circle cx="290" cy="235" r="104" class="orbit"></circle>
+          <path d="M290 48v374M103 235h374" class="axis"></path>
+          <path d="M290 62l38 173-38 173-38-173z" class="rudder"></path>
+          <circle cx="290" cy="235" r="17" class="hub"></circle>
+          <rect x="82" y="357" width="416" height="12" rx="6" fill="url(#spectrum)"></rect>
+          <g class="hero-labels"><text x="290" y="43" text-anchor="middle">V7.0</text><text x="505" y="240">E0–E6</text><text x="290" y="405" text-anchor="middle">L1–L6</text><text x="76" y="240" text-anchor="end">M1–M3</text></g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="player-section section" id="listen" aria-labelledby="player-title">
+      <div class="section-heading">
+        <div><p class="eyebrow" data-i18n="listen">Listen</p><h2 id="player-title" data-i18n="playerTitle"></h2></div>
+        <span class="offline-badge" data-i18n="offline"></span>
+      </div>
+      <p class="section-intro" data-i18n="playerIntro"></p>
+      <div class="player-card">
+        <div class="player-select-row">
+          <label for="chapter-select" data-i18n="chapter"></label>
+          <select id="chapter-select"></select>
+        </div>
+        <div class="player-main">
+          <div class="transport">
+            <button type="button" id="previous-chapter" class="icon-button" aria-label="Previous chapter"><span aria-hidden="true">‹</span></button>
+            <button type="button" id="play-pause" class="play-button" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg></button>
+            <button type="button" id="next-chapter" class="icon-button" aria-label="Next chapter"><span aria-hidden="true">›</span></button>
+          </div>
+          <div class="timeline">
+            <div class="time-row"><span id="elapsed">00:00</span><span id="player-status"></span><span id="duration">00:00</span></div>
+            <label class="sr-only" for="progress" data-i18n="progress"></label>
+            <input id="progress" type="range" min="0" max="100" step="0.1" value="0" aria-valuetext="00:00">
+          </div>
+          <div class="player-options">
+            <label for="speed" data-i18n="speed"></label>
+            <select id="speed"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
+            <label for="volume" data-i18n="volume"></label>
+            <input id="volume" type="range" min="0" max="1" step="0.05" value="0.9">
+            <button type="button" id="toggle-subtitles" class="subtitle-toggle" aria-pressed="true"></button>
+          </div>
+        </div>
+        <div class="subtitle-box" id="subtitle-box">
+          <span class="subtitle-label" data-i18n="currentSubtitle"></span>
+          <p id="current-subtitle" aria-live="polite"></p>
+        </div>
+        <audio id="narration" preload="metadata"></audio>
+        <div class="player-footer">
+          <p class="audio-note" data-i18n="syntheticAudio"></p>
+          <div class="player-downloads" id="player-downloads"></div>
+        </div>
+        <details class="transcript" id="transcript-details">
+          <summary data-i18n="transcript"></summary>
+          <div id="transcript-content"></div>
+        </details>
+      </div>
+      <p class="keyboard-hint" data-i18n="keyboardHint"></p>
+    </section>
+
+    <div class="content-layout">
+      <aside class="sidebar" aria-labelledby="nav-title">
+        <div class="sidebar-heading"><h2 id="nav-title" data-i18n="navTitle"></h2><p data-i18n="navIntro"></p></div>
+        <label class="sr-only" for="chapter-search" data-i18n="searchPlaceholder"></label>
+        <input id="chapter-search" type="search" autocomplete="off">
+        <nav id="chapter-nav" aria-label="Chapters"></nav>
+      </aside>
+
+      <section class="chapters-section" id="contents" aria-labelledby="chapters-title">
+        <div class="section-heading"><div><p class="eyebrow" data-i18n="contents"></p><h2 id="chapters-title" data-i18n="chaptersTitle"></h2></div></div>
+        <p class="section-intro" data-i18n="chaptersIntro"></p>
+        <div id="chapters"></div>
+        <p id="no-results" class="no-results" hidden data-i18n="noResults"></p>
+      </section>
+    </div>
+
+    <section class="downloads-section section" id="downloads" aria-labelledby="downloads-title">
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="downloads"></p><h2 id="downloads-title" data-i18n="downloadsTitle"></h2></div><span class="offline-badge" data-i18n="offline"></span></div>
+      <p class="section-intro" data-i18n="downloadsIntro"></p>
+      <div class="download-grid" id="download-grid"></div>
+      <div class="narration-bundles" id="narration-bundles"></div>
+    </section>
+
+    <section class="verification-section section" id="verification" aria-labelledby="verification-title">
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="verification"></p><h2 id="verification-title" data-i18n="verificationTitle"></h2></div></div>
+      <p class="section-intro" data-i18n="verificationIntro"></p>
+      <div class="proof-grid" id="proof-grid"></div>
+      <a class="button secondary" id="verification-report" href="verification.json" download data-i18n="openReport"></a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p id="footer-note"></p>
+    <p><span id="footer-generated"></span> · <span id="footer-version"></span></p>
+    <a href="#top" data-i18n="backToTop"></a>
+  </footer>
+
+  <dialog id="figure-dialog" aria-labelledby="figure-dialog-title">
+    <div class="dialog-header"><h2 id="figure-dialog-title" data-i18n="figureDialog"></h2><button type="button" id="close-figure" class="button secondary" data-i18n="closeFigure"></button></div>
+    <div id="figure-dialog-content"></div>
+  </dialog>
+  <div class="sr-only" id="announcer" aria-live="polite"></div>
+  <pre id="selftest-results" hidden></pre>
+  <script src="content.js"></script>
+  <script src="verification.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

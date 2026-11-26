@@ -1,0 +1,17 @@
+[00:00:00,000] Chapter 13。White paper v1.1, Claim Registry, and boundaries。White paper v1.1 is a bilingual application-layer summary with 22 pages, 9 tables, and 3 figures. It summarizes 12 claims and adds a construct-boundary figure; detailed tests and failure conditions remain governed by repository documents.
+
+[00:00:21,511] Compared with v1.0, v1.1 adds a construct-boundary chapter, a third figure, and a Claim Registry summary table, growing from 19 to 22 pages. Counts were verified from the actual PDF and DOCX structures, not estimated by hand.
+
+[00:00:37,842] MI-C001 through MI-C012 cover definition, meta-layer relation, three dimensions, spectrum, multi-scale coordination, recursive review, and layer effects. New claims start at MI-C100; existing IDs are never renumbered, and withdrawn claims keep their IDs.
+
+[00:00:55,493] The white paper does not replace the canon. Theoretical citations return to canon sections, H1–H18, or Appendix D.7. Engineering citations need a claim ID, evidence level, status, and failure condition. The boundary map distinguishes this directional-regulation construct from same-named fields without claiming exclusivity.
+
+[00:01:16,763] 22 pages: actual PDF page count.
+
+[00:01:20,727] 9 tables: actual DOCX table count.
+
+[00:01:24,176] 3 figures: actual DOCX inline-shape count.
+
+[00:01:28,065] 12 claims: summary; detailed governance in docs/claims.md.
+
+[00:01:33,604] Try one step: Select one white-paper statement, trace it to a claim ID, and inspect its canon link, evidence level, claim status, and failure condition.

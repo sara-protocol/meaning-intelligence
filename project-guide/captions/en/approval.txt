@@ -1,0 +1,17 @@
+[00:00:00,000] Chapter 10。Human approval gate and the no-execution rule。Any action affecting an external system defaults to approval.status=pending. Approval records a human decision only; approval.execution_authorized is always false, and the tool executes no decisions, commands, or file operations.
+
+[00:00:19,475] The approval record contains status, human_required, recorded_from, execution_authorized, and a note. Default pending comes from the system; approved or rejected must come from explicit human input. A state change does not turn the analyzer into an executor.
+
+[00:00:37,576] Revision invalidates old approval. When review detects material feedback, replaced text, or revision_required, revised_analysis.approval returns to pending. This prevents approval of an old version from silently authorizing a new one.
+
+[00:00:52,808] High-risk domains call for professional review. Recursive review does not prove impartiality, truth, or safety and does not replace legal, medical, psychological, security, or governance judgment. Silence is not neutrality, and heterogeneous harms cannot be converted into one score.
+
+[00:01:10,854] Default: pending.
+
+[00:01:13,138] Human decision: approved or rejected.
+
+[00:01:16,312] Execution authorization: always false.
+
+[00:01:19,771] After revision: approval resets.
+
+[00:01:22,890] Try one step: Create a review from an approved analysis, replace the text, and confirm the new result returns to pending with execution.performed=false.

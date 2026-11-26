@@ -1,0 +1,17 @@
+[00:00:00,000] Chapter 8。Six agent skills and the registry contract。meaning-agent's engine.py orchestrates six deterministic skills, with skills/registry.py as the sole registry. Each skill envelope includes name, description, layer, input, output, status, clarification needs, and data.
+
+[00:00:20,846] The registered names are reduce-cognitive-load, model-experiential-interface, map-direction-value-boundary, grade-evidence-falsification, calibrate-five-scales, and recursive-review-zeroing. Names and layer IDs must stay aligned across the registry, skill documents, tests, and MCP catalog.
+
+[00:00:37,857] L1 retains unverified markers; L2 only suggests local display behavior; L3 never chooses for a human; L4 never asserts empirical status; L5 forbids weighted summation; L6 allows at most three review passes and never deletes data or executes actions.
+
+[00:00:54,208] Skill outputs are structured drafts, not fact-checking, psychometrics, legal advice, or safety certification. Missing material produces needs_clarification. An optional LLM can only suggest unverified language; it cannot alter deterministic skills, evidence levels, scale aggregation, or approval.
+
+[00:01:14,529] Single registry entry: skills/registry.py.
+
+[00:01:18,727] Single orchestration entry: engine.py.
+
+[00:01:22,501] Six SKILL.md files: reusable input/output and boundary contracts.
+
+[00:01:28,385] Every output must trace to a layer, source, and limitation.
+
+[00:01:32,489] Try one step: In tests, iterate all six registered names and confirm each layer runs once, envelopes are complete, and clarification needs are not overwritten by defaults.

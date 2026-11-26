@@ -1,0 +1,52 @@
+{
+  "schema": "meaning-intelligence-web-media-verification-v1",
+  "ok": true,
+  "platform_file_limit_bytes": 26214400,
+  "masters_modified": false,
+  "note": "720p H.264/AAC streaming derivatives and 80 kb/s mono Chinese speech; local masters remain unchanged.",
+  "records": [
+    {
+      "kind": "audio",
+      "source": "意义智能有声读物_发布包\\assets\\audio.mp3",
+      "source_sha256": "ef797a0efee97fd514353e70b43ecdb1ae1e3179c169b144f0e7a3b08ac13326",
+      "path": "意义智能有声读物_发布包\\assets\\audio-web.mp3",
+      "bytes": 24111405,
+      "sha256": "79c8176f84f292042dc276d5e42211dd8e931d2277c6aa70da9a0c5bd2844032",
+      "duration_seconds": 2411.064
+    },
+    {
+      "kind": "video",
+      "language": "zh",
+      "source": "deliverables\\video\\meaning_intelligence_zh.mp4",
+      "source_sha256": "a4de33c434daf16d727b1f5ab12ed65d0b19eacb0aad0e93f07475d96b5a535d",
+      "path": "意义智能有声读物_发布包\\assets\\video\\release\\meaning_intelligence_zh-web.mp4",
+      "bytes": 19240242,
+      "sha256": "acd4043dabf29a45c866bdc716a1a81ed69d978480dee069938b2fe1e5639c7b",
+      "duration_seconds": 164.01,
+      "width": 1280,
+      "height": 720,
+      "frame_rate": "24/1",
+      "subtitle_languages": [
+        "eng",
+        "zho"
+      ]
+    },
+    {
+      "kind": "video",
+      "language": "en",
+      "source": "deliverables\\video\\meaning_intelligence_en.mp4",
+      "source_sha256": "c225ad9cb95b555774ea7dfda2a1e08661de7c9467743359847efd6acfe209d3",
+      "path": "意义智能有声读物_发布包\\assets\\video\\release\\meaning_intelligence_en-web.mp4",
+      "bytes": 19107172,
+      "sha256": "7ff9c08c5b9e57972cfc8c733a515b6aa3b5eace1d1d5059a0fdf6b442ef7bfe",
+      "duration_seconds": 164.01,
+      "width": 1280,
+      "height": 720,
+      "frame_rate": "24/1",
+      "subtitle_languages": [
+        "eng",
+        "zho"
+      ]
+    }
+  ]
+}

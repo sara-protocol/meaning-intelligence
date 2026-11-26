@@ -1,0 +1,19 @@
+[00:00:00,000] Chapter 2。V7.0 canon, versions, and provenance audit。Canon V7.0 is Meaning Intelligence: The Cognitive Operating System of Meaning Civilization. Authority runs from the KDP Final 02 Chinese V7 text to the English proof mother, white paper, MSI configuration, and finally README/CHANGELOG. VERSION.yaml is the only version source.
+
+[00:00:24,035] The 2026-11-26 provenance audit records the same SHA-256 for KDP Final 02 and the V5 archive copy: 0fedff1ee5775bbc6812cea24f6024e36e54d43fac4776ba6f94c402ff4cb574. They are not independent versions. The English proof mother, Meaning IntelligenceV7.docx, has recorded hash b4225b6371d0ea013fe2ae4db9ac396537e2bf30f94cbda5a2c342e5f570396b.
+
+[00:01:05,212] The audit also records unresolved upstream issues: a truncated H5 table cell, an H6 summary/card conflict, incomplete English body text, and candidate DOCX files without embedded images and with placeholders. The project did not silently edit the canon; it retained these conflicts in the audit.
+
+[00:01:23,848] Research system v0.2.0 uses 0.x to signal research formation. Version 1.0 requires construct validation, a first predictive study, and independent replication. Operational stack v2.0 and MSI v2.1 evolve separately and never replace the canon version.
+
+[00:01:42,858] Primary canon: KDP Final 02 Chinese V7.
+
+[00:01:47,392] English proof mother: Meaning IntelligenceV7.docx.
+
+[00:01:51,691] Same-hash V5 copy: archive only; do not maintain in parallel.
+
+[00:01:57,019] Cite canon sections, H identifiers, or claim IDs for theoretical statements.
+
+[00:02:02,503] Try one step: Before writing any claim, record its object, version, source file, and evidence status. If sources conflict, stop and cite canon-audit.md.
+
+[00:02:15,755] Pending verification: Upstream H5/H6 conflicts, English-body completeness, and image/appendix placeholders remain pending in the canon master project. This guide reports them without claiming repair.

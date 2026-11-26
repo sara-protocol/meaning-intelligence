@@ -1,0 +1,33 @@
+Meaning Intelligence
+Chapter: Six agent skills and the registry contract
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: skills.mp3
+Duration: 149.181 seconds
+
+[00:00:00,000 --> 00:00:26,759]
+Chapter 8. Six agent skills and the registry contract. meaning-agent's engine.py orchestrates six deterministic skills, with skills/registry.py as the sole registry. Each skill envelope includes name, description, layer, input, output, status, clarification needs, and data.
+
+[00:00:27,079 --> 00:00:48,774]
+The registered names are reduce-cognitive-load, model-experiential-interface, map-direction-value-boundary, grade-evidence-falsification, calibrate-five-scales, and recursive-review-zeroing. Names and layer IDs must stay aligned across the registry, skill documents, tests, and MCP catalog.
+
+[00:00:49,094 --> 00:01:10,134]
+L1 retains unverified markers; L2 only suggests local display behavior; L3 never chooses for a human; L4 never asserts empirical status; L5 forbids weighted summation; L6 allows at most three review passes and never deletes data or executes actions.
+
+[00:01:10,454 --> 00:01:35,479]
+Skill outputs are structured drafts, not fact-checking, psychometrics, legal advice, or safety certification. Missing material produces needs_clarification. An optional LLM can only suggest unverified language; it cannot alter deterministic skills, evidence levels, scale aggregation, or approval.
+
+[00:01:35,799 --> 00:01:44,786]
+Single registry entry: skills/registry.py.
+
+[00:01:45,106 --> 00:01:53,484]
+Single orchestration entry: engine.py.
+
+[00:01:53,804 --> 00:02:04,261]
+Six SKILL.md files: reusable input/output and boundary contracts.
+
+[00:02:04,581 --> 00:02:13,459]
+Every output must trace to a layer, source, and limitation.
+
+[00:02:13,779 --> 00:02:29,181]
+Try one step: In tests, iterate all six registered names and confirm each layer runs once, envelopes are complete, and clarification needs are not overwritten by defaults.

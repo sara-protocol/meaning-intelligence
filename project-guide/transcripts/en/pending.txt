@@ -1,0 +1,33 @@
+Meaning Intelligence
+Chapter: Pending register, maintenance entry points, and next steps
+Language: English
+Narration: Microsoft Zira Desktop (Windows SAPI)
+Audio: pending.mp3
+Duration: 151.441 seconds
+
+[00:00:00,000 --> 00:00:28,679]
+Chapter 18. Pending register, maintenance entry points, and next steps. This guide completes local build and automatically verifiable work. Canon upstream revisions, independent empirical studies, human accessibility, and rights confirmation remain pending. Production status for Git, Pages, and public MCP is established by external deployment and online acceptance reports.
+
+[00:00:28,999 --> 00:00:47,730]
+Maintenance starts in content.json; interface, chapters, figures, skills, downloads, and narration share one data source. The rebuild script writes only inside this directory and needs a source-root containing publication assets.
+
+[00:00:48,050 --> 00:01:10,895]
+After narration changes, regenerate MP3, SRT, VTT, transcripts, and the manifest. Never edit timings by hand. Preserve both language sources and captions when changing figures. Recompute bytes and SHA-256 after download changes.
+
+[00:01:11,215 --> 00:01:35,769]
+Priorities are: repair the canon master, preregister validation, confirm rights, run full-package acceptance, deploy under the existing authorization, then verify online. Git and Pages status are recorded in external reports. Record owner, date, and evidence for each step; never rewrite pending as completed.
+
+[00:01:36,089 --> 00:01:46,862]
+Verified: local files, media facts, bilingual runtime, hashes.
+
+[00:01:47,182 --> 00:01:55,969]
+Pending: canon master and independent empirical levels.
+
+[00:01:56,289 --> 00:02:07,082]
+Pending: human accessibility, mobile, expert narration review, and rights.
+
+[00:02:07,402 --> 00:02:18,854]
+External records: Git, Pages, public MCP configuration, and online acceptance.
+
+[00:02:19,174 --> 00:02:31,441]
+Try one step: Assign each pending item an owner and acceptance evidence. Update status only when evidence exists.
