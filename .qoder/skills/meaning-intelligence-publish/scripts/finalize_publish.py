@@ -20,6 +20,30 @@ def replace_once(text: str, old: str, new: str, label: str) -> str:
     return text
 
 
+def finalize_accessibility(path: Path) -> None:
+    text = path.read_text(encoding="utf-8")
+    if 'class="mi-skip-link"' in text:
+        return
+    marker = next((value for value in ('<main', '<div class="wrap"') if value in text), None)
+    if marker is None:
+        raise RuntimeError(f"Accessibility target not found: {path.name}")
+    start = text.index(marker)
+    end = text.index(">", start)
+    tag = text[start:end]
+    if 'id="main"' not in tag:
+        tag += ' id="main"'
+    if 'tabindex="-1"' not in tag:
+        tag += ' tabindex="-1"'
+    text = text[:start] + tag + text[end:]
+    css = ('<style>.mi-skip-link{position:absolute;left:16px;top:-96px;z-index:999;'
+           'background:#e8b34b;color:#0b1020;padding:10px 16px;border-radius:8px;'
+           'font:700 15px system-ui,"Microsoft YaHei",sans-serif}'
+           '.mi-skip-link:focus{top:12px;outline:3px solid #5ad1e6;outline-offset:3px}</style>')
+    text = text.replace("</head>", css + "\n</head>", 1)
+    text = text.replace("<body>", '<body>\n<a class="mi-skip-link" href="#main">跳转到正文 / Skip to content</a>', 1)
+    path.write_text(text, encoding="utf-8")
+
+
 def finalize_listen(path: Path) -> None:
     text = path.read_text(encoding="utf-8")
     replacements = {
@@ -113,6 +137,10 @@ def main() -> None:
         raise RuntimeError("Publication package is missing index.html or listen.html")
     finalize_listen(listen)
     finalize_index(index)
+    for name in ("index.html", "listen.html", "downloads.html", "mcp.html"):
+        page = PACKAGE / name
+        if page.is_file():
+            finalize_accessibility(page)
     print("PASS deterministic publication finalization applied")
 
 
