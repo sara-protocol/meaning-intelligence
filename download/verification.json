@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-11-26T22:23:22.816652+00:00",
+  "generated_utc": "2026-11-26T22:40:49.120480+00:00",
   "date": "2026-11-27",
   "version": "1.1",
   "canon": "V7.0",
@@ -110,7 +110,7 @@
     "report": "publication-browser-check.json",
     "checks_passed": 24,
     "checks_total": 24,
-    "sha256": "b4739e2bec5f0440bfd486e1374ca60d7e5f71fcc92906ff2b55622cbb4ab828"
+    "sha256": "353f4d62de220b7d70ab6c92072085907862a91763c2f026abf471eddaac6fad"
   },
   "documents": [
     {
@@ -176,15 +176,15 @@
   ],
   "source_archive": {
     "path": "download/Meaning_Intelligence_Source_v0.2.0.zip",
-    "bytes": 6969377,
-    "sha256": "af4016d75f7e63989c6c6564abb48c4fd81d0fdd5a00bae2927714236d0771f4",
-    "files": 211,
+    "bytes": 6963712,
+    "sha256": "799d354ed827ae10a91500d8648f99a9cb5572bfd0a7a6b848e8efc29506304b",
+    "files": 210,
     "skill_documents": 6,
     "reusable_skill_documents": 2,
     "test_files": 9,
     "guide_files": 10,
     "guide_builder_present": true,
-    "repository_source_files": 111
+    "repository_source_files": 110
   },
   "complete_archive": {
     "path": "download/意义智能_完整交付包.zip",
