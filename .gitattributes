@@ -64,3 +64,16 @@ LICENSE-DOCS text eol=lf
 # 避免仓库首页的语言占比被演示页面带偏。
 msi/meaning_intelligence.html linguist-generated=true
 whitepaper/dist/**             linguist-generated=true
+
+# 发布目录的文本字节参与 manifest 哈希，禁止行尾归一化。
+/index.html -text -eol
+/listen.html -text -eol
+/downloads.html -text -eol
+/mcp.html -text -eol
+/download/** -text -eol
+/project-guide/** -text -eol
+/publication-browser-check.json -text -eol
+/web-media-verification.json -text -eol
+/subtitles*.json -text -eol
+/subtitles*.vtt -text -eol
+/timeline_en.json -text -eol
