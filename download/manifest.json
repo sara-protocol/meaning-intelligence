@@ -33,7 +33,7 @@
       "category": "ebook",
       "language": "bilingual",
       "bytes": 105038,
-      "sha256": "dbeee7e107d0e500c34394e88ad4d2c222c4370294bac7a75e5f55bee247e61e"
+      "sha256": "a1d75ede99b82aaf2f61d9160df686499e43ef37458f43a6e985f922a90cdf68"
     },
     {
       "path": "download/Meaning_Intelligence_Audio_Book_v1.1_ZH.epub",
@@ -43,7 +43,7 @@
       "category": "ebook",
       "language": "zh",
       "bytes": 95636,
-      "sha256": "3eb02e14276447e712e10c14ed612afcc3d9dc21169d7683cac257ee38c125c4"
+      "sha256": "6ee5be973faf69a0c43e2ca417229f545e5d1115c2ecc0f1c235f7bd2d91aa05"
     },
     {
       "path": "download/Meaning_Intelligence_Audio_Book_v1.1_EN.epub",
@@ -53,7 +53,7 @@
       "category": "ebook",
       "language": "en",
       "bytes": 88180,
-      "sha256": "dc1047eb812f06fe4f34c9b06db5201eed038236edb4415dc64b6a160fd32bc5"
+      "sha256": "85133ba9824fa330bce9a6fafdde6d9c51f45abad5a2c2aa79d3e4786c73854c"
     },
     {
       "path": "download/Meaning_Intelligence_Chinese_subtitles.srt",
@@ -232,8 +232,8 @@
       "kind": "代码 / Source",
       "category": "source",
       "language": "bilingual",
-      "bytes": 6968561,
-      "sha256": "e1e0b8463bf34f05f4a442dfe28d30ba4458b03851d4eed43b15c16a93b5a2e8"
+      "bytes": 6969377,
+      "sha256": "af4016d75f7e63989c6c6564abb48c4fd81d0fdd5a00bae2927714236d0771f4"
     },
     {
       "path": "assets/video/release/meaning_intelligence_zh-web.mp4",
@@ -421,7 +421,7 @@
       "category": "verification",
       "language": "und",
       "bytes": 7270,
-      "sha256": "662cb49e45c4e391868a89e3690aa27f39a2209e92be4269ddb2d43980b55678"
+      "sha256": "907429721e2551101ecb164fe5aec46a76f96ef9821ca31963df76e47b8739af"
     },
     {
       "path": "publication-browser-check.json",
@@ -431,7 +431,7 @@
       "category": "verification",
       "language": "und",
       "bytes": 4723,
-      "sha256": "d47ba03b7045ab759385f9932b069661ce8dec54b7b13ba0677dd4e3be5bb363"
+      "sha256": "b4739e2bec5f0440bfd486e1374ca60d7e5f71fcc92906ff2b55622cbb4ab828"
     },
     {
       "path": "web-media-verification.json",
