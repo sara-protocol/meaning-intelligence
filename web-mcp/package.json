@@ -6,6 +6,7 @@
   "description": "Read-only Meaning Intelligence Web MCP function and transport tests",
   "scripts": {
     "test": "node --test tests/*.mjs",
+    "test:pages:local": "node scripts/rehearse-pages.mjs",
     "sync:publication": "node scripts/sync-publication.mjs",
     "test:publication": "node scripts/sync-publication.mjs --check"
   },
