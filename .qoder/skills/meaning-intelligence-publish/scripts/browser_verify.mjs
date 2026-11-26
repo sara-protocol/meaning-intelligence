@@ -1,9 +1,9 @@
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:http';
 import { createReadStream } from 'node:fs';
-import { mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { extname, isAbsolute, join, relative, resolve, sep } from 'node:path';
+import { extname, isAbsolute, join, relative, resolve, sep, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 export function parseArgs(argv) {
@@ -153,42 +153,57 @@ async function launchChrome() {
 }
 
 async function main() {
-  const url = online ? base : await startServer();
-  const { send, socket } = await launchChrome();
-  const evaluate = async expression => {
-    const result = await send('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true });
-    if (result.exceptionDetails) throw new Error(result.exceptionDetails.text);
-    return result.result.value;
-  };
-  const navigate = async path => {
-    await send('Page.navigate', { url: `${url}${path}` });
-    for (let attempt = 0; attempt < 150; attempt += 1) {
-      if (await evaluate('document.readyState === "complete" && Boolean(document.querySelector("h1,h2"))')) return;
-      await pause(100);
-    }
-    throw new Error(`Page did not become ready: ${path}`);
-  };
-  const waitFor = async (expression, timeout = 15000) => {
-    const started = Date.now();
-    while (Date.now() - started < timeout) {
-      if (await evaluate(expression)) return true;
-      await pause(100);
-    }
-    return false;
-  };
-  const click = async selector => evaluate(`(() => { const element = document.querySelector(${JSON.stringify(selector)}); if (!element) return false; element.click(); return true; })()`);
-
+  let socket;
+  let activeUrl = base;
+  let fatalError = '';
   try {
+    const url = online ? base : await startServer();
+    activeUrl = url;
+    const launched = await launchChrome();
+    socket = launched.socket;
+    const { send } = launched;
+    const evaluate = async expression => {
+      const result = await send('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true });
+      if (result.exceptionDetails) throw new Error(result.exceptionDetails.text);
+      return result.result.value;
+    };
+    const navigate = async path => {
+      await send('Page.navigate', { url: `${url}${path}` });
+      for (let attempt = 0; attempt < 150; attempt += 1) {
+        if (await evaluate('document.readyState === "complete" && Boolean(document.querySelector("h1,h2"))')) return;
+        await pause(100);
+      }
+      throw new Error(`Page did not become ready: ${path}`);
+    };
+    const waitFor = async (expression, timeout = 15000) => {
+      const started = Date.now();
+      while (Date.now() - started < timeout) {
+        if (await evaluate(expression)) return true;
+        await pause(100);
+      }
+      return false;
+    };
+    const click = async selector => evaluate(`(() => { const element = document.querySelector(${JSON.stringify(selector)}); if (!element) return false; element.click(); return true; })()`);
+
+    let publicationReady = true;
     for (const page of ['index.html', 'listen.html']) {
       await navigate(`/${page}`);
-      check(`${page}-loaded`, await evaluate(`document.title.includes("意义智能") && document.querySelectorAll("#chapters button").length === 7`), await evaluate('document.title'));
+      const title = await evaluate('document.title');
+      const loaded = await evaluate('document.title.includes("意义智能") && document.querySelectorAll("#chapters button").length === 7');
+      check(`${page}-loaded`, loaded, title);
+      if (!loaded) {
+        const visibleText = await evaluate('document.body?.innerText?.slice(0, 800) || ""');
+        check(`${page}-publication-structure`, false, visibleText);
+        publicationReady = false;
+        break;
+      }
       await click('#btnEn');
-      await waitFor(`document.documentElement.classList.contains("en")`);
-      check(`${page}-english`, await evaluate(`document.querySelector("#c1").textContent.toLowerCase().includes("why") && document.querySelector("#audio").src.includes("assets_en/audio_en.mp3")`), await evaluate('document.querySelector("#audio").src'));
-      const metadata = await waitFor(`Number.isFinite(document.querySelector("#audio").duration) && document.querySelector("#audio").duration > 120`);
+      await waitFor('document.documentElement.classList.contains("en")');
+      check(`${page}-english`, await evaluate('Boolean(document.querySelector("#c1")) && document.querySelector("#c1").textContent.toLowerCase().includes("why") && Boolean(document.querySelector("#audio")) && document.querySelector("#audio").src.includes("assets_en/audio_en.mp3")'), await evaluate('document.querySelector("#audio")?.src || "missing audio element"'));
+      const metadata = await waitFor('Boolean(document.querySelector("#audio")) && Number.isFinite(document.querySelector("#audio").duration) && document.querySelector("#audio").duration > 120');
       check(`${page}-english-audio`, metadata, metadata ? await evaluate('document.querySelector("#audio").duration') : 'metadata timeout');
       await click('#btnZh');
-      check(`${page}-chinese`, await evaluate(`!document.documentElement.classList.contains("en") && document.querySelector("#audio").src.includes("assets/audio-web.mp3")`), await evaluate('document.querySelector("#audio").src'));
+      check(`${page}-chinese`, await evaluate('!document.documentElement.classList.contains("en") && Boolean(document.querySelector("#audio")) && document.querySelector("#audio").src.includes("assets/audio-web.mp3")'), await evaluate('document.querySelector("#audio")?.src || "missing audio element"'));
       await send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
       await pause(300);
       const overflow = await evaluate('document.documentElement.scrollWidth - document.documentElement.clientWidth');
@@ -196,54 +211,62 @@ async function main() {
       await send('Emulation.clearDeviceMetricsOverride');
     }
 
-    await navigate('/downloads.html');
-    const resourceCount = await evaluate('document.querySelectorAll(".download").length');
-    check('downloads-resources', resourceCount >= 30, `${resourceCount} resource cards`);
-    await click('#btnEn');
-    check('downloads-english', await evaluate('document.documentElement.classList.contains("en") && document.querySelector("h1").textContent.includes("Downloads")'), await evaluate('document.querySelector("h1").textContent'));
-    const firstDownload = await evaluate('document.querySelector(".download a").getAttribute("href")');
-    const response = await fetch(`${url}/${firstDownload}`, { headers: { range: 'bytes=0-1023' } });
-    const contentRange = response.headers.get('content-range') || '';
-    check('download-range-request', response.status === 206 && /^bytes 0-\d+\/\d+$/.test(contentRange), `${response.status}; ${contentRange}; ${response.headers.get('content-type')}`);
-    await response.body?.cancel();
-    const manifest = await fetch(`${url}/download/manifest.json`).then(value => value.json());
-    const files = Array.isArray(manifest.files) ? manifest.files : [];
-    const withinLimit = files.every(item => Number.isSafeInteger(item.bytes) && item.bytes > 0 && item.bytes <= 25 * 1024 * 1024);
-    const derivatives = ['assets/audio-web.mp3', 'assets/video/release/meaning_intelligence_zh-web.mp4', 'assets/video/release/meaning_intelligence_en-web.mp4'];
-    const hasDerivatives = derivatives.every(path => files.some(item => item.path === path));
-    const hasCompletePackage = files.some(item => item.category === 'package');
-    check('download-manifest', files.length >= 30 && hasDerivatives && (!deploymentMode || withinLimit), `${files.length} entries; complete_category=${hasCompletePackage}; max_limit_ok=${withinLimit}; mode=${deploymentMode ? 'deployment' : 'local'}`);
-    const packageBoundaryOk = deploymentMode
-      ? !hasCompletePackage && await evaluate('!document.body.textContent.includes("完整交付包") && !document.body.textContent.toLowerCase().includes("complete delivery package")')
-      : hasCompletePackage && await evaluate('document.body.textContent.includes("完整交付包") || document.body.textContent.toLowerCase().includes("complete delivery package")');
-    check('download-package-boundary', packageBoundaryOk, deploymentMode ? 'deployment manifest and cards exclude the complete package' : 'local manifest and cards include the complete package');
-    const downloadHrefs = await evaluate('Array.from(document.querySelectorAll(".download a"), element => element.getAttribute("href"))');
-    check('downloads-web-media-links', derivatives.every(path => downloadHrefs.includes(path)), JSON.stringify(downloadHrefs.filter(href => href.includes('-web'))));
+    if (publicationReady) {
+      await navigate('/downloads.html');
+      const resourceCount = await evaluate('document.querySelectorAll(".download").length');
+      check('downloads-resources', resourceCount >= 30, `${resourceCount} resource cards`);
+      await click('#btnEn');
+      check('downloads-english', await evaluate('document.documentElement.classList.contains("en") && Boolean(document.querySelector("h1")) && document.querySelector("h1").textContent.includes("Downloads")'), await evaluate('document.querySelector("h1")?.textContent || "missing heading"'));
+      const firstDownload = await evaluate('document.querySelector(".download a")?.getAttribute("href") || ""');
+      if (!firstDownload) throw new Error('Downloads page has no downloadable resource link');
+      const response = await fetch(`${url}/${firstDownload}`, { headers: { range: 'bytes=0-1023' } });
+      const contentRange = response.headers.get('content-range') || '';
+      check('download-range-request', response.status === 206 && /^bytes 0-\d+\/\d+$/.test(contentRange), `${response.status}; ${contentRange}; ${response.headers.get('content-type')}`);
+      await response.body?.cancel();
+      const manifest = await fetch(`${url}/download/manifest.json`).then(value => value.json());
+      const files = Array.isArray(manifest.files) ? manifest.files : [];
+      const withinLimit = files.every(item => Number.isSafeInteger(item.bytes) && item.bytes > 0 && item.bytes <= 25 * 1024 * 1024);
+      const derivatives = ['assets/audio-web.mp3', 'assets/video/release/meaning_intelligence_zh-web.mp4', 'assets/video/release/meaning_intelligence_en-web.mp4'];
+      const hasDerivatives = derivatives.every(path => files.some(item => item.path === path));
+      const hasCompletePackage = files.some(item => item.category === 'package');
+      check('download-manifest', files.length >= 30 && hasDerivatives && (!deploymentMode || withinLimit), `${files.length} entries; complete_category=${hasCompletePackage}; max_limit_ok=${withinLimit}; mode=${deploymentMode ? 'deployment' : 'local'}`);
+      const packageBoundaryOk = deploymentMode
+        ? !hasCompletePackage && await evaluate('!document.body.textContent.includes("完整交付包") && !document.body.textContent.toLowerCase().includes("complete delivery package")')
+        : hasCompletePackage && await evaluate('document.body.textContent.includes("完整交付包") || document.body.textContent.toLowerCase().includes("complete delivery package")');
+      check('download-package-boundary', packageBoundaryOk, deploymentMode ? 'deployment manifest and cards exclude the complete package' : 'local manifest and cards include the complete package');
+      const downloadHrefs = await evaluate('Array.from(document.querySelectorAll(".download a"), element => element.getAttribute("href"))');
+      check('downloads-web-media-links', derivatives.every(path => downloadHrefs.includes(path)), JSON.stringify(downloadHrefs.filter(href => href.includes('-web'))));
 
-    await navigate('/mcp.html');
-    await click('#lang-en');
-    check('mcp-english', await evaluate('document.documentElement.lang === "en" && document.querySelector("#status").textContent.toLowerCase().includes("not connected")'), await evaluate('document.querySelector("#status").textContent'));
-    await click('#connect');
-    const handled = await waitFor('document.querySelector("#status").textContent.trim().length > 0');
-    check('mcp-empty-token-safe', handled && await evaluate('document.querySelector("#output").textContent.length < 2000'), await evaluate('document.querySelector("#status").textContent'));
-    check('mcp-no-token-storage', await evaluate('Object.keys(localStorage).length === 0 && Object.keys(sessionStorage).length === 0 && document.cookie === ""'), 'localStorage/sessionStorage/cookie');
-    check('mcp-read-only-copy', await evaluate('document.body.textContent.includes("does not") || document.body.textContent.includes("read-only")'), 'read-only boundary copy');
+      await navigate('/mcp.html');
+      await click('#lang-en');
+      check('mcp-english', await evaluate('document.documentElement.lang === "en" && Boolean(document.querySelector("#status")) && document.querySelector("#status").textContent.toLowerCase().includes("not connected")'), await evaluate('document.querySelector("#status")?.textContent || "missing status"'));
+      await click('#connect');
+      const handled = await waitFor('Boolean(document.querySelector("#status")) && document.querySelector("#status").textContent.trim().length > 0');
+      check('mcp-empty-token-safe', handled && await evaluate('Boolean(document.querySelector("#output")) && document.querySelector("#output").textContent.length < 2000'), await evaluate('document.querySelector("#status")?.textContent || "missing status"'));
+      check('mcp-no-token-storage', await evaluate('Object.keys(localStorage).length === 0 && Object.keys(sessionStorage).length === 0 && document.cookie === ""'), 'localStorage/sessionStorage/cookie');
+      check('mcp-read-only-copy', await evaluate('document.body.textContent.includes("does not") || document.body.textContent.includes("read-only")'), 'read-only boundary copy');
 
-    await navigate('/project-guide/index.html');
-    check('packaged-guide-loaded', await evaluate('document.title.length > 0 && Boolean(window.GUIDE_CONTENT) && Array.isArray(window.GUIDE_CONTENT.chapters)'), await evaluate('document.title'));
-    const guideEvidence = await evaluate('({ verification: window.GUIDE_VERIFICATION, chapters: window.GUIDE_CONTENT.chapters.length })');
-    check('packaged-guide-evidence', guideEvidence.chapters === 18 && guideEvidence.verification?.build_complete === true, JSON.stringify(guideEvidence));
+      await navigate('/project-guide/index.html');
+      check('packaged-guide-loaded', await evaluate('document.title.length > 0 && Boolean(window.GUIDE_CONTENT) && Array.isArray(window.GUIDE_CONTENT.chapters)'), await evaluate('document.title'));
+      const guideEvidence = await evaluate('({ verification: window.GUIDE_VERIFICATION, chapters: window.GUIDE_CONTENT?.chapters?.length })');
+      check('packaged-guide-evidence', guideEvidence.chapters === 18 && guideEvidence.verification?.build_complete === true, JSON.stringify(guideEvidence));
+    }
 
     check('no-runtime-exceptions', consoleErrors.length === 0, consoleErrors.join(' | '));
+    check('browser-run-completed', true, 'all applicable checks executed');
+  } catch (error) {
+    fatalError = error instanceof Error ? error.stack || error.message : String(error);
+    check('browser-run-completed', false, fatalError);
   } finally {
     socket?.close();
   }
   const report = {
     schema: 'meaning-intelligence-publication-browser-check-v1',
-    generated: new Date().toISOString(), base_url: url, engine: online ? 'remote-chrome-cdp' : deploymentMode ? 'chrome-cdp-deployment-preview' : 'chrome-cdp-static-preview',
+    generated: new Date().toISOString(), base_url: activeUrl, engine: online ? 'remote-chrome-cdp' : deploymentMode ? 'chrome-cdp-deployment-preview' : 'chrome-cdp-static-preview',
     ok: checks.every(item => item.ok), checks_passed: checks.filter(item => item.ok).length,
-    checks_total: checks.length, failed: checks.filter(item => !item.ok), checks,
+    checks_total: checks.length, failed: checks.filter(item => !item.ok), fatal_error: fatalError || null, checks,
   };
+  await mkdir(dirname(output), { recursive: true });
   await writeFile(output, JSON.stringify(report, null, 2) + '\n', 'utf8');
   console.log(JSON.stringify({ ok: report.ok, checks_passed: report.checks_passed, checks_total: report.checks_total, failed: report.failed, output }, null, 2));
   if (!report.ok) process.exitCode = 1;

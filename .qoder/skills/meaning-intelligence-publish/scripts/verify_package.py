@@ -460,6 +460,165 @@ def inspect_verification_reports(files: dict[str, Path], errors: list[str]) -> N
             errors.append(f"流媒体验证报告解析失败: {exc}")
 
 
+def parse_subtitle_text(text: str) -> list[tuple[float, float, str]]:
+    cues: list[tuple[float, float, str]] = []
+    normalized = text.replace("\r\n", "\n").replace("\r", "\n").strip()
+    for block in re.split(r"\n\s*\n", normalized):
+        lines = block.splitlines()
+        timing_index = next((index for index, line in enumerate(lines) if " --> " in line), None)
+        if timing_index is None:
+            continue
+        start_text, end_text = lines[timing_index].split(" --> ", 1)
+        def seconds(value: str) -> float:
+            hours, minutes, rest = value.strip().split(":")
+            secs, millis = re.split(r"[,.]", rest)
+            return int(hours) * 3600 + int(minutes) * 60 + int(secs) + int(millis) / 1000
+        cues.append((seconds(start_text), seconds(end_text.split()[0]), "\n".join(lines[timing_index + 1:]).strip()))
+    return cues
+
+
+def extract_package_subtitles(path: Path, stream_index: int) -> list[tuple[float, float, str]]:
+    result = subprocess.run([
+        "ffmpeg", "-v", "error", "-i", str(path), "-map", f"0:{stream_index}",
+        "-c:s", "srt", "-f", "srt", "-",
+    ], capture_output=True, text=True, encoding="utf-8", errors="strict")
+    if result.returncode:
+        raise RuntimeError(f"内嵌字幕提取失败 {path.name}: {result.stderr.strip()}")
+    return parse_subtitle_text(result.stdout)
+
+
+def inspect_release_video_consistency(files: dict[str, Path], errors: list[str]) -> None:
+    try:
+        report_path = files["download/video/build/verification.json"]
+        chapter_path = files["download/video/chapter_manifest.json"]
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        chapter_manifest = json.loads(chapter_path.read_text(encoding="utf-8"))
+        if report.get("schema") != "meaning-intelligence-release-video-verification-v2" or report.get("ok") is not True:
+            raise RuntimeError("发布视频验证报告不是当前 v2 有效报告")
+        if abs(float(report.get("duration_seconds", 0)) - 164.010667) > 0.002 or report.get("chapter_count") != 12:
+            raise RuntimeError("发布视频验证报告仍对应旧时长或旧章节数")
+        if not report.get("checks") or not all(value is True for value in report["checks"].values()):
+            raise RuntimeError("发布视频验证报告存在未通过检查")
+        editions = report.get("editions", {})
+        if set(editions) != {"zh", "en"}:
+            raise RuntimeError("发布视频验证报告缺少中英双语版本")
+        video_paths = {
+            "zh": files["assets/video/release/meaning_intelligence_zh.mp4"],
+            "en": files["assets/video/release/meaning_intelligence_en.mp4"],
+        }
+        video_hashes: set[str] = set()
+        embedded_by_language: dict[str, list[tuple[float, float, str]]] = {}
+        for edition, path in video_paths.items():
+            record = editions[edition]
+            if path.stat().st_size != record.get("size_bytes") or sha256(path) != record.get("sha256"):
+                raise RuntimeError(f"{edition} 发布视频哈希或字节数与验证报告不一致")
+            info = probe_media(path)
+            duration = float(info["format"]["duration"])
+            if abs(duration - 164.010667) > 0.002 or abs(float(record.get("duration_seconds", 0)) - duration) > 0.002:
+                raise RuntimeError(f"{edition} 发布视频时长与验证报告不一致")
+            streams = info["streams"]
+            video = next(stream for stream in streams if stream.get("codec_type") == "video")
+            audio = next(stream for stream in streams if stream.get("codec_type") == "audio")
+            subtitles = [stream for stream in streams if stream.get("codec_type") == "subtitle"]
+            if video.get("codec_name") != "h264" or (video.get("width"), video.get("height")) != (1920, 1080):
+                raise RuntimeError(f"{edition} 发布视频编码或分辨率不符合当前母版")
+            if video.get("avg_frame_rate") != "24/1" or int(video.get("nb_frames", 0)) != 3936:
+                raise RuntimeError(f"{edition} 发布视频帧率或帧数不符合当前母版")
+            if audio.get("codec_name") != "aac" or int(audio.get("sample_rate", 0)) != 48000 or audio.get("channels") != 2:
+                raise RuntimeError(f"{edition} 发布视频音轨不是 AAC 48 kHz stereo")
+            if len(subtitles) != 2 or {stream.get("tags", {}).get("language") for stream in subtitles} != {"zho", "eng"}:
+                raise RuntimeError(f"{edition} 发布视频缺少中英内嵌字幕")
+            if any(stream.get("codec_name") != "mov_text" for stream in subtitles):
+                raise RuntimeError(f"{edition} 发布视频内嵌字幕格式不是 mov_text")
+            video_hashes.add(record.get("video_stream_sha256", ""))
+            decode = subprocess.run([
+                "ffmpeg", "-v", "error", "-xerror", "-i", str(path), "-map", "0:v:0", "-map", "0:a:0", "-f", "null", "-",
+            ], capture_output=True, text=True, encoding="utf-8", errors="replace")
+            if decode.returncode:
+                raise RuntimeError(f"{edition} 发布视频完整解码失败: {decode.stderr.strip()}")
+            for subtitle in subtitles:
+                language = subtitle["tags"]["language"]
+                cues = extract_package_subtitles(path, int(subtitle["index"]))
+                if language in embedded_by_language and cues != embedded_by_language[language]:
+                    raise RuntimeError("中英视频版本的内嵌字幕不一致")
+                embedded_by_language[language] = cues
+        if len(video_hashes) != 1 or "" in video_hashes:
+            raise RuntimeError("中英视频版本的视频流哈希不一致")
+
+        if chapter_manifest.get("schema") != "meaning-intelligence-release-video-manifest-v2":
+            raise RuntimeError("发布视频章节清单不是当前 v2 清单")
+        chapters = chapter_manifest.get("chapters", [])
+        if chapter_manifest.get("chapter_count") != 12 or len(chapters) != 12:
+            raise RuntimeError("发布视频章节清单不是 12 章")
+        expected_chapters = editions["zh"].get("chapters", [])
+        previous_end = 0.0
+        for index, chapter in enumerate(chapters):
+            if abs(float(chapter.get("start", -1)) - previous_end) > 0.01 or float(chapter.get("end", 0)) <= previous_end:
+                raise RuntimeError(f"发布视频章节 {index + 1} 不连续")
+            previous_end = float(chapter["end"])
+            expected = expected_chapters[index]
+            if (chapter.get("title_zh"), chapter.get("title_en"), chapter.get("start"), chapter.get("end")) != (
+                expected.get("title_zh"), expected.get("title_en"), expected.get("start_seconds"), expected.get("end_seconds")
+            ):
+                raise RuntimeError(f"发布视频章节 {index + 1} 与验证报告不一致")
+        if abs(previous_end - 164.0) > 0.01:
+            raise RuntimeError("发布视频章节未覆盖完整母版")
+
+        external_paths = {
+            "zho": (files["download/video/meaning_intelligence_zh.srt"], files["download/video/meaning_intelligence_zh.vtt"]),
+            "eng": (files["download/video/meaning_intelligence_en.srt"], files["download/video/meaning_intelligence_en.vtt"]),
+        }
+        narration_paths = {
+            "zho": files["download/video/narration_zh.txt"],
+            "eng": files["download/video/narration_en.txt"],
+        }
+        expected_counts = {"zho": 41, "eng": 44}
+        subtitle_report = report.get("subtitles", {})
+        for language, (srt_path, vtt_path) in external_paths.items():
+            cues = parse_subtitle_text(srt_path.read_text(encoding="utf-8-sig"))
+            vtt_cues = parse_subtitle_text(vtt_path.read_text(encoding="utf-8-sig"))
+            if len(cues) != expected_counts[language] or cues != embedded_by_language.get(language):
+                raise RuntimeError(f"{language} 外部 SRT 与内嵌字幕条数、时间或文本不一致")
+            if vtt_cues != cues:
+                raise RuntimeError(f"{language} 外部 VTT 与 SRT 不一致")
+            record = subtitle_report.get(language, {})
+            if record.get("cue_count") != len(cues) or abs(float(record.get("first_start", -1)) - cues[0][0]) > 0.002 or abs(float(record.get("last_end", -1)) - cues[-1][1]) > 0.002:
+                raise RuntimeError(f"{language} 字幕验证统计与外部 SRT 不一致")
+            for kind, path in (("srt", srt_path), ("vtt", vtt_path)):
+                support = record.get(kind, {})
+                if path.stat().st_size != support.get("size_bytes") or sha256(path) != support.get("sha256"):
+                    raise RuntimeError(f"{language} {kind.upper()} 哈希或字节数与验证报告不一致")
+            narration = narration_paths[language].read_text(encoding="utf-8")
+            suffix = "zh" if language == "zho" else "en"
+            for cue in cues:
+                if cue[2].replace("\n", " ").strip() not in narration:
+                    raise RuntimeError(f"{language} 旁白文本缺少字幕内容: {cue[2]}")
+            for chapter in chapters:
+                selected = [cue for cue in cues if chapter["start"] <= cue[0] < chapter["end"]]
+                expected_text = " ".join(cue[2].replace("\n", " ") for cue in selected)
+                if chapter.get(f"narration_{suffix}") != expected_text or chapter.get(f"cue_count_{suffix}") != len(selected):
+                    raise RuntimeError(f"{language} 章节 {chapter['number']} 旁白与字幕不一致")
+
+        support_names = {
+            "subtitles.zh.srt": "meaning_intelligence_zh.srt",
+            "subtitles.zh.vtt": "meaning_intelligence_zh.vtt",
+            "subtitles.en.srt": "meaning_intelligence_en.srt",
+            "subtitles.en.vtt": "meaning_intelligence_en.vtt",
+        }
+        for support in report.get("support_files", []):
+            name = support.get("path")
+            if name == "manifest.json":
+                continue
+            target = files.get(f"download/video/{support_names.get(name, name)}")
+            if not target or target.stat().st_size != support.get("size_bytes") or sha256(target) != support.get("sha256"):
+                raise RuntimeError(f"发布视频支持文件哈希或字节数不一致: {name}")
+        chapter_support = report.get("chapter_manifest", {})
+        if chapter_path.stat().st_size != chapter_support.get("size_bytes") or sha256(chapter_path) != chapter_support.get("sha256"):
+            raise RuntimeError("发布视频章节清单哈希与验证报告不一致")
+    except Exception as exc:
+        errors.append(f"发布视频证据一致性失败: {exc}")
+
+
 def probe_media(path: Path) -> dict:
     result = subprocess.run([
         "ffprobe", "-v", "error", "-show_entries",
@@ -743,6 +902,7 @@ def inspect_package():
     manifest = inspect_manifest(files, errors)
     inspect_verification_reports(files, errors)
     inspect_media(files, errors)
+    inspect_release_video_consistency(files, errors)
     source_archive = PACKAGE / "download" / "Meaning_Intelligence_Source_v0.2.0.zip"
     if source_archive.is_file():
         inspect_source_zip(source_archive, errors)

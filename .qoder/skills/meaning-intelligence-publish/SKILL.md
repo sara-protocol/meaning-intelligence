@@ -41,7 +41,7 @@ python scripts/verify_package.py --json
 
 完整包必须包含双语项目说明书、中英音频、字幕、三版 EPUB、白皮书、Word/PDF 文档、PPT、中英视频与网页版媒体、智能体源码与测试、Web MCP 源码与测试、SDK/MSI/白皮书生成器与仓库工具源码、发布与维护 Skill、生成脚本、验证报告和 SHA-256 清单。完整 ZIP 不包含自身；网站下载页与本地交付包使用可复核的对应哈希。
 
-`verify_package.py` 检查核心文件、JSON、PPTX/DOCX/PDF 结构、EPUB 容器与 spine、SRT/VTT、媒体时长与流、HTML 本地引用、重复 ID、manifest 路径安全/字节数/SHA-256、源码与完整 ZIP 成员、网页媒体报告和 Web MCP JavaScript 语法。旧版仅检查核心包的命令通过不能替代扩展验收。
+`verify_package.py` 检查核心文件、JSON、PPTX/DOCX/PDF 结构、EPUB 容器与 spine、SRT/VTT、媒体时长与流、HTML 本地引用、重复 ID、manifest 路径安全/字节数/SHA-256、源码与完整 ZIP 成员、网页媒体报告和 Web MCP JavaScript 语法；还会交叉核对发布视频 v2 报告、母版哈希、12 章、SRT/VTT、旁白与内嵌字幕。旧版仅检查核心包的命令通过不能替代扩展验收。
 
 ## 2. 独立部署集
 
@@ -89,7 +89,7 @@ node scripts/browser_verify.mjs --online https://<deployment-url> deliverables/o
 
 `verify_site.py` 以部署 manifest 为资源事实源，检查页面、全部下载资源、Content-Type、字节数、可选全量哈希、Range、关键内容、CORS、未授权拒绝、认证 initialize、tools/resources 和只读分析。在线 token 只从 `MI_MCP_PUBLIC_TOKEN` 环境变量读取且不输出；没有 token 时不得把认证调用写成已通过。
 
-`browser_verify.mjs` 使用本机 Chrome/Edge CDP 检查中英切换、音频源、播放、移动端布局、下载链接、Range、manifest、MCP 空 token 安全、项目说明书和运行时异常。`--deployment <staging>` 使用本地服务器和部署集边界，`--online <url>` 使用同一部署集边界检查远端；两者都要求排除完整交付 ZIP。脚本请求遇到 403 人机验证时，应区分防护拦截与资源错误，不能据此宣称线上通过。
+`browser_verify.mjs` 使用本机 Chrome/Edge CDP 检查中英切换、音频源、播放、移动端布局、下载链接、Range、manifest、MCP 空 token 安全、项目说明书和运行时异常。`--deployment <staging>` 使用本地服务器和部署集边界，`--online <url>` 使用同一部署集边界检查远端；两者都要求排除完整交付 ZIP。脚本请求遇到 403 人机验证时，应区分防护拦截与资源错误，不能据此宣称线上通过；Access 登录页、结构不符或运行异常会写入 JSON 失败报告，而不是中途丢弃报告。
 
 ## 5. 二维码与域名维护
 
