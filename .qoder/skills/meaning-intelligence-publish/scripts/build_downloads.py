@@ -282,11 +282,17 @@ def sync_web_media_report() -> dict:
 def guide_source_files() -> list[Path]:
     if not GUIDE_SOURCE.is_dir():
         return []
-    generated = {".build", "assets", "audio", "captions", "downloads", "transcripts", "rendered"}
+    generated_parts = {".build", "assets", "audio", "captions", "downloads", "transcripts", "rendered"}
+    generated_names = {
+        "index.html", "content.js", "verification.js", "audio-timings.json",
+        "manifest.json", "manifest.sha256", "verification.json", "browser-check.json",
+        "meaning-intelligence-project-guide.zip",
+    }
     return [
         path for path in sorted(GUIDE_SOURCE.rglob("*"))
         if path.is_file()
-        and not any(part.lower() in generated for part in path.relative_to(GUIDE_SOURCE).parts)
+        and path.name not in generated_names
+        and not any(part.lower() in generated_parts for part in path.relative_to(GUIDE_SOURCE).parts)
         and path.suffix.lower() in {".py", ".json", ".html", ".css", ".js", ".mjs", ".ps1", ".md", ".txt"}
         and not excluded(path.relative_to(GUIDE_SOURCE))
     ]
