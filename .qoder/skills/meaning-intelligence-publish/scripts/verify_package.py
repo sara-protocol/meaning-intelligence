@@ -100,6 +100,8 @@ class PageParser(HTMLParser):
         self.ids: list[str] = []
         self.refs: list[tuple[str, str, str]] = []
         self.scripts: list[str] = []
+        self.skip_links: list[str] = []
+        self.headings: list[int] = []
         self._script_depth = 0
         self._script_type = ""
         self._script_src = ""
@@ -109,6 +111,10 @@ class PageParser(HTMLParser):
         values = dict(attrs)
         if values.get("id"):
             self.ids.append(values["id"])
+        if tag == "a" and values.get("href") == "#main" and "skip" in values.get("class", "").lower():
+            self.skip_links.append(values["href"])
+        if re.fullmatch(r"h[1-6]", tag):
+            self.headings.append(int(tag[1]))
         for key in ("src", "href", "poster"):
             value = values.get(key)
             if value:
@@ -156,6 +162,13 @@ def inspect_html(files: dict[str, Path], errors: list[str]) -> None:
         duplicates = sorted({item for item in parser.ids if parser.ids.count(item) > 1})
         if duplicates:
             errors.append(f"{rel} 重复 ID: {duplicates}")
+        if parser.headings:
+            if parser.headings[0] != 1:
+                errors.append(f"{rel} 首个标题不是 h1")
+            for previous, current in zip(parser.headings, parser.headings[1:]):
+                if current > previous + 1:
+                    errors.append(f"{rel} 标题层级从 h{previous} 跳到 h{current}")
+                    break
         if "__DATA__" in text or "__CUES__" in text:
             errors.append(f"{rel} 含未替换构建占位符")
         for tag, attr, ref in parser.refs:
@@ -172,6 +185,8 @@ def inspect_html(files: dict[str, Path], errors: list[str]) -> None:
             language_controls = ("btnEn", "setLang", "setL(", "lang-en", "data-i18n")
             if not any(control in text for control in language_controls):
                 errors.append(f"{rel} 缺少可见语言切换")
+            if "#main" not in parser.skip_links or "main" not in parser.ids:
+                errors.append(f"{rel} 缺少可聚焦的跳转到正文链接")
         if shutil.which("node"):
             for index, script in enumerate(parser.scripts, 1):
                 if not script.strip():
