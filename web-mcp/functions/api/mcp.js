@@ -641,4 +641,5 @@ export function createHandler(options = {}) {
 }
 
 const worker = createHandler();
+export const onRequest = context => worker.fetch(context.request, context.env);
 export default worker;

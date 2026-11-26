@@ -4,7 +4,7 @@ import { randomBytes } from "node:crypto";
 import { access, readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
-import { createHandler } from "../functions/api/mcp.js";
+import { createHandler, onRequest } from "../functions/api/mcp.js";
 
 const ENDPOINT = "https://meaning.example/api/mcp";
 const MAX_BODY_BYTES = 32768;
@@ -45,6 +45,26 @@ async function jsonBody(response) {
 function toolMessage(name, args, id = 1) {
   return rpc("tools/call", { name, arguments: args }, id);
 }
+
+test("Pages Function adapter forwards requests and deployment secrets", async () => {
+  const token = ephemeralToken();
+  const request = new Request(ENDPOINT, {
+    method: "POST",
+    headers: { authorization: `Bearer ${token}`, "content-type": "application/json" },
+    body: JSON.stringify(rpc("ping")),
+  });
+  const accepted = await onRequest({ request, env: { MI_MCP_PUBLIC_TOKEN: token } });
+  assert.equal(accepted.status, 200);
+  assert.deepEqual(await jsonBody(accepted), { jsonrpc: "2.0", id: 1, result: {} });
+  const deniedRequest = new Request(ENDPOINT, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(rpc("ping")),
+  });
+  const denied = await onRequest({ request: deniedRequest, env: {} });
+  assert.equal(denied.status, 401);
+  assert.equal((await jsonBody(denied)).error.code, -32001);
+});
 
 test("initialize advertises the read-only MCP surface", async () => {
   const token = ephemeralToken();
