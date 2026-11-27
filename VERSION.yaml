@@ -18,6 +18,22 @@ project:
   homepage: https://msi.gojj.ccwu.cc/
   upstream_homepage: https://sara-protocol.github.io/meaning-intelligence/
   repository: https://github.com/sara-protocol/meaning-intelligence
+  project_identifier:
+    title_zh: "意义智能：理论框架、证据设计和验证"
+    title_en: "Meaning Intelligence: Theoretical Framework, Evidence Design, and Validation"
+    doi: "10.17605/OSF.IO/3XKGY"
+    resolver: "https://doi.org/10.17605/OSF.IO/3XKGY"
+    landing_page: "https://osf.io/3xkgy/"
+    registry: OSF
+    registry_id: "3xkgy"
+    category: "project"
+    public: true
+    registration: false
+    preprint: false
+    date_created: "2026-08-27T01:59:21.532607Z"
+    date_modified: "2026-08-29T13:07:41.518379Z"
+    verified: "2026-11-27"
+    evidence_boundary: "Identifier only; not preregistration, peer review, publication, replication, or evidence-level promotion."
 
 # --- Layered version identity -------------------------------------------------
 # The canon is the theoretical source. The research system is the current

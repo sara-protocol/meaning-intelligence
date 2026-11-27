@@ -29,6 +29,17 @@
 | SDK | **0.3.0，未发布工程版本**（`pr_sdk_v2/`），不改变研究系统版本 |
 | 证据边界 Evidence boundary | SDK、启发式审计/助手、Meaning Agent 与 Web MCP **都不是实证验证**；`registered` 只表示已有预注册元数据，`evidence_ceiling` 是设计上限，**不是已达到的证据等级** |
 
+### 项目标识 / Project identifier
+
+**《意义智能：理论框架、证据设计和验证》**
+
+**Meaning Intelligence: Theoretical Framework, Evidence Design, and Validation**
+
+项目 DOI / Project DOI：[10.17605/OSF.IO/3XKGY](https://doi.org/10.17605/OSF.IO/3XKGY) · [OSF project](https://osf.io/3xkgy/)
+
+OSF 元数据核验：`category=project`、`public=true`、`registration=false`、`preprint=false`。该 DOI 仅是项目标识，不表示预注册、同行评审、正式发表或独立复现，也不提升 E0–E6 证据等级或研究系统版本。
+OSF metadata: `category=project`, `public=true`, `registration=false`, `preprint=false`. The DOI identifies the project only; it is not preregistration, peer review, publication, or independent replication and does not promote evidence levels or the research-system version.
+
 ---
 
 ## 这是什么 / What this is

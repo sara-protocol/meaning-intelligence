@@ -59,6 +59,13 @@
     $("#hero-subtitle").textContent = t.heroSubtitle;
     $("#hero-description").textContent = t.heroDescription;
     $("#hero-chips").innerHTML = [t.canonChip, t.researchChip, t.paperChip, t.msiChip, t.stackChip].map((label) => `<span class="chip">${esc(label)}</span>`).join("");
+    const identifier = data.meta.project_identifier;
+    if (identifier) {
+      $("#hero-chips").insertAdjacentHTML("beforeend", `<a class="chip" href="${esc(identifier.resolver)}" rel="noopener noreferrer">DOI ${esc(identifier.doi)}</a>`);
+      $("#project-identifier-note").textContent = state.lang === "zh"
+        ? `项目标识：${identifier.title_zh}。OSF project；registration=false、preprint=false。DOI 不表示预注册、同行评审、发表或复现，不提升 E0–E6。`
+        : `Project: ${identifier.title_en}. OSF project; registration=false, preprint=false. The DOI is not preregistration, peer review, publication, or replication and does not promote E0–E6.`;
+    }
     $("#chapter-search").placeholder = t.searchPlaceholder;
     $("#footer-note").textContent = t.footerNote;
     $("#footer-generated").textContent = `${t.generated}: ${data.meta.generated}`;
@@ -428,10 +435,27 @@
     const check = (name, ok, detail = "") => checks.push({ name, ok: Boolean(ok), detail });
     const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     const metadata = () => new Promise((resolve) => {
-      if (audio.readyState >= 1 && Number.isFinite(audio.duration)) return resolve(true);
-      const timer = setTimeout(() => resolve(false), 8000);
-      audio.addEventListener("loadedmetadata", () => { clearTimeout(timer); resolve(true); }, { once: true });
-      audio.addEventListener("error", () => { clearTimeout(timer); resolve(false); }, { once: true });
+      const started = performance.now();
+      let timer = 0;
+      const cleanup = () => {
+        clearTimeout(timer);
+        audio.removeEventListener("loadedmetadata", poll);
+        audio.removeEventListener("error", failed);
+      };
+      const failed = () => { cleanup(); resolve(false); };
+      const poll = () => {
+        if (audio.readyState >= 1 && Number.isFinite(audio.duration)) {
+          cleanup();
+          resolve(true);
+        } else if (audio.error || performance.now() - started > 12000) {
+          failed();
+        } else {
+          timer = setTimeout(poll, 100);
+        }
+      };
+      audio.addEventListener("loadedmetadata", poll);
+      audio.addEventListener("error", failed);
+      poll();
     });
     try {
       setLanguage("zh", false);

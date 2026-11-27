@@ -6,8 +6,8 @@
 
 - Pages 项目名：`msi`。
 - 生产分支：`main`。
-- 生产地址：`https://msi-5e5.pages.dev`。
-- 自定义别名：`goii.ccwu.cc`，同时是二维码正式入口。
+- 生产地址：`https://msi-axm.pages.dev`。
+- 历史自定义别名：`goii.ccwu.cc`，仍为旧版媒体中心，不再作为正式入口。
 - GitHub Pages 项目主页：`https://msi.gojj.ccwu.cc/`，与 Cloudflare Pages 不是同一部署系统。
 - Cloudflare Pages 单文件上限：25 MiB。
 
@@ -70,9 +70,9 @@ npx --no-install wrangler pages deploy "deliverables/meaning-intelligence-deploy
 ## 部署后机器验收
 
 ```bash
-python scripts/verify_site.py
+python scripts/verify_site.py --deep --mcp-rate-limit --strict https://<deployment-url>
 python scripts/verify_site.py https://<preview>.pages.dev
-node scripts/browser_verify.mjs --online https://msi-5e5.pages.dev deliverables/online-browser-check.json
+node scripts/browser_verify.mjs --online https://msi-axm.pages.dev deliverables/online-browser-check.json
 ```
 
 `verify_site.py` 从 staging manifest 读取预期资源，检查：
@@ -82,12 +82,13 @@ node scripts/browser_verify.mjs --online https://msi-5e5.pages.dev deliverables/
 - 中英音频、发布视频、二维码、字幕 JSON、SRT/VTT、EPUB、白皮书、PPT、源码 ZIP 和文档。
 - Range 请求、首页与下载页关键内容、重复 ID、CORS、未授权拒绝。
 - 存在 `MI_MCP_PUBLIC_TOKEN` 时，验证认证 initialize、tools/resources 与只读分析；token 不写入日志。
+- `--strict` 要求 deep、生产 token 和限流探测同时启用；缺少任一条件即失败，非严格无 token 模式只报告静态检查通过。
 
 `browser_verify.mjs` 使用真实 Chrome/Edge 检查中英切换、音频源、移动端布局、下载链接、项目说明书和运行时异常。脚本不读取或保存浏览器中的 token。
 
 ## 自定义域名
 
-`goii.ccwu.cc` 对无浏览器特征的脚本请求可能返回 403 人机验证；这不是资源不存在的充分证据。资源验收使用 `msi-5e5.pages.dev`，自定义域名使用真实浏览器验收。未获得明确授权时，不修改共享域名或安全配置。
+`goii.ccwu.cc` 对无浏览器特征的脚本请求可能返回 403 人机验证；这不是资源不存在的充分证据，但该域名仍为旧版，不作为最终交付入口。Cloudflare 资源验收使用 `https://msi-axm.pages.dev`，GitHub Pages 正式入口使用 `https://msi.gojj.ccwu.cc/` 并以真实浏览器验收。未获得明确授权时，不修改共享域名或安全配置。
 
 ## Web MCP 安全边界
 
@@ -100,4 +101,4 @@ node scripts/browser_verify.mjs --online https://msi-5e5.pages.dev deliverables/
 
 ## 二维码
 
-正式链接为 `https://goii.ccwu.cc`，出现在讲课版 PPT、MSI 讲解版 PPT 和发布中心。更换链接时重新生成 `assets/qr_site.png` 与 PPT 用二维码，重截相关页面，只重组装两份 PPTX 并沿用已切分音频，然后重建完整包、部署集并执行全部验收。现有入口为工作区 `rebuild_pptx_qr.py`。
+正式链接为 `https://msi.gojj.ccwu.cc`，出现在讲课版 PPT、MSI 讲解版 PPT 和发布中心；`https://goii.ccwu.cc` 仅为历史旧版。更换链接时重新生成 `assets/qr_site.png` 与 PPT 用二维码，重截相关页面，只重组装两份 PPTX 并沿用已切分音频，然后重建完整包、部署集并执行全部验收。现有入口为工作区 `rebuild_pptx_qr.py`。

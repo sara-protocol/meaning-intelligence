@@ -215,6 +215,31 @@ class OriginAndMethodTests(unittest.TestCase):
             self.assertEqual(denied[0], 403)
             self.assertNotIn("access-control-allow-origin", denied[2])
 
+    def test_host_guard_prevents_dns_rebinding(self):
+        with running_server(env={"MI_MCP_PUBLIC_TOKEN": STRONG_TOKEN}) as server:
+            valid_host = f"127.0.0.1:{server.server_port}"
+            self.assertEqual(request(server, "GET", "/health", headers={**auth(), "Host": valid_host})[0], 200)
+            for host in (
+                "evil.example",
+                f"127.0.0.1:{server.server_port + 1}",
+                f"attacker@{valid_host}",
+                f"{valid_host}/mcp",
+            ):
+                with self.subTest(host=host):
+                    self.assertEqual(request(server, "GET", "/health", headers={**auth(), "Host": host})[0], 403)
+            with socket.create_connection(("127.0.0.1", server.server_port), timeout=3) as connection:
+                connection.sendall(
+                    (
+                        "GET /health HTTP/1.1\r\n"
+                        f"Host: {valid_host}\r\n"
+                        f"Host: {valid_host}\r\n"
+                        f"Authorization: Bearer {STRONG_TOKEN}\r\n"
+                        "Connection: close\r\n\r\n"
+                    ).encode("ascii")
+                )
+                self.assertIn(b" 403 ", connection.recv(4096).split(b"\r\n", 1)[0])
+            self.assertEqual(server.delegate_calls, 0)
+
     def test_browser_origin_is_rejected_without_an_allowlist(self):
         with running_server(env={"MI_MCP_PUBLIC_TOKEN": STRONG_TOKEN}) as server:
             response = request(server, "GET", "/health", headers={**auth(), "Origin": ALLOWED_ORIGIN})

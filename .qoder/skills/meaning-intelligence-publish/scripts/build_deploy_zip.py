@@ -31,7 +31,7 @@ for stream in (sys.stdout, sys.stderr):
     if hasattr(stream, "reconfigure"):
         stream.reconfigure(encoding="utf-8", errors="backslashreplace")
 
-WORKSPACE = Path(__file__).resolve().parents[2]
+WORKSPACE = next(parent for parent in Path(__file__).resolve().parents if (parent / "意义智能有声读物_发布包").is_dir())
 PACKAGE = WORKSPACE / "意义智能有声读物_发布包"
 DELIVERABLES = WORKSPACE / "deliverables"
 DEFAULT_OUTPUT = DELIVERABLES / "意义智能_部署包.zip"
@@ -54,6 +54,11 @@ EXCLUDED_SUFFIXES = {
     ".swp", ".swo", ".bak", ".pyc", ".pyo", ".pem", ".key", ".pfx", ".p12",
 }
 EXPLICIT_EXCLUSIONS = {
+    "download/Meaning_Intelligence_Source_v0.2.0.zip": "superseded legacy source archive retained only by an external file lock",
+    "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27.zip": "superseded intermediate source archive retained by a system lock; use the final archive",
+    "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27_release-final2.zip": "superseded locked source archive; use release-final3",
+    "download/意义智能_完整交付包_2026-11-27_release-provisional.zip": "browser acceptance provisional; use final complete package",
+    "project-guide/downloads/attachment-updated-2026-11-26.pdf": "superseded locked guide derivative; use 2026-11-27 PDF",
     "assets/audio.mp3": "original oversized Chinese audio; use assets/audio-web.mp3",
     "assets/video/release/meaning_intelligence_zh.mp4": "original 1080p Chinese master; use web derivative",
     "assets/video/release/meaning_intelligence_en.mp4": "original 1080p English master; use web derivative",
@@ -502,6 +507,78 @@ def deployment_downloads_html(source: str, manifest: dict, records: dict[str, di
     return rewritten, errors
 
 
+def deployment_verification(source: dict, records: dict[str, dict], manifest_info: dict) -> dict:
+    result = copy.deepcopy(source)
+    result["deployment"] = {
+        "schema": "meaning-intelligence-deployment-verification-v1",
+        "kind": "cloudflare-pages",
+        "complete_package_included": False,
+        "max_file_bytes": MAX_FILE_BYTES,
+    }
+    result["complete_archive"] = {
+        "path": None,
+        "self_included": False,
+        "excluded": True,
+        "reason": "local complete delivery ZIP is intentionally not deployed",
+    }
+    videos = []
+    for item in result.get("release_videos", []):
+        original = item.get("path")
+        metadata = DERIVATIVES.get(original)
+        if not metadata:
+            continue
+        target = metadata["path"]
+        record = records[target]
+        videos.append({**item, "path": target, "bytes": record["bytes"], "sha256": record["sha256"], "source": original})
+    result["release_videos"] = videos
+    media = result.get("web_media", {})
+    media_records = []
+    for item in media.get("records", []):
+        original = item.get("path", "").replace("\\", "/")
+        relative = original.removeprefix("意义智能有声读物_发布包/")
+        metadata = DERIVATIVES.get(relative)
+        if metadata:
+            record = records[metadata["path"]]
+            media_records.append({**item, "path": metadata["path"], "bytes": record["bytes"], "sha256": record["sha256"], "local_source": item.get("source")})
+        elif relative in records:
+            media_records.append({**item, "path": relative, "bytes": records[relative]["bytes"], "sha256": records[relative]["sha256"], "local_source": item.get("source")})
+    media["records"] = media_records
+    media["local_provenance_only"] = True
+    result["checks"]["complete_package_excluded"] = True
+    result["checks"]["deployment_manifest_rewritten"] = True
+    return result
+
+
+def validate_verification_references(records: dict[str, dict]) -> list[str]:
+    errors: list[str] = []
+    raw = records.get("download/verification.json", {}).get("_data")
+    if raw is None:
+        return errors
+    try:
+        report = json.loads(raw)
+        if report.get("status") != "ready" or report.get("deployment", {}).get("complete_package_included") is not False:
+            errors.append("部署 verification.json 未明确标记完整包排除")
+        for collection in ("documents", "release_videos"):
+            for item in report.get(collection, []):
+                if item.get("path") not in records:
+                    errors.append(f"部署 verification.json 引用缺失: {collection}={item.get('path')}")
+        for key in ("source_archive", "portable_sop_skill"):
+            if report.get(key, {}).get("path") not in records:
+                errors.append(f"部署 verification.json 引用缺失: {key}")
+        for key, rel in (
+            ("video_verification_report", report.get("video_verification_report")),
+            ("publication_browser", report.get("publication_browser", {}).get("report")),
+            ("web_media", report.get("web_media", {}).get("report")),
+            ("project_guide", report.get("project_guide", {}).get("verification_report")),
+            ("project_guide_browser", report.get("project_guide", {}).get("browser_report")),
+        ):
+            if rel not in records:
+                errors.append(f"部署 verification.json 支持证据缺失: {key}={rel}")
+    except Exception as exc:
+        errors.append(f"部署 verification.json 解析失败: {exc}")
+    return errors
+
+
 def validate_html_references(records: dict[str, dict]) -> list[str]:
     errors: list[str] = []
     for rel, record in sorted(records.items()):
@@ -727,7 +804,15 @@ def main() -> int:
             {"path": "download/manifest.json", "reason": "deployment-specific download manifest"},
             {"path": downloads_rel, "reason": "deployment-specific download page without complete-package card"},
         ])
+        source_verification = json.loads(sources["download/verification.json"].read_text(encoding="utf-8"))
+        verification = deployment_verification(source_verification, records, manifest_info)
+        verification_data = (json.dumps(verification, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+        generated["download/verification.json"] = verification_data
+        records["download/verification.json"] = record_bytes("download/verification.json", verification_data)
+        records["download/verification.json"]["_data"] = verification_data
+        report["generated_files"].append({"path": "download/verification.json", "reason": "deployment-specific evidence without dangling complete-package or master references"})
         errors = validate_html_references(records)
+        errors.extend(validate_verification_references(records))
         oversized = [record for record in records.values() if record["bytes"] > MAX_FILE_BYTES]
         if oversized:
             errors.extend(f"部署文件超过 25 MiB: {item['path']} ({item['bytes']} bytes)" for item in oversized)

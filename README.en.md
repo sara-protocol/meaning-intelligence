@@ -53,6 +53,17 @@
 | Scholarly commitment | Any module reaching its failure threshold will be **marked or removed**, not defended |
 | Evidence boundary | The SDK, heuristic audit/assistant, Meaning Agent, and Web MCP are **not empirical validation**. `registered` means preregistration metadata exists; `evidence_ceiling` is a design ceiling, **not achieved evidence** |
 
+### Project identifier
+
+**《意义智能：理论框架、证据设计和验证》**
+
+**Meaning Intelligence: Theoretical Framework, Evidence Design, and Validation**
+
+Project DOI: [10.17605/OSF.IO/3XKGY](https://doi.org/10.17605/OSF.IO/3XKGY) · [OSF project](https://osf.io/3xkgy/)
+
+OSF metadata: `category=project`, `public=true`, `registration=false`, `preprint=false`. The DOI identifies the project only; it is not preregistration, peer review, publication, or independent replication and does not promote evidence levels or the research-system version.
+OSF 元数据核验：`category=project`、`public=true`、`registration=false`、`preprint=false`。该 DOI 仅是项目标识，不表示预注册、同行评审、正式发表或独立复现，也不提升 E0–E6 证据等级或研究系统版本。
+
 > **On version numbering**: This project uses `0.x` to signal research formation.
 > Only after construct validation, a first predictive study, and independent replication
 > does it reach `1.0`. This is a deliberate, conservative convention.

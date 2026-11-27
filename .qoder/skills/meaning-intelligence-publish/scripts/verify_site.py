@@ -23,11 +23,12 @@ from urllib.parse import quote, unquote, urlsplit
 
 import requests
 
+from finalize_publish import WORKSPACE
+
 for stream in (sys.stdout, sys.stderr):
     if hasattr(stream, "reconfigure"):
         stream.reconfigure(encoding="utf-8", errors="backslashreplace")
 
-WORKSPACE = Path(__file__).resolve().parents[2]
 DEFAULT_MANIFEST = WORKSPACE / "deliverables" / "meaning-intelligence-deploy-staging" / "download" / "manifest.json"
 MAX_FILE_BYTES = 25 * 1024 * 1024
 PAGES = [
@@ -530,10 +531,11 @@ def verify_mcp(session: requests.Session, site: str, failures: list[str], token:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("site_url", nargs="?", default="https://msi-5e5.pages.dev")
+    parser.add_argument("site_url", help="待验收的完整 HTTP(S) URL；必须显式提供，避免误用历史部署地址")
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST, help=f"deployment manifest (default: {DEFAULT_MANIFEST})")
     parser.add_argument("--deep", action="store_true", help="hash every download, verify byte ranges, and ffprobe web audio/video")
     parser.add_argument("--mcp-rate-limit", action="store_true", help="with a token, trigger the MCP 60/minute limit using more than 60 requests")
+    parser.add_argument("--strict", action="store_true", help="require deep checks, authenticated MCP, and the rate-limit probe; skipped checks cannot pass")
     args = parser.parse_args()
     site = args.site_url.rstrip("/")
     parsed = urlsplit(site)
@@ -541,6 +543,15 @@ def main() -> int:
         print("FAIL site_url 必须是完整 HTTP(S) URL，且不能包含凭据")
         return 1
     token = os.environ.get("MI_MCP_PUBLIC_TOKEN", "")
+    if args.strict and not args.deep:
+        print("FAIL --strict 要求同时使用 --deep")
+        return 1
+    if args.strict and not token:
+        print("FAIL --strict 要求 MI_MCP_PUBLIC_TOKEN；未读取、打印或持久化 token")
+        return 1
+    if args.strict and not args.mcp_rate_limit:
+        print("FAIL --strict 要求同时使用 --mcp-rate-limit，完成生产限流验证")
+        return 1
     failures: list[str] = []
     try:
         _, entries = load_manifest(args.manifest.resolve())
@@ -574,13 +585,16 @@ def main() -> int:
         session.close()
     print(f"范围: deployment manifest；HTML 语言控件；静态双语音轨切换证据；HTTP 资源；MCP 只读边界")
     print("SKIP dynamic browser interactions: run browser_verify.mjs against local staging or with --online")
-    print(f"模式: deep={args.deep}; authenticated_mcp={bool(token)}; rate_limit_probe={bool(token) and args.mcp_rate_limit}; token 从不输出")
+    print(f"模式: deep={args.deep}; authenticated_mcp={bool(token)}; rate_limit_probe={bool(token) and args.mcp_rate_limit}; strict={args.strict}; token 从不输出")
     if failures:
         print(f"线上验证未通过: {len(failures)} 项")
         for failure in failures:
             print(f"FAIL {failure}")
         return 1
-    print(f"全部通过: {site}（manifest {len(entries)} 项；deep={args.deep}）")
+    if not token:
+        print(f"静态检查通过: {site}（manifest {len(entries)} 项；deep={args.deep}）；生产 MCP 认证检查未执行，不能宣告全部完成")
+        return 0
+    print(f"全部通过: {site}（manifest {len(entries)} 项；deep={args.deep}；strict={args.strict}）")
     return 0
 
 

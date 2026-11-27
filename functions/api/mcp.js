@@ -610,13 +610,13 @@ export function createHandler(options = {}) {
           throw new TransportError("method not allowed", 405, -32000, { allow: "POST, OPTIONS" });
         }
         if (!cors.allowed) throw new TransportError("origin not allowed", 403, -32000);
+        const retryAfter = consumeRateLimit(clientKey(request));
+        if (retryAfter) throw new TransportError("rate limit exceeded", 429, -32000, { "retry-after": String(retryAfter) });
         if (!authorized(request, env)) {
           throw new TransportError("unauthorized", 401, -32001, { "www-authenticate": "Bearer" });
         }
         const contentType = (request.headers.get("content-type") || "").split(";", 1)[0].trim().toLowerCase();
         if (contentType !== "application/json") throw new TransportError("content-type must be application/json", 415);
-        const retryAfter = consumeRateLimit(clientKey(request));
-        if (retryAfter) throw new TransportError("rate limit exceeded", 429, -32000, { "retry-after": String(retryAfter) });
         const message = validateMessage(await readJsonRequest(request));
         rpcId = Object.hasOwn(message, "id") ? message.id : null;
         if (!Object.hasOwn(message, "id")) {

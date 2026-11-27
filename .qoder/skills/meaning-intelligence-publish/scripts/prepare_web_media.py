@@ -13,7 +13,8 @@ for stream in (sys.stdout, sys.stderr):
     if hasattr(stream, "reconfigure"):
         stream.reconfigure(encoding="utf-8", errors="backslashreplace")
 
-WORKSPACE = Path(__file__).resolve().parents[2]
+from finalize_publish import WORKSPACE
+
 PACKAGE = WORKSPACE / "意义智能有声读物_发布包"
 VIDEO_SOURCE = WORKSPACE / "deliverables" / "video"
 REPORT = WORKSPACE / "deliverables" / "web-media-verification.json"

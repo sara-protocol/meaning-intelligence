@@ -23,6 +23,8 @@ from dataclasses import dataclass, field
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import unquote, urlsplit
 
+from .safety import valid_local_host
+
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8767
 DEFAULT_MAX_BODY_BYTES = 512 * 1024
@@ -47,6 +49,7 @@ _SECURITY_HEADERS = {
 
 _ERROR_MESSAGES = {
     "unauthorized": "Authentication is required.",
+    "forbidden": "The request host is not allowed.",
     "forbidden_origin": "The request origin is not allowed.",
     "not_found": "Resource not found.",
     "method_not_allowed": "Method not allowed.",
@@ -410,6 +413,23 @@ def secure_handler(base_handler: type[BaseHTTPRequestHandler]) -> type[BaseHTTPR
         def _request_allowed(self, method: str) -> bool:
             if method not in self.server.public_policy.allowed_methods:
                 self._send_public_error(405, "method_not_allowed")
+                return False
+            hosts = self.headers.get_all("Host") or []
+            try:
+                host = urlsplit("//" + (hosts[0] if len(hosts) == 1 else ""))
+            except ValueError:
+                self._send_public_error(403, "forbidden")
+                return False
+            if (
+                len(hosts) != 1
+                or not valid_local_host(hosts[0], self.server.server_port)
+                or host.username is not None
+                or host.password is not None
+                or host.path
+                or host.query
+                or host.fragment
+            ):
+                self._send_public_error(403, "forbidden")
                 return False
             target = self.path or ""
             if len(target.encode("utf-8", errors="replace")) > MAX_REQUEST_TARGET_BYTES:

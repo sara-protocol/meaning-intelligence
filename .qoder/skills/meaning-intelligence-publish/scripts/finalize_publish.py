@@ -2,6 +2,7 @@
 """Apply deterministic bilingual, provenance and accessibility fixes after page builds."""
 from __future__ import annotations
 
+import html
 import re
 import sys
 from pathlib import Path
@@ -10,7 +11,39 @@ for stream in (sys.stdout, sys.stderr):
     if hasattr(stream, "reconfigure"):
         stream.reconfigure(encoding="utf-8", errors="backslashreplace")
 
-PACKAGE = Path(__file__).resolve().parents[2] / "意义智能有声读物_发布包"
+def locate_repo() -> Path:
+    for candidate in Path(__file__).resolve().parents:
+        for root in (candidate, candidate / "mi-repo"):
+            if (root / "VERSION.yaml").is_file() and ((root / "meaning-agent").is_dir() or (root / "web-mcp").is_dir()):
+                return root
+    raise RuntimeError("无法定位意义智能仓库根目录")
+
+
+def locate_workspace(repo: Path) -> Path:
+    for candidate in Path(__file__).resolve().parents:
+        if (candidate / "意义智能有声读物_发布包").is_dir() and (candidate / "deliverables").is_dir():
+            return candidate
+    return repo.parent if repo.name == "mi-repo" else repo
+
+
+REPO = locate_repo()
+WORKSPACE = locate_workspace(REPO)
+PACKAGE = WORKSPACE / "意义智能有声读物_发布包"
+PROJECT_IDENTIFIER = {
+    "title_zh": "意义智能：理论框架、证据设计和验证",
+    "title_en": "Meaning Intelligence: Theoretical Framework, Evidence Design, and Validation",
+    "doi": "10.17605/OSF.IO/3XKGY",
+    "resolver": "https://doi.org/10.17605/OSF.IO/3XKGY",
+    "landing_page": "https://osf.io/3xkgy/",
+    "registry": "OSF",
+    "registry_id": "3xkgy",
+    "category": "project",
+    "public": True,
+    "registration": False,
+    "preprint": False,
+    "verified": "2026-11-27",
+    "evidence_boundary": "Identifier only; not preregistration, peer review, publication, replication, or evidence-level promotion.",
+}
 
 
 def replace_once(text: str, old: str, new: str, label: str) -> str:
@@ -19,6 +52,11 @@ def replace_once(text: str, old: str, new: str, label: str) -> str:
     if new not in text:
         raise RuntimeError(f"Expected source not found: {label}")
     return text
+
+
+def write_if_changed(path: Path, text: str) -> None:
+    if path.read_text(encoding="utf-8") != text:
+        path.write_text(text, encoding="utf-8")
 
 
 def finalize_accessibility(path: Path) -> None:
@@ -42,7 +80,7 @@ def finalize_accessibility(path: Path) -> None:
            '.mi-skip-link:focus{top:12px;outline:3px solid #5ad1e6;outline-offset:3px}</style>')
     text = text.replace("</head>", css + "\n</head>", 1)
     text = text.replace("<body>", '<body>\n<a class="mi-skip-link" href="#main">跳转到正文 / Skip to content</a>', 1)
-    path.write_text(text, encoding="utf-8")
+    write_if_changed(path, text)
 
 
 def finalize_listen(path: Path) -> None:
@@ -105,7 +143,7 @@ def finalize_listen(path: Path) -> None:
     )
     if replacements != 1:
         raise RuntimeError("Expected listen-page language assignment not found")
-    path.write_text(text, encoding="utf-8")
+    write_if_changed(path, text)
 
 
 def finalize_index(path: Path) -> None:
@@ -135,7 +173,53 @@ def finalize_index(path: Path) -> None:
             text = text.replace("</header>", extra + "</header>", 1)
         else:
             text = text.replace("<body>", "<body>\n" + extra, 1)
-    path.write_text(text, encoding="utf-8")
+    text = text.replace('<div class="version" style="display:inline-block;padding:6px 12px;border:1px solid var(--gold);border-radius:999px;color:var(--gold);font-weight:700">v1.1</div>', '<div class="version">v1.1</div>')
+    if 'id="mi-whitepaper-release"' not in text:
+        whitepaper = '''<section id="mi-whitepaper-release" class="card" aria-labelledby="mi-whitepaper-title">
+  <div class="version">v1.1</div>
+  <h2 id="mi-whitepaper-title" style="margin:14px 0 8px"><span data-zh>中英双语公开发布白皮书 v1.1</span><span data-en>Bilingual public release white paper v1.1</span></h2>
+  <p style="margin:0 0 14px;color:var(--dim)"><span data-zh>22 页 / 9 表 / 3 图 · 中英双语 · DOCX + PDF</span><span data-en>22 pages / 9 tables / 3 figures · bilingual · DOCX + PDF</span></p>
+  <a class="btn sec" href="download/Meaning_Intelligence_White_Paper_v1.1_DOCX.docx" data-zh>下载 DOCX</a><a class="btn sec" href="download/Meaning_Intelligence_White_Paper_v1.1_DOCX.docx" data-en>Download DOCX</a>
+  <a class="btn sec" href="download/Meaning_Intelligence_White_Paper_v1.1_PDF.pdf" data-zh>下载 PDF</a><a class="btn sec" href="download/Meaning_Intelligence_White_Paper_v1.1_PDF.pdf" data-en>Download PDF</a>
+</section>
+'''
+        if "<footer>" not in text:
+            raise RuntimeError("Expected index footer not found")
+        text = text.replace("<footer>", whitepaper + "<footer>", 1)
+    whitepaper_css = '''<style>
+#mi-whitepaper-release .version{display:inline-block;padding:6px 12px;border:1px solid var(--gold);border-radius:999px;color:var(--gold);font-weight:700}
+#mi-whitepaper-release [data-en]{display:none}
+html.en #mi-whitepaper-release [data-zh],html[lang="en"] #mi-whitepaper-release [data-zh]{display:none}
+html.en #mi-whitepaper-release [data-en],html[lang="en"] #mi-whitepaper-release [data-en]{display:inline}
+</style>'''
+    if "#mi-whitepaper-release [data-en]" not in text:
+        text = text.replace("</head>", whitepaper_css + "\n</head>", 1)
+    write_if_changed(path, text)
+
+
+def finalize_project_identifier(path: Path) -> None:
+    text = path.read_text(encoding="utf-8")
+    text = re.sub(r'\s*<meta\s+name="citation_(?:doi|title)"[^>]*>', "", text, flags=re.I)
+    metadata = (
+        f'<meta name="citation_doi" content="{html.escape(PROJECT_IDENTIFIER["doi"], quote=True)}">'
+        f'<meta name="citation_title" content="{html.escape(PROJECT_IDENTIFIER["title_en"], quote=True)}">'
+    )
+    text = text.replace("</head>", metadata + "\n</head>", 1)
+    if 'id="mi-project-identifier"' not in text:
+        block = f'''<aside id="mi-project-identifier" data-mi-project-id style="max-width:1050px;margin:18px auto;padding:14px 20px;border:1px solid #24325c;border-radius:12px;background:#131b33;color:#e8ecf6;font:14px/1.6 system-ui,&quot;Microsoft YaHei&quot;,sans-serif">
+<strong data-zh>项目标识：《{html.escape(PROJECT_IDENTIFIER["title_zh"])}》</strong><strong data-en>Project: {html.escape(PROJECT_IDENTIFIER["title_en"])}</strong><br>
+<a href="{html.escape(PROJECT_IDENTIFIER["resolver"], quote=True)}" style="color:#5ad1e6">DOI {html.escape(PROJECT_IDENTIFIER["doi"])}</a> ·
+<a href="{html.escape(PROJECT_IDENTIFIER["landing_page"], quote=True)}" style="color:#5ad1e6">OSF</a><br>
+<span data-zh>公开 OSF project；registration=false、preprint=false。DOI 仅为项目标识，不代表预注册、同行评审、发表或复现，也不提升 E0–E6 证据等级。</span>
+<span data-en>Public OSF project; registration=false, preprint=false. The DOI is an identifier only, not preregistration, peer review, publication, or replication, and does not promote E0–E6 evidence.</span></aside>'''
+        marker = next((value for value in ("<main", '<div class="wrap"') if value in text), "<body>")
+        start = text.index(marker)
+        end = text.index(">", start) + 1
+        text = text[:end] + "\n" + block + text[end:]
+    style = '<style>[data-mi-project-id] [data-en]{display:none}html.en [data-mi-project-id] [data-zh],html[lang="en"] [data-mi-project-id] [data-zh]{display:none}html.en [data-mi-project-id] [data-en],html[lang="en"] [data-mi-project-id] [data-en]{display:inline}</style>'
+    if '[data-mi-project-id] [data-en]' not in text:
+        text = text.replace("</head>", style + "\n</head>", 1)
+    write_if_changed(path, text)
 
 
 def main() -> None:
@@ -149,6 +233,7 @@ def main() -> None:
         page = PACKAGE / name
         if page.is_file():
             finalize_accessibility(page)
+            finalize_project_identifier(page)
     print("PASS deterministic publication finalization applied")
 
 

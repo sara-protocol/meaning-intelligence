@@ -3,6 +3,16 @@
 # 说明与理由写在每条规则旁，便于后来者判断"该不该改这里"。
 # ============================================================================
 
+# 本地凭据与 Cloudflare 开发状态
+.env
+.env.*
+!.env.example
+.dev.vars
+.wrangler/
+*.baiduyun.uploading.cfg
+*.uploading.cfg
+*.downloading.cfg
+
 # ---------------------------------------------------------------- Python
 __pycache__/
 *.py[cod]

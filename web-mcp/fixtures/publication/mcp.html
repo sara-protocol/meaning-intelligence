@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'">
+<title>意义智能 Web MCP / Meaning Intelligence Web MCP</title>
+<style>
+:root{--bg:#0b1020;--card:#131b33;--line:#24325c;--gold:#e8b34b;--cyan:#5ad1e6;--text:#e8ecf6;--dim:#9aa7c7;--danger:#ff9f9f;--ok:#8de3bd}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,"Microsoft YaHei",sans-serif;line-height:1.65}main{max-width:1120px;margin:auto;padding:38px 20px 80px}header{text-align:center;margin-bottom:28px}h1{font-size:clamp(28px,5vw,44px);margin:0 0 8px;color:var(--gold)}h2{font-size:21px;margin:0 0 14px;color:var(--gold)}h3{color:var(--cyan)}header p,.en,small,.hint{color:var(--dim)}nav,.language-switch{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:18px 0}nav a,button,.language-switch button{border:1px solid var(--cyan);background:transparent;color:var(--cyan);border-radius:999px;padding:9px 16px;text-decoration:none;font:inherit;cursor:pointer}nav a:hover,button:hover,.language-switch button[aria-pressed="true"]{background:var(--cyan);color:var(--bg)}button.primary{background:var(--gold);border-color:var(--gold);color:var(--bg);font-weight:700}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin:16px 0}.security{border-left:4px solid var(--gold)}label{display:block;margin:12px 0}label>span{display:block;color:var(--dim);font-size:14px;margin-bottom:6px}input,textarea,select{width:100%;background:#0d1428;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit}textarea{min-height:110px;resize:vertical}input:focus,textarea:focus,select:focus,button:focus,a:focus{outline:2px solid var(--gold);outline-offset:2px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.scales{display:flex;gap:12px;flex-wrap:wrap}.scales label{display:flex;align-items:center;gap:6px;margin:6px 0}.scales input{width:auto}.status{min-height:26px;color:var(--ok);margin:12px 0 0}.status.error{color:var(--danger)}pre{max-height:440px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;background:#080d1b;border:1px solid var(--line);border-radius:12px;padding:16px;color:#dce7ff;font-size:13px}code{background:#080d1b;border-radius:5px;padding:2px 6px;color:var(--cyan)}details{border-top:1px solid var(--line);margin-top:22px;padding-top:18px}summary{cursor:pointer;color:var(--gold);font-weight:700}table{width:100%;border-collapse:collapse;margin:14px 0}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line);padding:10px 8px}th{color:var(--cyan)}.docs pre{background:#080d1b}.footer{text-align:center;color:var(--dim);margin-top:32px}.warning{color:var(--gold)}@media(max-width:780px){.grid{grid-template-columns:1fr}main{padding:26px 14px 60px}.card{padding:18px}table{font-size:14px}}
+</style>
+<style>.mi-skip-link{position:absolute;left:16px;top:-96px;z-index:999;background:#e8b34b;color:#0b1020;padding:10px 16px;border-radius:8px;font:700 15px system-ui,"Microsoft YaHei",sans-serif}.mi-skip-link:focus{top:12px;outline:3px solid #5ad1e6;outline-offset:3px}</style>
+<style>[data-mi-project-id] [data-en]{display:none}html.en [data-mi-project-id] [data-zh],html[lang="en"] [data-mi-project-id] [data-zh]{display:none}html.en [data-mi-project-id] [data-en],html[lang="en"] [data-mi-project-id] [data-en]{display:inline}</style>
+<meta name="citation_doi" content="10.17605/OSF.IO/3XKGY"><meta name="citation_title" content="Meaning Intelligence: Theoretical Framework, Evidence Design, and Validation">
+</head>
+<body>
+<a class="mi-skip-link" href="#main">跳转到正文 / Skip to content</a>
+<main id="main" tabindex="-1">
+<aside id="mi-project-identifier" data-mi-project-id style="max-width:1050px;margin:18px auto;padding:14px 20px;border:1px solid #24325c;border-radius:12px;background:#131b33;color:#e8ecf6;font:14px/1.6 system-ui,&quot;Microsoft YaHei&quot;,sans-serif">
+<strong data-zh>项目标识：《意义智能：理论框架、证据设计和验证》</strong><strong data-en>Project: Meaning Intelligence: Theoretical Framework, Evidence Design, and Validation</strong><br>
+<a href="https://doi.org/10.17605/OSF.IO/3XKGY" style="color:#5ad1e6">DOI 10.17605/OSF.IO/3XKGY</a> ·
+<a href="https://osf.io/3xkgy/" style="color:#5ad1e6">OSF</a><br>
+<span data-zh>公开 OSF project；registration=false、preprint=false。DOI 仅为项目标识，不代表预注册、同行评审、发表或复现，也不提升 E0–E6 证据等级。</span>
+<span data-en>Public OSF project; registration=false, preprint=false. The DOI is an identifier only, not preregistration, peer review, publication, or replication, and does not promote E0–E6 evidence.</span></aside>
+<header>
+  <h1>意义智能 Web MCP</h1>
+  <p>Meaning Intelligence · Public read-only MCP client</p>
+  <div class="language-switch" role="group" aria-label="Language / 语言">
+    <button id="lang-zh" type="button" aria-pressed="true">中文</button>
+    <button id="lang-en" type="button" aria-pressed="false">English</button>
+  </div>
+  <nav aria-label="Publication navigation">
+    <a href="index.html" data-i18n="navMedia">视听中心 / Media</a>
+    <a href="listen.html" data-i18n="navAudio">有声读物 / Audio Book</a>
+    <a href="downloads.html" data-i18n="navDownloads">下载中心 / Downloads</a>
+  </nav>
+</header>
+
+<section class="card security">
+  <h2 data-i18n="securityTitle">只读与凭据安全 / Read-only and credential safety</h2>
+  <p data-i18n="securityBody">本页面调用同源 /api/mcp。它只读取公开资源，并运行确定性的离线分析；不执行代码、不写文件、不自动批准行动。分析不是实证结论，一切行动仍需人类批准。</p>
+  <p data-i18n="tokenPolicy">令牌必须由部署方通过强随机方式配置为 MI_MCP_PUBLIC_TOKEN（至少 32 个可见 ASCII 字符，并满足服务器的强度策略）。令牌仅保存在当前页面内存中，不写入 URL、Cookie 或浏览器存储；离开页面即清除。请勿分享令牌。</p>
+</section>
+
+<section class="card">
+  <h2 data-i18n="connectTitle">连接 / Connect</h2>
+  <label for="token">
+    <span data-i18n="tokenLabel">访问令牌 / Access token</span>
+    <input id="token" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Paste your token here / 在此粘贴令牌">
+  </label>
+  <div class="actions">
+    <button id="connect" class="primary" type="button" data-i18n="connect">初始化并连接 / Initialize</button>
+    <button id="forget" type="button" data-i18n="forget">清除令牌 / Forget token</button>
+  </div>
+  <p id="status" class="status" role="status" aria-live="polite" data-i18n="notConnected">尚未连接 / Not connected</p>
+</section>
+
+<div class="grid">
+  <section class="card">
+    <h2 data-i18n="resourcesTitle">资源 / Resources</h2>
+    <div class="actions">
+      <button id="list-tools" type="button" data-i18n="listTools">工具列表 / Tools</button>
+      <button id="list-resources" type="button" data-i18n="listResources">资源列表 / Resources</button>
+      <button id="manifest" type="button" data-i18n="manifest">下载清单 / Manifest</button>
+    </div>
+    <label for="resource">
+      <span data-i18n="readResource">读取资源 / Read resource</span>
+      <select id="resource">
+        <option value="mi://canon/v7">Canon V7.0 · 正典</option>
+        <option value="mi://evidence/e0-e6">Evidence E0–E6 · 证据等级</option>
+        <option value="mi://chapters/zh">中文章节 / Chinese chapters</option>
+        <option value="mi://chapters/en">English chapters · 英文章节</option>
+        <option value="mi://skills/l1-l6">Six skills L1–L6 · 六项技能</option>
+        <option value="mi://downloads">Download center · 下载中心</option>
+      </select>
+    </label>
+    <button id="read-resource" type="button" data-i18n="read">读取 / Read</button>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="analyzeTitle">意义分析 / Meaning analysis</h2>
+    <form id="analyze-form">
+      <label for="analyze-text">
+        <span data-i18n="textLabel">待分析文本 / Text</span>
+        <textarea id="analyze-text" maxlength="12000" required placeholder="Describe a direction, value, boundary, or decision… / 描述方向、价值、边界或决策……"></textarea>
+      </label>
+      <label for="context">
+        <span data-i18n="contextLabel">上下文（可选）/ Context (optional)</span>
+        <input id="context" maxlength="2000">
+      </label>
+      <label for="language">
+        <span data-i18n="languageLabel">输出语言 / Output language</span>
+        <select id="language">
+          <option value="auto" data-i18n="auto">自动 / Auto</option>
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+      <fieldset class="scales">
+        <legend data-i18n="scalesLabel">关注尺度（可选）/ Scales (optional)</legend>
+        <label><input type="checkbox" name="scale" value="individual"><span data-i18n="individual">个人 / Individual</span></label>
+        <label><input type="checkbox" name="scale" value="organization"><span data-i18n="organization">组织 / Organization</span></label>
+        <label><input type="checkbox" name="scale" value="city"><span data-i18n="city">城市 / City</span></label>
+        <label><input type="checkbox" name="scale" value="nation"><span data-i18n="nation">国家 / Nation</span></label>
+        <label><input type="checkbox" name="scale" value="civilization"><span data-i18n="civilization">人类 / Civilization</span></label>
+      </fieldset>
+      <button class="primary" type="submit" data-i18n="analyze">运行离线分析 / Analyze</button>
+    </form>
+  </section>
+</div>
+
+<section class="card">
+  <h2 data-i18n="reviewTitle">人工反馈复核 / Human-feedback review</h2>
+  <p class="hint" data-i18n="reviewHint">粘贴此前分析的 JSON，或从最近一次分析载入。复核只提出建议，不改变证据等级，也不批准行动。</p>
+  <div class="actions"><button id="use-last" type="button" data-i18n="useLast">载入最近分析 / Use last analysis</button></div>
+  <form id="review-form">
+    <label for="previous">
+      <span data-i18n="previousLabel">此前分析 JSON / Previous analysis JSON</span>
+      <textarea id="previous" required spellcheck="false"></textarea>
+    </label>
+    <label for="feedback">
+      <span data-i18n="feedbackLabel">人工反馈 / Human feedback</span>
+      <textarea id="feedback" maxlength="4000" required></textarea>
+    </label>
+    <label for="review-language">
+      <span data-i18n="languageLabel">输出语言 / Output language</span>
+      <select id="review-language">
+        <option value="auto" data-i18n="auto">自动 / Auto</option>
+        <option value="zh">中文</option>
+        <option value="en">English</option>
+      </select>
+    </label>
+    <button class="primary" type="submit" data-i18n="review">提交复核 / Review</button>
+  </form>
+</section>
+
+<section class="card">
+  <h2 data-i18n="outputTitle">JSON-RPC 输出 / JSON-RPC output</h2>
+  <pre id="output" aria-live="polite">{}</pre>
+</section>
+
+<details class="card docs">
+  <summary data-i18n="docsTitle">客户端与部署文档 / Client and deployment documentation</summary>
+  <h3 data-i18n="transportTitle">传输 / Transport</h3>
+  <table>
+    <tbody>
+      <tr><th data-i18n="endpoint">端点 / Endpoint</th><td><code>/api/mcp</code></td></tr>
+      <tr><th data-i18n="protocol">协议 / Protocol</th><td>JSON-RPC 2.0 · MCP <code>2025-03-26</code></td></tr>
+      <tr><th data-i18n="auth">认证 / Authentication</th><td><code>Authorization: Bearer &lt;token&gt;</code></td></tr>
+      <tr><th data-i18n="methodsTitle">方法 / Methods</th><td><code>initialize</code>, <code>ping</code>, <code>tools/list</code>, <code>tools/call</code>, <code>resources/list</code>, <code>resources/templates/list</code>, <code>resources/read</code></td></tr>
+      <tr><th data-i18n="bodyLimit">请求上限 / Body cap</th><td data-i18n="bodyLimitValue">32 KiB，按实际 UTF-8 字节流计数 / 32 KiB, counted as streamed UTF-8 bytes</td></tr>
+      <tr><th data-i18n="rateLimit">速率 / Rate limit</th><td data-i18n="rateLimitValue">每个隔离实例中每 IP 60 次/60 秒，滑动窗口 / 60 requests per IP per 60 seconds, sliding window, per isolate</td></tr>
+      <tr><th data-i18n="cors">CORS</th><td data-i18n="corsValue">始终允许发布页自身同源；跨源客户端须列入 MI_MCP_ALLOWED_ORIGINS，以逗号分隔精确 HTTP(S) 源。不使用通配符。</td></tr>
+    </tbody>
+  </table>
+  <h3 data-i18n="toolsTitle">工具边界 / Tool boundaries</h3>
+  <ul>
+    <li><code>meaning_analyze</code>: <span data-i18n="analyzeDoc">L1–L6 确定性离线结构分析；证据保持 E0，尺度不做加权求和，批准保持 pending。</span></li>
+    <li><code>meaning_review</code>: <span data-i18n="reviewDoc">纳入人工反馈并建议复核；不自动提升证据等级或执行修改。</span></li>
+    <li><code>resource_catalog</code>, <code>evidence_levels</code>: <span data-i18n="catalogDoc">读取正典、证据、章节与技能资源。</span></li>
+    <li><code>download_manifest</code>: <span data-i18n="manifestDoc">只请求同源固定路径 /download/manifest.json；禁用重定向，不转发 Bearer 令牌，不读取清单中列出的文件。</span></li>
+  </ul>
+  <p class="warning" data-i18n="noAccess">不提供任意文件、URL、代码执行、写入或部署能力。错误消息经过固定文案净化；服务器不记录请求或令牌。</p>
+  <h3 data-i18n="curlTitle">命令行示例 / Command-line example</h3>
+  <p class="hint" data-i18n="curlHint">将主机名替换为实际发布域名，并在 shell 环境中提供强令牌；不要将令牌写入 URL 或提交到仓库。</p>
+  <pre>curl -sS https://YOUR-PUBLICATION-HOST/api/mcp \
+  -H "Authorization: Bearer $MI_MCP_PUBLIC_TOKEN" \
+  -H "Content-Type: application/json" \
+  -H "MCP-Protocol-Version: 2025-03-26" \
+  --data '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"example-client","version":"1.0"}}}'</pre>
+  <p class="hint" data-i18n="deployNote">部署需要配置 MI_MCP_PUBLIC_TOKEN；跨源访问另需配置 MI_MCP_ALLOWED_ORIGINS。本页面不包含令牌，也不触发部署。</p>
+</details>
+
+<p class="footer">Meaning Intelligence · Canon V7.0 · <span data-i18n="footer">只读公开接口 / Read-only public interface</span></p>
+</main>
+<script>
+(() => {
+  "use strict";
+  const state = { token: "", language: "zh", nextId: 1, lastAnalysis: null };
+  const byId = (id) => document.getElementById(id);
+  const translations = {
+    zh: {
+      pageTitle: "意义智能 Web MCP / Meaning Intelligence Web MCP",
+      navMedia: "视听中心 / Media", navAudio: "有声读物 / Audio Book", navDownloads: "下载中心 / Downloads",
+      securityTitle: "只读与凭据安全 / Read-only and credential safety",
+      securityBody: "本页面调用同源 /api/mcp。它只读取公开资源，并运行确定性的离线分析；不执行代码、不写文件、不自动批准行动。分析不是实证结论，一切行动仍需人类批准。",
+      tokenPolicy: "令牌必须由部署方通过强随机方式配置为 MI_MCP_PUBLIC_TOKEN（至少 32 个可见 ASCII 字符，并满足服务器的强度策略）。令牌仅保存在当前页面内存中，不写入 URL、Cookie 或浏览器存储；离开页面即清除。请勿分享令牌。",
+      connectTitle: "连接 / Connect", tokenLabel: "访问令牌 / Access token", connect: "初始化并连接 / Initialize", forget: "清除令牌 / Forget token",
+      notConnected: "尚未连接 / Not connected", tokenRequired: "请先输入访问令牌。 / Enter an access token first.", connected: "已连接；工具与资源列表已读取。 / Connected; tools and resources loaded.",
+      forgot: "令牌已从页面内存清除。 / Token cleared from page memory.", requestFailed: "请求失败。 / Request failed.", networkFailed: "网络请求失败。 / Network request failed.",
+      resourcesTitle: "资源 / Resources", listTools: "工具列表 / Tools", listResources: "资源列表 / Resources", manifest: "下载清单 / Manifest", readResource: "读取资源 / Read resource", read: "读取 / Read",
+      analyzeTitle: "意义分析 / Meaning analysis", textLabel: "待分析文本 / Text", contextLabel: "上下文（可选）/ Context (optional)", languageLabel: "输出语言 / Output language", auto: "自动 / Auto",
+      scalesLabel: "关注尺度（可选）/ Scales (optional)", individual: "个人 / Individual", organization: "组织 / Organization", city: "城市 / City", nation: "国家 / Nation", civilization: "人类 / Civilization", analyze: "运行离线分析 / Analyze",
+      reviewTitle: "人工反馈复核 / Human-feedback review", reviewHint: "粘贴此前分析的 JSON，或从最近一次分析载入。复核只提出建议，不改变证据等级，也不批准行动。",
+      useLast: "载入最近分析 / Use last analysis", previousLabel: "此前分析 JSON / Previous analysis JSON", feedbackLabel: "人工反馈 / Human feedback", review: "提交复核 / Review",
+      noAnalysis: "尚无最近分析。 / No recent analysis is available.", invalidPrevious: "此前分析必须是有效 JSON 对象。 / Previous analysis must be a valid JSON object.",
+      outputTitle: "JSON-RPC 输出 / JSON-RPC output", docsTitle: "客户端与部署文档 / Client and deployment documentation", transportTitle: "传输 / Transport",
+      endpoint: "端点 / Endpoint", protocol: "协议 / Protocol", auth: "认证 / Authentication", methodsTitle: "方法 / Methods", bodyLimit: "请求上限 / Body cap",
+      bodyLimitValue: "32 KiB，按实际 UTF-8 字节流计数 / 32 KiB, counted as streamed UTF-8 bytes", rateLimit: "速率 / Rate limit",
+      rateLimitValue: "每个隔离实例中每 IP 60 次/60 秒，滑动窗口 / 60 requests per IP per 60 seconds, sliding window, per isolate", cors: "CORS",
+      corsValue: "始终允许发布页自身同源；跨源客户端须列入 MI_MCP_ALLOWED_ORIGINS，以逗号分隔精确 HTTP(S) 源。不使用通配符。",
+      toolsTitle: "工具边界 / Tool boundaries", analyzeDoc: "L1–L6 确定性离线结构分析；证据保持 E0，尺度不做加权求和，批准保持 pending。",
+      reviewDoc: "纳入人工反馈并建议复核；不自动提升证据等级或执行修改。", catalogDoc: "读取正典、证据、章节与技能资源。",
+      manifestDoc: "只请求同源固定路径 /download/manifest.json；禁用重定向，不转发 Bearer 令牌，不读取清单中列出的文件。",
+      noAccess: "不提供任意文件、URL、代码执行、写入或部署能力。错误消息经过固定文案净化；服务器不记录请求或令牌。",
+      curlTitle: "命令行示例 / Command-line example", curlHint: "将主机名替换为实际发布域名，并在 shell 环境中提供强令牌；不要将令牌写入 URL 或提交到仓库。",
+      deployNote: "部署需要配置 MI_MCP_PUBLIC_TOKEN；跨源访问另需配置 MI_MCP_ALLOWED_ORIGINS。本页面不包含令牌，也不触发部署。",
+      footer: "只读公开接口 / Read-only public interface"
+    },
+    en: {
+      pageTitle: "意义智能 Web MCP / Meaning Intelligence Web MCP",
+      navMedia: "Media / 视听中心", navAudio: "Audio Book / 有声读物", navDownloads: "Downloads / 下载中心",
+      securityTitle: "Read-only and credential safety / 只读与凭据安全",
+      securityBody: "This page calls the same-origin /api/mcp endpoint. It reads public resources and runs deterministic offline analysis only; it executes no code, writes no files, and never approves actions. Analysis is not empirical evidence, and every action still requires human approval.",
+      tokenPolicy: "The deployer must configure MI_MCP_PUBLIC_TOKEN using a strong random secret (at least 32 visible ASCII characters and the server's strength policy). The token exists only in current page memory, never in a URL, cookie, or browser storage, and is cleared when the page is left. Do not share it.",
+      connectTitle: "Connect / 连接", tokenLabel: "Access token / 访问令牌", connect: "Initialize / 初始化并连接", forget: "Forget token / 清除令牌",
+      notConnected: "Not connected / 尚未连接", tokenRequired: "Enter an access token first. / 请先输入访问令牌。", connected: "Connected; tools and resources loaded. / 已连接；工具与资源列表已读取。",
+      forgot: "Token cleared from page memory. / 令牌已从页面内存清除。", requestFailed: "Request failed. / 请求失败。", networkFailed: "Network request failed. / 网络请求失败。",
+      resourcesTitle: "Resources / 资源", listTools: "Tools / 工具列表", listResources: "Resources / 资源列表", manifest: "Manifest / 下载清单", readResource: "Read resource / 读取资源", read: "Read / 读取",
+      analyzeTitle: "Meaning analysis / 意义分析", textLabel: "Text / 待分析文本", contextLabel: "Context (optional) / 上下文（可选）", languageLabel: "Output language / 输出语言", auto: "Auto / 自动",
+      scalesLabel: "Scales (optional) / 关注尺度（可选）", individual: "Individual / 个人", organization: "Organization / 组织", city: "City / 城市", nation: "Nation / 国家", civilization: "Civilization / 人类", analyze: "Analyze offline / 运行离线分析",
+      reviewTitle: "Human-feedback review / 人工反馈复核", reviewHint: "Paste a previous analysis as JSON or load the most recent one. Review offers suggestions only; it changes no evidence level and approves no action.",
+      useLast: "Use last analysis / 载入最近分析", previousLabel: "Previous analysis JSON / 此前分析 JSON", feedbackLabel: "Human feedback / 人工反馈", review: "Review / 提交复核",
+      noAnalysis: "No recent analysis is available. / 尚无最近分析。", invalidPrevious: "Previous analysis must be a valid JSON object. / 此前分析必须是有效 JSON 对象。",
+      outputTitle: "JSON-RPC output / JSON-RPC 输出", docsTitle: "Client and deployment documentation / 客户端与部署文档", transportTitle: "Transport / 传输",
+      endpoint: "Endpoint / 端点", protocol: "Protocol / 协议", auth: "Authentication / 认证", methodsTitle: "Methods / 方法", bodyLimit: "Body cap / 请求上限",
+      bodyLimitValue: "32 KiB, counted as streamed UTF-8 bytes / 32 KiB，按实际 UTF-8 字节流计数", rateLimit: "Rate limit / 速率",
+      rateLimitValue: "60 requests per IP per 60 seconds, sliding window, per isolate / 每个隔离实例中每 IP 60 次/60 秒，滑动窗口", cors: "CORS",
+      corsValue: "The publication's own origin is always allowed. Cross-origin clients must be listed in MI_MCP_ALLOWED_ORIGINS as comma-separated exact HTTP(S) origins. Wildcards are not used. / 始终允许发布页自身同源；跨源客户端须列入 MI_MCP_ALLOWED_ORIGINS，以逗号分隔精确 HTTP(S) 源。不使用通配符。",
+      toolsTitle: "Tool boundaries / 工具边界", analyzeDoc: "Deterministic offline L1–L6 structuring; evidence remains E0, scales are never summed as weights, and approval remains pending. / L1–L6 确定性离线结构分析；证据保持 E0，尺度不做加权求和，批准保持 pending。",
+      reviewDoc: "Incorporates human feedback and suggests review; it never raises evidence levels or applies changes. / 纳入人工反馈并建议复核；不自动提升证据等级或执行修改。",
+      catalogDoc: "Reads canon, evidence, chapter, and skill resources. / 读取正典、证据、章节与技能资源。",
+      manifestDoc: "Requests only the fixed same-origin /download/manifest.json path. Redirects are disabled, the Bearer token is not forwarded, and listed files are not read. / 只请求同源固定路径 /download/manifest.json；禁用重定向，不转发 Bearer 令牌，不读取清单中列出的文件。",
+      noAccess: "No arbitrary file, URL, code-execution, write, or deployment capability is exposed. Errors use fixed sanitized messages; the server logs neither requests nor tokens. / 不提供任意文件、URL、代码执行、写入或部署能力。错误消息经过固定文案净化；服务器不记录请求或令牌。",
+      curlTitle: "Command-line example / 命令行示例", curlHint: "Replace the hostname with the publication host and provide a strong token in the shell environment; never place it in a URL or commit it. / 将主机名替换为实际发布域名，并在 shell 环境中提供强令牌；不要将令牌写入 URL 或提交到仓库。",
+      deployNote: "Deployment requires MI_MCP_PUBLIC_TOKEN; cross-origin access additionally requires MI_MCP_ALLOWED_ORIGINS. This page contains no token and triggers no deployment. / 部署需要配置 MI_MCP_PUBLIC_TOKEN；跨源访问另需配置 MI_MCP_ALLOWED_ORIGINS。本页面不包含令牌，也不触发部署。",
+      footer: "Read-only public interface / 只读公开接口"
+    }
+  };
+  const translate = (key) => translations[state.language][key] || key;
+  function applyLanguage(language) {
+    state.language = language;
+    document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
+    document.title = translate("pageTitle");
+    document.querySelectorAll("[data-i18n]").forEach((element) => { element.textContent = translate(element.dataset.i18n); });
+    byId("lang-zh").setAttribute("aria-pressed", String(language === "zh"));
+    byId("lang-en").setAttribute("aria-pressed", String(language === "en"));
+  }
+  function setStatus(message, isError = false) {
+    byId("status").textContent = message;
+    byId("status").classList.toggle("error", isError);
+  }
+  function show(value) {
+    byId("output").textContent = JSON.stringify(value, null, 2);
+  }
+  async function rpc(method, params) {
+    if (!state.token) throw new Error(translate("tokenRequired"));
+    let response;
+    try {
+      response = await fetch("/api/mcp", {
+        method: "POST",
+        headers: {
+          "authorization": `Bearer ${state.token}`,
+          "content-type": "application/json",
+          "mcp-protocol-version": "2025-03-26",
+          "accept": "application/json"
+        },
+        body: JSON.stringify({ jsonrpc: "2.0", id: state.nextId++, method, ...(params === undefined ? {} : { params }) })
+      });
+    } catch {
+      throw new Error(translate("networkFailed"));
+    }
+    const payload = await response.json().catch(() => null);
+    if (!response.ok || !payload || payload.error) {
+      throw new Error(payload?.error?.message || translate("requestFailed"));
+    }
+    return payload.result;
+  }
+  async function run(action) {
+    try {
+      const result = await action();
+      show(result);
+      return result;
+    } catch (error) {
+      setStatus(error.message || translate("requestFailed"), true);
+      return null;
+    }
+  }
+  byId("lang-zh").addEventListener("click", () => applyLanguage("zh"));
+  byId("lang-en").addEventListener("click", () => applyLanguage("en"));
+  byId("token").addEventListener("input", (event) => { state.token = event.target.value; });
+  byId("connect").addEventListener("click", () => run(async () => {
+    state.token = byId("token").value;
+    await rpc("initialize", { protocolVersion: "2025-03-26", capabilities: {}, clientInfo: { name: "meaning-intelligence-mcp-page", version: "1.0" } });
+    await rpc("tools/list");
+    const resources = await rpc("resources/list");
+    setStatus(translate("connected"));
+    return { initialized: true, resourceCount: resources.resources.length };
+  }));
+  byId("forget").addEventListener("click", () => {
+    state.token = "";
+    state.lastAnalysis = null;
+    byId("token").value = "";
+    byId("previous").value = "";
+    show({});
+    setStatus(translate("forgot"));
+  });
+  byId("list-tools").addEventListener("click", () => run(() => rpc("tools/list")));
+  byId("list-resources").addEventListener("click", () => run(() => rpc("resources/list")));
+  byId("manifest").addEventListener("click", () => run(() => rpc("tools/call", { name: "download_manifest", arguments: {} })));
+  byId("read-resource").addEventListener("click", () => run(() => rpc("resources/read", { uri: byId("resource").value })));
+  byId("analyze-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    run(async () => {
+      const scales = [...document.querySelectorAll('input[name="scale"]:checked')].map((input) => input.value);
+      const args = { text: byId("analyze-text").value, language: byId("language").value };
+      if (byId("context").value) args.context = byId("context").value;
+      if (scales.length) args.scales = scales;
+      const result = await rpc("tools/call", { name: "meaning_analyze", arguments: args });
+      state.lastAnalysis = result.structuredContent || JSON.parse(result.content[0].text);
+      return result;
+    });
+  });
+  byId("use-last").addEventListener("click", () => {
+    if (!state.lastAnalysis) {
+      setStatus(translate("noAnalysis"), true);
+      return;
+    }
+    byId("previous").value = JSON.stringify(state.lastAnalysis, null, 2);
+  });
+  byId("review-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    run(async () => {
+      let previous;
+      try {
+        previous = JSON.parse(byId("previous").value);
+      } catch {
+        throw new Error(translate("invalidPrevious"));
+      }
+      if (!previous || typeof previous !== "object" || Array.isArray(previous)) throw new Error(translate("invalidPrevious"));
+      return rpc("tools/call", { name: "meaning_review", arguments: { previous, feedback: byId("feedback").value, language: byId("review-language").value } });
+    });
+  });
+  window.addEventListener("pagehide", () => {
+    state.token = "";
+    state.lastAnalysis = null;
+    byId("token").value = "";
+  });
+  applyLanguage("zh");
+})();
+</script>
+</body>
+</html>

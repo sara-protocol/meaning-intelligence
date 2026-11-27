@@ -11,8 +11,8 @@ description: 《意义智能》双语有声读物、视频、项目说明书与�
 
 域名分工：
 
-- `https://msi.gojj.ccwu.cc/`：GitHub Pages 项目主页。
-- `https://goii.ccwu.cc/`：双语视听中心与二维码正式入口。
+- `https://msi.gojj.ccwu.cc/`：GitHub Pages 项目主页、有声读物与下载正式入口。
+- `https://goii.ccwu.cc/`：历史旧版媒体中心，不再作为正式二维码或交付入口。
 - Pages 默认地址以当次 wrangler 输出为准；当前项目为 `msi-axm.pages.dev`，发布前必须确认未被 Cloudflare Access 拦截。
 - Pages 项目名：`msi`；生产分支：`main`。
 
@@ -26,7 +26,7 @@ description: 《意义智能》双语有声读物、视频、项目说明书与�
 4. 运行 `build_deploy_zip.py`，生成不含完整包和超大母版的部署目录、ZIP 与报告。
 5. 在部署目录执行 `node scripts/browser_verify.mjs --deployment` 的等价目录参数，或运行 `verify_package.py <部署 ZIP>`，确认部署集通过。
 6. 获得明确授权后，从部署目录用 wrangler 发布，确保 Pages Function 被识别。
-7. 运行 `verify_site.py --deep` 与 `browser_verify.mjs --online`，验证生产资源、哈希、Range、MCP 和真实浏览器行为。
+7. 运行 `verify_site.py --deep https://<deployment-url>` 与 `browser_verify.mjs --online https://<deployment-url>`，验证生产资源、哈希、Range、MCP 和真实浏览器行为。
 8. 记录部署 URL、时间、文件数、哈希和未覆盖项；只有实际证据齐全时才报告完成。
 
 ## 1. 完整交付包
@@ -89,9 +89,9 @@ wrangler pages deploy . --project-name=msi --branch=main --commit-dirty=true
 3. 提交并推送 `gh-pages`，只把 Pages 构建源改为该分支根目录；不要修改 DNS、域名或 Access。
 4. 构建完成后运行 `browser_verify.mjs --online`，并用 `verify_github_pages.py` 校验 UTF-8 页面、嵌套资源、完整 GET 哈希与媒体元数据：
    ```bash
-   python scripts/verify_github_pages.py https://<pages-url> --manifest <部署集>/download/manifest.json
+   python scripts/verify_github_pages.py https://<pages-url> --manifest <部署集>/download/manifest.json --batch-size 8 --output <证据>/pages.json
    ```
-   该验收器会把 GitHub Pages 的 Range 不支持状态单独记录，不把完整 GET 通过冒充 HTTP 206 通过。
+   该验收器会把 GitHub Pages 的 Range 不支持状态单独记录，不把完整 GET 通过冒充 HTTP 206 通过。逐文件哈希缓存于输出 JSON 旁；分批重复运行同一命令，直到 `hash_pending=0`。未完成批次必须保持失败/未完成状态。
 
 若凭据只有推送权、没有 Pages 管理权，保持现有 `main` 根目录构建源，把静态部署文件并入 `main` 并保留项目源码；不要删除源码或修改域名。发布文本参与 manifest 哈希时，在 `.gitattributes` 对发布路径设置 `-text -eol`，并逐个比较 Git blob 与交付文件字节。源码归档必须排除 `download/`、`project-guide/` 等生成输出，避免源码包哈希自引用。
 
@@ -100,17 +100,17 @@ GitHub Pages 不执行 Pages Functions，因此 `/api/mcp` 仍只能在 Cloudfla
 ## 4. 线上机器验收
 
 ```bash
-python scripts/verify_site.py --deep https://<deployment-url>
+python scripts/verify_site.py --deep --mcp-rate-limit --strict https://<deployment-url>
 node scripts/browser_verify.mjs --online https://<deployment-url> deliverables/online-browser-check.json
 ```
 
-`verify_site.py` 以部署 manifest 为资源事实源，检查页面、全部下载资源、Content-Type、字节数、可选全量哈希、Range、关键内容、CORS、未授权拒绝、认证 initialize、tools/resources 和只读分析。在线 token 只从 `MI_MCP_PUBLIC_TOKEN` 环境变量读取且不输出；没有 token 时不得把认证调用写成已通过。
+`verify_site.py` 以部署 manifest 为资源事实源，检查页面、全部下载资源、Content-Type、字节数、可选全量哈希、Range、关键内容、CORS、未授权拒绝、认证 initialize、tools/resources 和只读分析。在线 token 只从 `MI_MCP_PUBLIC_TOKEN` 环境变量读取且不输出；`--strict` 必须同时启用 `--deep` 与 `--mcp-rate-limit`，缺少 token 或跳过生产检查时直接失败。非严格模式无 token 时只报告“静态检查通过”，不得宣告全部完成。
 
 `browser_verify.mjs` 使用本机 Chrome/Edge CDP 检查中英切换、音频源、播放、移动端布局、下载链接、Range、manifest、MCP 空 token 安全、项目说明书和运行时异常。`--deployment <staging>` 使用本地服务器和部署集边界，`--online <url>` 使用同一部署集边界检查远端；两者都要求排除完整交付 ZIP。脚本请求遇到 403 人机验证时，应区分防护拦截与资源错误，不能据此宣称线上通过；Access 登录页、结构不符或运行异常会写入 JSON 失败报告，而不是中途丢弃报告。
 
 ## 5. 二维码与域名维护
 
-正式二维码链接为 `https://goii.ccwu.cc`，用于讲课版 PPT、MSI 讲解版 PPT 和发布中心。更换链接时：重新生成二维码 → 更新发布包 → 重截相关 PPT 页面 → 只重组装 PPTX 并沿用已切分音频 → 重建完整包与部署集 → 部署 → 验证。工作区 `rebuild_pptx_qr.py` 是现有重建入口。
+正式二维码链接为 `https://msi.gojj.ccwu.cc`，用于讲课版 PPT、MSI 讲解版 PPT 和发布中心；`https://goii.ccwu.cc` 仅为历史旧版，不再作为正式入口。更换链接时：重新生成二维码 → 更新发布包 → 重截相关 PPT 页面 → 只重组装 PPTX 并沿用已切分音频 → 重建完整包与部署集 → 部署 → 验证。工作区 `rebuild_pptx_qr.py` 是现有重建入口。
 
 ## 快速排障
 
@@ -125,6 +125,10 @@ node scripts/browser_verify.mjs --online https://<deployment-url> deliverables/o
 | 自定义域名脚本请求 403 | Cloudflare 人机验证 | 用 pages.dev 验证资源，用浏览器验证域名 |
 | wrangler 静默 exit 1 | 网络闪断 | 原样重试，利用已上传文件续传 |
 | 章节或字幕错位 | 音频变化但时间轴/字幕未更新 | 重新生成时间轴、字幕与 `listen.html` |
+
+## 6. 人工评审与完成门
+
+机器验收通过后，仍需记录内容准确性、权利、pronunciation、无障碍、安全、最终视觉和实证结论的人工决定。每项记录材料版本/哈希、决定、时间与评审方式；`pending-human` 不等于批准。生产 Web MCP 被 Access 阻塞或缺少环境令牌时，保持“本地通过、生产阻塞”，不得宣告全部完成。
 
 ## 安全
 

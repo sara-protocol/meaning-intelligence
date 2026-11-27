@@ -4,6 +4,7 @@ from pathlib import Path
 import subprocess
 import sys
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -62,6 +63,13 @@ class CLITests(unittest.TestCase):
         self.assertEqual(lines[0]["result"]["protocolVersion"], "2024-11-05")
         self.assertEqual([tool["name"] for tool in lines[1]["result"]["tools"]], ["meaning_analyze", "meaning_review"])
         self.assertEqual(result.stderr, "")
+
+    def test_http_transport_uses_hardened_core(self):
+        from meaning_agent import cli
+
+        with mock.patch("meaning_agent.cli.serve_core") as serve_core:
+            self.assertEqual(cli.main(["mcp", "--transport", "http", "--port", "8767"]), 0)
+        serve_core.assert_called_once_with(port=8767)
 
     def test_invalid_input_is_sanitized(self):
         result = self.run_cli("analyze", "--text", "", "--offline", "--json")

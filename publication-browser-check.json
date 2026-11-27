@@ -1,7 +1,7 @@
 {
   "schema": "meaning-intelligence-publication-browser-check-v1",
-  "generated": "2026-11-27T00:13:18.527Z",
-  "base_url": "http://127.0.0.1:50252",
+  "generated": "2026-11-27T16:09:34.092Z",
+  "base_url": "http://127.0.0.1:62932",
   "engine": "chrome-cdp-static-preview",
   "ok": true,
   "checks_passed": 24,
@@ -17,7 +17,7 @@
     {
       "name": "index.html-english",
       "ok": true,
-      "detail": "http://127.0.0.1:50252/assets_en/audio_en.mp3"
+      "detail": "http://127.0.0.1:62932/assets_en/audio_en.mp3"
     },
     {
       "name": "index.html-english-audio",
@@ -27,7 +27,7 @@
     {
       "name": "index.html-chinese",
       "ok": true,
-      "detail": "http://127.0.0.1:50252/assets/audio-web.mp3"
+      "detail": "http://127.0.0.1:62932/assets/audio-web.mp3"
     },
     {
       "name": "index.html-mobile",
@@ -42,7 +42,7 @@
     {
       "name": "listen.html-english",
       "ok": true,
-      "detail": "http://127.0.0.1:50252/assets_en/audio_en.mp3"
+      "detail": "http://127.0.0.1:62932/assets_en/audio_en.mp3"
     },
     {
       "name": "listen.html-english-audio",
@@ -52,7 +52,7 @@
     {
       "name": "listen.html-chinese",
       "ok": true,
-      "detail": "http://127.0.0.1:50252/assets/audio-web.mp3"
+      "detail": "http://127.0.0.1:62932/assets/audio-web.mp3"
     },
     {
       "name": "listen.html-mobile",
@@ -62,7 +62,7 @@
     {
       "name": "downloads-resources",
       "ok": true,
-      "detail": "44 resource cards"
+      "detail": "47 resource cards"
     },
     {
       "name": "downloads-english",
@@ -77,7 +77,7 @@
     {
       "name": "download-manifest",
       "ok": true,
-      "detail": "44 entries; complete_category=true; max_limit_ok=false; mode=local"
+      "detail": "47 entries; complete_category=true; max_limit_ok=false; mode=local"
     },
     {
       "name": "download-package-boundary",

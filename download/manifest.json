@@ -2,6 +2,21 @@
   "version": "1.1",
   "generated": "2026-11-27",
   "canon": "V7.0",
+  "project_identifier": {
+    "title_zh": "意义智能：理论框架、证据设计和验证",
+    "title_en": "Meaning Intelligence: Theoretical Framework, Evidence Design, and Validation",
+    "doi": "10.17605/OSF.IO/3XKGY",
+    "resolver": "https://doi.org/10.17605/OSF.IO/3XKGY",
+    "landing_page": "https://osf.io/3xkgy/",
+    "registry": "OSF",
+    "registry_id": "3xkgy",
+    "category": "project",
+    "public": true,
+    "registration": false,
+    "preprint": false,
+    "verified": "2026-11-27",
+    "evidence_boundary": "Identifier only; not preregistration, peer review, publication, replication, or evidence-level promotion."
+  },
   "files": [
     {
       "path": "assets/audio-web.mp3",
@@ -32,8 +47,8 @@
       "kind": "电子书 / EPUB",
       "category": "ebook",
       "language": "bilingual",
-      "bytes": 105038,
-      "sha256": "b86e5d4f32c91fcbf25c3766bd5807d8defcf85217b84f2048baa122110a3868"
+      "bytes": 105034,
+      "sha256": "a3c078d534865798ceee6b025f39b2968710a90803eaf37db87aeb96e6f76ae6"
     },
     {
       "path": "download/Meaning_Intelligence_Audio_Book_v1.1_ZH.epub",
@@ -43,7 +58,7 @@
       "category": "ebook",
       "language": "zh",
       "bytes": 95636,
-      "sha256": "f15aaed19c94027f0227bdbb240c4c14270bdd0e6cf4edd51ce7a3d24b967f14"
+      "sha256": "be21d7f169e2c86c8a03c64cc6e12e963008db79fd077ef7c3a513c1d338ebe3"
     },
     {
       "path": "download/Meaning_Intelligence_Audio_Book_v1.1_EN.epub",
@@ -52,8 +67,8 @@
       "kind": "电子书 / EPUB",
       "category": "ebook",
       "language": "en",
-      "bytes": 88180,
-      "sha256": "edcde2f0e37d9527f1975ea5a9e4c5c78c4e9ebbc1df0c182e4bdd5cb5b9403b"
+      "bytes": 88175,
+      "sha256": "7349598c29c9019c3e1778600554e0a810b1210414d86343ca819c1bebeec109"
     },
     {
       "path": "download/Meaning_Intelligence_Chinese_subtitles.srt",
@@ -73,7 +88,7 @@
       "category": "subtitles",
       "language": "en",
       "bytes": 25561,
-      "sha256": "9fede6dc0c9d90681afedcf3810b52c78d0af78c3e164ea79090e19561f4dc3c"
+      "sha256": "fde69fb21d819ad0b2a41f18379d4fe23aa260cb93162a227a11de2ae1937e3c"
     },
     {
       "path": "download/video/meaning_intelligence_zh.srt",
@@ -202,8 +217,8 @@
       "kind": "演示 / PPTX",
       "category": "presentation",
       "language": "bilingual",
-      "bytes": 16755881,
-      "sha256": "c2aabf50c27c02c9a0e0ffd663f7237ca73d06c963879c1c412bf7b945e48846"
+      "bytes": 16756393,
+      "sha256": "91a6bbe90df1e1e6ce1e5ababe54d3cf71235b23070a5e6a089678346b72bc39"
     },
     {
       "path": "download/MSI演进视频讲解版.pptx",
@@ -212,8 +227,8 @@
       "kind": "演示 / PPTX",
       "category": "presentation",
       "language": "bilingual",
-      "bytes": 3635838,
-      "sha256": "f81fb0ff0d0d0215282b3f0099630b11b46c5da03303197fe03bee4d56365bf4"
+      "bytes": 3636844,
+      "sha256": "24951a65b1970734c74b0696b2748e9dbbcc53804cb0875d5402dffa61918545"
     },
     {
       "path": "assets/video/MeaningIntelligenceScene.mp4",
@@ -226,14 +241,24 @@
       "sha256": "e10736a903eb86b4bdb3aab33d3701b4f85a0f692307ac469e0bf82770c45cbf"
     },
     {
-      "path": "download/Meaning_Intelligence_Source_v0.2.0.zip",
+      "path": "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27_release-final3.zip",
       "label_zh": "可运行项目源代码",
       "label_en": "Runnable project source code",
       "kind": "代码 / Source",
       "category": "source",
       "language": "bilingual",
-      "bytes": 6978799,
-      "sha256": "e9d9c9e6942fdbdcd25e5527a3d98ccf1165e4805b44783334623c7e14a2701e"
+      "bytes": 7202848,
+      "sha256": "761e7093a3d8823aba8245c6ea481f954632cc129fa9673c53cb172a7631abde"
+    },
+    {
+      "path": "download/project-audit-release-sop.zip",
+      "label_zh": "可迁移项目审查与发布 SOP Skill",
+      "label_en": "Portable project audit and release SOP Skill",
+      "kind": "Skill / SOP",
+      "category": "skill",
+      "language": "bilingual",
+      "bytes": 18353,
+      "sha256": "b944566937b7a7cdec09d668e5d276eead0ecf9fc15488da6596d83961d4851c"
     },
     {
       "path": "assets/video/release/meaning_intelligence_zh-web.mp4",
@@ -266,8 +291,18 @@
       "kind": "文档 / Document",
       "category": "document",
       "language": "zh",
-      "bytes": 48747,
-      "sha256": "8b65ddd8fba0ce030c18958f88f527cc71f1ee2e46b4796a9da17170bd978983"
+      "bytes": 48783,
+      "sha256": "9fd561d12828d1437e283d5fc04b99f35b7b4fc8e315955a326e728f0bf8a37b"
+    },
+    {
+      "path": "download/documents/意义智能_最佳应用指南.md",
+      "label_zh": "意义智能_最佳应用指南",
+      "label_en": "意义智能_最佳应用指南",
+      "kind": "文档 / Document",
+      "category": "document",
+      "language": "bilingual",
+      "bytes": 21562,
+      "sha256": "ba88a6387fa712822f2e371e981a6608c64a6f0cb7953bf9bfc131ba5efcb2ea"
     },
     {
       "path": "download/documents/意义智能_有声读物_发布指南与操作手册_v3.0.docx",
@@ -276,8 +311,8 @@
       "kind": "文档 / Document",
       "category": "document",
       "language": "bilingual",
-      "bytes": 49214,
-      "sha256": "1bbf4a84197d1e9cc603141acb882dc8725776379e4bc02e1fa05d785978595e"
+      "bytes": 50404,
+      "sha256": "8d0404ec086a333c57bf2d4730baefe935c3ebad69d712aeb93a8de7a5ae8f58"
     },
     {
       "path": "download/documents/意义智能_有声读物_发布指南与操作手册_v3.0.pdf",
@@ -286,8 +321,8 @@
       "kind": "文档 / Document",
       "category": "document",
       "language": "bilingual",
-      "bytes": 695546,
-      "sha256": "d456312cc5f3314dee623dee53b7d343e82720d3e67e1f3542480ffa5c39642f"
+      "bytes": 743089,
+      "sha256": "d4a21a9630da5388bc3768917a72b1d4f683df4019af451994fd13e1934a4365"
     },
     {
       "path": "download/documents/意义智能_附件衍生更新版_2026-11-26.docx",
@@ -296,8 +331,8 @@
       "kind": "文档 / Document",
       "category": "document",
       "language": "zh",
-      "bytes": 404073,
-      "sha256": "de523b1676e5389653f8b15055bc6e678470d5ebdf65acdf122577b5b4b36025"
+      "bytes": 404205,
+      "sha256": "8c643ba2f6778608a752024ef5458d3b47b3a87819f1635aae1c5cd7f4f3dcf7"
     },
     {
       "path": "download/documents/意义智能_项目审查与优化报告_2026-11-26.docx",
@@ -306,8 +341,8 @@
       "kind": "文档 / Document",
       "category": "document",
       "language": "zh",
-      "bytes": 50745,
-      "sha256": "60f5fc9c060b1d46be3eeac546ceb1b6493433bb5e616577d7182fd236bd3e6c"
+      "bytes": 52461,
+      "sha256": "40d8aa5e76d1bd0c4e034c9fe97eda88d6ca91d0edc90831792c2247cf1905cb"
     },
     {
       "path": "download/documents/意义智能_项目审查与优化报告_2026-11-26.md",
@@ -316,8 +351,8 @@
       "kind": "文档 / Document",
       "category": "document",
       "language": "zh",
-      "bytes": 15229,
-      "sha256": "5814266e402111debb49a1d79a9b58e46c6b59872b3b25da8cf8eb5c6e972b53"
+      "bytes": 18137,
+      "sha256": "9c1d4b9d75b261eed0231fb2453c3f474563395976c74471b382a2eda0ab175b"
     },
     {
       "path": "download/documents/意义智能_项目审查与优化报告_2026-11-26.pdf",
@@ -326,8 +361,8 @@
       "kind": "文档 / Document",
       "category": "document",
       "language": "zh",
-      "bytes": 759821,
-      "sha256": "89921b0e09bad48b3fcc9c071e033386c420a64a35697ba8d2e55e0a357575d7"
+      "bytes": 832174,
+      "sha256": "ffc5e1d32caaf682f199ec934dafebdb91958abbc001ef6a90b627ea765f8e28"
     },
     {
       "path": "download/documents/意义智能_书稿勘误与补充说明_2026-11-26.pdf",
@@ -336,8 +371,8 @@
       "kind": "文档 / Document",
       "category": "document",
       "language": "zh",
-      "bytes": 708776,
-      "sha256": "11e6bb045e180b551412c8be73e36d5996e7e5fb0d71348a0a062987c7b3e3af"
+      "bytes": 709778,
+      "sha256": "5e8242af74bca7558c7138534d9313b00bf3a6ba2bd2aec084d402ff1aa1d987"
     },
     {
       "path": "download/documents/意义智能_附件衍生更新版_2026-11-26.pdf",
@@ -346,8 +381,8 @@
       "kind": "文档 / Document",
       "category": "document",
       "language": "zh",
-      "bytes": 1500505,
-      "sha256": "3eec0c5fbee3b427cc056ee7e79da0c2949b4bfeee508350065e3fbc9f951865"
+      "bytes": 1511935,
+      "sha256": "5cbbd730fb109662c4a0c84e27f7bfc2e07cf710f33ce687d3a1f6a03902514e"
     },
     {
       "path": "download/documents/意义智能有声读物_发布指南与操作手册.md",
@@ -356,8 +391,18 @@
       "kind": "文档 / Document",
       "category": "document",
       "language": "bilingual",
-      "bytes": 13938,
-      "sha256": "06d86691e0c44c14734110737187ea670c832bf6055a3e2e40e0d4a60284108e"
+      "bytes": 16099,
+      "sha256": "1e4a1a205123273d8f3e3dce6bd7c49a5a5c8eb658bc9e42afebf65cd9a91d1e"
+    },
+    {
+      "path": "download/documents/意义智能_并行审视反思与SOP总结.md",
+      "label_zh": "意义智能_并行审视反思与SOP总结",
+      "label_en": "意义智能_并行审视反思与SOP总结",
+      "kind": "文档 / Document",
+      "category": "document",
+      "language": "bilingual",
+      "bytes": 9998,
+      "sha256": "732817896951f78a37d9e95b505e91d1d7b7ac769287dada6ff51ea3f0a8fb19"
     },
     {
       "path": "project-guide/index.html",
@@ -366,8 +411,8 @@
       "kind": "指南 / Guide",
       "category": "guide",
       "language": "bilingual",
-      "bytes": 9631,
-      "sha256": "1b3f55157c35abf34f5f17e3cbb939249c0f21fc58b02e06335abd871d525028"
+      "bytes": 9693,
+      "sha256": "6ddf5a935a930a94aa3c862ed127b25d17b66e1b74a26106698c82c487a292af"
     },
     {
       "path": "project-guide/downloads/project-guide-bilingual.pdf",
@@ -376,8 +421,8 @@
       "kind": "指南 / Guide",
       "category": "guide",
       "language": "bilingual",
-      "bytes": 621303,
-      "sha256": "4ad921d66bf6dcb07cd08410058d729f3a6d3fca1ab231630d16c5032efb4f82"
+      "bytes": 622780,
+      "sha256": "de2b23497c5d119e45df28b4dc058eba8e4c94d4b48755ef9832bbaa097133e1"
     },
     {
       "path": "project-guide/downloads/project-guide-bilingual.docx",
@@ -386,8 +431,8 @@
       "kind": "指南 / Guide",
       "category": "guide",
       "language": "bilingual",
-      "bytes": 50403,
-      "sha256": "e72572e56055a2273669e3a5f426421f5ce28d9aee16485f809be473058d2382"
+      "bytes": 50563,
+      "sha256": "de88040cf9043cf606bd5160e7f02ed8fbb8d19cc091f2c99e2daad761ba5557"
     },
     {
       "path": "project-guide/downloads/guide-narration-zh-web.mp3",
@@ -396,8 +441,8 @@
       "kind": "音频 / Audio (Web)",
       "category": "audio",
       "language": "zh",
-      "bytes": 20181549,
-      "sha256": "25a04cf8fc47fb36c7c84e2b7956f65a7b059873a8ed750d82648c7ef32c7712",
+      "bytes": 20186733,
+      "sha256": "15149831c62daaed7e4c737d6e9b531e63db1dbec84484defa48834ea02ecd7c",
       "web_derivative": true,
       "replaces": "project-guide/downloads/guide-narration-zh.mp3"
     },
@@ -408,8 +453,8 @@
       "kind": "音频 / Audio (Web)",
       "category": "audio",
       "language": "en",
-      "bytes": 17462829,
-      "sha256": "4d01fca6f65dcd01af32cae07c0bc5194fe28aa75704ded6cf28b02f2a93a3d9",
+      "bytes": 17464989,
+      "sha256": "35ebc351f0c15c010645e924c38e1fd2c8f013528b2e6c8cf6ce19af795abeea",
       "web_derivative": true,
       "replaces": "project-guide/downloads/guide-narration-en.mp3"
     },
@@ -420,8 +465,8 @@
       "kind": "验证 / Verification",
       "category": "verification",
       "language": "und",
-      "bytes": 7270,
-      "sha256": "b6cec1fa46bd48d54456a66ed84a2a4e105b6a09f33f2e5d45a5255eb5a701c9"
+      "bytes": 9144,
+      "sha256": "5aeb83928f451ec1209e24f1915d3ebc2cc5fd07073b0b46a98af8180022c553"
     },
     {
       "path": "publication-browser-check.json",
@@ -431,7 +476,7 @@
       "category": "verification",
       "language": "und",
       "bytes": 4846,
-      "sha256": "788edd3ec11f95579218fbb7366d1804f5f231f219221cabe579118d41762785"
+      "sha256": "0dd2d81bd28183e767922bc59c59c1902cd76c31e0daa05bbea85c1cd2340a8b"
     },
     {
       "path": "web-media-verification.json",

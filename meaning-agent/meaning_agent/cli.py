@@ -7,7 +7,8 @@ import sys
 from . import __version__, analyze, demo, review
 from .constants import DEFAULT_MCP_PORT, DEFAULT_WEB_PORT
 from .engine import APPROVAL_STATES
-from .mcp_server import serve_http, serve_stdio
+from .mcp_public import serve_core
+from .mcp_server import serve_stdio
 from .safety import strict_json_loads
 from .web import serve
 
@@ -103,7 +104,7 @@ def main(argv=None):
             if args.transport == "stdio":
                 serve_stdio()
             else:
-                serve_http(args.port)
+                serve_core(port=args.port)
             return 0
         else:
             parser.error("未知命令 / unknown command")

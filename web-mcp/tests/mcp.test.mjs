@@ -2,7 +2,6 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { randomBytes } from "node:crypto";
 import { access, readFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
 
 import { createHandler, onRequest } from "../functions/api/mcp.js";
 
@@ -399,6 +398,17 @@ test("per-client sliding rate limit returns 429 and recovers without sleeping", 
   assert.equal((await send(handler, token, rpc("ping"), { headers: { "cf-connecting-ip": "192.0.2.10" } })).status, 200);
 });
 
+test("unauthenticated requests consume rate-limit quota", async () => {
+  const handler = createHandler({ now: () => 1_000_000, rateLimit: 2, windowMs: 1000, maxClients: 4 });
+  const options = { headers: { "cf-connecting-ip": "192.0.2.20" } };
+  assert.equal((await send(handler, "wrong-token", rpc("ping"), options)).status, 401);
+  assert.equal((await send(handler, "wrong-token", rpc("ping"), options)).status, 401);
+  const limited = await send(handler, "wrong-token", rpc("ping"), options);
+  assert.equal(limited.status, 429);
+  assert.equal(limited.headers.get("retry-after"), "1");
+  assert.equal((await jsonBody(limited)).error.message, "rate limit exceeded");
+});
+
 test("rate-limit client storage is bounded and fails closed when full", async () => {
   const token = ephemeralToken();
   const handler = createHandler({ now: () => 1_000_000, rateLimit: 1, windowMs: 60_000, maxClients: 1 });
@@ -544,28 +554,22 @@ test("unexpected internal exceptions do not echo secrets or implementation detai
   assert.ok(!serialized.includes("/etc/passwd"));
 });
 
-const publicationRoot = fileURLToPath(new URL("../../../意义智能有声读物_发布包/", import.meta.url));
-let publicationAvailable = true;
+let publicationRoot = new URL("../../../意义智能有声读物_发布包/", import.meta.url);
 try {
   await access(publicationRoot);
 } catch {
-  publicationAvailable = false;
+  publicationRoot = new URL("../fixtures/publication/", import.meta.url);
+  await access(publicationRoot);
 }
 
-test("publication function is a byte-identical reproducible copy", { skip: !publicationAvailable }, async () => {
+test("publication function is a byte-identical reproducible copy", async () => {
   const source = await readFile(new URL("../functions/api/mcp.js", import.meta.url));
-  const published = await readFile(new URL("../../../意义智能有声读物_发布包/functions/api/mcp.js", import.meta.url));
+  const published = await readFile(new URL("functions/api/mcp.js", publicationRoot));
   assert.ok(source.equals(published), "run npm run sync:publication from web-mcp");
 });
 
-test("publication mcp.html is bilingual, memory-only, and has valid inline JavaScript", { skip: !publicationAvailable }, async () => {
-  let html;
-  try {
-    html = await readFile(new URL("../../../意义智能有声读物_发布包/mcp.html", import.meta.url), "utf8");
-  } catch (error) {
-    if (error.code === "ENOENT") return;
-    throw error;
-  }
+test("publication mcp.html is bilingual, memory-only, and has valid inline JavaScript", async () => {
+  const html = await readFile(new URL("mcp.html", publicationRoot), "utf8");
   assert.match(html, /<html lang="zh-CN">/);
   assert.match(html, /意义智能/);
   assert.match(html, /Meaning Intelligence/);

@@ -90,6 +90,20 @@ def validate_content(content: dict) -> None:
     expected = {"canon": "V7.0", "research_system": "0.2.0", "operational_stack": "2.0", "whitepaper": "1.1", "msi_demo": "2.1"}
     if any(content["meta"].get(key) != value for key, value in expected.items()):
         raise ValueError("Version identities do not match the verified source facts.")
+    identifier = content["meta"].get("project_identifier", {})
+    expected_identifier = {
+        "title_zh": "意义智能：理论框架、证据设计和验证",
+        "title_en": "Meaning Intelligence: Theoretical Framework, Evidence Design, and Validation",
+        "doi": "10.17605/OSF.IO/3XKGY",
+        "resolver": "https://doi.org/10.17605/OSF.IO/3XKGY",
+        "landing_page": "https://osf.io/3xkgy/",
+        "registry": "OSF", "registry_id": "3xkgy",
+        "category": "project", "public": True, "registration": False, "preprint": False,
+        "verified": "2026-11-27",
+        "evidence_boundary": "Identifier only; not preregistration, peer review, publication, replication, or evidence-level promotion.",
+    }
+    if identifier != expected_identifier:
+        raise ValueError("Project identifier does not match the verified OSF project metadata.")
     if len(content["chapters"]) != 18 or len({item["id"] for item in content["chapters"]}) != 18:
         raise ValueError("Expected 18 unique chapters.")
     if [item["id"] for item in content["evidence"]] != [f"E{i}" for i in range(7)]:
@@ -117,8 +131,8 @@ def remove_tree(path: Path) -> None:
 
 
 def clean_stale_outputs() -> None:
-    """Remove only known obsolete derivatives from earlier guide builds."""
-    for name in ("verification-summary.js", "meaning-intelligence-project-guide.zip", "downloads/project-guide-bilingual.pdf", "audio/meaning-intelligence-guide-zh.mp3", "audio/meaning-intelligence-guide-en.mp3"):
+    """Remove only obsolete derivatives that later stages do not replace."""
+    for name in ("verification-summary.js", "audio/meaning-intelligence-guide-zh.mp3", "audio/meaning-intelligence-guide-en.mp3"):
         path = TARGET / name
         if path.is_file():
             path.unlink()
@@ -161,7 +175,7 @@ def copy_downloads(content: dict, source_root: Path) -> list[dict]:
         "downloads/ebook-v1.1-bilingual.epub": download / "Meaning_Intelligence_Audio_Book_v1.1_ZH-EN.epub",
         "downloads/ebook-v1.1-zh.epub": download / "Meaning_Intelligence_Audio_Book_v1.1_ZH.epub",
         "downloads/ebook-v1.1-en.epub": download / "Meaning_Intelligence_Audio_Book_v1.1_EN.epub",
-        "downloads/source-v0.2.0.zip": download / "Meaning_Intelligence_Source_v0.2.0.zip",
+        "downloads/source-v0.2.0-release.zip": download / "Meaning_Intelligence_Source_v0.2.0_2026-11-27_release-final3.zip",
         "downloads/lecture-deck.pptx": download / "意义智能_讲课展示.pptx",
         "downloads/msi-deck.pptx": download / "MSI演进视频讲解版.pptx",
         "downloads/meaning-intelligence-zh-web.mp4": publication / "assets" / "video" / "release" / "meaning_intelligence_zh-web.mp4",
@@ -179,7 +193,7 @@ def copy_downloads(content: dict, source_root: Path) -> list[dict]:
     pdf_derivatives = {
         "downloads/project-audit-2026-11-26.pdf": audit_docx,
         "downloads/release-manual-v3.0.pdf": manual_docx,
-        "downloads/attachment-updated-2026-11-26.pdf": attachment_docx,
+        "downloads/attachment-updated-2026-11-27.pdf": attachment_docx,
         "downloads/attachment-errata-2026-11-26.pdf": errata_docx,
     }
     generated = {"downloads/project-guide-bilingual.docx", "downloads/project-guide-bilingual.pdf", "downloads/guide-narration-zh.mp3", "downloads/guide-narration-en.mp3"}
@@ -199,9 +213,15 @@ def copy_downloads(content: dict, source_root: Path) -> list[dict]:
         target.parent.mkdir(parents=True, exist_ok=True)
         if relative in pdf_derivatives:
             converted = convert_to_pdf(source)
-            shutil.copy2(converted, target)
+            if not target.is_file() or sha256(target) != sha256(converted):
+                temporary = target.with_name(target.name + ".tmp")
+                shutil.copy2(converted, temporary)
+                replace_generated_file(temporary, target)
         elif source.resolve() != target.resolve():
-            shutil.copy2(source, target)
+            if not target.is_file() or sha256(target) != sha256(source):
+                temporary = target.with_name(target.name + ".tmp")
+                shutil.copy2(source, temporary)
+                replace_generated_file(temporary, target)
         records.append({"path": relative, "source": str(source.relative_to(source_root)), "source_sha256": sha256(source), "bytes": target.stat().st_size, "sha256": sha256(target)})
     missing_pdf_records = set(pdf_derivatives) - {item["path"] for item in records}
     if missing_pdf_records:
@@ -332,7 +352,18 @@ def synthesize(content: dict, content_hash: str, powershell: str) -> dict:
 def load_existing_audio(content_hash: str) -> dict:
     records = json.loads((TARGET / "audio-timings.json").read_text(encoding="utf-8"))
     if records.get("content_sha256") != content_hash:
-        raise RuntimeError("content.json changed; rerun without --skip-audio.")
+        if len(records.get("chapters", [])) != len(CONTENT["chapters"]):
+            raise RuntimeError("content.json changed; rerun without --skip-audio.")
+        for chapter_index, (record, item) in enumerate(zip(records["chapters"], CONTENT["chapters"]), 1):
+            if record["id"] != item["id"]:
+                raise RuntimeError("content.json changed; rerun without --skip-audio.")
+            for language in LANGUAGES:
+                expected_text = narration_cues(item, chapter_index, language)
+                recorded_text = [cue["text"] for cue in record["audio"][language]["cues"]]
+                if expected_text != recorded_text:
+                    raise RuntimeError("Narration content changed; rerun without --skip-audio.")
+        records["content_sha256"] = content_hash
+        write_json(TARGET / "audio-timings.json", records)
     for record in records["chapters"]:
         item = next(chapter for chapter in CONTENT["chapters"] if chapter["id"] == record["id"])
         for language in LANGUAGES:
@@ -443,6 +474,9 @@ def make_docx(content: dict) -> None:
     document.add_heading("Meaning Intelligence · 意义智能", 0)
     document.add_paragraph("Bilingual Illustrated Audio Project Guide / 双语图文音频项目手册").alignment = WD_ALIGN_PARAGRAPH.CENTER
     document.add_paragraph("Guide v1.0.0 · Canon V7.0 · Research system v0.2.0 · White paper v1.1 · MSI v2.1")
+    identifier = content["meta"]["project_identifier"]
+    document.add_paragraph(f"{identifier['title_zh']} / {identifier['title_en']}")
+    document.add_paragraph(f"Project DOI: {identifier['resolver']} · OSF category=project; registration=false; preprint=false. Identifier only; no evidence-level promotion.")
     document.add_paragraph("This concise edition contains chapter summaries, key points, practical actions, source trails, and pending items. Audio, subtitles, figures, and downloads are in index.html.")
     document.add_paragraph("本文本版收录章节摘要、关键要点、动手一步、来源线索与待定事项；音频、字幕、插图和下载位于 index.html。")
     document.add_paragraph("Automated results: verification.json. Human accessibility and rights review remain separate; Git, Pages, and online results are recorded in external reports. / 自动结果见 verification.json；人工无障碍与权利审阅另列，Git、Pages 与线上结果见外部报告。")
@@ -466,9 +500,12 @@ def make_docx(content: dict) -> None:
     document.add_paragraph("manifest.json records SHA-256, bytes, media facts, and source mappings. verification.json records exact local automated checks and separately listed human or external production evidence.")
     document.add_paragraph("manifest.json 记录 SHA-256、字节数、媒体事实与来源映射；verification.json 记录精确的本地自动检查，并单列人工或外部生产证据。")
     output = TARGET / "downloads" / "project-guide-bilingual.docx"
-    document.save(output)
+    temporary = output.with_name(output.name + ".tmp")
+    document.save(temporary)
+    replace_generated_file(temporary, output)
     converted = convert_to_pdf(output)
-    shutil.copy2(converted, TARGET / "downloads" / "project-guide-bilingual.pdf")
+    pdf_output = TARGET / "downloads" / "project-guide-bilingual.pdf"
+    replace_generated_file(converted, pdf_output)
 
 
 def write_runtime(content: dict, timings: dict) -> None:
@@ -495,20 +532,18 @@ def runtime_content(content: dict, timings: dict) -> dict:
 
 
 def replace_generated_file(source: Path, target: Path) -> None:
-    delay = 0.25
-    for _ in range(80):
+    for attempt in range(900):
         try:
             source.replace(target)
             return
         except PermissionError:
-            time.sleep(delay)
-            delay = min(delay * 2, 2.0)
-    shutil.copy2(source, target)
-    source.unlink()
+            if attempt == 899:
+                raise
+            time.sleep(0.25)
 
 
 def package_guide() -> None:
-    output = TARGET / "meaning-intelligence-project-guide.zip"
+    output = TARGET / "meaning-intelligence-project-guide-2026-11-27.zip"
     files = [path for path in manifest_files() if path.name != output.name]
     for name in ("verification.js", "manifest.json", "manifest.sha256", "verification.json"):
         path = TARGET / name
@@ -545,7 +580,7 @@ def write_summary(report: dict) -> None:
 
 
 def manifest_files() -> list[Path]:
-    excluded = {"manifest.json", "manifest.sha256", "verification.json", "verification.js", "meaning-intelligence-project-guide.zip"}
+    excluded = {"manifest.json", "manifest.sha256", "verification.json", "verification.js", "meaning-intelligence-project-guide.zip", "meaning-intelligence-project-guide-2026-11-27.zip", "downloads/source-v0.2.0.zip", "downloads/source-v0.2.0-final.zip", "downloads/attachment-updated-2026-11-26.pdf", "build_final.py", "verify_package_final.py"}
     files = []
     for path in TARGET.rglob("*"):
         if not path.is_file():
@@ -594,7 +629,7 @@ def make_manifest(figure_records: list[dict], download_records: list[dict]) -> d
         "counts": {"chapters": 18, "languages": 2, "narration_files": 36, "srt_files": 36, "vtt_files": 36, "chapter_transcripts": 36},
         "narration": {"engine": "Windows System.Speech.Synthesis", "rate": SAPI_RATE, "voices": VOICE_NAMES, "total_duration_seconds": {key: round(value, 6) for key, value in totals.items()}, "aggregate_duration_seconds": round(sum(totals.values()), 6)},
         "media": media, "figures": figure_records, "copied_downloads": download_records, "files": files,
-        "excluded_from_manifest": {"verification.json": "Generated after manifest validation to avoid a circular hash; verification.js is also excluded because it embeds the verification result.", "meaning-intelligence-project-guide.zip": "Standalone archive is excluded to avoid self-reference and is validated separately by CRC, safe paths, required files, and self-exclusion."},
+        "excluded_from_manifest": {"verification.json": "Generated after manifest validation to avoid a circular hash; verification.js is also excluded because it embeds the verification result.", "meaning-intelligence-project-guide-2026-11-27.zip": "Standalone archive is excluded to avoid self-reference and is validated separately by CRC, safe paths, required files, and self-exclusion."},
         "scope": {"built_in_target_only": True, "publication_root_modified": False, "external_git_actions_performed_by_builder": False, "external_deployment_performed_by_builder": False, "credentials_read": False},
     }
     write_json(TARGET / "manifest.json", manifest)

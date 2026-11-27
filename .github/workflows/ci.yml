@@ -96,6 +96,9 @@ jobs:
           from pathlib import Path
 
           source = Path("web-mcp/functions/api/mcp.js")
+          deployed = Path("functions/api/mcp.js")
+          if deployed.read_bytes() != source.read_bytes():
+              raise SystemExit("root functions/api/mcp.js differs from tracked web-mcp source")
           script = Path("web-mcp/scripts/sync-publication.mjs")
           with tempfile.TemporaryDirectory(prefix="mi-publication-") as directory:
               root = Path(directory)

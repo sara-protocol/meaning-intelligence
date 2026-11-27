@@ -1,6 +1,7 @@
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:http';
 import { createReadStream } from 'node:fs';
+import { existsSync } from 'node:fs';
 import { mkdtemp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { extname, isAbsolute, join, relative, resolve, sep, dirname } from 'node:path';
@@ -34,9 +35,20 @@ const invokedDirectly = Boolean(process.argv[1]) && import.meta.url === pathToFi
 const options = invokedDirectly ? parseArgs(process.argv.slice(2)) : { online: false };
 const online = options.online;
 const deploymentMode = online || Boolean(options.deployment);
-const defaultRoot = fileURLToPath(new URL('../../意义智能有声读物_发布包/', import.meta.url));
+function locateDefaultRoot() {
+  let current = dirname(fileURLToPath(import.meta.url));
+  while (true) {
+    const packageRoot = join(current, '意义智能有声读物_发布包');
+    if (existsSync(packageRoot) && existsSync(join(current, 'deliverables'))) return packageRoot;
+    const parent = dirname(current);
+    if (parent === current) break;
+    current = parent;
+  }
+  return fileURLToPath(new URL('../../意义智能有声读物_发布包/', import.meta.url));
+}
+const defaultRoot = locateDefaultRoot();
 const root = online ? defaultRoot : resolve(options.root || defaultRoot);
-const output = resolve(options.output || fileURLToPath(new URL('../../deliverables/publication-browser-check.json', import.meta.url)));
+const output = resolve(options.output || join(dirname(defaultRoot), 'deliverables', 'publication-browser-check.json'));
 const base = online ? options.root.replace(/\/$/, '') : '';
 if (online && !/^https?:\/\//i.test(base)) throw new Error('Online site URL must use HTTP or HTTPS');
 const checks = [];
@@ -50,6 +62,10 @@ function check(name, ok, detail = '') {
   if (!ok) console.error(`FAIL ${name}: ${detail}`);
 }
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
+const fetchWithTimeout = (url, options = {}) => fetch(url, {
+  ...options,
+  signal: options.signal || AbortSignal.timeout(20000),
+});
 
 const mime = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
@@ -125,7 +141,7 @@ async function launchChrome() {
     await pause(100);
   }
   if (!port) throw new Error('Browser DevTools port was not created');
-  const targets = await (await fetch(`http://127.0.0.1:${port}/json/list`)).json();
+  const targets = await (await fetchWithTimeout(`http://127.0.0.1:${port}/json/list`)).json();
   const page = targets.find(target => target.type === 'page');
   if (!page) throw new Error('Browser page target was not created');
   const socket = new WebSocket(page.webSocketDebuggerUrl);
@@ -135,8 +151,9 @@ async function launchChrome() {
   socket.addEventListener('message', event => {
     const message = JSON.parse(event.data);
     if (message.id && pending.has(message.id)) {
-      const { resolve: done, reject } = pending.get(message.id);
+      const { resolve: done, reject, timeout } = pending.get(message.id);
       pending.delete(message.id);
+      clearTimeout(timeout);
       if (message.error) reject(new Error(message.error.message));
       else done(message.result);
     }
@@ -144,7 +161,15 @@ async function launchChrome() {
   });
   const send = (method, params = {}) => new Promise((resolve, reject) => {
     const id = ++sequence;
-    pending.set(id, { resolve, reject });
+    const timeout = setTimeout(() => {
+      pending.delete(id);
+      reject(new Error(`CDP command timed out: ${method}`));
+    }, 30000);
+    pending.set(id, {
+      timeout,
+      resolve: value => { clearTimeout(timeout); resolve(value); },
+      reject: error => { clearTimeout(timeout); reject(error); },
+    });
     socket.send(JSON.stringify({ id, method, params }));
   });
   await send('Page.enable');
@@ -219,11 +244,11 @@ async function main() {
       check('downloads-english', await evaluate('document.documentElement.classList.contains("en") && Boolean(document.querySelector("h1")) && document.querySelector("h1").textContent.includes("Downloads")'), await evaluate('document.querySelector("h1")?.textContent || "missing heading"'));
       const firstDownload = await evaluate('document.querySelector(".download a")?.getAttribute("href") || ""');
       if (!firstDownload) throw new Error('Downloads page has no downloadable resource link');
-      const response = await fetch(`${url}/${firstDownload}`, { headers: { range: 'bytes=0-1023' } });
+      const response = await fetchWithTimeout(`${url}/${firstDownload}`, { headers: { range: 'bytes=0-1023' } });
       const contentRange = response.headers.get('content-range') || '';
       check('download-range-request', response.status === 206 && /^bytes 0-\d+\/\d+$/.test(contentRange), `${response.status}; ${contentRange}; ${response.headers.get('content-type')}`);
       await response.body?.cancel();
-      const manifest = await fetch(`${url}/download/manifest.json`).then(value => value.json());
+      const manifest = await fetchWithTimeout(`${url}/download/manifest.json`).then(value => value.json());
       const files = Array.isArray(manifest.files) ? manifest.files : [];
       const withinLimit = files.every(item => Number.isSafeInteger(item.bytes) && item.bytes > 0 && item.bytes <= 25 * 1024 * 1024);
       const derivatives = ['assets/audio-web.mp3', 'assets/video/release/meaning_intelligence_zh-web.mp4', 'assets/video/release/meaning_intelligence_en-web.mp4'];

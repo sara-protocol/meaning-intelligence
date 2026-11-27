@@ -308,36 +308,36 @@ L1 保留未验证标记；L2 只生成本地显示建议；L3 不替人选择�
 语言: 中文
 旁白: Microsoft Huihui Desktop (本地 Windows SAPI)
 音频: runnable-agent.mp3
-时长: 226.897 秒
+时长: 227.764 秒
 
 [00:00:00,000 --> 00:00:29,018]
 第9章。可运行智能体：安装、命令与输出。meaning-agent 只需要 Python 3.10+ 与标准库。无模型密钥时以 mode=offline 运行，输出六层结构、证据边界、证伪条件、待澄清信息与 approval.status=pending。
 
-[00:00:29,338 --> 00:01:06,105]
-解压 source-v0.2.0.zip 后进入 meaning-agent。最小分析命令是 python -m meaning_agent analyze --text "是否应该扩大试点？" --json。python -m meaning_agent demo 可运行内置示例，python -m meaning_agent serve --port 8766 启动仅回环地址的 Web UI。
+[00:00:29,338 --> 00:01:06,973]
+解压 source-v0.2.0-release.zip 后进入 meaning-agent。最小分析命令是 python -m meaning_agent analyze --text "是否应该扩大试点？" --json。python -m meaning_agent demo 可运行内置示例，python -m meaning_agent serve --port 8766 启动仅回环地址的 Web UI。
 
-[00:01:06,425 --> 00:01:34,263]
+[00:01:07,293 --> 00:01:35,130]
 Python API 提供 analyze、review、demo、to_markdown。review 接受反馈；当 action=replace_text 或 corrected_text 触发重分析时，原批准失效并回到 pending。结果中的 execution.performed 保持 false。
 
-[00:01:34,583 --> 00:02:10,381]
+[00:01:35,450 --> 00:02:11,248]
 可选 LLM 只读取 MI_LLM_BASE_URL、MI_LLM_API_KEY、MI_LLM_MODEL。远程地址必须 HTTPS，超时 15 秒，响应上限 1 MiB，禁止重定向，要求严格 JSON 与字段白名单。不要把密钥写进命令、文档或输出。
 
-[00:02:10,701 --> 00:02:36,237]
+[00:02:11,568 --> 00:02:37,104]
 可运行命令：python -m meaning_agent analyze --text "Should the pilot expand?" --json；python -m meaning_agent demo；python -m meaning_agent serve --port 8766
 
-[00:02:36,557 --> 00:02:48,295]
+[00:02:37,424 --> 00:02:49,162]
 依赖：Python 3.10+，无第三方运行依赖。
 
-[00:02:48,615 --> 00:02:58,821]
+[00:02:49,482 --> 00:02:59,688]
 离线模式：mode=offline。
 
-[00:02:59,141 --> 00:03:13,256]
+[00:03:00,008 --> 00:03:14,123]
 LLM 成功：mode=llm；失败回退：offline_fallback。
 
-[00:03:13,576 --> 00:03:25,874]
+[00:03:14,443 --> 00:03:26,741]
 Web 默认：127.0.0.1:8766。
 
-[00:03:26,194 --> 00:03:46,897]
+[00:03:27,061 --> 00:03:47,764]
 动手一步：在解压后的源码目录运行最小分析，确认 mode=offline、六个技能齐全、approval=pending、execution_authorized=false。
 
 

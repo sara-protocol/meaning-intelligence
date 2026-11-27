@@ -7,6 +7,21 @@
     "operational_stack": "2.0",
     "whitepaper": "1.1",
     "msi_demo": "2.1",
+    "project_identifier": {
+      "title_zh": "意义智能：理论框架、证据设计和验证",
+      "title_en": "Meaning Intelligence: Theoretical Framework, Evidence Design, and Validation",
+      "doi": "10.17605/OSF.IO/3XKGY",
+      "resolver": "https://doi.org/10.17605/OSF.IO/3XKGY",
+      "landing_page": "https://osf.io/3xkgy/",
+      "registry": "OSF",
+      "registry_id": "3xkgy",
+      "category": "project",
+      "public": true,
+      "registration": false,
+      "preprint": false,
+      "verified": "2026-11-27",
+      "evidence_boundary": "Identifier only; not preregistration, peer review, publication, replication, or evidence-level promotion."
+    },
     "title": {
       "zh": "意义智能 · 双语图文音频项目手册",
       "en": "Meaning Intelligence · Bilingual Illustrated Audio Project Guide"
@@ -865,7 +880,7 @@
         "en": "Source ZIP"
       },
       "language": "bilingual",
-      "path": "downloads/source-v0.2.0.zip"
+      "path": "downloads/source-v0.2.0-release.zip"
     },
     {
       "id": "lecture-deck",
@@ -1069,7 +1084,7 @@
         "en": "PDF"
       },
       "language": "zh",
-      "path": "downloads/attachment-updated-2026-11-26.pdf"
+      "path": "downloads/attachment-updated-2026-11-27.pdf"
     },
     {
       "id": "errata-docx",
@@ -1694,12 +1709,12 @@
       },
       "paragraphs": {
         "zh": [
-          "解压 source-v0.2.0.zip 后进入 meaning-agent。最小分析命令是 python -m meaning_agent analyze --text \"是否应该扩大试点？\" --json。python -m meaning_agent demo 可运行内置示例，python -m meaning_agent serve --port 8766 启动仅回环地址的 Web UI。",
+          "解压 source-v0.2.0-release.zip 后进入 meaning-agent。最小分析命令是 python -m meaning_agent analyze --text \"是否应该扩大试点？\" --json。python -m meaning_agent demo 可运行内置示例，python -m meaning_agent serve --port 8766 启动仅回环地址的 Web UI。",
           "Python API 提供 analyze、review、demo、to_markdown。review 接受反馈；当 action=replace_text 或 corrected_text 触发重分析时，原批准失效并回到 pending。结果中的 execution.performed 保持 false。",
           "可选 LLM 只读取 MI_LLM_BASE_URL、MI_LLM_API_KEY、MI_LLM_MODEL。远程地址必须 HTTPS，超时 15 秒，响应上限 1 MiB，禁止重定向，要求严格 JSON 与字段白名单。不要把密钥写进命令、文档或输出。"
         ],
         "en": [
-          "After extracting source-v0.2.0.zip, enter meaning-agent. The minimal analysis command is python -m meaning_agent analyze --text \"Should the pilot expand?\" --json. python -m meaning_agent demo runs the built-in example; python -m meaning_agent serve --port 8766 starts a loopback-only Web UI.",
+          "After extracting source-v0.2.0-release.zip, enter meaning-agent. The minimal analysis command is python -m meaning_agent analyze --text \"Should the pilot expand?\" --json. python -m meaning_agent demo runs the built-in example; python -m meaning_agent serve --port 8766 starts a loopback-only Web UI.",
           "The Python API exposes analyze, review, demo, and to_markdown. review accepts feedback; action=replace_text or corrected_text triggers reanalysis and returns an invalidated approval to pending. execution.performed remains false.",
           "The optional LLM reads only MI_LLM_BASE_URL, MI_LLM_API_KEY, and MI_LLM_MODEL. Remote URLs require HTTPS, timeout is 15 seconds, responses are capped at 1 MiB, redirects are forbidden, and strict JSON plus field allowlists are required. Never place keys in commands, documents, or output."
         ]

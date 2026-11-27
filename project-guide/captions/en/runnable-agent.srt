@@ -3,37 +3,37 @@
 Chapter 9. Runnable agent: setup, commands, and outputs. meaning-agent needs only Python 3.10+ and the standard library. Without a model key it runs in mode=offline and returns six-layer structure, evidence boundaries, falsification conditions, clarification needs, and approval.status=pending.
 
 2
-00:00:26,320 --> 00:00:55,093
-After extracting source-v0.2.0.zip, enter meaning-agent. The minimal analysis command is python -m meaning_agent analyze --text "Should the pilot expand?" --json. python -m meaning_agent demo runs the built-in example; python -m meaning_agent serve --port 8766 starts a loopback-only Web UI.
+00:00:26,320 --> 00:00:55,453
+After extracting source-v0.2.0-release.zip, enter meaning-agent. The minimal analysis command is python -m meaning_agent analyze --text "Should the pilot expand?" --json. python -m meaning_agent demo runs the built-in example; python -m meaning_agent serve --port 8766 starts a loopback-only Web UI.
 
 3
-00:00:55,413 --> 00:01:17,663
+00:00:55,773 --> 00:01:18,023
 The Python API exposes analyze, review, demo, and to_markdown. review accepts feedback; action=replace_text or corrected_text triggers reanalysis and returns an invalidated approval to pending. execution.performed remains false.
 
 4
-00:01:17,983 --> 00:01:48,341
+00:01:18,343 --> 00:01:48,700
 The optional LLM reads only MI_LLM_BASE_URL, MI_LLM_API_KEY, and MI_LLM_MODEL. Remote URLs require HTTPS, timeout is 15 seconds, responses are capped at 1 MiB, redirects are forbidden, and strict JSON plus field allowlists are required. Never place keys in commands, documents, or output.
 
 5
-00:01:48,661 --> 00:02:08,001
+00:01:49,020 --> 00:02:08,361
 Runnable commands: python -m meaning_agent analyze --text "Should the pilot expand?" --json; python -m meaning_agent demo; python -m meaning_agent serve --port 8766
 
 6
-00:02:08,321 --> 00:02:18,723
+00:02:08,681 --> 00:02:19,083
 Requirement: Python 3.10+, no third-party runtime dependency.
 
 7
-00:02:19,043 --> 00:02:27,146
+00:02:19,403 --> 00:02:27,506
 Offline mode: mode=offline.
 
 8
-00:02:27,466 --> 00:02:38,439
+00:02:27,826 --> 00:02:38,799
 LLM success: mode=llm; fallback: offline_fallback.
 
 9
-00:02:38,759 --> 00:02:49,601
+00:02:39,119 --> 00:02:49,961
 Web default: 127.0.0.1:8766.
 
 10
-00:02:49,921 --> 00:03:07,057
+00:02:50,281 --> 00:03:07,417
 Try one step: In the extracted source directory, run the minimal analysis and confirm mode=offline, six skills, approval=pending, and execution_authorized=false.

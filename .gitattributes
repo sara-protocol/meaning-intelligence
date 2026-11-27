@@ -25,6 +25,11 @@
 *.woff binary
 *.woff2 binary
 *.mp4  binary
+*.mp3  binary
+*.m4a  binary
+*.wav  binary
+*.epub binary
+*.pptx binary
 *.zip  binary
 
 # ---------------------------------------------------------------- Shell / PowerShell

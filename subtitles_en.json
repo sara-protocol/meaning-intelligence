@@ -1,1 +1,677 @@
-[{"s": 0.0, "e": 1.06, "t": "Hello, and welcome."}, {"s": 1.06, "e": 7.96, "t": "In this audio program we walk you through Meaning Intelligence — the cognitive operating system of the meaning civilization."}, {"s": 7.96, "e": 15.53, "t": "By the end, you will have a clear picture of the book's core question, its version-seven upgrade, and why this theory had to emerge now."}, {"s": 15.53, "e": 28.78, "t": "Chapter One begins with the most fundamental change in this edition: the book has evolved from a \"theoretical ecosystem\" into a complete \"evidence architecture.\" Every theoretical proposition has been converted into a testable hypothesis."}, {"s": 28.78, "e": 32.01, "t": "Every core concept now carries an explicit evidence grade."}, {"s": 32.01, "e": 38.91, "t": "The original equations have been upgraded into dynamically estimable models, and all related experiments are pre-registered."}, {"s": 38.91, "e": 48.04, "t": "Evidence is graded from E-zero to E-six: E-zero means a concept has only been defined; E-six means it has survived external validation across contexts and cultures."}, {"s": 48.04, "e": 52.33, "t": "And the book's academic integrity pledge centers on one word: falsifiability."}, {"s": 52.33, "e": 60.79, "t": "If any core module reaches its failure threshold in a pre-registered experiment, the corresponding chapter will be flagged or removed in later editions."}, {"s": 60.79, "e": 63.29, "t": "So why does this theory need to exist at all?"}, {"s": 63.29, "e": 77.71, "t": "Look around the intelligence era and you will see a striking rupture: logical, computational, and perceptual intelligences are advancing rapidly, yet the capacity to judge whether something is worth doing has never been systematically theorized or engineered."}, {"s": 77.71, "e": 86.17, "t": "AI can answer \"how to do it,\" but more and more people are asking \"what is it for?\" The book's core diagnosis is this: power and meaning are separating."}, {"s": 86.17, "e": 92.97, "t": "Capability cares only about reaching goals faster and more accurately; meaning asks whether the goal itself is worthwhile."}, {"s": 92.97, "e": 102.04, "t": "No existing theory of intelligence has built directional judgment into its own definition — and that theoretical vacuum is exactly what Meaning Intelligence fills."}, {"s": 102.04, "e": 106.6, "t": "Crucially, Meaning Intelligence is not a new intelligence sitting beside IQ or EQ."}, {"s": 106.6, "e": 112.34, "t": "It is a meta-intelligence: a capacity that regulates the direction of all other intelligent activities."}, {"s": 112.34, "e": 120.08, "t": "Other intelligences answer \"can we do it?\" Meaning Intelligence answers \"is it worth doing, worth it for whom, and at what scale?\" Why now?"}, {"s": 120.08, "e": 122.53, "t": "Because three turning points have converged."}, {"s": 122.53, "e": 129.87, "t": "The technological turning point: general AI and bioengineering keep expanding what we can do, making the choice of direction urgent."}, {"s": 129.87, "e": 134.94, "t": "The social turning point: a deepening crisis of trust has loosened the old meaning systems."}, {"s": 134.94, "e": 140.45, "t": "The cognitive turning point: information overload makes people hunger for clear anchors of meaning."}, {"s": 140.45, "e": 155.26, "t": "The entire argument rests on three scientific battle lines: the science of civilizational risk — can instability be quantified; the science of cognitive leaps — can they be observed and trained; and Meaning-AI engineering — can it improve long-term decision quality."}, {"s": 155.26, "e": 162.5, "t": "The pledge applies to all three: if any line fails its pre-registered experiments, the corresponding modules are marked falsified."}, {"s": 162.5, "e": 163.83, "t": "No forcing the argument."}, {"s": 163.83, "e": 172.01, "t": "In short, Chapter One explains why we need Meaning Intelligence now: the rupture between \"can do\" and \"worth doing,\" and the urgency of closing it."}, {"s": 172.81, "e": 175.52, "t": "Chapter Two builds the core theoretical system."}, {"s": 175.52, "e": 182.95, "t": "A rigorous theory needs foundations, so we begin with four axioms — the indivisible assumptions from which everything else grows."}, {"s": 182.95, "e": 187.16, "t": "Axiom one: meaning arises from the tension between finitude and openness."}, {"s": 187.16, "e": 192.86, "t": "Our time, resources, and cognition are limited, so we must choose — and choosing generates meaning."}, {"s": 192.86, "e": 196.26, "t": "Yet the future is open and uncertain, so we need direction."}, {"s": 196.26, "e": 202.49, "t": "An eternal, infinite being would need neither choices nor direction — and therefore no Meaning Intelligence."}, {"s": 202.49, "e": 208.02, "t": "Axiom two: meaning must be perceivable by a subject, yet does not depend on subjective feelings."}, {"s": 208.02, "e": 218.85, "t": "There is a difference between \"this thing is meaningful\" and \"I feel it is meaningful.\" The integrity of an ecosystem is meaningful to future generations even if no one alive feels it now."}, {"s": 218.85, "e": 223.57, "t": "Meaning is an objective worthiness-relation between a subject and a larger system."}, {"s": 223.57, "e": 229.56, "t": "Axiom three: meanings at different scales cannot be reduced to one another, but they can be coordinated."}, {"s": 229.56, "e": 234.75, "t": "Personal, organizational, national, and civilizational meanings cannot simply be added up."}, {"s": 234.75, "e": 237.69, "t": "But they can be dynamically prioritized and phased."}, {"s": 237.69, "e": 246.27, "t": "Developing the economy and protecting the environment serve different scales — neither simply outranks the other; they are coordinated across stages."}, {"s": 246.27, "e": 249.73, "t": "Axiom four: every meaning judgment is inherently incomplete."}, {"s": 249.73, "e": 257.57, "t": "We always judge with partial information under time pressure — a reasonable approximation, never a perfect, once-and-for-all conclusion."}, {"s": 257.57, "e": 261.77, "t": "Meaning Intelligence is a process, not a verdict; it must keep iterating."}, {"s": 261.77, "e": 268.8, "t": "These four axioms specify no concrete content, only formal conditions — they are the constitution of Meaning Intelligence."}, {"s": 268.8, "e": 277.21, "t": "Now the core definition: Meaning Intelligence is a meta-intelligence — the capacity to regulate the direction of all other intelligent activities."}, {"s": 277.21, "e": 284.53, "t": "It never asks \"can it be done?\" It asks \"is it worth doing, for whom, and at what scale?\" Meaning itself has a clear structure."}, {"s": 284.53, "e": 304.69, "t": "Vertically, it spans a continuous spectrum: at the top, the meta-meaning level — ultimate directions such as life's continuation, freedom, creation, symbiosis; in the middle, the intermediary level — institutions, culture, language, evaluative systems that carry meaning; at the bottom, the situational level — immediate judgments in concrete scenes."}, {"s": 304.69, "e": 312.82, "t": "These are not three separated boxes but one spectral band, from abstract and long-cycle at the top to concrete and short-cycle at the bottom."}, {"s": 312.82, "e": 328.78, "t": "Horizontally, every complete meaning judgment has three dimensions: direction — where are we going, forward or backward, expanding or converging; value — which value is served: utility, intrinsic, or relational; and boundary — where do we stop, in time, space, or relationship."}, {"s": 328.78, "e": 331.31, "t": "Missing any one, the judgment is incomplete."}, {"s": 331.31, "e": 337.82, "t": "The dynamic structure is meaning potential: the value-distance between the current state and the ideal direction."}, {"s": 337.82, "e": 345.43, "t": "High potential drives us to act and change; low potential feels like stability and ease — and it updates continuously with new data."}, {"s": 345.43, "e": 356.2, "t": "Meaning structures do fail, most often through conflicts between levels or dimensions: individual freedom versus organizational discipline; utility gained while relationships are damaged."}, {"s": 356.2, "e": 360.0, "t": "Where the essence is shared, differences can coexist harmoniously."}, {"s": 360.0, "e": 365.77, "t": "This brings us to the five-scale navigation model: individual, organization, city, nation, humanity."}, {"s": 365.77, "e": 384.43, "t": "Each scale has its own irreducible meaning logic — individuals live by narrative and a sense of existence; organizations by mission legitimacy and a reason to persist; cities by place and collective memory; nations by shared destiny and institutional meaning; humanity by civilizational direction and species responsibility."}, {"s": 384.43, "e": 389.91, "t": "You cannot say a nation's meaning is the sum of personal meanings — the logics differ entirely."}, {"s": 389.91, "e": 400.39, "t": "Yet meanings transmit between scales: upward, personal meanings resonate and emerge into civilizational meaning; downward, civilizational direction quietly shapes individual choices."}, {"s": 400.39, "e": 409.96, "t": "When scales align, resonance amplifies meaning; when they conflict, we return to the meta-meaning level and recalibrate recursively — never a simple weighted average."}, {"s": 409.96, "e": 412.38, "t": "How does this relate to existing theories?"}, {"s": 412.38, "e": 421.25, "t": "Meaning Intelligence replaces nothing; it fills a shared blind spot: no existing theory has systematized, structured, and engineered directional judgment."}, {"s": 421.25, "e": 424.94, "t": "Existentialism names the absurd but offers no operational tools."}, {"s": 424.94, "e": 431.62, "t": "Ethics covers normative judgment, but meaning judgment includes far more than morality — the good is only one input."}, {"s": 431.62, "e": 437.84, "t": "Positive psychology measures subjective well-being; Meaning Intelligence tracks objective meaning potential."}, {"s": 437.84, "e": 444.01, "t": "AI-alignment research injects values; Meaning Intelligence gives AI an architecture for generating meaning."}, {"s": 444.01, "e": 456.45, "t": "Finally, eighteen core propositions have all been converted into testable hypothesis cards, each with operational definitions, measurable variables, pre-registered falsification criteria, and current evidence grades."}, {"s": 456.45, "e": 467.92, "t": "Hypothesis one — that Meaning Intelligence is a necessary meta-layer — would be falsified if systems without an MI module showed no higher drift in long-term decision direction than systems with one."}, {"s": 467.92, "e": 471.49, "t": "Testable, falsifiable, fallible: that is the book's integrity."}, {"s": 472.29, "e": 475.73, "t": "Chapter Three turns theory into a working, deployable system."}, {"s": 475.73, "e": 479.62, "t": "The overall framework is the MI Engine under spectral-spiral binding."}, {"s": 479.62, "e": 495.8, "t": "The old three fixed levels become a continuous spectral band — from abstract to concrete with no gaps — and the underlying mechanism is the spiral with binding: each judgment loops back and slightly recalibrates the deeper cognition, sharpening direction without hardening into rigidity."}, {"s": 495.8, "e": 507.92, "t": "The familiar three modules — perception, judgment, action — and four processes — identification, evaluation, decision, revision — are not separate parts; they are projections of one spiral cycle at different phases."}, {"s": 507.92, "e": 515.7, "t": "Perception extracts meaning-relevant signals from the environment and internal states, encodes them, and outputs a list of meaning events."}, {"s": 515.7, "e": 522.64, "t": "Judgment computes meaning potential for the current state, evaluates the options, and outputs a directional recommendation."}, {"s": 522.64, "e": 528.78, "t": "Action converts that recommendation into executable decisions, with action directives and monitoring metrics."}, {"s": 528.78, "e": 532.67, "t": "The four processes are the spiral's four checkpoints each revolution."}, {"s": 532.67, "e": 539.27, "t": "Meaning identification, triggered by new signals or scheduled inspection, collects and ranks signals into a briefing."}, {"s": 539.27, "e": 546.54, "t": "Meaning evaluation quantifies impact, computes current potential, and surfaces conflicts and opportunities in a situation report."}, {"s": 546.54, "e": 551.73, "t": "Meaning decision filters options and coordinates multi-scale conflicts into a ranked choice."}, {"s": 551.73, "e": 558.95, "t": "Meaning feedback and revision, after action, compares results with expectations, analyzes deviation, and sends corrections back."}, {"s": 558.95, "e": 560.86, "t": "The revision mechanism is layered."}, {"s": 560.86, "e": 566.9, "t": "Deviation under ten percent triggers a level-one correction — fine-tuning execution, effective immediately."}, {"s": 566.9, "e": 573.77, "t": "Ten to thirty percent triggers a level-two correction — adjusting mid-level indicator systems on weekly or monthly cycles."}, {"s": 573.77, "e": 583.58, "t": "Above thirty percent, or any system-level conflict, triggers a level-three correction — recalibrating the deepest meta-meaning direction on yearly, even generational, cycles."}, {"s": 583.58, "e": 602.92, "t": "Feedback itself flows in four kinds — same-level, cross-level, cross-module, and cross-scale — and the system learns: every complete cycle is archived in a case library, effective direction patterns are distilled into rules, and a diversity reward guards against overfitting, so the engine keeps optimizing itself without external maintenance."}, {"s": 602.92, "e": 607.21, "t": "The three signature properties distinguish MI from every other intelligence."}, {"s": 607.21, "e": 612.96, "t": "Meta-cognitive awareness is its eyes: while judging meaning, it can examine its own judging framework."}, {"s": 612.96, "e": 618.71, "t": "Spiral ascent is its path: every cycle goes a little deeper, never repeating, never spinning in place."}, {"s": 618.71, "e": 626.94, "t": "Active zeroing is its courage: when the current meaning structure has failed, it deliberately resets key parts — before collapse forces the issue."}, {"s": 626.94, "e": 662.74, "t": "On the engineering side, the MI Engine has four layers: a data layer — time-series databases of meaning events, graph databases of meaning structures, vector databases of cases; an algorithm layer — potential computation, multi-scale arbitration, direction prediction; an interface layer — input, output, and human interaction, with every judgment explainable; and an application layer — scenarios for each of the five scales, wrapped in security and ethics by design: preventing adversarial inputs from distorting the meta-meaning constraints, making every critical decision traceable, and reserving a human final veto on key choices."}, {"s": 662.74, "e": 676.22, "t": "Deployment proceeds in four stages: a personal MI assistant as app or web tool; an organizational decision-support system; a city or regional governance dashboard; and finally a national, even civilizational, strategic simulation platform."}, {"s": 677.02, "e": 681.86, "t": "Chapter Four takes the theory into the real world, across five scales and six domains."}, {"s": 681.86, "e": 688.18, "t": "The upward transmission: personal meanings resonate and emerge into civilizational meaning — never a simple sum."}, {"s": 688.18, "e": 693.59, "t": "The downward transmission: civilizational direction guides individual choices — never a command."}, {"s": 693.59, "e": 708.01, "t": "When scales align, meaning resonates and is amplified; when they diverge — individual freedom against national security, urban growth against ecological boundaries — the answer is recursive recalibration from the meta-meaning level, not weighted averaging."}, {"s": 708.01, "e": 715.79, "t": "And a testable core hypothesis: if two scales' meaning directions diverge for long enough, at least one scale will enter a meaning crisis."}, {"s": 715.79, "e": 716.92, "t": "Now the six domains."}, {"s": 716.92, "e": 726.78, "t": "In education, spiral curriculum design: core concepts are never finished in one pass — each loop deepens the meaning, replacing rote memorization with deepening understanding."}, {"s": 726.78, "e": 736.47, "t": "In AI, alignment is not a one-time injection of values but a continuous spiral of conflict, dialogue, and revision, gradually aligning human and machine meaning-directions."}, {"s": 736.47, "e": 746.33, "t": "In medicine, end-of-life meaning zeroing: not abandoning care, but consciously shifting the meaning-direction from cure toward peace — so patients can close life with dignity."}, {"s": 746.33, "e": 755.97, "t": "In public policy, a meaning evaluation beside outcome evaluation: periodically asking whether this policy is still worth doing today, rather than clinging to old programs."}, {"s": 755.97, "e": 763.58, "t": "In art and media, the natural meaning-zeroing devices: by breaking old frames of perception, they open space for new meaning to emerge."}, {"s": 763.58, "e": 799.3, "t": "Across scales, the tools differ: for individuals, life-narrative mapping and personal zeroing protocols for moments of meaning rigidity; for organizations, mission stress-testing and full organizational zeroing procedures; for cities, meaning monitoring models guarding place and collective memory against placeless sameness; for nations, institutions — constitutions, laws, education — carrying shared destiny, with post-war Germany's meaning reconstruction as a spiral case; and for humanity, a whole-civilization diagnosis of the widening gap between cognitive advance and behavioral lag — a decoupling crisis at the meaning level."}, {"s": 800.1, "e": 802.99, "t": "Chapter Five zooms out to civilizational evolution."}, {"s": 802.99, "e": 817.77, "t": "The pivotal claim: civilization itself is a meaning-intelligence system running at a super-large scale and super-long cycle — a giant meaning engine continuously adjusting direction across the four spectral dimensions of cognition, value, existence, and action."}, {"s": 817.77, "e": 821.62, "t": "Read through this framework, civilization's history obeys four laws."}, {"s": 821.62, "e": 827.57, "t": "The law of synchronous evolution: the four dimensions must evolve in step for the system to stay healthy."}, {"s": 827.57, "e": 834.98, "t": "The law of decoupling crisis: when any dimension runs far ahead or falls behind, decoupling appears — and that is a meaning crisis."}, {"s": 834.98, "e": 842.8, "t": "The law of spiral depth: the depth of meaning gained from each civilizational cycle is proportional to the thoroughness of active zeroing."}, {"s": 842.8, "e": 850.16, "t": "The law of binding resilience: how long a civilization endures is directly tied to its capacity to keep the four dimensions bound."}, {"s": 850.16, "e": 856.11, "t": "The great transitions — the Axial Age, the Enlightenment, today's ecological turn — all fit this pattern."}, {"s": 856.11, "e": 871.62, "t": "At civilizational scale, Meaning Intelligence has four jobs: continuously monitoring the binding state of the four dimensions; providing early warning of decoupling risks; supplying professional counsel when zeroing is due; and navigating civilization's long-term direction."}, {"s": 871.62, "e": 873.77, "t": "The long-term roadmap has five stages."}, {"s": 873.77, "e": 879.15, "t": "From now to 2030: cognitive popularization and tool incubation — this book plus personal tools."}, {"s": 879.15, "e": 886.17, "t": "2030 to 2045: organizational application and institutional embedding — organizational standards, integration into education."}, {"s": 886.17, "e": 891.04, "t": "2045 to 2060: city and regional meaning governance — urban meaning monitoring systems."}, {"s": 891.04, "e": 896.93, "t": "2060 to 2080: national and civilizational architecture — national systems and civilizational monitoring."}, {"s": 896.93, "e": 905.43, "t": "And after 2080: human-level Meaning Intelligence and civilizational self-awareness — active zeroing and spiral governance at the scale of the species."}, {"s": 905.43, "e": 929.1, "t": "The book's four core contributions: defining Meaning Intelligence as the necessary meta-layer of intelligence, filling the rupture between \"can do\" and \"worth doing\"; establishing the spectral-spiral binding theory; articulating the three signature properties — meta-cognitive awareness, spiral ascent, active zeroing; and delivering a complete verification path from five scales to six domains, with executable tools."}, {"s": 929.1, "e": 946.37, "t": "And the boundaries are stated honestly: it applies only to systems with subjects; it cannot replace professional expertise — not a doctor's diagnosis, not an engineer's design; it promises no unique right answer, only a more worthwhile direction; and excessive meta-cognition can paralyze decision-making."}, {"s": 947.17, "e": 952.16, "t": "The appendices are the book's toolbox — for practitioners and researchers alike, four parts."}, {"s": 952.16, "e": 979.3, "t": "First, the practice toolkit: for individuals — a daily meaning dictionary card, an annual personal meaning zeroing protocol, and a life-narrative spiral map for long-term tracking; for organizations — a mission meta-cognitive stress test, a strategic organizational zeroing protocol, and a quarterly meaning dashboard; for cities — a citizen meaning census and community zeroing workshops; plus universal tools — a spiral-state tracking table and a zeroing safety checklist to run before every reset."}, {"s": 979.3, "e": 1000.68, "t": "Second, core variables and scales: precise definitions and value ranges for meaning potential, direction consistency, binding strength and more; established instruments such as the Personal Meaning Clarity Scale and the four-dimensional spectral self-assessment; and the Witness dual-channel measurement — channel A self-report, channel B behavioral tasks — integrated into one composite score."}, {"s": 1000.68, "e": 1021.63, "t": "Third, the meta-intelligence six-layer application framework: from lightening load at layer one to reflective recursive review at layer six, each layer specifying its core question, method, evidence grade, and common pitfalls — three closed loops stacked, with typical forms for each of the five scales — and the stack itself flagged as a testable structure with its own evidence grade."}, {"s": 1021.63, "e": 1034.06, "t": "Fourth, the falsification matrix and index: all eighteen hypotheses with their falsification conditions and evidence grades, a theory-failure matrix stating what happens if each module fails, and quick indexes of terms and tools."}, {"s": 1034.06, "e": 1043.45, "t": "The whole apparatus exists so the theory lands in your hands: whether you want to clarify your own direction or run serious research, the support materials are ready to use."}, {"s": 1044.25, "e": 1046.45, "t": "Let us close with the whole book in view."}, {"s": 1046.45, "e": 1057.37, "t": "Philosophically, it answers whether meaning is subjective or objective: meaning is the cognition and judgment of the worthiness-relation between one's own actions and a larger system — not a mere feeling."}, {"s": 1057.37, "e": 1067.8, "t": "Theoretically and mechanically, it delivers the spectral-spiral binding theory and a complete operating framework: three levels, three modules, four processes, and the three signature properties."}, {"s": 1067.8, "e": 1078.99, "t": "In practice and engineering, it provides five-scale programs, six domain cases, and a full engineering interface from data layer to application layer — proof that Meaning Intelligence can actually be deployed."}, {"s": 1078.99, "e": 1086.96, "t": "And it is candid about limits: subject-systems only; no replacement for expertise; no unique answers; and a warning against meta-cognitive paralysis."}, {"s": 1086.96, "e": 1099.06, "t": "At civilizational scale, it reframes civilization as a macro meaning-intelligence system governed by the four laws, and lays out the five-stage roadmap toward human-level meaning intelligence and civilizational self-awareness."}, {"s": 1099.06, "e": 1115.65, "t": "The book ends with words worth remembering: the ultimate purpose of Meaning Intelligence is not to make humanity more successful, but to help humanity live more wide-awake — clearly knowing what we are doing, why we are doing it, within what boundaries, and when to stop and ask again what is truly worthwhile."}, {"s": 1115.65, "e": 1123.73, "t": "Its aim is to move humanity from a passive entity swept along by history to a self-aware subject of evolution — the very mark of a mature civilization."}, {"s": 1123.73, "e": 1129.78, "t": "So here is the closing question, for you: does your current direction in life match your own worthiness judgment?"}, {"s": 1129.78, "e": 1134.12, "t": "If it has drifted — do you have the courage to run a meaning zeroing on yourself?"}, {"s": 1134.12, "e": 1135.4, "t": "Thank you for listening."}]
+[
+  {
+    "s": 0.0,
+    "e": 1.06,
+    "t": "Hello, and welcome."
+  },
+  {
+    "s": 1.06,
+    "e": 7.96,
+    "t": "In this audio program we walk you through Meaning Intelligence — the cognitive operating system of the meaning civilization."
+  },
+  {
+    "s": 7.96,
+    "e": 15.53,
+    "t": "By the end, you will have a clear picture of the book's core question, its version-seven upgrade, and why this theory had to emerge now."
+  },
+  {
+    "s": 15.53,
+    "e": 28.78,
+    "t": "Chapter One begins with the most fundamental change in this edition: the book has evolved from a \"theoretical ecosystem\" into a complete \"evidence architecture.\" Every theoretical proposition has been converted into a testable hypothesis."
+  },
+  {
+    "s": 28.78,
+    "e": 32.01,
+    "t": "Every core concept now carries an explicit evidence grade."
+  },
+  {
+    "s": 32.01,
+    "e": 38.91,
+    "t": "The original equations have been upgraded into dynamically estimable models, and all related experiments are pre-registered."
+  },
+  {
+    "s": 38.91,
+    "e": 48.04,
+    "t": "Evidence is graded from E-zero to E-six: E-zero means a concept has only been defined; E-six means it has survived external validation across contexts and cultures."
+  },
+  {
+    "s": 48.04,
+    "e": 52.33,
+    "t": "And the book's academic integrity pledge centers on one word: falsifiability."
+  },
+  {
+    "s": 52.33,
+    "e": 60.79,
+    "t": "If any core module reaches its failure threshold in a pre-registered experiment, the corresponding chapter will be flagged or removed in later editions."
+  },
+  {
+    "s": 60.79,
+    "e": 63.29,
+    "t": "So why does this theory need to exist at all?"
+  },
+  {
+    "s": 63.29,
+    "e": 77.71,
+    "t": "Look around the intelligence era and you will see a striking rupture: logical, computational, and perceptual intelligences are advancing rapidly, yet the capacity to judge whether something is worth doing has never been systematically theorized or engineered."
+  },
+  {
+    "s": 77.71,
+    "e": 86.17,
+    "t": "AI can answer \"how to do it,\" but more and more people are asking \"what is it for?\" The book's core diagnosis is this: power and meaning are separating."
+  },
+  {
+    "s": 86.17,
+    "e": 92.97,
+    "t": "Capability cares only about reaching goals faster and more accurately; meaning asks whether the goal itself is worthwhile."
+  },
+  {
+    "s": 92.97,
+    "e": 102.04,
+    "t": "No existing theory of intelligence has built directional judgment into its own definition — and that theoretical vacuum is exactly what Meaning Intelligence fills."
+  },
+  {
+    "s": 102.04,
+    "e": 106.6,
+    "t": "Crucially, Meaning Intelligence is not a new intelligence sitting beside IQ or EQ."
+  },
+  {
+    "s": 106.6,
+    "e": 112.34,
+    "t": "It is a meta-intelligence: a capacity that regulates the direction of all other intelligent activities."
+  },
+  {
+    "s": 112.34,
+    "e": 120.08,
+    "t": "Other intelligences answer \"can we do it?\" Meaning Intelligence answers \"is it worth doing, worth it for whom, and at what scale?\" Why now?"
+  },
+  {
+    "s": 120.08,
+    "e": 122.53,
+    "t": "Because three turning points have converged."
+  },
+  {
+    "s": 122.53,
+    "e": 129.87,
+    "t": "The technological turning point: general AI and bioengineering keep expanding what we can do, making the choice of direction urgent."
+  },
+  {
+    "s": 129.87,
+    "e": 134.94,
+    "t": "The social turning point: a deepening crisis of trust has loosened the old meaning systems."
+  },
+  {
+    "s": 134.94,
+    "e": 140.45,
+    "t": "The cognitive turning point: information overload makes people hunger for clear anchors of meaning."
+  },
+  {
+    "s": 140.45,
+    "e": 155.26,
+    "t": "The entire argument rests on three scientific battle lines: the science of civilizational risk — can instability be quantified; the science of cognitive leaps — can they be observed and trained; and Meaning-AI engineering — can it improve long-term decision quality."
+  },
+  {
+    "s": 155.26,
+    "e": 162.5,
+    "t": "The pledge applies to all three: if any line fails its pre-registered experiments, the corresponding modules are marked falsified."
+  },
+  {
+    "s": 162.5,
+    "e": 163.83,
+    "t": "No forcing the argument."
+  },
+  {
+    "s": 163.83,
+    "e": 172.01,
+    "t": "In short, Chapter One explains why we need Meaning Intelligence now: the rupture between \"can do\" and \"worth doing,\" and the urgency of closing it."
+  },
+  {
+    "s": 172.01,
+    "e": 174.72,
+    "t": "Chapter Two builds the core theoretical system."
+  },
+  {
+    "s": 174.72,
+    "e": 182.15,
+    "t": "A rigorous theory needs foundations, so we begin with four axioms — the indivisible assumptions from which everything else grows."
+  },
+  {
+    "s": 182.15,
+    "e": 186.36,
+    "t": "Axiom one: meaning arises from the tension between finitude and openness."
+  },
+  {
+    "s": 186.36,
+    "e": 192.06,
+    "t": "Our time, resources, and cognition are limited, so we must choose — and choosing generates meaning."
+  },
+  {
+    "s": 192.06,
+    "e": 195.46,
+    "t": "Yet the future is open and uncertain, so we need direction."
+  },
+  {
+    "s": 195.46,
+    "e": 201.69,
+    "t": "An eternal, infinite being would need neither choices nor direction — and therefore no Meaning Intelligence."
+  },
+  {
+    "s": 201.69,
+    "e": 207.22,
+    "t": "Axiom two: meaning must be perceivable by a subject, yet does not depend on subjective feelings."
+  },
+  {
+    "s": 207.22,
+    "e": 218.05,
+    "t": "There is a difference between \"this thing is meaningful\" and \"I feel it is meaningful.\" The integrity of an ecosystem is meaningful to future generations even if no one alive feels it now."
+  },
+  {
+    "s": 218.05,
+    "e": 222.77,
+    "t": "Meaning is an objective worthiness-relation between a subject and a larger system."
+  },
+  {
+    "s": 222.77,
+    "e": 228.76,
+    "t": "Axiom three: meanings at different scales cannot be reduced to one another, but they can be coordinated."
+  },
+  {
+    "s": 228.76,
+    "e": 233.95,
+    "t": "Personal, organizational, national, and civilizational meanings cannot simply be added up."
+  },
+  {
+    "s": 233.95,
+    "e": 236.89,
+    "t": "But they can be dynamically prioritized and phased."
+  },
+  {
+    "s": 236.89,
+    "e": 245.47,
+    "t": "Developing the economy and protecting the environment serve different scales — neither simply outranks the other; they are coordinated across stages."
+  },
+  {
+    "s": 245.47,
+    "e": 248.93,
+    "t": "Axiom four: every meaning judgment is inherently incomplete."
+  },
+  {
+    "s": 248.93,
+    "e": 256.77,
+    "t": "We always judge with partial information under time pressure — a reasonable approximation, never a perfect, once-and-for-all conclusion."
+  },
+  {
+    "s": 256.77,
+    "e": 260.97,
+    "t": "Meaning Intelligence is a process, not a verdict; it must keep iterating."
+  },
+  {
+    "s": 260.97,
+    "e": 268.0,
+    "t": "These four axioms specify no concrete content, only formal conditions — they are the constitution of Meaning Intelligence."
+  },
+  {
+    "s": 268.0,
+    "e": 276.41,
+    "t": "Now the core definition: Meaning Intelligence is a meta-intelligence — the capacity to regulate the direction of all other intelligent activities."
+  },
+  {
+    "s": 276.41,
+    "e": 283.73,
+    "t": "It never asks \"can it be done?\" It asks \"is it worth doing, for whom, and at what scale?\" Meaning itself has a clear structure."
+  },
+  {
+    "s": 283.73,
+    "e": 303.89,
+    "t": "Vertically, it spans a continuous spectrum: at the top, the meta-meaning level — ultimate directions such as life's continuation, freedom, creation, symbiosis; in the middle, the intermediary level — institutions, culture, language, evaluative systems that carry meaning; at the bottom, the situational level — immediate judgments in concrete scenes."
+  },
+  {
+    "s": 303.89,
+    "e": 312.02,
+    "t": "These are not three separated boxes but one spectral band, from abstract and long-cycle at the top to concrete and short-cycle at the bottom."
+  },
+  {
+    "s": 312.02,
+    "e": 327.98,
+    "t": "Horizontally, every complete meaning judgment has three dimensions: direction — where are we going, forward or backward, expanding or converging; value — which value is served: utility, intrinsic, or relational; and boundary — where do we stop, in time, space, or relationship."
+  },
+  {
+    "s": 327.98,
+    "e": 330.51,
+    "t": "Missing any one, the judgment is incomplete."
+  },
+  {
+    "s": 330.51,
+    "e": 337.02,
+    "t": "The dynamic structure is meaning potential: the value-distance between the current state and the ideal direction."
+  },
+  {
+    "s": 337.02,
+    "e": 344.63,
+    "t": "High potential drives us to act and change; low potential feels like stability and ease — and it updates continuously with new data."
+  },
+  {
+    "s": 344.63,
+    "e": 355.4,
+    "t": "Meaning structures do fail, most often through conflicts between levels or dimensions: individual freedom versus organizational discipline; utility gained while relationships are damaged."
+  },
+  {
+    "s": 355.4,
+    "e": 359.2,
+    "t": "Where the essence is shared, differences can coexist harmoniously."
+  },
+  {
+    "s": 359.2,
+    "e": 364.97,
+    "t": "This brings us to the five-scale navigation model: individual, organization, city, nation, humanity."
+  },
+  {
+    "s": 364.97,
+    "e": 383.63,
+    "t": "Each scale has its own irreducible meaning logic — individuals live by narrative and a sense of existence; organizations by mission legitimacy and a reason to persist; cities by place and collective memory; nations by shared destiny and institutional meaning; humanity by civilizational direction and species responsibility."
+  },
+  {
+    "s": 383.63,
+    "e": 389.11,
+    "t": "You cannot say a nation's meaning is the sum of personal meanings — the logics differ entirely."
+  },
+  {
+    "s": 389.11,
+    "e": 399.59,
+    "t": "Yet meanings transmit between scales: upward, personal meanings resonate and emerge into civilizational meaning; downward, civilizational direction quietly shapes individual choices."
+  },
+  {
+    "s": 399.59,
+    "e": 409.16,
+    "t": "When scales align, resonance amplifies meaning; when they conflict, we return to the meta-meaning level and recalibrate recursively — never a simple weighted average."
+  },
+  {
+    "s": 409.16,
+    "e": 411.58,
+    "t": "How does this relate to existing theories?"
+  },
+  {
+    "s": 411.58,
+    "e": 420.45,
+    "t": "Meaning Intelligence replaces nothing; it fills a shared blind spot: no existing theory has systematized, structured, and engineered directional judgment."
+  },
+  {
+    "s": 420.45,
+    "e": 424.14,
+    "t": "Existentialism names the absurd but offers no operational tools."
+  },
+  {
+    "s": 424.14,
+    "e": 430.82,
+    "t": "Ethics covers normative judgment, but meaning judgment includes far more than morality — the good is only one input."
+  },
+  {
+    "s": 430.82,
+    "e": 437.04,
+    "t": "Positive psychology measures subjective well-being; Meaning Intelligence tracks objective meaning potential."
+  },
+  {
+    "s": 437.04,
+    "e": 443.21,
+    "t": "AI-alignment research injects values; Meaning Intelligence gives AI an architecture for generating meaning."
+  },
+  {
+    "s": 443.21,
+    "e": 455.65,
+    "t": "Finally, eighteen core propositions have all been converted into testable hypothesis cards, each with operational definitions, measurable variables, pre-registered falsification criteria, and current evidence grades."
+  },
+  {
+    "s": 455.65,
+    "e": 467.12,
+    "t": "Hypothesis one — that Meaning Intelligence is a necessary meta-layer — would be falsified if systems without an MI module showed no higher drift in long-term decision direction than systems with one."
+  },
+  {
+    "s": 467.12,
+    "e": 470.69,
+    "t": "Testable, falsifiable, fallible: that is the book's integrity."
+  },
+  {
+    "s": 471.49,
+    "e": 474.13,
+    "t": "Chapter Three turns theory into a working, deployable system."
+  },
+  {
+    "s": 474.13,
+    "e": 478.02,
+    "t": "The overall framework is the MI Engine under spectral-spiral binding."
+  },
+  {
+    "s": 478.02,
+    "e": 494.2,
+    "t": "The old three fixed levels become a continuous spectral band — from abstract to concrete with no gaps — and the underlying mechanism is the spiral with binding: each judgment loops back and slightly recalibrates the deeper cognition, sharpening direction without hardening into rigidity."
+  },
+  {
+    "s": 494.2,
+    "e": 506.32,
+    "t": "The familiar three modules — perception, judgment, action — and four processes — identification, evaluation, decision, revision — are not separate parts; they are projections of one spiral cycle at different phases."
+  },
+  {
+    "s": 506.32,
+    "e": 514.1,
+    "t": "Perception extracts meaning-relevant signals from the environment and internal states, encodes them, and outputs a list of meaning events."
+  },
+  {
+    "s": 514.1,
+    "e": 521.04,
+    "t": "Judgment computes meaning potential for the current state, evaluates the options, and outputs a directional recommendation."
+  },
+  {
+    "s": 521.04,
+    "e": 527.18,
+    "t": "Action converts that recommendation into executable decisions, with action directives and monitoring metrics."
+  },
+  {
+    "s": 527.18,
+    "e": 531.07,
+    "t": "The four processes are the spiral's four checkpoints each revolution."
+  },
+  {
+    "s": 531.07,
+    "e": 537.67,
+    "t": "Meaning identification, triggered by new signals or scheduled inspection, collects and ranks signals into a briefing."
+  },
+  {
+    "s": 537.67,
+    "e": 544.94,
+    "t": "Meaning evaluation quantifies impact, computes current potential, and surfaces conflicts and opportunities in a situation report."
+  },
+  {
+    "s": 544.94,
+    "e": 550.13,
+    "t": "Meaning decision filters options and coordinates multi-scale conflicts into a ranked choice."
+  },
+  {
+    "s": 550.13,
+    "e": 557.35,
+    "t": "Meaning feedback and revision, after action, compares results with expectations, analyzes deviation, and sends corrections back."
+  },
+  {
+    "s": 557.35,
+    "e": 559.26,
+    "t": "The revision mechanism is layered."
+  },
+  {
+    "s": 559.26,
+    "e": 565.3,
+    "t": "Deviation under ten percent triggers a level-one correction — fine-tuning execution, effective immediately."
+  },
+  {
+    "s": 565.3,
+    "e": 572.17,
+    "t": "Ten to thirty percent triggers a level-two correction — adjusting mid-level indicator systems on weekly or monthly cycles."
+  },
+  {
+    "s": 572.17,
+    "e": 581.98,
+    "t": "Above thirty percent, or any system-level conflict, triggers a level-three correction — recalibrating the deepest meta-meaning direction on yearly, even generational, cycles."
+  },
+  {
+    "s": 581.98,
+    "e": 601.32,
+    "t": "Feedback itself flows in four kinds — same-level, cross-level, cross-module, and cross-scale — and the system learns: every complete cycle is archived in a case library, effective direction patterns are distilled into rules, and a diversity reward guards against overfitting, so the engine keeps optimizing itself without external maintenance."
+  },
+  {
+    "s": 601.32,
+    "e": 605.61,
+    "t": "The three signature properties distinguish MI from every other intelligence."
+  },
+  {
+    "s": 605.61,
+    "e": 611.36,
+    "t": "Meta-cognitive awareness is its eyes: while judging meaning, it can examine its own judging framework."
+  },
+  {
+    "s": 611.36,
+    "e": 617.11,
+    "t": "Spiral ascent is its path: every cycle goes a little deeper, never repeating, never spinning in place."
+  },
+  {
+    "s": 617.11,
+    "e": 625.34,
+    "t": "Active zeroing is its courage: when the current meaning structure has failed, it deliberately resets key parts — before collapse forces the issue."
+  },
+  {
+    "s": 625.34,
+    "e": 661.14,
+    "t": "On the engineering side, the MI Engine has four layers: a data layer — time-series databases of meaning events, graph databases of meaning structures, vector databases of cases; an algorithm layer — potential computation, multi-scale arbitration, direction prediction; an interface layer — input, output, and human interaction, with every judgment explainable; and an application layer — scenarios for each of the five scales, wrapped in security and ethics by design: preventing adversarial inputs from distorting the meta-meaning constraints, making every critical decision traceable, and reserving a human final veto on key choices."
+  },
+  {
+    "s": 661.14,
+    "e": 674.62,
+    "t": "Deployment proceeds in four stages: a personal MI assistant as app or web tool; an organizational decision-support system; a city or regional governance dashboard; and finally a national, even civilizational, strategic simulation platform."
+  },
+  {
+    "s": 674.62,
+    "e": 679.46,
+    "t": "Chapter Four takes the theory into the real world, across five scales and six domains."
+  },
+  {
+    "s": 679.46,
+    "e": 685.78,
+    "t": "The upward transmission: personal meanings resonate and emerge into civilizational meaning — never a simple sum."
+  },
+  {
+    "s": 685.78,
+    "e": 691.19,
+    "t": "The downward transmission: civilizational direction guides individual choices — never a command."
+  },
+  {
+    "s": 691.19,
+    "e": 705.61,
+    "t": "When scales align, meaning resonates and is amplified; when they diverge — individual freedom against national security, urban growth against ecological boundaries — the answer is recursive recalibration from the meta-meaning level, not weighted averaging."
+  },
+  {
+    "s": 705.61,
+    "e": 713.39,
+    "t": "And a testable core hypothesis: if two scales' meaning directions diverge for long enough, at least one scale will enter a meaning crisis."
+  },
+  {
+    "s": 713.39,
+    "e": 714.52,
+    "t": "Now the six domains."
+  },
+  {
+    "s": 714.52,
+    "e": 724.38,
+    "t": "In education, spiral curriculum design: core concepts are never finished in one pass — each loop deepens the meaning, replacing rote memorization with deepening understanding."
+  },
+  {
+    "s": 724.38,
+    "e": 734.07,
+    "t": "In AI, alignment is not a one-time injection of values but a continuous spiral of conflict, dialogue, and revision, gradually aligning human and machine meaning-directions."
+  },
+  {
+    "s": 734.07,
+    "e": 743.93,
+    "t": "In medicine, end-of-life meaning zeroing: not abandoning care, but consciously shifting the meaning-direction from cure toward peace — so patients can close life with dignity."
+  },
+  {
+    "s": 743.93,
+    "e": 753.57,
+    "t": "In public policy, a meaning evaluation beside outcome evaluation: periodically asking whether this policy is still worth doing today, rather than clinging to old programs."
+  },
+  {
+    "s": 753.57,
+    "e": 761.18,
+    "t": "In art and media, the natural meaning-zeroing devices: by breaking old frames of perception, they open space for new meaning to emerge."
+  },
+  {
+    "s": 761.18,
+    "e": 796.9,
+    "t": "Across scales, the tools differ: for individuals, life-narrative mapping and personal zeroing protocols for moments of meaning rigidity; for organizations, mission stress-testing and full organizational zeroing procedures; for cities, meaning monitoring models guarding place and collective memory against placeless sameness; for nations, institutions — constitutions, laws, education — carrying shared destiny, with post-war Germany's meaning reconstruction as a spiral case; and for humanity, a whole-civilization diagnosis of the widening gap between cognitive advance and behavioral lag — a decoupling crisis at the meaning level."
+  },
+  {
+    "s": 796.9,
+    "e": 799.79,
+    "t": "Chapter Five zooms out to civilizational evolution."
+  },
+  {
+    "s": 799.79,
+    "e": 814.57,
+    "t": "The pivotal claim: civilization itself is a meaning-intelligence system running at a super-large scale and super-long cycle — a giant meaning engine continuously adjusting direction across the four spectral dimensions of cognition, value, existence, and action."
+  },
+  {
+    "s": 814.57,
+    "e": 818.42,
+    "t": "Read through this framework, civilization's history obeys four laws."
+  },
+  {
+    "s": 818.42,
+    "e": 824.37,
+    "t": "The law of synchronous evolution: the four dimensions must evolve in step for the system to stay healthy."
+  },
+  {
+    "s": 824.37,
+    "e": 831.78,
+    "t": "The law of decoupling crisis: when any dimension runs far ahead or falls behind, decoupling appears — and that is a meaning crisis."
+  },
+  {
+    "s": 831.78,
+    "e": 839.6,
+    "t": "The law of spiral depth: the depth of meaning gained from each civilizational cycle is proportional to the thoroughness of active zeroing."
+  },
+  {
+    "s": 839.6,
+    "e": 846.96,
+    "t": "The law of binding resilience: how long a civilization endures is directly tied to its capacity to keep the four dimensions bound."
+  },
+  {
+    "s": 846.96,
+    "e": 852.91,
+    "t": "The great transitions — the Axial Age, the Enlightenment, today's ecological turn — all fit this pattern."
+  },
+  {
+    "s": 852.91,
+    "e": 868.42,
+    "t": "At civilizational scale, Meaning Intelligence has four jobs: continuously monitoring the binding state of the four dimensions; providing early warning of decoupling risks; supplying professional counsel when zeroing is due; and navigating civilization's long-term direction."
+  },
+  {
+    "s": 868.42,
+    "e": 870.57,
+    "t": "The long-term roadmap has five stages."
+  },
+  {
+    "s": 870.57,
+    "e": 875.95,
+    "t": "From now to 2030: cognitive popularization and tool incubation — this book plus personal tools."
+  },
+  {
+    "s": 875.95,
+    "e": 882.97,
+    "t": "2030 to 2045: organizational application and institutional embedding — organizational standards, integration into education."
+  },
+  {
+    "s": 882.97,
+    "e": 887.84,
+    "t": "2045 to 2060: city and regional meaning governance — urban meaning monitoring systems."
+  },
+  {
+    "s": 887.84,
+    "e": 893.73,
+    "t": "2060 to 2080: national and civilizational architecture — national systems and civilizational monitoring."
+  },
+  {
+    "s": 893.73,
+    "e": 902.23,
+    "t": "And after 2080: human-level Meaning Intelligence and civilizational self-awareness — active zeroing and spiral governance at the scale of the species."
+  },
+  {
+    "s": 902.23,
+    "e": 925.9,
+    "t": "The book's four core contributions: defining Meaning Intelligence as the necessary meta-layer of intelligence, filling the rupture between \"can do\" and \"worth doing\"; establishing the spectral-spiral binding theory; articulating the three signature properties — meta-cognitive awareness, spiral ascent, active zeroing; and delivering a complete verification path from five scales to six domains, with executable tools."
+  },
+  {
+    "s": 925.9,
+    "e": 943.17,
+    "t": "And the boundaries are stated honestly: it applies only to systems with subjects; it cannot replace professional expertise — not a doctor's diagnosis, not an engineer's design; it promises no unique right answer, only a more worthwhile direction; and excessive meta-cognition can paralyze decision-making."
+  },
+  {
+    "s": 943.97,
+    "e": 948.16,
+    "t": "The appendices are the book's toolbox — for practitioners and researchers alike, four parts."
+  },
+  {
+    "s": 948.16,
+    "e": 975.3,
+    "t": "First, the practice toolkit: for individuals — a daily meaning dictionary card, an annual personal meaning zeroing protocol, and a life-narrative spiral map for long-term tracking; for organizations — a mission meta-cognitive stress test, a strategic organizational zeroing protocol, and a quarterly meaning dashboard; for cities — a citizen meaning census and community zeroing workshops; plus universal tools — a spiral-state tracking table and a zeroing safety checklist to run before every reset."
+  },
+  {
+    "s": 975.3,
+    "e": 996.68,
+    "t": "Second, core variables and scales: precise definitions and value ranges for meaning potential, direction consistency, binding strength and more; established instruments such as the Personal Meaning Clarity Scale and the four-dimensional spectral self-assessment; and the Witness dual-channel measurement — channel A self-report, channel B behavioral tasks — integrated into one composite score."
+  },
+  {
+    "s": 996.68,
+    "e": 1017.63,
+    "t": "Third, the meta-intelligence six-layer application framework: from lightening load at layer one to reflective recursive review at layer six, each layer specifying its core question, method, evidence grade, and common pitfalls — three closed loops stacked, with typical forms for each of the five scales — and the stack itself flagged as a testable structure with its own evidence grade."
+  },
+  {
+    "s": 1017.63,
+    "e": 1030.06,
+    "t": "Fourth, the falsification matrix and index: all eighteen hypotheses with their falsification conditions and evidence grades, a theory-failure matrix stating what happens if each module fails, and quick indexes of terms and tools."
+  },
+  {
+    "s": 1030.06,
+    "e": 1039.45,
+    "t": "The whole apparatus exists so the theory lands in your hands: whether you want to clarify your own direction or run serious research, the support materials are ready to use."
+  },
+  {
+    "s": 1040.25,
+    "e": 1041.65,
+    "t": "Let us close with the whole book in view."
+  },
+  {
+    "s": 1041.65,
+    "e": 1052.57,
+    "t": "Philosophically, it answers whether meaning is subjective or objective: meaning is the cognition and judgment of the worthiness-relation between one's own actions and a larger system — not a mere feeling."
+  },
+  {
+    "s": 1052.57,
+    "e": 1063.0,
+    "t": "Theoretically and mechanically, it delivers the spectral-spiral binding theory and a complete operating framework: three levels, three modules, four processes, and the three signature properties."
+  },
+  {
+    "s": 1063.0,
+    "e": 1074.19,
+    "t": "In practice and engineering, it provides five-scale programs, six domain cases, and a full engineering interface from data layer to application layer — proof that Meaning Intelligence can actually be deployed."
+  },
+  {
+    "s": 1074.19,
+    "e": 1082.16,
+    "t": "And it is candid about limits: subject-systems only; no replacement for expertise; no unique answers; and a warning against meta-cognitive paralysis."
+  },
+  {
+    "s": 1082.16,
+    "e": 1094.26,
+    "t": "At civilizational scale, it reframes civilization as a macro meaning-intelligence system governed by the four laws, and lays out the five-stage roadmap toward human-level meaning intelligence and civilizational self-awareness."
+  },
+  {
+    "s": 1094.26,
+    "e": 1110.85,
+    "t": "The book ends with words worth remembering: the ultimate purpose of Meaning Intelligence is not to make humanity more successful, but to help humanity live more wide-awake — clearly knowing what we are doing, why we are doing it, within what boundaries, and when to stop and ask again what is truly worthwhile."
+  },
+  {
+    "s": 1110.85,
+    "e": 1118.93,
+    "t": "Its aim is to move humanity from a passive entity swept along by history to a self-aware subject of evolution — the very mark of a mature civilization."
+  },
+  {
+    "s": 1118.93,
+    "e": 1124.98,
+    "t": "So here is the closing question, for you: does your current direction in life match your own worthiness judgment?"
+  },
+  {
+    "s": 1124.98,
+    "e": 1129.32,
+    "t": "If it has drifted — do you have the courage to run a meaning zeroing on yourself?"
+  },
+  {
+    "s": 1129.32,
+    "e": 1130.6,
+    "t": "Thank you for listening."
+  }
+]

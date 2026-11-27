@@ -1,8 +1,23 @@
 {
-  "generated_utc": "2026-11-27T00:13:18.792728+00:00",
+  "generated_utc": "2026-11-27T16:09:34.355580+00:00",
   "date": "2026-11-27",
   "version": "1.1",
   "canon": "V7.0",
+  "project_identifier": {
+    "title_zh": "意义智能：理论框架、证据设计和验证",
+    "title_en": "Meaning Intelligence: Theoretical Framework, Evidence Design, and Validation",
+    "doi": "10.17605/OSF.IO/3XKGY",
+    "resolver": "https://doi.org/10.17605/OSF.IO/3XKGY",
+    "landing_page": "https://osf.io/3xkgy/",
+    "registry": "OSF",
+    "registry_id": "3xkgy",
+    "category": "project",
+    "public": true,
+    "registration": false,
+    "preprint": false,
+    "verified": "2026-11-27",
+    "evidence_boundary": "Identifier only; not preregistration, peer review, publication, replication, or evidence-level promotion."
+  },
   "status": "ready",
   "project_guide": {
     "ready": true,
@@ -10,8 +25,8 @@
     "note": "双语项目说明书已包含。",
     "verification_report": "project-guide/verification.json",
     "verification_summary": {
-      "checks_total": 127,
-      "checks_passed": 127,
+      "checks_total": 128,
+      "checks_passed": 128,
       "checks_failed": 0,
       "pending_total": 6,
       "categories": {
@@ -21,37 +36,37 @@
         "documents": 9,
         "hash": 3,
         "media": 82,
-        "provenance": 3,
+        "provenance": 4,
         "security": 1,
         "structure": 20
       },
       "narration_duration_seconds": {
-        "zh": 3363.510295,
-        "en": 2910.391169
+        "zh": 3364.377358,
+        "en": 2910.751169
       },
-      "aggregate_narration_duration_seconds": 6273.901464
+      "aggregate_narration_duration_seconds": 6275.128527
     },
     "browser_report": "project-guide/browser-check.json",
     "browser_checks_passed": 68,
     "browser_checks_total": 68,
     "narration_duration_seconds": {
-      "zh": 3363.510295,
-      "en": 2910.391169
+      "zh": 3364.377358,
+      "en": 2910.751169
     }
   },
   "release_videos": [
     {
-      "path": "assets/video/release/meaning_intelligence_zh.mp4",
+      "path": "assets/video/release/meaning_intelligence_zh-web.mp4",
       "language": "zh",
-      "bytes": 68106321,
-      "sha256": "a4de33c434daf16d727b1f5ab12ed65d0b19eacb0aad0e93f07475d96b5a535d",
+      "bytes": 19240242,
+      "sha256": "acd4043dabf29a45c866bdc716a1a81ed69d978480dee069938b2fe1e5639c7b",
       "source": "assets/video/release/meaning_intelligence_zh.mp4"
     },
     {
-      "path": "assets/video/release/meaning_intelligence_en.mp4",
+      "path": "assets/video/release/meaning_intelligence_en-web.mp4",
       "language": "en",
-      "bytes": 68106326,
-      "sha256": "c225ad9cb95b555774ea7dfda2a1e08661de7c9467743359847efd6acfe209d3",
+      "bytes": 19107172,
+      "sha256": "7ff9c08c5b9e57972cfc8c733a515b6aa3b5eace1d1d5059a0fdf6b442ef7bfe",
       "source": "assets/video/release/meaning_intelligence_en.mp4"
     }
   ],
@@ -65,17 +80,18 @@
         "kind": "audio",
         "source": "意义智能有声读物_发布包\\assets\\audio.mp3",
         "source_sha256": "ef797a0efee97fd514353e70b43ecdb1ae1e3179c169b144f0e7a3b08ac13326",
-        "path": "意义智能有声读物_发布包\\assets\\audio-web.mp3",
+        "path": "assets/audio-web.mp3",
         "bytes": 24111405,
         "sha256": "79c8176f84f292042dc276d5e42211dd8e931d2277c6aa70da9a0c5bd2844032",
-        "duration_seconds": 2411.064
+        "duration_seconds": 2411.064,
+        "local_source": "意义智能有声读物_发布包\\assets\\audio.mp3"
       },
       {
         "kind": "video",
         "language": "zh",
         "source": "deliverables\\video\\meaning_intelligence_zh.mp4",
         "source_sha256": "a4de33c434daf16d727b1f5ab12ed65d0b19eacb0aad0e93f07475d96b5a535d",
-        "path": "意义智能有声读物_发布包\\assets\\video\\release\\meaning_intelligence_zh-web.mp4",
+        "path": "assets/video/release/meaning_intelligence_zh-web.mp4",
         "bytes": 19240242,
         "sha256": "acd4043dabf29a45c866bdc716a1a81ed69d978480dee069938b2fe1e5639c7b",
         "duration_seconds": 164.01,
@@ -85,14 +101,15 @@
         "subtitle_languages": [
           "eng",
           "zho"
-        ]
+        ],
+        "local_source": "deliverables\\video\\meaning_intelligence_zh.mp4"
       },
       {
         "kind": "video",
         "language": "en",
         "source": "deliverables\\video\\meaning_intelligence_en.mp4",
         "source_sha256": "c225ad9cb95b555774ea7dfda2a1e08661de7c9467743359847efd6acfe209d3",
-        "path": "意义智能有声读物_发布包\\assets\\video\\release\\meaning_intelligence_en-web.mp4",
+        "path": "assets/video/release/meaning_intelligence_en-web.mp4",
         "bytes": 19107172,
         "sha256": "7ff9c08c5b9e57972cfc8c733a515b6aa3b5eace1d1d5059a0fdf6b442ef7bfe",
         "duration_seconds": 164.01,
@@ -102,66 +119,78 @@
         "subtitle_languages": [
           "eng",
           "zho"
-        ]
+        ],
+        "local_source": "deliverables\\video\\meaning_intelligence_en.mp4"
       }
-    ]
+    ],
+    "local_provenance_only": true
   },
   "publication_browser": {
     "report": "publication-browser-check.json",
     "checks_passed": 24,
     "checks_total": 24,
-    "sha256": "788edd3ec11f95579218fbb7366d1804f5f231f219221cabe579118d41762785"
+    "sha256": "0dd2d81bd28183e767922bc59c59c1902cd76c31e0daa05bbea85c1cd2340a8b"
   },
   "documents": [
     {
       "path": "download/documents/意义智能_书稿勘误与补充说明_2026-11-26.docx",
-      "bytes": 48747,
-      "sha256": "8b65ddd8fba0ce030c18958f88f527cc71f1ee2e46b4796a9da17170bd978983"
+      "bytes": 48783,
+      "sha256": "9fd561d12828d1437e283d5fc04b99f35b7b4fc8e315955a326e728f0bf8a37b"
+    },
+    {
+      "path": "download/documents/意义智能_最佳应用指南.md",
+      "bytes": 21562,
+      "sha256": "ba88a6387fa712822f2e371e981a6608c64a6f0cb7953bf9bfc131ba5efcb2ea"
     },
     {
       "path": "download/documents/意义智能_有声读物_发布指南与操作手册_v3.0.docx",
-      "bytes": 49214,
-      "sha256": "1bbf4a84197d1e9cc603141acb882dc8725776379e4bc02e1fa05d785978595e"
+      "bytes": 50404,
+      "sha256": "8d0404ec086a333c57bf2d4730baefe935c3ebad69d712aeb93a8de7a5ae8f58"
     },
     {
       "path": "download/documents/意义智能_有声读物_发布指南与操作手册_v3.0.pdf",
-      "bytes": 695546,
-      "sha256": "d456312cc5f3314dee623dee53b7d343e82720d3e67e1f3542480ffa5c39642f"
+      "bytes": 743089,
+      "sha256": "d4a21a9630da5388bc3768917a72b1d4f683df4019af451994fd13e1934a4365"
     },
     {
       "path": "download/documents/意义智能_附件衍生更新版_2026-11-26.docx",
-      "bytes": 404073,
-      "sha256": "de523b1676e5389653f8b15055bc6e678470d5ebdf65acdf122577b5b4b36025"
+      "bytes": 404205,
+      "sha256": "8c643ba2f6778608a752024ef5458d3b47b3a87819f1635aae1c5cd7f4f3dcf7"
     },
     {
       "path": "download/documents/意义智能_项目审查与优化报告_2026-11-26.docx",
-      "bytes": 50745,
-      "sha256": "60f5fc9c060b1d46be3eeac546ceb1b6493433bb5e616577d7182fd236bd3e6c"
+      "bytes": 52461,
+      "sha256": "40d8aa5e76d1bd0c4e034c9fe97eda88d6ca91d0edc90831792c2247cf1905cb"
     },
     {
       "path": "download/documents/意义智能_项目审查与优化报告_2026-11-26.md",
-      "bytes": 15229,
-      "sha256": "5814266e402111debb49a1d79a9b58e46c6b59872b3b25da8cf8eb5c6e972b53"
+      "bytes": 18137,
+      "sha256": "9c1d4b9d75b261eed0231fb2453c3f474563395976c74471b382a2eda0ab175b"
     },
     {
       "path": "download/documents/意义智能_项目审查与优化报告_2026-11-26.pdf",
-      "bytes": 759821,
-      "sha256": "89921b0e09bad48b3fcc9c071e033386c420a64a35697ba8d2e55e0a357575d7"
+      "bytes": 832174,
+      "sha256": "ffc5e1d32caaf682f199ec934dafebdb91958abbc001ef6a90b627ea765f8e28"
     },
     {
       "path": "download/documents/意义智能_书稿勘误与补充说明_2026-11-26.pdf",
-      "bytes": 708776,
-      "sha256": "11e6bb045e180b551412c8be73e36d5996e7e5fb0d71348a0a062987c7b3e3af"
+      "bytes": 709778,
+      "sha256": "5e8242af74bca7558c7138534d9313b00bf3a6ba2bd2aec084d402ff1aa1d987"
     },
     {
       "path": "download/documents/意义智能_附件衍生更新版_2026-11-26.pdf",
-      "bytes": 1500505,
-      "sha256": "3eec0c5fbee3b427cc056ee7e79da0c2949b4bfeee508350065e3fbc9f951865"
+      "bytes": 1511935,
+      "sha256": "5cbbd730fb109662c4a0c84e27f7bfc2e07cf710f33ce687d3a1f6a03902514e"
     },
     {
       "path": "download/documents/意义智能有声读物_发布指南与操作手册.md",
-      "bytes": 13938,
-      "sha256": "06d86691e0c44c14734110737187ea670c832bf6055a3e2e40e0d4a60284108e"
+      "bytes": 16099,
+      "sha256": "1e4a1a205123273d8f3e3dce6bd7c49a5a5c8eb658bc9e42afebf65cd9a91d1e"
+    },
+    {
+      "path": "download/documents/意义智能_并行审视反思与SOP总结.md",
+      "bytes": 9998,
+      "sha256": "732817896951f78a37d9e95b505e91d1d7b7ac769287dada6ff51ea3f0a8fb19"
     },
     {
       "path": "download/Meaning_Intelligence_White_Paper_v1.1_DOCX.docx",
@@ -175,25 +204,62 @@
     }
   ],
   "source_archive": {
-    "path": "download/Meaning_Intelligence_Source_v0.2.0.zip",
-    "bytes": 6978799,
-    "sha256": "e9d9c9e6942fdbdcd25e5527a3d98ccf1165e4805b44783334623c7e14a2701e",
-    "files": 213,
+    "path": "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27_release-final3.zip",
+    "bytes": 7202848,
+    "sha256": "761e7093a3d8823aba8245c6ea481f954632cc129fa9673c53cb172a7631abde",
+    "files": 224,
     "skill_documents": 6,
-    "reusable_skill_documents": 2,
+    "reusable_skill_documents": 3,
     "test_files": 9,
     "guide_files": 10,
     "guide_builder_present": true,
-    "repository_source_files": 110
+    "repository_source_files": 111,
+    "source_archive_reused": true
   },
   "complete_archive": {
-    "path": "download/意义智能_完整交付包.zip",
-    "self_included": false
+    "path": null,
+    "self_included": false,
+    "excluded": true,
+    "reason": "local complete delivery ZIP is intentionally not deployed"
+  },
+  "portable_sop_skill": {
+    "path": "download/project-audit-release-sop.zip",
+    "bytes": 18353,
+    "sha256": "b944566937b7a7cdec09d668e5d276eead0ecf9fc15488da6596d83961d4851c",
+    "prompt_stages": "P00-P16"
+  },
+  "best_practice_guide": {
+    "path": "download/documents/意义智能_最佳应用指南.md",
+    "bytes": 21562,
+    "sha256": "ba88a6387fa712822f2e371e981a6608c64a6f0cb7953bf9bfc131ba5efcb2ea",
+    "languages": [
+      "zh",
+      "en"
+    ],
+    "skills": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "L6"
+    ],
+    "bilingual_prompt_pairs": true
   },
   "checks": {
     "release_video_copies_match_sources": true,
     "authoritative_whitepaper_copies_match_sources": true,
     "safe_relative_paths": true,
-    "caches_and_secret_files_excluded": true
+    "caches_and_secret_files_excluded": true,
+    "project_identifier_consistent": true,
+    "osf_record_is_project_not_registration_or_preprint": true,
+    "complete_package_excluded": true,
+    "deployment_manifest_rewritten": true
+  },
+  "deployment": {
+    "schema": "meaning-intelligence-deployment-verification-v1",
+    "kind": "cloudflare-pages",
+    "complete_package_included": false,
+    "max_file_bytes": 26214400
   }
 }

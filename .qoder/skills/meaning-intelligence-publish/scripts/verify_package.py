@@ -16,13 +16,13 @@ from html.parser import HTMLParser
 from pathlib import Path, PurePosixPath
 from urllib.parse import unquote, urlsplit
 
+from finalize_publish import PROJECT_IDENTIFIER, REPO, WORKSPACE
+
 for stream in (sys.stdout, sys.stderr):
     if hasattr(stream, "reconfigure"):
         stream.reconfigure(encoding="utf-8", errors="backslashreplace")
 
-WORKSPACE = Path(__file__).resolve().parents[2]
 PACKAGE = WORKSPACE / "意义智能有声读物_发布包"
-REPO = WORKSPACE / "mi-repo"
 DEPLOY_STAGING = WORKSPACE / "deliverables" / "meaning-intelligence-deploy-staging"
 REQUIRED = [
     "index.html", "listen.html", "downloads.html", "mcp.html",
@@ -30,6 +30,7 @@ REQUIRED = [
     "project-guide/manifest.json", "project-guide/verification.json", "project-guide/browser-check.json",
     "project-guide/downloads/project-guide-bilingual.pdf", "project-guide/downloads/project-guide-bilingual.docx",
     "project-guide/downloads/guide-narration-zh.mp3", "project-guide/downloads/guide-narration-en.mp3",
+    "project-guide/downloads/source-v0.2.0-release.zip",
     "functions/api/mcp.js",
     "subtitles.json", "subtitles.vtt", "subtitles_en.json", "timeline_en.json",
     "assets/audio.mp3", "assets/audio-web.mp3", "assets/cover.jpg", "assets/qr_site.png",
@@ -43,8 +44,8 @@ REQUIRED = [
     "download/意义智能_讲课展示.pptx", "download/MSI演进视频讲解版.pptx",
     "download/Meaning_Intelligence_White_Paper_v1.1_DOCX.docx",
     "download/Meaning_Intelligence_White_Paper_v1.1_PDF.pdf",
-    "download/Meaning_Intelligence_Source_v0.2.0.zip",
-    "download/意义智能_完整交付包.zip", "download/verification.json",
+    "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27_release-final3.zip",
+    "download/意义智能_完整交付包_2026-11-27_release.zip", "download/verification.json",
     "download/video/meaning_intelligence_zh.srt", "download/video/meaning_intelligence_zh.vtt",
     "download/video/meaning_intelligence_en.srt", "download/video/meaning_intelligence_en.vtt",
     "download/video/narration_zh.txt", "download/video/narration_en.txt",
@@ -59,6 +60,9 @@ REQUIRED = [
     "download/documents/意义智能_有声读物_发布指南与操作手册_v3.0.docx",
     "download/documents/意义智能_有声读物_发布指南与操作手册_v3.0.pdf",
     "download/documents/意义智能有声读物_发布指南与操作手册.md",
+    "download/documents/意义智能_最佳应用指南.md",
+    "download/project-audit-release-sop.zip",
+    "download/documents/意义智能_并行审视反思与SOP总结.md",
     "download/manifest.json",
 ]
 JSON_FILES = [
@@ -242,6 +246,27 @@ def inspect_subtitles(files: dict[str, Path], errors: list[str]) -> None:
                     break
         except Exception as exc:
             errors.append(f"{rel} 字幕文件读取失败: {exc}")
+    en_cues = files.get("subtitles_en.json")
+    en_audio = files.get("assets_en/audio_en.mp3")
+    en_timeline = files.get("timeline_en.json")
+    if en_cues and en_audio and en_timeline and shutil.which("ffprobe"):
+        try:
+            result = subprocess.run(
+                ["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", str(en_audio)],
+                capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30,
+            )
+            if result.returncode:
+                raise RuntimeError((result.stderr or "ffprobe failed").strip())
+            duration = float(result.stdout.strip())
+            cues = json.loads(en_cues.read_text(encoding="utf-8"))
+            cue_end = max(float(cue["e"]) for cue in cues)
+            timeline_total = float(json.loads(en_timeline.read_text(encoding="utf-8"))["total"])
+            if cue_end > duration + 0.25:
+                errors.append(f"英文字幕超出音频时长: cue={cue_end:.3f}s audio={duration:.3f}s")
+            if abs(timeline_total - duration) > 1.0:
+                errors.append(f"英文时间轴与音频时长不一致: timeline={timeline_total:.3f}s audio={duration:.3f}s")
+        except Exception as exc:
+            errors.append(f"英文音画时间轴验证失败: {exc}")
 
 
 def inspect_epub(path: Path, errors: list[str]) -> None:
@@ -332,12 +357,22 @@ def inspect_office(files: dict[str, Path], errors: list[str]) -> None:
             errors.append(f"{rel} PDF 读取失败: {exc}")
 
 
+def validate_project_identifier(actual, label: str, errors: list[str]) -> None:
+    if not isinstance(actual, dict):
+        errors.append(f"{label} 缺少项目 DOI 结构化元数据")
+        return
+    for key, expected in PROJECT_IDENTIFIER.items():
+        if actual.get(key) != expected:
+            errors.append(f"{label} 项目标识字段不一致: {key}")
+
+
 def inspect_manifest(files: dict[str, Path], errors: list[str]) -> dict:
     path = files.get("download/manifest.json")
     if not path:
         return {}
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
+        validate_project_identifier(data.get("project_identifier"), "download/manifest.json", errors)
         entries = data.get("files")
         if not isinstance(entries, list) or not entries:
             errors.append("download/manifest.json files 为空")
@@ -347,7 +382,7 @@ def inspect_manifest(files: dict[str, Path], errors: list[str]) -> dict:
         by_path = {}
         root = PACKAGE.resolve()
         allowed_languages = {"zh", "en", "bilingual", "und"}
-        allowed_categories = {"package", "audio", "video", "subtitles", "narration", "cover", "ebook", "document", "presentation", "source", "guide", "verification"}
+        allowed_categories = {"package", "audio", "video", "subtitles", "narration", "cover", "ebook", "document", "presentation", "source", "skill", "guide", "verification"}
         for entry in entries:
             rel = entry.get("path", "")
             pure = PurePosixPath(rel)
@@ -374,12 +409,15 @@ def inspect_manifest(files: dict[str, Path], errors: list[str]) -> dict:
                 errors.append(f"manifest 字节数不一致: {rel}")
             if sha256(target) != entry.get("sha256"):
                 errors.append(f"manifest SHA-256 不一致: {rel}")
-        for category in ("package", "audio", "video", "subtitles", "narration", "cover", "ebook", "document", "presentation", "source", "guide", "verification"):
+        for category in ("package", "audio", "video", "subtitles", "narration", "cover", "ebook", "document", "presentation", "source", "skill", "guide", "verification"):
             if category not in categories:
                 errors.append(f"manifest 缺少类别: {category}")
         required_paths = {
-            "download/意义智能_完整交付包.zip": ("package", "bilingual"),
-            "download/Meaning_Intelligence_Source_v0.2.0.zip": ("source", "bilingual"),
+            "download/意义智能_完整交付包_2026-11-27_release.zip": ("package", "bilingual"),
+            "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27_release-final3.zip": ("source", "bilingual"),
+            "download/project-audit-release-sop.zip": ("skill", "bilingual"),
+            "download/documents/意义智能_最佳应用指南.md": ("document", "bilingual"),
+            "download/documents/意义智能_并行审视反思与SOP总结.md": ("document", "bilingual"),
             "assets/video/release/meaning_intelligence_zh.mp4": ("video", "zh"),
             "assets/video/release/meaning_intelligence_en.mp4": ("video", "en"),
             "assets/video/release/meaning_intelligence_zh-web.mp4": ("video", "zh"),
@@ -473,6 +511,56 @@ def inspect_verification_reports(files: dict[str, Path], errors: list[str]) -> N
                     errors.append(f"流媒体派生母版哈希不一致: {record.get('source')}")
         except Exception as exc:
             errors.append(f"流媒体验证报告解析失败: {exc}")
+    verification_path = files.get("download/verification.json")
+    if verification_path:
+        try:
+            verification = json.loads(verification_path.read_text(encoding="utf-8"))
+            validate_project_identifier(verification.get("project_identifier"), "download/verification.json", errors)
+            if verification.get("checks", {}).get("project_identifier_consistent") is not True or verification.get("checks", {}).get("osf_record_is_project_not_registration_or_preprint") is not True:
+                raise RuntimeError("交付验证报告缺少 DOI/OSF 边界门")
+            if verification.get("status") != "ready" or verification.get("project_guide", {}).get("ready") is not True:
+                raise RuntimeError("交付验证报告未达到 ready 或项目说明书未就绪")
+            for collection in ("documents", "release_videos"):
+                records = verification.get(collection, [])
+                if not records:
+                    raise RuntimeError(f"交付验证报告缺少 {collection}")
+                for record in records:
+                    rel = record.get("path", "")
+                    target = files.get(rel)
+                    if not target:
+                        errors.append(f"交付验证报告引用缺失: {rel}")
+                    elif target.stat().st_size != record.get("bytes") or sha256(target) != record.get("sha256"):
+                        errors.append(f"交付验证报告引用哈希或字节数不一致: {rel}")
+            for key in ("source_archive", "complete_archive"):
+                rel = verification.get(key, {}).get("path", "")
+                if rel not in files:
+                    errors.append(f"交付验证报告归档引用缺失: {rel}")
+            source_record = verification.get("source_archive", {})
+            source_target = files.get(source_record.get("path", ""))
+            if source_target and (source_target.stat().st_size != source_record.get("bytes") or sha256(source_target) != source_record.get("sha256")):
+                errors.append("交付验证报告源码 ZIP 哈希或字节数不一致")
+            guide_source = files.get("project-guide/downloads/source-v0.2.0-release.zip")
+            if not source_target or not guide_source:
+                errors.append("说明书便捷源码包或权威 final3 源码包缺失")
+            elif sha256(guide_source) != sha256(source_target):
+                errors.append("说明书便捷源码包与权威 final3 源码包字节不一致")
+            sop_record = verification.get("portable_sop_skill", {})
+            sop_target = files.get(sop_record.get("path", ""))
+            if not sop_target:
+                errors.append("交付验证报告缺少可迁移 SOP Skill")
+            elif sop_target.stat().st_size != sop_record.get("bytes") or sha256(sop_target) != sop_record.get("sha256"):
+                errors.append("交付验证报告 SOP Skill 哈希或字节数不一致")
+            for key, rel in (
+                ("video_verification_report", verification.get("video_verification_report")),
+                ("publication_browser", verification.get("publication_browser", {}).get("report")),
+                ("web_media", verification.get("web_media", {}).get("report")),
+                ("project_guide", verification.get("project_guide", {}).get("verification_report")),
+                ("project_guide_browser", verification.get("project_guide", {}).get("browser_report")),
+            ):
+                if rel not in files:
+                    errors.append(f"交付验证报告支持证据缺失: {key}={rel}")
+        except Exception as exc:
+            errors.append(f"交付验证报告解析失败: {exc}")
 
 
 def parse_subtitle_text(text: str) -> list[tuple[float, float, str]]:
@@ -705,6 +793,64 @@ def inspect_media(files: dict[str, Path], errors: list[str]) -> None:
             errors.append(f"{rel} 媒体探测失败: {exc}")
 
 
+def validate_best_practice_guide(data: bytes, errors: list[str], label: str) -> None:
+    try:
+        text = data.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        errors.append(f"{label} 不是 UTF-8: {exc}")
+        return
+    required = (
+        "# 中文版", "# English Edition", "### L1", "### L2", "### L3",
+        "### L4", "### L5", "### L6", "Meaning Agent", "2024-11-05",
+        "2025-03-26", "MI_MCP_PUBLIC_TOKEN", "approval.status=pending",
+        "V7.0", "30-day", "三十天", PROJECT_IDENTIFIER["title_zh"],
+        PROJECT_IDENTIFIER["title_en"], PROJECT_IDENTIFIER["doi"],
+        PROJECT_IDENTIFIER["resolver"], "category=project", "registration=false",
+        "preprint=false", "不提升 E0–E6", "does not promote E0–E6",
+    )
+    missing = [token for token in required if token not in text]
+    if missing:
+        errors.append(f"{label} 缺少双语或安全内容: {missing}")
+    if text.count("```text") < 12:
+        errors.append(f"{label} 中英六技能提示词不完整")
+
+
+def inspect_sop_zip(files: dict[str, Path], errors: list[str]) -> None:
+    path = files.get("download/project-audit-release-sop.zip")
+    if not path:
+        return
+    rel = path.relative_to(PACKAGE).as_posix()
+    try:
+        with tempfile.TemporaryDirectory(prefix="mi-sop-verify-") as directory:
+            with zipfile.ZipFile(path) as archive:
+                if archive.testzip():
+                    raise RuntimeError("CRC 校验失败")
+                names = {name for name in archive.namelist() if not name.endswith("/")}
+                required = {
+                    "project-audit-release-sop/SKILL.md",
+                    "project-audit-release-sop/references/sop.md",
+                    "project-audit-release-sop/references/prompt-library.md",
+                    "project-audit-release-sop/references/evidence-template.md",
+                    "project-audit-release-sop/scripts/validate_skill.py",
+                }
+                missing = required - names
+                if missing:
+                    raise RuntimeError(f"缺少成员: {sorted(missing)}")
+                for name in names:
+                    pure = PurePosixPath(name)
+                    if pure.is_absolute() or ".." in pure.parts or "\\" in name or pure.parts[0] != "project-audit-release-sop":
+                        raise RuntimeError(f"不安全或顶层目录错误: {name}")
+                archive.extractall(directory)
+            result = subprocess.run(
+                [sys.executable, str(Path(directory) / "project-audit-release-sop/scripts/validate_skill.py")],
+                cwd=directory, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30,
+            )
+            if result.returncode:
+                raise RuntimeError((result.stderr or result.stdout).strip())
+    except Exception as exc:
+        errors.append(f"{rel} 可迁移 Skill 验收失败: {exc}")
+
+
 def inspect_source_zip(path: Path, errors: list[str]) -> None:
     rel = path.relative_to(PACKAGE).as_posix()
     try:
@@ -738,6 +884,10 @@ def inspect_source_zip(path: Path, errors: list[str]) -> None:
                 root + "guide/template.html", root + "guide/app.js",
                 root + "skills/meaning-intelligence-maintain/SKILL.md",
                 root + "skills/meaning-intelligence-publish/SKILL.md",
+                root + "skills/project-audit-release-sop/SKILL.md",
+                root + "skills/project-audit-release-sop/scripts/validate_skill.py",
+                root + "documents/意义智能_最佳应用指南.md",
+                root + "documents/意义智能_并行审视反思与SOP总结.md",
                 root + "repository/pr_sdk_v2/meaning_intelligence/falsify.py",
                 root + "repository/pr_sdk_v2/test_pr.py",
                 root + "repository/msi/build.py",
@@ -752,6 +902,20 @@ def inspect_source_zip(path: Path, errors: list[str]) -> None:
             for name in required:
                 if name not in names:
                     errors.append(f"{rel} 缺少成员: {name}")
+            guide_member = root + "documents/意义智能_最佳应用指南.md"
+            if guide_member in names:
+                validate_best_practice_guide(archive.read(guide_member), errors, f"{rel}:{guide_member}")
+            version_member = root + "VERSION.yaml"
+            if version_member in names:
+                version_data = archive.read(version_member).decode("utf-8")
+                for key, expected in PROJECT_IDENTIFIER.items():
+                    expected_text = str(expected).lower() if isinstance(expected, bool) else str(expected)
+                    if expected_text not in version_data:
+                        errors.append(f"{rel} VERSION.yaml 项目标识不一致: {key}")
+            guide_content_member = root + "guide/content.json"
+            if guide_content_member in names:
+                guide_content = json.loads(archive.read(guide_content_member))
+                validate_project_identifier(guide_content.get("meta", {}).get("project_identifier"), f"{rel}:{guide_content_member}", errors)
             function_name = root + "web-mcp/functions/api/mcp.js"
             if function_name in names and b"export const onRequest" not in archive.read(function_name):
                 errors.append(f"{rel} Web MCP 缺少 Pages Function onRequest 适配器")
@@ -786,7 +950,8 @@ def inspect_browser_evidence(report_bytes: bytes, verification_bytes: bytes, err
 
 
 def inspect_complete_zip(files: dict[str, Path], errors: list[str]) -> None:
-    candidates = [path for rel, path in files.items() if rel.startswith("download/") and path.suffix.lower() == ".zip" and "完整交付包" in rel]
+    path = PACKAGE / "download" / "意义智能_完整交付包_2026-11-27_release.zip"
+    candidates = [path] if path.is_file() else []
     if not candidates:
         errors.append("缺少完整交付 ZIP")
         return
@@ -800,6 +965,7 @@ def inspect_complete_zip(files: dict[str, Path], errors: list[str]) -> None:
                 guide_ready = False
                 if "verification.json" in names:
                     verification = json.loads(archive.read("verification.json"))
+                    validate_project_identifier(verification.get("project_identifier"), f"{rel}:verification.json", errors)
                     guide_ready = bool(verification.get("project_guide", {}).get("ready"))
                 else:
                     errors.append(f"{rel} 缺少 verification.json")
@@ -825,6 +991,13 @@ def inspect_complete_zip(files: dict[str, Path], errors: list[str]) -> None:
                     "index.html", "downloads.html", "manifest.json", "verification.json",
                     "video/build_video.py", "video/meaning_intelligence_zh.mp4", "video/meaning_intelligence_en.mp4",
                     "skills/meaning-intelligence-maintain/SKILL.md", "skills/meaning-intelligence-publish/SKILL.md",
+                    "skills/project-audit-release-sop/SKILL.md",
+                    "skills/project-audit-release-sop/references/prompt-library.md",
+                    "skills/project-audit-release-sop/scripts/validate_skill.py",
+                    "download/project-audit-release-sop.zip",
+                    "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27_release-final3.zip",
+                    "documents/意义智能_最佳应用指南.md",
+                    "documents/意义智能_并行审视反思与SOP总结.md",
                     "documents/意义智能_附件衍生更新版_2026-11-26.pdf",
                     "documents/意义智能_书稿勘误与补充说明_2026-11-26.pdf",
                     "documents/意义智能_项目审查与优化报告_2026-11-26.pdf",
@@ -835,8 +1008,22 @@ def inspect_complete_zip(files: dict[str, Path], errors: list[str]) -> None:
                         errors.append(f"{rel} 缺少成员: {name}")
                 if path.name in {PurePosixPath(name).name for name in names}:
                     errors.append(f"{rel} 错误地包含自身")
+                if any(name in names for name in (
+                    "download/Meaning_Intelligence_Source_v0.2.0.zip",
+                    "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27.zip",
+                    "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27_final.zip",
+                    "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27_release.zip",
+                    "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27_release-final2.zip",
+                )):
+                    errors.append(f"{rel} 错误地包含已被最终归档取代的旧源码包")
+                if "documents/意义智能_最佳应用指南.md" in names:
+                    validate_best_practice_guide(
+                        archive.read("documents/意义智能_最佳应用指南.md"), errors,
+                        f"{rel}:documents/意义智能_最佳应用指南.md",
+                    )
                 if "manifest.json" in names:
                     manifest = json.loads(archive.read("manifest.json"))
+                    validate_project_identifier(manifest.get("project_identifier"), f"{rel}:manifest.json", errors)
                     for entry in manifest.get("files", []):
                         name = entry.get("path", "")
                         if name not in names:
@@ -927,6 +1114,30 @@ def inspect_package():
         except Exception as exc:
             errors.append(f"JSON 解析失败 {rel}: {exc}")
     inspect_html(files, errors)
+    guide_path = PACKAGE / "download/documents/意义智能_最佳应用指南.md"
+    if guide_path.is_file():
+        validate_best_practice_guide(guide_path.read_bytes(), errors, "download/documents/意义智能_最佳应用指南.md")
+    guide_manifest_path = PACKAGE / "project-guide/manifest.json"
+    if guide_manifest_path.is_file():
+        try:
+            guide_manifest = json.loads(guide_manifest_path.read_text(encoding="utf-8"))
+            validate_project_identifier(guide_manifest.get("guide", {}).get("project_identifier"), "project-guide/manifest.json", errors)
+        except Exception as exc:
+            errors.append(f"项目说明书 DOI 元数据解析失败: {exc}")
+    version_text = (REPO / "VERSION.yaml").read_text(encoding="utf-8")
+    for key, expected in PROJECT_IDENTIFIER.items():
+        if isinstance(expected, bool):
+            expected_text = str(expected).lower()
+        else:
+            expected_text = str(expected)
+        if expected_text not in version_text:
+            errors.append(f"VERSION.yaml 项目标识字段缺失或不一致: {key}")
+    for rel in ("index.html", "listen.html", "downloads.html", "mcp.html"):
+        page = PACKAGE / rel
+        if page.is_file():
+            text = page.read_text(encoding="utf-8")
+            if 'id="mi-project-identifier"' not in text or f'name="citation_doi" content="{PROJECT_IDENTIFIER["doi"]}"' not in text:
+                errors.append(f"{rel} 缺少项目 DOI 可见标识或引用元数据")
     function_path = PACKAGE / "functions" / "api" / "mcp.js"
     if function_path.is_file() and "export const onRequest" not in function_path.read_text(encoding="utf-8"):
         errors.append("发布包 Web MCP 缺少 Pages Function onRequest 适配器")
@@ -937,14 +1148,15 @@ def inspect_package():
     inspect_office(files, errors)
     manifest = inspect_manifest(files, errors)
     inspect_verification_reports(files, errors)
+    inspect_sop_zip(files, errors)
     inspect_media(files, errors)
     inspect_release_video_consistency(files, errors)
-    source_archive = PACKAGE / "download" / "Meaning_Intelligence_Source_v0.2.0.zip"
+    source_archive = PACKAGE / "download" / "Meaning_Intelligence_Source_v0.2.0_2026-11-27_release-final3.zip"
     if source_archive.is_file():
         inspect_source_zip(source_archive, errors)
     inspect_complete_zip(files, errors)
     browser_report = PACKAGE / "publication-browser-check.json"
-    complete_package = PACKAGE / "download" / "意义智能_完整交付包.zip"
+    complete_package = PACKAGE / "download" / "意义智能_完整交付包_2026-11-27_release.zip"
     verification_report = PACKAGE / "download" / "verification.json"
     if browser_report.is_file() and complete_package.is_file() and verification_report.is_file():
         inspect_browser_evidence(

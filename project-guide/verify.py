@@ -185,6 +185,19 @@ def main() -> int:
     check("bilingual", "ui-localization-parity", set(content["ui"]["zh"]) == set(content["ui"]["en"]) and all(str(value).strip() for lang in LANGUAGES for value in content["ui"][lang].values()), f"{len(content['ui']['zh'])} UI keys per language")
     check("bilingual", "no-known-mixed-wording", "文本 fragment" not in json.dumps(content, ensure_ascii=False) and "章节 Narration" not in json.dumps(content, ensure_ascii=False), "known mixed-language fragments removed")
     check("structure", "version-identities", content["meta"]["canon"] == "V7.0" and content["meta"]["research_system"] == "0.2.0" and content["meta"]["whitepaper"] == "1.1" and content["meta"]["msi_demo"] == "2.1", json.dumps({key: content["meta"][key] for key in ("canon", "research_system", "operational_stack", "whitepaper", "msi_demo")}))
+    identifier = content["meta"].get("project_identifier", {})
+    expected_identifier = {
+        "title_zh": "意义智能：理论框架、证据设计和验证",
+        "title_en": "Meaning Intelligence: Theoretical Framework, Evidence Design, and Validation",
+        "doi": "10.17605/OSF.IO/3XKGY",
+        "resolver": "https://doi.org/10.17605/OSF.IO/3XKGY",
+        "landing_page": "https://osf.io/3xkgy/",
+        "registry": "OSF", "registry_id": "3xkgy",
+        "category": "project", "public": True, "registration": False, "preprint": False,
+        "verified": "2026-11-27",
+        "evidence_boundary": "Identifier only; not preregistration, peer review, publication, replication, or evidence-level promotion.",
+    }
+    check("provenance", "project-doi-boundary", identifier == expected_identifier and identifier["doi"] in (source_root / "mi-repo" / "VERSION.yaml").read_text(encoding="utf-8"), "OSF project identifier; not registration/preprint; no evidence promotion")
     check("structure", "evidence-e0-e6", [item["id"] for item in content["evidence"]] == [f"E{i}" for i in range(7)] and "preregistered" in content["evidence"][3]["definition"]["en"] and "independent" in content["evidence"][4]["definition"]["en"] and "contexts" in content["evidence"][6]["definition"]["en"], "V7 evidence semantics")
 
     for script in ("content.js", "verification.js", "app.js"):
@@ -201,7 +214,7 @@ def main() -> int:
     result = subprocess.run(["node", "--check", str(TARGET / "browser_check.mjs")], text=True, capture_output=True)
     check("structure", "browser-script-syntax", result.returncode == 0, result.stderr.strip() or "OK")
 
-    expected = [TARGET / "index.html", TARGET / "content.js", TARGET / "verification.js", TARGET / "app.js", TARGET / "styles.css", TARGET / "content.json", TARGET / "manifest.json", TARGET / "manifest.sha256", TARGET / "verification.json", TARGET / "browser_check.mjs", TARGET / "meaning-intelligence-project-guide.zip", TARGET / "downloads/project-guide-bilingual.pdf", TARGET / "downloads/meaning-intelligence-zh.mp4", TARGET / "downloads/meaning-intelligence-en.mp4", TARGET / "downloads/guide-narration-zh.mp3", TARGET / "downloads/guide-narration-en.mp3"]
+    expected = [TARGET / "index.html", TARGET / "content.js", TARGET / "verification.js", TARGET / "app.js", TARGET / "styles.css", TARGET / "content.json", TARGET / "manifest.json", TARGET / "manifest.sha256", TARGET / "verification.json", TARGET / "browser_check.mjs", TARGET / "meaning-intelligence-project-guide-2026-11-27.zip", TARGET / "downloads/project-guide-bilingual.pdf", TARGET / "downloads/meaning-intelligence-zh.mp4", TARGET / "downloads/meaning-intelligence-en.mp4", TARGET / "downloads/guide-narration-zh.mp3", TARGET / "downloads/guide-narration-en.mp3"]
     expected += [TARGET / "audio" / lang / f"{item}.mp3" for lang in LANGUAGES for item in chapter_ids]
     expected += [TARGET / "captions" / lang / f"{item}.{suffix}" for lang in LANGUAGES for item in chapter_ids for suffix in ("srt", "vtt")]
     expected += [TARGET / "transcripts" / lang / f"{item}.txt" for lang in LANGUAGES for item in chapter_ids]
@@ -234,11 +247,11 @@ def main() -> int:
     check("structure", "offline-csp", "connect-src 'none'" in html and "default-src 'self' data: blob:" in html and "script-src 'self'" in html and "object-src 'none'" in html, "local-only CSP present")
     check("structure", "download-paths-local", all(item["path"].startswith("downloads/") and (TARGET / item["path"]).is_file() for item in content["downloads"]), f"{len(content['downloads'])} download records")
     try:
-        with zipfile.ZipFile(TARGET / "meaning-intelligence-project-guide.zip") as archive:
+        with zipfile.ZipFile(TARGET / "meaning-intelligence-project-guide-2026-11-27.zip") as archive:
             names = archive.namelist()
             unsafe = [name for name in names if name.startswith("/") or ".." in Path(name).parts]
             required = {"index.html", "content.js", "verification.js", "manifest.json", "manifest.sha256", "verification.json", "downloads/project-guide-bilingual.pdf", "downloads/guide-narration-zh.mp3", "downloads/guide-narration-en.mp3"}
-            ok = archive.testzip() is None and not unsafe and required <= set(names) and "meaning-intelligence-project-guide.zip" not in names and not any(name.endswith((".tmp", ".part")) for name in names)
+            ok = archive.testzip() is None and not unsafe and required <= set(names) and "meaning-intelligence-project-guide-2026-11-27.zip" not in names and not any(name.endswith((".tmp", ".part")) for name in names)
             check("structure", "standalone-guide-archive", ok, f"{len(names)} entries; CRC={archive.testzip()}; unsafe={unsafe}; missing={sorted(required - set(names))}")
     except Exception as error:
         check("structure", "standalone-guide-archive", False, error)
@@ -357,7 +370,7 @@ def main() -> int:
     for name in ("ebook-v1.1-bilingual.epub", "ebook-v1.1-zh.epub", "ebook-v1.1-en.epub"):
         ok, detail = check_epub(TARGET / "downloads" / name)
         check("documents", f"epub-{name}", ok, detail)
-    for name in ("source-v0.2.0.zip", "lecture-deck.pptx", "msi-deck.pptx"):
+    for name in ("source-v0.2.0-release.zip", "lecture-deck.pptx", "msi-deck.pptx"):
         try:
             with zipfile.ZipFile(TARGET / "downloads" / name) as archive:
                 bad = archive.testzip()
@@ -365,10 +378,12 @@ def main() -> int:
                 unsafe = [entry for entry in names if entry.startswith("/") or ".." in Path(entry).parts]
                 ok = bad is None and not unsafe
                 detail = f"{len(names)} entries; CRC={bad}; unsafe={unsafe}"
-                if name == "source-v0.2.0.zip":
+                if name == "source-v0.2.0-release.zip":
                     required = ["meaning-intelligence/meaning-agent/meaning_agent/engine.py", "meaning-intelligence/meaning-agent/meaning_agent/skills/registry.py", "meaning-intelligence/meaning-agent/meaning_agent/mcp_server.py", "meaning-intelligence/VERSION.yaml"]
-                    ok = ok and all(entry in names for entry in required)
-                    detail += f"; required={all(entry in names for entry in required)}"
+                    authoritative = source_root / "意义智能有声读物_发布包" / "download" / "Meaning_Intelligence_Source_v0.2.0_2026-11-27_release-final3.zip"
+                    identical = authoritative.is_file() and sha256(TARGET / "downloads" / name) == sha256(authoritative)
+                    ok = ok and all(entry in names for entry in required) and identical
+                    detail += f"; required={all(entry in names for entry in required)}; authoritative_identity={identical}"
                 check("documents", f"archive-{name}", ok, detail)
         except Exception as error:
             check("documents", f"archive-{name}", False, error)

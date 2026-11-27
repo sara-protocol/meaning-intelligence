@@ -20,19 +20,21 @@ from html.parser import HTMLParser
 from pathlib import Path, PurePosixPath
 from urllib.parse import quote, unquote, urlsplit
 
-from finalize_publish import finalize_accessibility, finalize_index, finalize_listen
+from finalize_publish import PROJECT_IDENTIFIER, REPO, WORKSPACE, finalize_accessibility, finalize_index, finalize_listen, finalize_project_identifier
 
 for stream in (sys.stdout, sys.stderr):
     if hasattr(stream, "reconfigure"):
         stream.reconfigure(encoding="utf-8", errors="backslashreplace")
 
-WORKSPACE = Path(__file__).resolve().parents[2]
 PACKAGE = WORKSPACE / "意义智能有声读物_发布包"
-REPO = WORKSPACE / "mi-repo"
 PUBLISH = WORKSPACE / "meaning-intelligence-publish"
+if not (PUBLISH / "SKILL.md").is_file():
+    PUBLISH = REPO / "skills" / "meaning-intelligence-publish"
 PUBLISH_SCRIPTS = PUBLISH / "scripts"
 VIDEO_SOURCE = WORKSPACE / "deliverables" / "video"
-DOCS_SOURCE = WORKSPACE / "deliverables" / "documents"
+DELIVERABLES = WORKSPACE / "deliverables"
+DOCS_SOURCE = DELIVERABLES / "documents"
+BEST_PRACTICE_GUIDE = DOCS_SOURCE / "意义智能_最佳应用指南.md"
 GUIDE_SOURCE = WORKSPACE / "deliverables" / "project-guide"
 PUBLICATION_BROWSER_REPORT = WORKSPACE / "deliverables" / "publication-browser-check.json"
 WEB_MEDIA_REPORT = WORKSPACE / "deliverables" / "web-media-verification.json"
@@ -41,8 +43,9 @@ WHITEPAPER = REPO / "whitepaper" / "dist"
 DOWNLOAD = PACKAGE / "download"
 VIDEO_DOWNLOAD = DOWNLOAD / "video"
 DOCS_DOWNLOAD = DOWNLOAD / "documents"
-SOURCE_ARCHIVE = DOWNLOAD / "Meaning_Intelligence_Source_v0.2.0.zip"
-COMPLETE_ARCHIVE = DOWNLOAD / "意义智能_完整交付包.zip"
+SOURCE_ARCHIVE = DOWNLOAD / "Meaning_Intelligence_Source_v0.2.0_2026-11-27_release-final3.zip"
+COMPLETE_ARCHIVE = DOWNLOAD / "意义智能_完整交付包_2026-11-27_release.zip"
+PROVISIONAL_ARCHIVE = DOWNLOAD / "意义智能_完整交付包_2026-11-27_release-provisional.zip"
 VERIFICATION_REPORT = DOWNLOAD / "verification.json"
 DATE = "2026-11-27"
 VERSION = "1.1"
@@ -61,6 +64,7 @@ EXCLUDED_PARTS = {
 EXCLUDED_NAMES = {
     ".env", ".env.local", ".npmrc", ".netrc", "credentials.json", "token.txt",
     "tokens.json", "secrets.json", "id_rsa", "id_ed25519",
+    "意义智能_完整交付包.zip", "意义智能_完整交付包_2026-11-27_release-provisional.zip", "meaning-intelligence-project-guide.zip", "meaning-intelligence-project-guide-2026-11-27.zip",
 }
 EXCLUDED_SUFFIXES = {".pyc", ".pyo", ".pem", ".key", ".pfx", ".p12"}
 SECRET_PATTERNS = (
@@ -93,7 +97,7 @@ class ReferenceParser(HTMLParser):
 
 def replace_file(source: Path, target: Path) -> None:
     backup = target.with_name(f".{target.name}.{os.getpid()}.old.tmp")
-    for attempt in range(60):
+    for attempt in range(240):
         try:
             if backup.exists():
                 backup.unlink()
@@ -111,7 +115,7 @@ def replace_file(source: Path, target: Path) -> None:
         except PermissionError:
             if backup.exists() and not target.exists():
                 os.replace(backup, target)
-            if attempt == 59:
+            if attempt == 239:
                 raise
             time.sleep(0.25)
 
@@ -151,8 +155,21 @@ def safe_relative(path: Path, root: Path) -> Path:
 
 def excluded(relative: Path) -> bool:
     return (
-        any(part.lower() in EXCLUDED_PARTS or part.lower().startswith(".project-guide-") for part in relative.parts)
+        relative.as_posix() in {
+            "download/Meaning_Intelligence_Source_v0.2.0.zip",
+            "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27.zip",
+            "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27_final.zip",
+            "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27_release.zip",
+            "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27_release-final.zip",
+            "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27_release-final2.zip",
+            "download/意义智能_完整交付包.zip",
+            "downloads/attachment-updated-2026-11-26.pdf",
+            "project-guide/downloads/attachment-updated-2026-11-26.pdf",
+        }
+        or any(part.lower() in EXCLUDED_PARTS or part.lower().startswith(".project-guide-") for part in relative.parts)
         or relative.name.lower() in EXCLUDED_NAMES
+        or relative.name in {"source-v0.2.0.zip", "source-v0.2.0-final.zip"}
+        or relative.name in {"verify_package_final.py", "build_final.py", "build_downloads_final.py", "build_downloads_release.py", "verify_package_release.py"}
         or relative.name.lower().startswith(".env")
         or ".uploading" in relative.name.lower() or ".downloading" in relative.name.lower()
         or relative.suffix.lower() in EXCLUDED_SUFFIXES | {".tmp", ".part", ".crdownload"}
@@ -199,6 +216,26 @@ def collect_tree(root: Path, prefix: str, members: dict[str, Path]) -> int:
     return count
 
 
+def validate_best_practice_guide(path: Path) -> None:
+    if not path.is_file():
+        raise RuntimeError(f"缺少中英双语最佳应用指南: {path}")
+    text = path.read_text(encoding="utf-8")
+    required = (
+        "# 中文版", "# English Edition", "### L1", "### L2", "### L3",
+        "### L4", "### L5", "### L6", "Meaning Agent", "2024-11-05",
+        "2025-03-26", "MI_MCP_PUBLIC_TOKEN", "approval.status=pending",
+        "V7.0", "30-day", "三十天", PROJECT_IDENTIFIER["title_zh"],
+        PROJECT_IDENTIFIER["title_en"], PROJECT_IDENTIFIER["doi"],
+        PROJECT_IDENTIFIER["resolver"], "category=project", "registration=false",
+        "preprint=false", "不提升 E0–E6", "does not promote E0–E6",
+    )
+    missing = [token for token in required if token not in text]
+    if missing:
+        raise RuntimeError(f"最佳应用指南缺少双语或安全内容: {missing}")
+    if text.count("```text") < 12:
+        raise RuntimeError("最佳应用指南缺少完整的中英六技能提示词")
+
+
 def final_document_sources() -> list[Path]:
     if not DOCS_SOURCE.is_dir():
         raise RuntimeError(f"缺少最终文档目录: {DOCS_SOURCE}")
@@ -207,6 +244,9 @@ def final_document_sources() -> list[Path]:
         if path.is_file() and path.suffix.lower() in {".docx", ".md", ".pdf"}
         and "_v2.0" not in path.name
     ]
+    validate_best_practice_guide(BEST_PRACTICE_GUIDE)
+    if BEST_PRACTICE_GUIDE not in documents:
+        documents.append(BEST_PRACTICE_GUIDE)
     stems = {path.stem for path in documents}
     rendered = DOCS_SOURCE / "rendered"
     if rendered.is_dir():
@@ -216,8 +256,12 @@ def final_document_sources() -> list[Path]:
             and path.stem in stems and "_v2.0" not in path.name
         )
     manual = WORKSPACE / "意义智能有声读物_发布指南与操作手册.md"
+    retrospective = DELIVERABLES / "意义智能_并行审视反思与SOP总结.md"
     if manual.is_file():
         documents.append(manual)
+    if not retrospective.is_file():
+        raise RuntimeError(f"缺少项目复盘: {retrospective}")
+    documents.append(retrospective)
     if not documents:
         raise RuntimeError("最终文档目录没有可交付 DOCX/Markdown/PDF")
     return documents
@@ -248,6 +292,9 @@ def sync_project_guide() -> bool:
     missing = [name for name in required if not (GUIDE_SOURCE / name).is_file()]
     if missing:
         raise RuntimeError(f"项目说明书缺少必要文件: {missing}")
+    guide_source = GUIDE_SOURCE / "downloads" / "source-v0.2.0-release.zip"
+    if not guide_source.is_file() or sha256(guide_source) != sha256(SOURCE_ARCHIVE):
+        raise RuntimeError("项目说明书便捷源码包与权威 final3 源码包不一致，拒绝同步。")
     target = PACKAGE / "project-guide"
     if target.exists():
         marker = target / "manifest.json"
@@ -265,7 +312,7 @@ def sync_project_guide() -> bool:
         relative = safe_relative(source, GUIDE_SOURCE)
         if any(part.lower() in excluded_parts for part in relative.parts) or any(part.lower().startswith(".browser-profile") for part in relative.parts):
             continue
-        if excluded(relative) or relative.as_posix() == "meaning-intelligence-project-guide.zip":
+        if excluded(relative):
             continue
         expected[relative.as_posix()] = sha256(source)
     if target.is_dir():
@@ -276,7 +323,7 @@ def sync_project_guide() -> bool:
             relative = safe_relative(source, target)
             if any(part.lower() in excluded_parts for part in relative.parts) or any(part.lower().startswith(".browser-profile") for part in relative.parts):
                 continue
-            if excluded(relative) or relative.as_posix() == "meaning-intelligence-project-guide.zip":
+            if excluded(relative):
                 continue
             actual[relative.as_posix()] = sha256(source)
         if actual == expected:
@@ -290,21 +337,24 @@ def sync_project_guide() -> bool:
             relative = safe_relative(source, GUIDE_SOURCE)
             if any(part.lower() in excluded_parts for part in relative.parts) or any(part.lower().startswith(".browser-profile") for part in relative.parts):
                 continue
-            if excluded(relative) or relative.as_posix() == "meaning-intelligence-project-guide.zip":
+            if excluded(relative):
                 continue
             destination = stage / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, destination)
         if target.exists():
-            for attempt in range(12):
-                try:
-                    shutil.rmtree(target)
-                    break
-                except PermissionError:
-                    if attempt == 11:
-                        raise
-                    time.sleep(0.25)
-        stage.replace(target)
+            for source in sorted(stage.rglob("*")):
+                if not source.is_file():
+                    continue
+                relative = source.relative_to(stage)
+                destination = target / relative
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                if destination.is_file() and sha256(destination) == sha256(source):
+                    continue
+                replace_file(source, destination)
+            shutil.rmtree(stage, ignore_errors=True)
+        else:
+            stage.replace(target)
     except Exception:
         if stage.exists():
             shutil.rmtree(stage, ignore_errors=True)
@@ -403,12 +453,13 @@ def curated_sources() -> tuple[dict[str, Path], dict]:
     reusable_skills = {
         "meaning-intelligence-maintain": REPO / ".qoder" / "skills" / "meaning-intelligence-maintain",
         "meaning-intelligence-publish": PUBLISH,
+        "project-audit-release-sop": REPO / ".qoder" / "skills" / "project-audit-release-sop",
     }
     for name, root in reusable_skills.items():
         if not (root / "SKILL.md").is_file():
             raise RuntimeError(f"缺少可复用 Skill: {name}")
         collect_tree(root, f"skills/{name}", members)
-    for name in ("build_publish.py", "build_bilingual.py"):
+    for name in ("build_publish.py", "build_bilingual.py", "build_en_audio2.py"):
         source = WORKSPACE / name
         if source.is_file():
             add_member(members, f"scripts/{name}", source)
@@ -419,8 +470,24 @@ def curated_sources() -> tuple[dict[str, Path], dict]:
     guide_files = guide_source_files()
     for source in guide_files:
         add_member(members, f"guide/{safe_relative(source, GUIDE_SOURCE).as_posix()}", source)
+    final_overrides = {
+        "scripts/build_downloads.py": PUBLISH_SCRIPTS / "build_downloads.py",
+        "skills/meaning-intelligence-publish/scripts/build_downloads.py": PUBLISH_SCRIPTS / "build_downloads.py",
+        "scripts/verify_package.py": PUBLISH_SCRIPTS / "verify_package.py",
+        "skills/meaning-intelligence-publish/scripts/verify_package.py": PUBLISH_SCRIPTS / "verify_package.py",
+        "guide/build.py": GUIDE_SOURCE / "build.py",
+    }
+    for name, source in final_overrides.items():
+        if not source.is_file():
+            raise RuntimeError(f"缺少最终构建或验收脚本: {source}")
+        reject_secrets(source)
+        members[name] = source
     for source in final_document_sources():
         add_member(members, f"documents/{source.name}", source)
+    retrospective = DELIVERABLES / "意义智能_并行审视反思与SOP总结.md"
+    if not retrospective.is_file():
+        raise RuntimeError(f"缺少项目复盘: {retrospective}")
+    add_member(members, "documents/意义智能_并行审视反思与SOP总结.md", retrospective)
     add_member(members, "scripts/build_documents.py", DOCS_SOURCE / "build_documents.py")
     add_member(members, "documents/document-manifest.json", DOCS_SOURCE / "document-manifest.json")
     for source in whitepaper_sources().values():
@@ -649,19 +716,23 @@ def compression_for(path: Path) -> int:
 
 
 def source_zip(path: Path, members: dict[str, Path], metadata: dict) -> None:
-    with zipfile.ZipFile(path, "w") as archive:
-        for name, source in sorted(members.items()):
-            archive.write(source, f"meaning-intelligence/{name}", compress_type=compression_for(source))
-    with zipfile.ZipFile(path) as archive:
-        names = set(archive.namelist())
-        if archive.testzip():
-            raise RuntimeError("源代码 ZIP CRC 校验失败")
-        if any(PurePosixPath(name).is_absolute() or ".." in PurePosixPath(name).parts for name in names):
-            raise RuntimeError("源代码 ZIP 含不安全路径")
-        if any(excluded(Path(name)) for name in names):
-            raise RuntimeError("源代码 ZIP 含缓存或敏感文件名")
-        if path.name in {PurePosixPath(name).name for name in names}:
-            raise RuntimeError("源代码 ZIP 错误地包含自身")
+    descriptor, temporary_name = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
+    os.close(descriptor)
+    temporary = Path(temporary_name)
+    try:
+        with zipfile.ZipFile(temporary, "w") as archive:
+            for name, source in sorted(members.items()):
+                archive.write(source, f"meaning-intelligence/{name}", compress_type=compression_for(source))
+        with zipfile.ZipFile(temporary) as archive:
+            names = set(archive.namelist())
+            if archive.testzip():
+                raise RuntimeError("源代码 ZIP CRC 校验失败")
+            if any(PurePosixPath(name).is_absolute() or ".." in PurePosixPath(name).parts for name in names):
+                raise RuntimeError("源代码 ZIP 含不安全路径")
+            if any(excluded(Path(name)) for name in names):
+                raise RuntimeError("源代码 ZIP 含缓存或敏感文件名")
+            if path.name in {PurePosixPath(name).name for name in names}:
+                raise RuntimeError("源代码 ZIP 错误地包含自身")
         required = (
             "meaning-intelligence/meaning-agent/README.md",
             "meaning-intelligence/web-mcp/package.json",
@@ -670,8 +741,13 @@ def source_zip(path: Path, members: dict[str, Path], metadata: dict) -> None:
             "meaning-intelligence/documents/document-manifest.json",
             "meaning-intelligence/video/build_video.py",
             "meaning-intelligence/guide/content.json",
+            "meaning-intelligence/guide/verify.py",
             "meaning-intelligence/skills/meaning-intelligence-maintain/SKILL.md",
             "meaning-intelligence/skills/meaning-intelligence-publish/SKILL.md",
+            "meaning-intelligence/skills/project-audit-release-sop/SKILL.md",
+            "meaning-intelligence/skills/project-audit-release-sop/scripts/validate_skill.py",
+            "meaning-intelligence/documents/意义智能_最佳应用指南.md",
+            "meaning-intelligence/documents/意义智能_并行审视反思与SOP总结.md",
             "meaning-intelligence/repository/pr_sdk_v2/meaning_intelligence/falsify.py",
             "meaning-intelligence/repository/msi/build.py",
             "meaning-intelligence/repository/whitepaper/build_whitepaper.py",
@@ -687,6 +763,28 @@ def source_zip(path: Path, members: dict[str, Path], metadata: dict) -> None:
         tests = [name for name in names if name.startswith("meaning-intelligence/meaning-agent/tests/") and name.endswith(".py")]
         if len(skills) != 6 or len(tests) != metadata["test_files"]:
             raise RuntimeError(f"源代码 ZIP 技能/测试不完整: skills={len(skills)}, tests={len(tests)}")
+        replace_file(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def reuse_source_archive(path: Path, members: dict[str, Path], metadata: dict) -> None:
+    if not path.is_file():
+        raise RuntimeError(f"无法复用不存在的源代码 ZIP: {path}")
+    expected = {f"meaning-intelligence/{name}": source for name, source in members.items()}
+    with zipfile.ZipFile(path) as archive:
+        names = {name for name in archive.namelist() if not name.endswith("/")}
+        if archive.testzip():
+            raise RuntimeError("源代码 ZIP CRC 校验失败")
+        if names != set(expected):
+            missing = sorted(set(expected) - names)[:8]
+            extra = sorted(names - set(expected))[:8]
+            raise RuntimeError(f"源代码 ZIP 与当前来源不一致: missing={missing}, extra={extra}")
+        for name, source in expected.items():
+            if hashlib.sha256(archive.read(name)).digest() != hashlib.sha256(source.read_bytes()).digest():
+                raise RuntimeError(f"源代码 ZIP 成员与当前来源字节不一致: {name}")
+    metadata["source_archive_reused"] = True
+    print(f"PASS 复用并逐字节验证源代码 ZIP: {path}")
 
 
 def write_verification_report(videos: list[tuple[Path, str]], documents: list[Path], source_metadata: dict, guide_ready: bool, publication_browser: dict, web_media: dict) -> dict:
@@ -707,6 +805,7 @@ def write_verification_report(videos: list[tuple[Path, str]], documents: list[Pa
         "date": DATE,
         "version": VERSION,
         "canon": "V7.0",
+        "project_identifier": PROJECT_IDENTIFIER,
         "status": "ready" if guide_ready else "awaiting_project_guide",
         "project_guide": {
             "ready": guide_ready,
@@ -751,11 +850,27 @@ def write_verification_report(videos: list[tuple[Path, str]], documents: list[Pa
             "path": COMPLETE_ARCHIVE.relative_to(PACKAGE).as_posix(),
             "self_included": False,
         },
+        "portable_sop_skill": {
+            "path": "download/project-audit-release-sop.zip",
+            "bytes": (DOWNLOAD / "project-audit-release-sop.zip").stat().st_size,
+            "sha256": sha256(DOWNLOAD / "project-audit-release-sop.zip"),
+            "prompt_stages": "P00-P16",
+        },
+        "best_practice_guide": {
+            "path": "download/documents/意义智能_最佳应用指南.md",
+            "bytes": BEST_PRACTICE_GUIDE.stat().st_size,
+            "sha256": sha256(BEST_PRACTICE_GUIDE),
+            "languages": ["zh", "en"],
+            "skills": ["L1", "L2", "L3", "L4", "L5", "L6"],
+            "bilingual_prompt_pairs": True,
+        },
         "checks": {
             "release_video_copies_match_sources": True,
             "authoritative_whitepaper_copies_match_sources": True,
             "safe_relative_paths": True,
             "caches_and_secret_files_excluded": True,
+            "project_identifier_consistent": True,
+            "osf_record_is_project_not_registration_or_preprint": True,
         },
     }
     atomic_write_text(VERIFICATION_REPORT, json.dumps(report, ensure_ascii=False, indent=2) + "\n")
@@ -765,9 +880,17 @@ def write_verification_report(videos: list[tuple[Path, str]], documents: list[Pa
 def complete_members(curated: dict[str, Path], guide_ready: bool) -> dict[str, Path]:
     members: dict[str, Path] = {}
     for source in sorted(PACKAGE.rglob("*")):
-        if not source.is_file() or source.resolve() == COMPLETE_ARCHIVE.resolve():
+        if not source.is_file() or source.resolve() in {COMPLETE_ARCHIVE.resolve(), PROVISIONAL_ARCHIVE.resolve()}:
             continue
         relative = safe_relative(source, PACKAGE)
+        if relative.as_posix() in {
+            "scripts/build_downloads.py",
+            "scripts/verify_package.py",
+            "skills/meaning-intelligence-publish/scripts/build_downloads.py",
+            "skills/meaning-intelligence-publish/scripts/verify_package.py",
+            "guide/build.py",
+        }:
+            continue
         if excluded(relative) or source.name.startswith("meaning_intelligence_launch"):
             continue
         if relative.parts[0] == "project-guide" and not guide_ready:
@@ -818,6 +941,12 @@ def build_complete_zip(curated: dict[str, Path], guide_ready: bool, provisional_
                 "publication-browser-check.json", "web-media-verification.json",
                 "skills/meaning-intelligence-maintain/SKILL.md",
                 "skills/meaning-intelligence-publish/SKILL.md",
+                "skills/project-audit-release-sop/SKILL.md",
+                "skills/project-audit-release-sop/references/prompt-library.md",
+                "skills/project-audit-release-sop/scripts/validate_skill.py",
+                "download/project-audit-release-sop.zip",
+                "documents/意义智能_最佳应用指南.md",
+                "documents/意义智能_并行审视反思与SOP总结.md",
                 "documents/意义智能_附件衍生更新版_2026-11-26.pdf",
                 "documents/意义智能_书稿勘误与补充说明_2026-11-26.pdf",
                 "documents/意义智能_项目审查与优化报告_2026-11-26.pdf",
@@ -880,7 +1009,10 @@ def stabilize_complete_package(curated: dict[str, Path], guide_ready: bool, entr
     candidate = Path(tempfile.gettempdir()) / f"meaning-intelligence-complete-{os.getpid()}.stabilizing.zip"
     try:
         member_count = build_complete_zip(curated, guide_ready, entries, candidate)
-        replace_file(candidate, COMPLETE_ARCHIVE)
+        if COMPLETE_ARCHIVE.exists():
+            replace_file(candidate, COMPLETE_ARCHIVE)
+        else:
+            os.replace(candidate, COMPLETE_ARCHIVE)
         return member_count
     finally:
         if candidate.exists():
@@ -943,6 +1075,7 @@ def write_manifest(entries: list[dict]) -> None:
         "version": VERSION,
         "generated": DATE,
         "canon": "V7.0",
+        "project_identifier": PROJECT_IDENTIFIER,
         "complete_package": COMPLETE_ARCHIVE.relative_to(PACKAGE).as_posix(),
         "files": entries,
     }
@@ -952,7 +1085,13 @@ def write_manifest(entries: list[dict]) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--allow-missing-guide", action="store_true", help="首次构建可暂缺项目说明书，并在 verification.json 中如实记录")
+    parser.add_argument("--reuse-source-archive", action="store_true", help="复用现有源码 ZIP，但逐成员核对当前来源字节")
     args = parser.parse_args()
+    version_text = (REPO / "VERSION.yaml").read_text(encoding="utf-8")
+    for key, expected in PROJECT_IDENTIFIER.items():
+        expected_text = str(expected).lower() if isinstance(expected, bool) else str(expected)
+        if expected_text not in version_text:
+            raise RuntimeError(f"VERSION.yaml 项目标识字段缺失或不一致: {key}")
     required = [
         PACKAGE / "assets" / "audio.mp3", PACKAGE / "assets_en" / "audio_en.mp3",
         PACKAGE / "assets" / "cover.jpg", PACKAGE / "subtitles.json",
@@ -972,6 +1111,9 @@ def main() -> int:
         print("WARN 首次构建暂跳过 project-guide；其余交付物继续打包。")
 
     DOWNLOAD.mkdir(parents=True, exist_ok=True)
+    DOCS_DOWNLOAD.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(DELIVERABLES / "project-audit-release-sop.zip", DOWNLOAD / "project-audit-release-sop.zip")
+    shutil.copy2(DELIVERABLES / "意义智能_并行审视反思与SOP总结.md", DOCS_DOWNLOAD / "意义智能_并行审视反思与SOP总结.md")
     archive_stale_videos()
     write_subtitles()
     zh_cues = json.loads((PACKAGE / "subtitles.json").read_text(encoding="utf-8"))
@@ -987,9 +1129,16 @@ def main() -> int:
     support = copy_release_support()
     documents = copy_final_documents()
     curated, source_metadata = curated_sources()
-    source_zip(SOURCE_ARCHIVE, curated, source_metadata)
+    if args.reuse_source_archive:
+        reuse_source_archive(SOURCE_ARCHIVE, curated, source_metadata)
+    else:
+        source_zip(SOURCE_ARCHIVE, curated, source_metadata)
     finalize_listen(PACKAGE / "listen.html")
     finalize_index(PACKAGE / "index.html")
+    for name in ("index.html", "listen.html", "downloads.html", "mcp.html"):
+        page = PACKAGE / name
+        if page.is_file():
+            finalize_project_identifier(page)
     for name in ("index.html", "listen.html", "mcp.html"):
         finalize_accessibility(PACKAGE / name)
 
@@ -1018,6 +1167,7 @@ def main() -> int:
         (PACKAGE / "download" / "MSI演进视频讲解版.pptx", "MSI 演进讲解（含语音）", "MSI evolution deck with narration", "演示 / PPTX", "presentation", "bilingual"),
         (PACKAGE / "assets" / "video" / "MeaningIntelligenceScene.mp4", "MSI 演进短视频", "MSI evolution video", "视频 / Video", "video", "bilingual"),
         (SOURCE_ARCHIVE, "可运行项目源代码", "Runnable project source code", "代码 / Source", "source", "bilingual"),
+        (DOWNLOAD / "project-audit-release-sop.zip", "可迁移项目审查与发布 SOP Skill", "Portable project audit and release SOP Skill", "Skill / SOP", "skill", "bilingual"),
     ]
     for path, language in videos:
         if language == "zh":
@@ -1030,7 +1180,7 @@ def main() -> int:
         candidates.append((path, f"{label}发布讲解视频在线版", f"{'Chinese' if language == 'zh' else 'English'} streaming release video", "视频 / Video", "video", language))
     for path in documents:
         label = path.stem
-        candidates.append((path, label, label, "文档 / Document", "document", "bilingual" if "指南" in path.name else "zh"))
+        candidates.append((path, label, label, "文档 / Document", "document", "bilingual" if "指南" in path.name or "SOP" in path.name else "zh"))
     if guide_ready:
         candidates.extend([
             (PACKAGE / "project-guide" / "index.html", "双语图文音频项目说明书", "Bilingual illustrated audio project guide", "指南 / Guide", "guide", "bilingual"),
@@ -1046,6 +1196,15 @@ def main() -> int:
         provisional_entries.insert(0, make_entry(COMPLETE_ARCHIVE, "意义智能完整交付包", "Meaning Intelligence complete delivery package", "完整交付 / Complete", "package", "bilingual"))
     write_manifest(provisional_entries)
     download_page(provisional_entries)
+    for name in ("index.html", "listen.html", "downloads.html", "mcp.html"):
+        page = PACKAGE / name
+        if page.is_file():
+            finalize_project_identifier(page)
+    if not COMPLETE_ARCHIVE.is_file():
+        build_complete_zip(curated, guide_ready, provisional_entries, PROVISIONAL_ARCHIVE)
+        provisional_entries.insert(0, make_entry(PROVISIONAL_ARCHIVE, "意义智能完整交付包", "Meaning Intelligence complete delivery package", "完整交付 / Complete", "package", "bilingual"))
+        write_manifest(provisional_entries)
+        download_page(provisional_entries)
     subprocess.run([
         "node", str(PUBLISH_SCRIPTS / "browser_verify.mjs"),
         str(PACKAGE), str(PUBLICATION_BROWSER_REPORT),
@@ -1065,6 +1224,10 @@ def main() -> int:
     entries.insert(0, make_entry(COMPLETE_ARCHIVE, "意义智能完整交付包", "Meaning Intelligence complete delivery package", "完整交付 / Complete", "package", "bilingual"))
     write_manifest(entries)
     download_page(entries)
+    for name in ("index.html", "listen.html", "downloads.html", "mcp.html"):
+        page = PACKAGE / name
+        if page.is_file():
+            finalize_project_identifier(page)
 
     package_files = [
         path for path in PACKAGE.rglob("*")

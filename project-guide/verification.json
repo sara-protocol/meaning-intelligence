@@ -4,8 +4,8 @@
   "generated": "2026-11-27",
   "target": "C:\\Users\\gog98\\Documents\\lingxi-claw\\users\\247656584\\projects\\11955814199197869\\workspace\\意义智能\\deliverables\\project-guide",
   "summary": {
-    "checks_total": 127,
-    "checks_passed": 127,
+    "checks_total": 128,
+    "checks_passed": 128,
     "checks_failed": 0,
     "pending_total": 6,
     "categories": {
@@ -15,15 +15,15 @@
       "documents": 9,
       "hash": 3,
       "media": 82,
-      "provenance": 3,
+      "provenance": 4,
       "security": 1,
       "structure": 20
     },
     "narration_duration_seconds": {
-      "zh": 3363.510295,
-      "en": 2910.391169
+      "zh": 3364.377358,
+      "en": 2910.751169
     },
-    "aggregate_narration_duration_seconds": 6273.901464
+    "aggregate_narration_duration_seconds": 6275.128527
   },
   "checks": [
     {
@@ -85,6 +85,12 @@
       "name": "version-identities",
       "ok": true,
       "detail": "{\"canon\": \"V7.0\", \"research_system\": \"0.2.0\", \"operational_stack\": \"2.0\", \"whitepaper\": \"1.1\", \"msi_demo\": \"2.1\"}"
+    },
+    {
+      "category": "provenance",
+      "name": "project-doi-boundary",
+      "ok": true,
+      "detail": "OSF project identifier; not registration/preprint; no evidence promotion"
     },
     {
       "category": "structure",
@@ -402,25 +408,25 @@
       "category": "media",
       "name": "audio-zh/runnable-agent",
       "ok": true,
-      "detail": "226.896979s; mp3; 48000Hz; 1ch; mean=-25.9dB; max=-1.4dB"
+      "detail": "227.764042s; mp3; 48000Hz; 1ch; mean=-25.9dB; max=-1.3dB"
     },
     {
       "category": "media",
       "name": "captions-transcript-zh/runnable-agent",
       "ok": true,
-      "detail": "10 synchronized cues; last=226.897s; audio=226.897s"
+      "detail": "10 synchronized cues; last=227.764s; audio=227.764s"
     },
     {
       "category": "media",
       "name": "audio-en/runnable-agent",
       "ok": true,
-      "detail": "187.056979s; mp3; 48000Hz; 1ch; mean=-20.3dB; max=-2.7dB"
+      "detail": "187.416979s; mp3; 48000Hz; 1ch; mean=-20.3dB; max=-2.8dB"
     },
     {
       "category": "media",
       "name": "captions-transcript-en/runnable-agent",
       "ok": true,
-      "detail": "10 synchronized cues; last=187.057s; audio=187.057s"
+      "detail": "10 synchronized cues; last=187.417s; audio=187.417s"
     },
     {
       "category": "media",
@@ -642,7 +648,7 @@
       "category": "media",
       "name": "narration-duration-totals",
       "ok": true,
-      "detail": "{\"zh\": 3363.510295, \"en\": 2910.391169}"
+      "detail": "{\"zh\": 3364.377358, \"en\": 2910.751169}"
     },
     {
       "category": "media",
@@ -654,19 +660,19 @@
       "category": "media",
       "name": "complete-guide-narration-zh",
       "ok": true,
-      "detail": "3363.510292s; chapters=3363.510295s"
+      "detail": "3364.377354s; chapters=3364.377358s"
     },
     {
       "category": "media",
       "name": "complete-guide-narration-en",
       "ok": true,
-      "detail": "2910.391167s; chapters=2910.391169s"
+      "detail": "2910.751167s; chapters=2910.751169s"
     },
     {
       "category": "media",
       "name": "language-narration-distinct",
       "ok": true,
-      "detail": "[\"7582fc53332529065fde041ee3015442976b37de7eb2a907155ba51fe7ddb0d7\", \"0745c7f49db649e8f58e12cc1a5c52d15b65c813c6b600cf0ba97238fbd17fc6\"]"
+      "detail": "[\"3b55145802df05d4e35910e233f5a5b859c54b81240f6e6e0959e1cb874c4261\", \"807b9569e896230c5e82ae87c17619878caae853e0df798f5a996b358655d455\"]"
     },
     {
       "category": "media",
@@ -714,7 +720,7 @@
       "category": "documents",
       "name": "guide-docx-bilingual-18-chapters",
       "ok": true,
-      "detail": "369 paragraphs; all localized chapter titles present"
+      "detail": "371 paragraphs; all localized chapter titles present"
     },
     {
       "category": "documents",
@@ -736,9 +742,9 @@
     },
     {
       "category": "documents",
-      "name": "archive-source-v0.2.0.zip",
+      "name": "archive-source-v0.2.0-release.zip",
       "ok": true,
-      "detail": "211 entries; CRC=None; unsafe=[]; required=True"
+      "detail": "224 entries; CRC=None; unsafe=[]; required=True; authoritative_identity=True"
     },
     {
       "category": "documents",
@@ -858,5 +864,5 @@
       }
     }
   ],
-  "manifest_sha256": "af3a899cbd26e9e661e36d86785fba56dd064a69adaf935e855c796c4faa7c25"
+  "manifest_sha256": "a1031cb20164dabf863a612f7630ef4e9c98bee872fff809c67ab252972bf2df"
 }

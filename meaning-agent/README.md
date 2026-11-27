@@ -118,7 +118,7 @@ python -m meaning_agent mcp --transport http --port 8767
 python -m meaning_agent mcp --transport stdio
 ```
 
-HTTP 端点为 `http://127.0.0.1:8767/mcp`。资源包括目录、证据、五尺度、安全边界和六技能；内容为双语。工具标注 `readOnlyHint=true`，不执行分析文本或反馈中的代码。
+HTTP 端点为 `http://127.0.0.1:8767/mcp`，CLI 使用加固传输层：强制回环绑定、Host/Origin 校验、可选强 Bearer 令牌、请求体上限和鉴权前限流；`/health` 提供最小健康检查。资源包括目录、证据、五尺度、安全边界和六技能；内容为双语。工具标注 `readOnlyHint=true`，不执行分析文本或反馈中的代码。
 
 ## Limits and safety / 安全边界与局限
 
