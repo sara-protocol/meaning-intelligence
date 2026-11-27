@@ -771,6 +771,20 @@ def inspect_source_zip(path: Path, errors: list[str]) -> None:
         errors.append(f"{rel} 源代码 ZIP 解析失败: {exc}")
 
 
+def inspect_browser_evidence(report_bytes: bytes, verification_bytes: bytes, errors: list[str], label: str) -> None:
+    try:
+        report = json.loads(report_bytes)
+        verification = json.loads(verification_bytes)
+        ranges = [item.get("detail", "") for item in report.get("checks", []) if item.get("name") == "download-range-request"]
+        if len(ranges) != 1 or not re.match(r"^206; bytes \d+-\d+;", ranges[0]):
+            errors.append(f"{label} 缺少有效的 HTTP 206 字节范围证据")
+        expected = verification.get("publication_browser", {}).get("sha256")
+        if expected != hashlib.sha256(report_bytes).hexdigest():
+            errors.append(f"{label} 浏览器报告哈希与 verification.json 不一致")
+    except Exception as exc:
+        errors.append(f"{label} 浏览器证据解析失败: {exc}")
+
+
 def inspect_complete_zip(files: dict[str, Path], errors: list[str]) -> None:
     candidates = [path for rel, path in files.items() if rel.startswith("download/") and path.suffix.lower() == ".zip" and "完整交付包" in rel]
     if not candidates:
@@ -797,7 +811,7 @@ def inspect_complete_zip(files: dict[str, Path], errors: list[str]) -> None:
                     pure = PurePosixPath(name)
                     if pure.is_absolute() or ".." in pure.parts or "\\" in name:
                         errors.append(f"{rel} 含不安全成员: {name}")
-                    if any(part.lower() in excluded_parts for part in pure.parts) or pure.name.lower() in excluded_names or ".uploading" in pure.name.lower() or ".downloading" in pure.name.lower() or pure.suffix.lower() in {".pyc", ".pyo", ".pem", ".key"}:
+                    if any(part.lower() in excluded_parts or part.lower().startswith(".project-guide-") for part in pure.parts) or pure.name.lower() in excluded_names or ".uploading" in pure.name.lower() or ".downloading" in pure.name.lower() or pure.suffix.lower() in {".pyc", ".pyo", ".pem", ".key"}:
                         errors.append(f"{rel} 含缓存或敏感文件: {name}")
                     if "meaning_intelligence_launch" in name:
                         errors.append(f"{rel} 含旧发布视频: {name}")
@@ -829,6 +843,13 @@ def inspect_complete_zip(files: dict[str, Path], errors: list[str]) -> None:
                             errors.append(f"{rel} 内部 manifest 资源缺失: {name}")
                         elif archive.getinfo(name).file_size != entry.get("bytes"):
                             errors.append(f"{rel} 内部 manifest 字节数不一致: {name}")
+                if "publication-browser-check.json" in names and "verification.json" in names:
+                    inspect_browser_evidence(
+                        archive.read("publication-browser-check.json"),
+                        archive.read("verification.json"),
+                        errors,
+                        rel,
+                    )
         except Exception as exc:
             errors.append(f"{rel} 完整 ZIP 解析失败: {exc}")
 
@@ -922,6 +943,16 @@ def inspect_package():
     if source_archive.is_file():
         inspect_source_zip(source_archive, errors)
     inspect_complete_zip(files, errors)
+    browser_report = PACKAGE / "publication-browser-check.json"
+    complete_package = PACKAGE / "download" / "意义智能_完整交付包.zip"
+    verification_report = PACKAGE / "download" / "verification.json"
+    if browser_report.is_file() and complete_package.is_file() and verification_report.is_file():
+        inspect_browser_evidence(
+            browser_report.read_bytes(),
+            verification_report.read_bytes(),
+            errors,
+            "publication-browser-check.json",
+        )
     listen = PACKAGE / "listen.html"
     if listen.is_file():
         text = listen.read_text(encoding="utf-8")
@@ -931,6 +962,10 @@ def inspect_package():
         for required in ("数学模型", "预注册假设，数据收集中", "跨情境、跨文化、跨时间泛化"):
             if required not in text:
                 errors.append(f"listen.html 缺少 V7 证据判据: {required}")
+        assignment = "document.documentElement.lang=l==='zh'?'zh-CN':'en';"
+        toggle = "document.documentElement.classList.toggle('en',l==='en');"
+        if text.count(assignment) != 1 or text.count(toggle) != 1:
+            errors.append("listen.html 双语切换语句不是恰好一次")
     return files, manifest, errors
 
 

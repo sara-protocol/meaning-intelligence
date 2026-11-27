@@ -33,7 +33,7 @@
       "category": "ebook",
       "language": "bilingual",
       "bytes": 105038,
-      "sha256": "ceadb8965e4eadacd93ed480220669ee7d3ec8e5a45bfad039e8f3e84a003e2d"
+      "sha256": "b86e5d4f32c91fcbf25c3766bd5807d8defcf85217b84f2048baa122110a3868"
     },
     {
       "path": "download/Meaning_Intelligence_Audio_Book_v1.1_ZH.epub",
@@ -43,7 +43,7 @@
       "category": "ebook",
       "language": "zh",
       "bytes": 95636,
-      "sha256": "fd8ec6691697179265a6394e914d6a5f7f4c3aebfe6f8eb5a34657bf9d5ac7ec"
+      "sha256": "f15aaed19c94027f0227bdbb240c4c14270bdd0e6cf4edd51ce7a3d24b967f14"
     },
     {
       "path": "download/Meaning_Intelligence_Audio_Book_v1.1_EN.epub",
@@ -53,7 +53,7 @@
       "category": "ebook",
       "language": "en",
       "bytes": 88180,
-      "sha256": "942041f8dd053b84fdbb242256472c1bed3626fefc0ff0bc59dbdc5517332d8e"
+      "sha256": "edcde2f0e37d9527f1975ea5a9e4c5c78c4e9ebbc1df0c182e4bdd5cb5b9403b"
     },
     {
       "path": "download/Meaning_Intelligence_Chinese_subtitles.srt",
@@ -232,8 +232,8 @@
       "kind": "代码 / Source",
       "category": "source",
       "language": "bilingual",
-      "bytes": 6970641,
-      "sha256": "5842521b5a136f76024ec01df550e63683ddf6109d1ce19633f0338088b90bfa"
+      "bytes": 6978799,
+      "sha256": "e9d9c9e6942fdbdcd25e5527a3d98ccf1165e4805b44783334623c7e14a2701e"
     },
     {
       "path": "assets/video/release/meaning_intelligence_zh-web.mp4",
@@ -421,7 +421,7 @@
       "category": "verification",
       "language": "und",
       "bytes": 7270,
-      "sha256": "2ca7251efb076dcfa052687dac7c125c726f0f5485b74f557c764f0e20b0480e"
+      "sha256": "b6cec1fa46bd48d54456a66ed84a2a4e105b6a09f33f2e5d45a5255eb5a701c9"
     },
     {
       "path": "publication-browser-check.json",
@@ -430,8 +430,8 @@
       "kind": "验证 / Verification",
       "category": "verification",
       "language": "und",
-      "bytes": 4723,
-      "sha256": "fd8d1f96a9a22a7b18ee756486f9bde8bba4ac498982d01819283a5b9bc7c12c"
+      "bytes": 4846,
+      "sha256": "788edd3ec11f95579218fbb7366d1804f5f231f219221cabe579118d41762785"
     },
     {
       "path": "web-media-verification.json",

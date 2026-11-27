@@ -6,6 +6,7 @@ import argparse
 import hashlib
 import html
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -90,6 +91,44 @@ class ReferenceParser(HTMLParser):
                 self.refs.append(values[key])
 
 
+def replace_file(source: Path, target: Path) -> None:
+    backup = target.with_name(f".{target.name}.{os.getpid()}.old.tmp")
+    for attempt in range(60):
+        try:
+            if backup.exists():
+                backup.unlink()
+            if target.exists():
+                os.replace(target, backup)
+            try:
+                os.replace(source, target)
+            except PermissionError:
+                if backup.exists() and not target.exists():
+                    os.replace(backup, target)
+                raise
+            if backup.exists():
+                backup.unlink()
+            return
+        except PermissionError:
+            if backup.exists() and not target.exists():
+                os.replace(backup, target)
+            if attempt == 59:
+                raise
+            time.sleep(0.25)
+
+
+def atomic_write_text(path: Path, text: str) -> None:
+    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
+    try:
+        with temporary.open("w", encoding="utf-8") as stream:
+            stream.write(text)
+            stream.flush()
+            os.fsync(stream.fileno())
+        replace_file(temporary, path)
+    finally:
+        if temporary.exists():
+            temporary.unlink()
+
+
 def sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as stream:
@@ -112,7 +151,7 @@ def safe_relative(path: Path, root: Path) -> Path:
 
 def excluded(relative: Path) -> bool:
     return (
-        any(part.lower() in EXCLUDED_PARTS for part in relative.parts)
+        any(part.lower() in EXCLUDED_PARTS or part.lower().startswith(".project-guide-") for part in relative.parts)
         or relative.name.lower() in EXCLUDED_NAMES
         or relative.name.lower().startswith(".env")
         or ".uploading" in relative.name.lower() or ".downloading" in relative.name.lower()
@@ -218,8 +257,32 @@ def sync_project_guide() -> bool:
             raise RuntimeError("发布包已有 project-guide 但缺少可识别清单，拒绝覆盖。") from exc
         if existing.get("schema") != "meaning-intelligence-project-guide-manifest-v1":
             raise RuntimeError("发布包已有 project-guide 不是本项目生成目录，拒绝覆盖。")
-    stage = Path(tempfile.mkdtemp(prefix=".project-guide-", dir=PACKAGE))
     excluded_parts = {".build", ".audio-work", "rendered", "__pycache__"}
+    expected = {}
+    for source in sorted(GUIDE_SOURCE.rglob("*")):
+        if not source.is_file():
+            continue
+        relative = safe_relative(source, GUIDE_SOURCE)
+        if any(part.lower() in excluded_parts for part in relative.parts) or any(part.lower().startswith(".browser-profile") for part in relative.parts):
+            continue
+        if excluded(relative) or relative.as_posix() == "meaning-intelligence-project-guide.zip":
+            continue
+        expected[relative.as_posix()] = sha256(source)
+    if target.is_dir():
+        actual = {}
+        for source in target.rglob("*"):
+            if not source.is_file():
+                continue
+            relative = safe_relative(source, target)
+            if any(part.lower() in excluded_parts for part in relative.parts) or any(part.lower().startswith(".browser-profile") for part in relative.parts):
+                continue
+            if excluded(relative) or relative.as_posix() == "meaning-intelligence-project-guide.zip":
+                continue
+            actual[relative.as_posix()] = sha256(source)
+        if actual == expected:
+            print(f"REUSE 双语项目说明书: {target}")
+            return True
+    stage = Path(tempfile.mkdtemp(prefix=".project-guide-", dir=PACKAGE))
     try:
         for source in sorted(GUIDE_SOURCE.rglob("*")):
             if not source.is_file():
@@ -313,7 +376,7 @@ def collect_repository_sources(members: dict[str, Path]) -> int:
         if not source.is_file():
             continue
         relative = safe_relative(source, REPO)
-        if relative.parts[0] in {"meaning-agent", "web-mcp", ".qoder", "download", "project-guide"}:
+        if relative.parts[0] in {"meaning-agent", "web-mcp", ".qoder", "download", "project-guide", "functions"}:
             continue
         if relative.as_posix() in publication_outputs:
             continue
@@ -415,8 +478,8 @@ def write_subtitles() -> None:
             f"{index}\n{stamp(cue['s'], ',')} --> {stamp(cue['e'], ',')}\n{cue['t']}"
             for index, cue in enumerate(cues, 1)
         ) + "\n"
-        (PACKAGE / f"subtitles_{lang}.vtt").write_text(vtt, encoding="utf-8")
-        (DOWNLOAD / f"Meaning_Intelligence_{label}_subtitles.srt").write_text(srt, encoding="utf-8")
+        atomic_write_text(PACKAGE / f"subtitles_{lang}.vtt", vtt)
+        atomic_write_text(DOWNLOAD / f"Meaning_Intelligence_{label}_subtitles.srt", srt)
     # Historical players request /subtitles.vtt; keep it as the Chinese compatibility track.
     shutil.copy2(PACKAGE / "subtitles_zh.vtt", PACKAGE / "subtitles.vtt")
 
@@ -695,7 +758,7 @@ def write_verification_report(videos: list[tuple[Path, str]], documents: list[Pa
             "caches_and_secret_files_excluded": True,
         },
     }
-    VERIFICATION_REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    atomic_write_text(VERIFICATION_REPORT, json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     return report
 
 
@@ -727,62 +790,101 @@ def complete_members(curated: dict[str, Path], guide_ready: bool) -> dict[str, P
     return members
 
 
-def build_complete_zip(curated: dict[str, Path], guide_ready: bool, provisional_entries: list[dict]) -> int:
+def build_complete_zip(curated: dict[str, Path], guide_ready: bool, provisional_entries: list[dict], target: Path | None = None) -> int:
+    target = target or COMPLETE_ARCHIVE
     members = complete_members(curated, guide_ready)
-    with zipfile.ZipFile(COMPLETE_ARCHIVE, "w") as archive:
-        for name, source in sorted(members.items()):
-            archive.write(source, name, compress_type=compression_for(source))
-    with zipfile.ZipFile(COMPLETE_ARCHIVE) as archive:
-        names = set(archive.namelist())
-        if archive.testzip():
-            raise RuntimeError("完整交付 ZIP CRC 校验失败")
-        if any(PurePosixPath(name).is_absolute() or ".." in PurePosixPath(name).parts or "\\" in name for name in names):
-            raise RuntimeError("完整交付 ZIP 含不安全路径")
-        if any(excluded(Path(name)) for name in names):
-            raise RuntimeError("完整交付 ZIP 含缓存或敏感文件名")
-        if COMPLETE_ARCHIVE.name in {PurePosixPath(name).name for name in names}:
-            raise RuntimeError("完整交付 ZIP 错误地包含自身")
-        if any("meaning_intelligence_launch" in name for name in names):
-            raise RuntimeError("完整交付 ZIP 仍含旧发布视频")
-        required = [
-            "index.html", "manifest.json", "verification.json", "downloads.html", "video/build_video.py",
-            "assets/audio-web.mp3",
-            "assets/video/release/meaning_intelligence_zh-web.mp4",
-            "assets/video/release/meaning_intelligence_en-web.mp4",
-            "publication-browser-check.json", "web-media-verification.json",
-            "skills/meaning-intelligence-maintain/SKILL.md",
-            "skills/meaning-intelligence-publish/SKILL.md",
-            "documents/意义智能_附件衍生更新版_2026-11-26.pdf",
-            "documents/意义智能_书稿勘误与补充说明_2026-11-26.pdf",
-            "documents/意义智能_项目审查与优化报告_2026-11-26.pdf",
-            "documents/意义智能_有声读物_发布指南与操作手册_v3.0.pdf",
-            "documents/意义智能有声读物_发布指南与操作手册.md",
-        ]
-        if guide_ready:
-            required.extend([
-                "project-guide/index.html",
-                "project-guide/content.js",
-                "project-guide/verification.js",
-                "project-guide/manifest.json",
-                "project-guide/verification.json",
-                "project-guide/browser-check.json",
-                "project-guide/downloads/project-guide-bilingual.pdf",
-                "project-guide/downloads/project-guide-bilingual.docx",
-                "project-guide/downloads/guide-narration-zh.mp3",
-                "project-guide/downloads/guide-narration-en.mp3",
-            ])
-        for name in required:
-            if name not in names:
-                raise RuntimeError(f"完整交付 ZIP 缺少: {name}")
-        json.loads(archive.read("manifest.json"))
-        json.loads(archive.read("verification.json"))
-        for entry in provisional_entries:
-            name = entry["path"]
-            if name not in names:
-                raise RuntimeError(f"完整交付 ZIP 缺少 manifest 资源: {name}")
-            if archive.getinfo(name).file_size != entry["bytes"]:
-                raise RuntimeError(f"完整交付 ZIP 资源字节数不一致: {name}")
-    return len(names)
+    temporary = target.with_name(f".{target.name}.{os.getpid()}.tmp")
+    try:
+        with zipfile.ZipFile(temporary, "w") as archive:
+            for name, source in sorted(members.items()):
+                archive.write(source, name, compress_type=compression_for(source))
+        with zipfile.ZipFile(temporary) as archive:
+            names = set(archive.namelist())
+            if archive.testzip():
+                raise RuntimeError("完整交付 ZIP CRC 校验失败")
+            if any(PurePosixPath(name).is_absolute() or ".." in PurePosixPath(name).parts or "\\" in name for name in names):
+                raise RuntimeError("完整交付 ZIP 含不安全路径")
+            if any(excluded(Path(name)) for name in names):
+                raise RuntimeError("完整交付 ZIP 含缓存或敏感文件名")
+            if target.name in {PurePosixPath(name).name for name in names}:
+                raise RuntimeError("完整交付 ZIP 错误地包含自身")
+            if any("meaning_intelligence_launch" in name for name in names):
+                raise RuntimeError("完整交付 ZIP 仍含旧发布视频")
+            required = [
+                "index.html", "manifest.json", "verification.json", "downloads.html", "video/build_video.py",
+                "assets/audio-web.mp3",
+                "assets/video/release/meaning_intelligence_zh-web.mp4",
+                "assets/video/release/meaning_intelligence_en-web.mp4",
+                "publication-browser-check.json", "web-media-verification.json",
+                "skills/meaning-intelligence-maintain/SKILL.md",
+                "skills/meaning-intelligence-publish/SKILL.md",
+                "documents/意义智能_附件衍生更新版_2026-11-26.pdf",
+                "documents/意义智能_书稿勘误与补充说明_2026-11-26.pdf",
+                "documents/意义智能_项目审查与优化报告_2026-11-26.pdf",
+                "documents/意义智能_有声读物_发布指南与操作手册_v3.0.pdf",
+                "documents/意义智能有声读物_发布指南与操作手册.md",
+            ]
+            if guide_ready:
+                required.extend([
+                    "project-guide/index.html",
+                    "project-guide/content.js",
+                    "project-guide/verification.js",
+                    "project-guide/manifest.json",
+                    "project-guide/verification.json",
+                    "project-guide/browser-check.json",
+                    "project-guide/downloads/project-guide-bilingual.pdf",
+                    "project-guide/downloads/project-guide-bilingual.docx",
+                    "project-guide/downloads/guide-narration-zh.mp3",
+                    "project-guide/downloads/guide-narration-en.mp3",
+                ])
+            for name in required:
+                if name not in names:
+                    raise RuntimeError(f"完整交付 ZIP 缺少: {name}")
+            json.loads(archive.read("manifest.json"))
+            json.loads(archive.read("verification.json"))
+            for entry in provisional_entries:
+                name = entry["path"]
+                if name not in names:
+                    raise RuntimeError(f"完整交付 ZIP 缺少 manifest 资源: {name}")
+                if archive.getinfo(name).file_size != entry["bytes"]:
+                    raise RuntimeError(f"完整交付 ZIP 资源字节数不一致: {name}")
+        replace_file(temporary, target)
+        return len(names)
+    finally:
+        if temporary.exists():
+            temporary.unlink()
+
+
+def stabilize_complete_package(curated: dict[str, Path], guide_ready: bool, entries: list[dict]) -> int:
+    report_path = PACKAGE / PUBLICATION_BROWSER_REPORT.name
+    browser = json.loads(report_path.read_text(encoding="utf-8"))
+    updated = 0
+    for check in browser.get("checks", []):
+        if check.get("name") == "download-range-request":
+            check["detail"], count = re.subn(r"(bytes \d+-\d+)/\d+", r"\1", check["detail"])
+            if count != 1:
+                raise RuntimeError("发布页 Range 检查格式不符合预期")
+            updated += 1
+    if updated != 1:
+        raise RuntimeError("发布页报告缺少唯一的 Range 检查")
+    atomic_write_text(report_path, json.dumps(browser, ensure_ascii=False, indent=2) + "\n")
+    verification = json.loads(VERIFICATION_REPORT.read_text(encoding="utf-8"))
+    verification["publication_browser"]["sha256"] = sha256(report_path)
+    atomic_write_text(VERIFICATION_REPORT, json.dumps(verification, ensure_ascii=False, indent=2) + "\n")
+    for entry in entries:
+        source = PACKAGE / entry["path"]
+        entry["bytes"] = source.stat().st_size
+        entry["sha256"] = sha256(source)
+    write_manifest(entries)
+    download_page(entries)
+    candidate = Path(tempfile.gettempdir()) / f"meaning-intelligence-complete-{os.getpid()}.stabilizing.zip"
+    try:
+        member_count = build_complete_zip(curated, guide_ready, entries, candidate)
+        replace_file(candidate, COMPLETE_ARCHIVE)
+        return member_count
+    finally:
+        if candidate.exists():
+            candidate.unlink()
 
 
 def make_entry(path: Path, label_zh: str, label_en: str, kind: str, category: str, language: str) -> dict:
@@ -823,7 +925,7 @@ def download_page(entries: list[dict]) -> None:
         cards.append(f'''<article class="download"><div><span class="kind">{html.escape(entry["kind"])}</span><h2>{html.escape(entry["label_zh"])}</h2><p class="en">{html.escape(entry["label_en"])}</p><small>{size} · SHA-256 {entry["sha256"][:16]}…</small></div><a href="{href}" download>下载 / Download</a></article>''')
     page = f'''<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>意义智能 · 下载中心 / Downloads</title><style>:root{{--bg:#0b1020;--card:#131b33;--line:#24325c;--gold:#e8b34b;--cyan:#5ad1e6;--text:#e8ecf6;--dim:#9aa7c7}}*{{box-sizing:border-box}}body{{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,"Microsoft YaHei",sans-serif;line-height:1.6}}main{{max-width:1050px;margin:auto;padding:42px 20px 80px}}header{{text-align:center;margin-bottom:34px}}h1{{font-size:clamp(28px,5vw,44px);margin:0 0 8px}}header p,.en,small{{color:var(--dim)}}.toolbar,.language-switch{{display:flex;justify-content:center;gap:12px;margin:20px;flex-wrap:wrap}}.toolbar a,.language-switch button{{color:var(--cyan);border:1px solid var(--cyan);border-radius:999px;padding:8px 18px;text-decoration:none;background:transparent;font:inherit;cursor:pointer}}.download{{display:flex;gap:20px;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:12px 0}}.download h2{{margin:4px 0;color:var(--gold);font-size:20px}}.download p{{margin:0}}.kind{{font-size:12px;color:var(--cyan);letter-spacing:.08em}}.download a{{flex:none;background:var(--gold);color:#0b1020;text-decoration:none;font-weight:700;border-radius:999px;padding:10px 18px}}footer{{text-align:center;color:var(--dim);margin-top:36px}}.mi-skip-link{{position:absolute;left:16px;top:-96px;z-index:999;background:var(--gold);color:var(--bg);padding:10px 16px;border-radius:8px;font:700 15px system-ui,"Microsoft YaHei",sans-serif}}.mi-skip-link:focus{{top:12px;outline:3px solid var(--cyan);outline-offset:3px}}[data-en]{{display:none}}html.en [data-zh]{{display:none}}html.en [data-en]{{display:inline}}@media(max-width:640px){{.download{{align-items:flex-start;flex-direction:column}}.download a{{width:100%;text-align:center}}}}</style></head><body><a class="mi-skip-link" href="#main">跳转到正文 / Skip to content</a><main id="main" tabindex="-1"><header><h1><span data-zh>下载中心</span><span data-en>Downloads</span></h1><p><span data-zh>意义智能 / Meaning Intelligence 发布资源</span><span data-en>Meaning Intelligence publication resources</span></p><div class="language-switch"><button id="btnZh" type="button" onclick="setLang('zh')">中文</button><button id="btnEn" type="button" onclick="setLang('en')">English</button></div><div class="toolbar"><a href="index.html">视听中心 / Media</a><a href="listen.html">有声读物 / Audio Book</a><a href="mcp.html">Web MCP</a><a href="download/manifest.json">manifest.json</a></div></header>{"".join(cards)}<footer>所有文件均提供 SHA-256 校验值 · manifest · Canon V7.0 · {DATE}</footer></main><script>function setLang(lang){{document.documentElement.lang=lang==='en'?'en':'zh-CN';document.documentElement.classList.toggle('en',lang==='en');}}</script></body></html>'''
     path = PACKAGE / "downloads.html"
-    path.write_text(page, encoding="utf-8")
+    atomic_write_text(path, page)
     validate_download_page(path)
 
 
@@ -844,7 +946,7 @@ def write_manifest(entries: list[dict]) -> None:
         "complete_package": COMPLETE_ARCHIVE.relative_to(PACKAGE).as_posix(),
         "files": entries,
     }
-    (DOWNLOAD / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    atomic_write_text(DOWNLOAD / "manifest.json", json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
 
 
 def main() -> int:
@@ -959,7 +1061,7 @@ def main() -> int:
     write_manifest(entries)
     # The self-excluding ZIP gets an offline page without a link to itself.
     download_page(entries)
-    member_count = build_complete_zip(curated, guide_ready, entries)
+    member_count = stabilize_complete_package(curated, guide_ready, entries)
     entries.insert(0, make_entry(COMPLETE_ARCHIVE, "意义智能完整交付包", "Meaning Intelligence complete delivery package", "完整交付 / Complete", "package", "bilingual"))
     write_manifest(entries)
     download_page(entries)

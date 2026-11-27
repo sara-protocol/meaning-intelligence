@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-11-26T23:06:13.426327+00:00",
+  "generated_utc": "2026-11-27T00:13:18.792728+00:00",
   "date": "2026-11-27",
   "version": "1.1",
   "canon": "V7.0",
@@ -110,7 +110,7 @@
     "report": "publication-browser-check.json",
     "checks_passed": 24,
     "checks_total": 24,
-    "sha256": "fd8d1f96a9a22a7b18ee756486f9bde8bba4ac498982d01819283a5b9bc7c12c"
+    "sha256": "788edd3ec11f95579218fbb7366d1804f5f231f219221cabe579118d41762785"
   },
   "documents": [
     {
@@ -176,9 +176,9 @@
   ],
   "source_archive": {
     "path": "download/Meaning_Intelligence_Source_v0.2.0.zip",
-    "bytes": 6970641,
-    "sha256": "5842521b5a136f76024ec01df550e63683ddf6109d1ce19633f0338088b90bfa",
-    "files": 212,
+    "bytes": 6978799,
+    "sha256": "e9d9c9e6942fdbdcd25e5527a3d98ccf1165e4805b44783334623c7e14a2701e",
+    "files": 213,
     "skill_documents": 6,
     "reusable_skill_documents": 2,
     "test_files": 9,

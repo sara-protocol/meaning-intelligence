@@ -423,7 +423,7 @@ function setLang(l){
   });
   if(l==='en'){const all=document.querySelectorAll('details .script');all.forEach((dv,i)=>{if(!dv.dataset.orig)dv.dataset.orig=dv.textContent;if(BI.i18n.en.texts[i])dv.textContent=BI.i18n.en.texts[i];});}
   else{document.querySelectorAll('details .script').forEach(dv=>{if(dv.dataset.orig)dv.textContent=dv.dataset.orig;});}
-  document.documentElement.lang=l==='zh'?'zh-CN':'en';document.documentElement.classList.toggle('en',l==='en');document.documentElement.classList.toggle('en',l==='en');document.documentElement.classList.toggle('en',l==='en');document.documentElement.classList.toggle('en',l==='en');document.documentElement.classList.toggle('en',l==='en');document.documentElement.classList.toggle('en',l==='en');document.documentElement.classList.toggle('en',l==='en');
+  document.documentElement.lang=l==='zh'?'zh-CN':'en';document.documentElement.classList.toggle('en',l==='en');
   renderChapters();
 }
 // 图注 base 标记

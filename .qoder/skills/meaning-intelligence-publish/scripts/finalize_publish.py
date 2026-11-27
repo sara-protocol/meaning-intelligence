@@ -2,6 +2,7 @@
 """Apply deterministic bilingual, provenance and accessibility fixes after page builds."""
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -95,8 +96,15 @@ def finalize_listen(path: Path) -> None:
     css = """<style>[data-en]{display:none}html[lang="en"] [data-zh]{display:none}html[lang="en"] [data-en]{display:inline}html[lang="en"] p[data-en],html[lang="en"] b[data-en]{display:block}</style>"""
     if "[data-en]{display:none}" not in text:
         text = text.replace("</head>", css + "\n</head>", 1)
-    text = text.replace("document.documentElement.lang=l==='zh'?'zh-CN':'en';",
-                        "document.documentElement.lang=l==='zh'?'zh-CN':'en';document.documentElement.classList.toggle('en',l==='en');")
+    language_assignment = "document.documentElement.lang=l==='zh'?'zh-CN':'en';"
+    language_toggle = "document.documentElement.classList.toggle('en',l==='en');"
+    text, replacements = re.subn(
+        re.escape(language_assignment) + r"(?:" + re.escape(language_toggle) + r")*",
+        language_assignment + language_toggle,
+        text,
+    )
+    if replacements != 1:
+        raise RuntimeError("Expected listen-page language assignment not found")
     path.write_text(text, encoding="utf-8")
 
 
