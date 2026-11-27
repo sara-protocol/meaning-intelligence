@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-11-27T16:09:34.355580+00:00",
+  "generated_utc": "2026-11-27T18:21:44.441305+00:00",
   "date": "2026-11-27",
   "version": "1.1",
   "canon": "V7.0",
@@ -129,13 +129,13 @@
     "report": "publication-browser-check.json",
     "checks_passed": 24,
     "checks_total": 24,
-    "sha256": "0dd2d81bd28183e767922bc59c59c1902cd76c31e0daa05bbea85c1cd2340a8b"
+    "sha256": "a5e2a52662cd263a1c2fd0e08f47291165d7145c1716462c4ffba8ad64d4be48"
   },
   "documents": [
     {
       "path": "download/documents/意义智能_书稿勘误与补充说明_2026-11-26.docx",
-      "bytes": 48783,
-      "sha256": "9fd561d12828d1437e283d5fc04b99f35b7b4fc8e315955a326e728f0bf8a37b"
+      "bytes": 48824,
+      "sha256": "0c44b9220e4e59c3e115e91a7753266eb0aa610eb70757c192ee5b36f7f1c9ac"
     },
     {
       "path": "download/documents/意义智能_最佳应用指南.md",
@@ -150,37 +150,37 @@
     {
       "path": "download/documents/意义智能_有声读物_发布指南与操作手册_v3.0.pdf",
       "bytes": 743089,
-      "sha256": "d4a21a9630da5388bc3768917a72b1d4f683df4019af451994fd13e1934a4365"
+      "sha256": "4fc2870bc40bf394658b07b5df1366f1e09b78ff962bdce3cece939880859e09"
     },
     {
       "path": "download/documents/意义智能_附件衍生更新版_2026-11-26.docx",
-      "bytes": 404205,
-      "sha256": "8c643ba2f6778608a752024ef5458d3b47b3a87819f1635aae1c5cd7f4f3dcf7"
+      "bytes": 404254,
+      "sha256": "f8ac1d0a7c7fd3203954d08631a8ba7e7880912ed0c558b8e3a59e291e0b24a8"
     },
     {
       "path": "download/documents/意义智能_项目审查与优化报告_2026-11-26.docx",
-      "bytes": 52461,
-      "sha256": "40d8aa5e76d1bd0c4e034c9fe97eda88d6ca91d0edc90831792c2247cf1905cb"
+      "bytes": 52762,
+      "sha256": "59f8494553cc3847a0e271f8fabe5208e8c3f5d1fd2a9465ac9019233b745643"
     },
     {
       "path": "download/documents/意义智能_项目审查与优化报告_2026-11-26.md",
-      "bytes": 18137,
-      "sha256": "9c1d4b9d75b261eed0231fb2453c3f474563395976c74471b382a2eda0ab175b"
+      "bytes": 18686,
+      "sha256": "95ea1d80697544192aae81df92b1220498498ce0e1f9182c5198b95e9ef93595"
     },
     {
       "path": "download/documents/意义智能_项目审查与优化报告_2026-11-26.pdf",
-      "bytes": 832174,
-      "sha256": "ffc5e1d32caaf682f199ec934dafebdb91958abbc001ef6a90b627ea765f8e28"
+      "bytes": 848801,
+      "sha256": "9c83b8380771024c639c54e60d60781164303eb5f312f285cd6d2145f02dbb14"
     },
     {
       "path": "download/documents/意义智能_书稿勘误与补充说明_2026-11-26.pdf",
-      "bytes": 709778,
-      "sha256": "5e8242af74bca7558c7138534d9313b00bf3a6ba2bd2aec084d402ff1aa1d987"
+      "bytes": 713560,
+      "sha256": "6504d675bb8222e12f5b7b22b5964ad126d3ec2805fc98663650f10300779623"
     },
     {
       "path": "download/documents/意义智能_附件衍生更新版_2026-11-26.pdf",
-      "bytes": 1511935,
-      "sha256": "5cbbd730fb109662c4a0c84e27f7bfc2e07cf710f33ce687d3a1f6a03902514e"
+      "bytes": 1516469,
+      "sha256": "5e7a16f61548db18cf6955648974de3688faa1b35adb1a5195ed0f0a1269784f"
     },
     {
       "path": "download/documents/意义智能有声读物_发布指南与操作手册.md",
@@ -205,8 +205,8 @@
   ],
   "source_archive": {
     "path": "download/Meaning_Intelligence_Source_v0.2.0_2026-11-27_release-final3.zip",
-    "bytes": 7202848,
-    "sha256": "761e7093a3d8823aba8245c6ea481f954632cc129fa9673c53cb172a7631abde",
+    "bytes": 7231593,
+    "sha256": "632332c8d36b35f73225d8147c8c5e03b33f25d176ae2dbbc6aa36904bd1e190",
     "files": 224,
     "skill_documents": 6,
     "reusable_skill_documents": 3,

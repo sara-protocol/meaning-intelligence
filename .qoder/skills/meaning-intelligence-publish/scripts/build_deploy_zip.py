@@ -48,6 +48,7 @@ EXCLUDED_NAMES = {
     ".env", ".env.local", ".npmrc", ".netrc", "credentials.json", "token.txt",
     "tokens.json", "secrets.json", "id_rsa", "id_ed25519", ".ds_store",
     "desktop.ini", "thumbs.db",
+    "meaning-intelligence-project-guide.zip", "meaning-intelligence-project-guide-2026-11-27.zip", "meaning-intelligence-project-guide-2026-11-27-final4.zip",
 }
 EXCLUDED_SUFFIXES = {
     ".tmp", ".temp", ".part", ".crdownload", ".uploading", ".downloading",
@@ -432,6 +433,23 @@ def apply_guide_overrides(sources: dict[str, Path], records: dict[str, dict]) ->
         generated[sums_rel] = data
         records[sums_rel] = record_bytes(sums_rel, data)
         changes.append({"path": sums_rel, "reason": "guide checksum list updated for deployment metadata"})
+    verification_rel = "project-guide/verification.json"
+    if verification_rel in sources:
+        report = json.loads(sources[verification_rel].read_text(encoding="utf-8"))
+        source_digest = report.get("manifest_sha256")
+        if source_digest != sha256(sources[manifest_rel]):
+            raise RuntimeError("项目说明书源验收记录与源清单哈希不一致")
+        report["source_manifest_sha256"] = source_digest
+        report["manifest_sha256"] = records[manifest_rel]["sha256"]
+        report["deployment"] = {
+            "schema": "meaning-intelligence-guide-deployment-evidence-v1",
+            "manifest_rewritten_for_web_derivatives": True,
+            "source_checks_preserved": True,
+        }
+        data = (json.dumps(report, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+        generated[verification_rel] = data
+        records[verification_rel] = record_bytes(verification_rel, data)
+        changes.append({"path": verification_rel, "reason": "guide manifest identity refreshed after deployment rewrite"})
     return generated, changes
 
 
@@ -576,6 +594,33 @@ def validate_verification_references(records: dict[str, dict]) -> list[str]:
                 errors.append(f"部署 verification.json 支持证据缺失: {key}={rel}")
     except Exception as exc:
         errors.append(f"部署 verification.json 解析失败: {exc}")
+    return errors
+
+
+def validate_guide_evidence(records: dict[str, dict]) -> list[str]:
+    errors: list[str] = []
+    manifest_record = records.get("project-guide/manifest.json", {})
+    verification_record = records.get("project-guide/verification.json", {})
+    if not manifest_record or not verification_record:
+        return errors
+    try:
+        manifest_data = manifest_record.get("_data") or manifest_record["_source"].read_bytes()
+        verification_data = verification_record.get("_data") or verification_record["_source"].read_bytes()
+        report = json.loads(verification_data)
+        digest = hash_bytes(manifest_data)
+        if report.get("manifest_sha256") != digest:
+            errors.append("部署说明书 verification.json 与 manifest.json 哈希不一致")
+        sums_record = records.get("project-guide/manifest.sha256", {})
+        sums_data = sums_record.get("_data") or sums_record["_source"].read_bytes()
+        parsed = {}
+        for line in sums_data.decode("utf-8").splitlines():
+            parts = line.split("  ", 1)
+            if len(parts) == 2:
+                parsed[parts[1]] = parts[0]
+        if parsed.get("manifest.json") != digest:
+            errors.append("部署说明书 manifest.sha256 与 manifest.json 哈希不一致")
+    except Exception as exc:
+        errors.append(f"部署说明书证据解析失败: {exc}")
     return errors
 
 
@@ -810,9 +855,23 @@ def main() -> int:
         generated["download/verification.json"] = verification_data
         records["download/verification.json"] = record_bytes("download/verification.json", verification_data)
         records["download/verification.json"]["_data"] = verification_data
+        verification_entry = next((entry for entry in manifest["files"] if entry["path"] == "download/verification.json"), None)
+        if verification_entry is None:
+            errors.append("部署 manifest 缺少 download/verification.json 条目")
+        else:
+            verification_entry.update({"bytes": records["download/verification.json"]["bytes"], "sha256": records["download/verification.json"]["sha256"]})
+        manifest_data = (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+        generated["download/manifest.json"] = manifest_data
+        records["download/manifest.json"] = record_bytes("download/manifest.json", manifest_data)
+        records["download/manifest.json"]["_data"] = manifest_data
         report["generated_files"].append({"path": "download/verification.json", "reason": "deployment-specific evidence without dangling complete-package or master references"})
         errors = validate_html_references(records)
         errors.extend(validate_verification_references(records))
+        errors.extend(validate_guide_evidence(records))
+        for entry in manifest["files"]:
+            record = records.get(entry["path"])
+            if not record or (entry.get("bytes"), entry.get("sha256")) != (record["bytes"], record["sha256"]):
+                errors.append(f"部署 manifest 最终哈希或字节数不一致: {entry['path']}")
         oversized = [record for record in records.values() if record["bytes"] > MAX_FILE_BYTES]
         if oversized:
             errors.extend(f"部署文件超过 25 MiB: {item['path']} ({item['bytes']} bytes)" for item in oversized)

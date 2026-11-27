@@ -66,15 +66,28 @@ function launch(browser, url, profile, mobile = false) {
   });
 }
 
+async function removeProfile(profile) {
+  let lastError;
+  for (let attempt = 0; attempt < 40; attempt += 1) {
+    try { await rm(profile, { recursive: true, force: true }); return; }
+    catch (error) {
+      if (!["EBUSY", "EPERM", "ENOTEMPTY"].includes(error.code)) throw error;
+      lastError = error;
+      await new Promise((resolve) => setTimeout(resolve, 250));
+    }
+  }
+  throw lastError;
+}
+
 const results = [];
 try {
   for (const mode of ["http", "file"]) {
     const profile = path.join(target, `.browser-profile-${mode}`);
-    await rm(profile, { recursive: true, force: true });
+    await removeProfile(profile);
     const url = mode === "http" ? `http://127.0.0.1:${port}/index.html?selftest=1` : pathToFileURL(path.join(target, "index.html")).href + "?selftest=1";
     const result = await launch(executable, url, profile, mode === "file");
     results.push(result);
-    await rm(profile, { recursive: true, force: true });
+    await removeProfile(profile);
   }
 } finally {
   await new Promise((resolve) => server.close(resolve));

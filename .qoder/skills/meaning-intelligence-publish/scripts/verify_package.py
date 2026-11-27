@@ -1187,16 +1187,28 @@ def main():
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
     files, manifest, errors = inspect_package()
+    deployment_zip = None
     if args.zip:
+        before = len(errors)
+        expected = deployment_files(errors)
         if not args.zip.is_file():
             errors.append(f"ZIP 不存在: {args.zip}")
         else:
-            inspect_zip(args.zip, deployment_files(errors), errors)
+            inspect_zip(args.zip, expected, errors)
+            deployment_zip = {
+                "path": str(args.zip.resolve()),
+                "staging": str(DEPLOY_STAGING),
+                "files": len(expected),
+                "bytes": sum(path.stat().st_size for path in expected.values()),
+                "sha256": sha256(args.zip),
+                "ok": len(errors) == before,
+            }
     result = {
         "package": str(PACKAGE),
         "files": len(files),
         "bytes": sum(path.stat().st_size for path in files.values()),
         "manifest_entries": len(manifest.get("files", [])) if isinstance(manifest, dict) else 0,
+        "deployment_zip": deployment_zip,
         "errors": errors,
         "ok": not errors,
     }

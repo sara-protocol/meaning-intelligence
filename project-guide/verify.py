@@ -18,6 +18,8 @@ from urllib.parse import unquote
 from xml.etree import ElementTree as ET
 
 TARGET = Path(__file__).resolve().parent
+GUIDE_ARCHIVE = "meaning-intelligence-project-guide-2026-11-27-final4.zip"
+LEGACY_GUIDE_ARCHIVE = "meaning-intelligence-project-guide-2026-11-27.zip"
 LANGUAGES = ("zh", "en")
 SKILLS = ["reduce-cognitive-load", "model-experiential-interface", "map-direction-value-boundary", "grade-evidence-falsification", "calibrate-five-scales", "recursive-review-zeroing"]
 
@@ -32,16 +34,16 @@ def sha256(path: Path) -> str:
 
 def write_json_atomic(path: Path, value) -> None:
     text = json.dumps(value, ensure_ascii=False, indent=2) + "\n"
-    temporary = path.with_name(path.name + ".tmp")
-    for attempt in range(12):
+    for attempt in range(240):
+        temporary = path.with_name(f".{path.name}.{time.time_ns()}.tmp")
         try:
             temporary.write_text(text, encoding="utf-8")
             temporary.replace(path)
             return
         except PermissionError:
-            if attempt == 11:
-                path.write_text(text, encoding="utf-8")
-                return
+            temporary.unlink(missing_ok=True)
+            if attempt == 239:
+                raise
             time.sleep(0.25)
 
 
@@ -136,6 +138,7 @@ def main() -> int:
     parser.add_argument("--source-root", type=Path, default=TARGET.parent.parent)
     parser.add_argument("--skip-browser", action="store_true")
     parser.add_argument("--ffprobe")
+    parser.add_argument("--run-id", default="standalone")
     args = parser.parse_args()
     source_root = args.source_root.resolve()
     ffprobe = args.ffprobe or __import__("shutil").which("ffprobe") or str(Path.home() / "miniconda3" / "Library" / "bin" / "ffprobe.exe")
@@ -163,8 +166,12 @@ def main() -> int:
         check("structure", "parse-manifest-json", manifest.get("schema") == "meaning-intelligence-project-guide-manifest-v1", manifest.get("schema"))
     except Exception as error:
         check("structure", "parse-required-json", False, error)
-        report = {"schema": "meaning-intelligence-project-guide-verification-v1", "ok": False, "generated": "2026-11-26", "summary": {"checks_total": len(checks), "checks_passed": 0, "checks_failed": len(checks)}, "checks": checks, "pending": pending}
-        write_json_atomic(TARGET / "verification.json", report)
+        report = {"schema": "meaning-intelligence-project-guide-verification-v1", "run_id": args.run_id, "ok": False, "generated": "2026-11-26", "summary": {"checks_total": len(checks), "checks_passed": 0, "checks_failed": len(checks)}, "checks": checks, "pending": pending}
+        try:
+            write_json_atomic(TARGET / "verification.json", report)
+        except Exception as error:
+            print(f"FAIL verification-report-write: {error}", file=sys.stderr)
+            return 2
         return 1
 
     chapter_ids = [item["id"] for item in content["chapters"]]
@@ -214,7 +221,7 @@ def main() -> int:
     result = subprocess.run(["node", "--check", str(TARGET / "browser_check.mjs")], text=True, capture_output=True)
     check("structure", "browser-script-syntax", result.returncode == 0, result.stderr.strip() or "OK")
 
-    expected = [TARGET / "index.html", TARGET / "content.js", TARGET / "verification.js", TARGET / "app.js", TARGET / "styles.css", TARGET / "content.json", TARGET / "manifest.json", TARGET / "manifest.sha256", TARGET / "verification.json", TARGET / "browser_check.mjs", TARGET / "meaning-intelligence-project-guide-2026-11-27.zip", TARGET / "downloads/project-guide-bilingual.pdf", TARGET / "downloads/meaning-intelligence-zh.mp4", TARGET / "downloads/meaning-intelligence-en.mp4", TARGET / "downloads/guide-narration-zh.mp3", TARGET / "downloads/guide-narration-en.mp3"]
+    expected = [TARGET / "index.html", TARGET / "content.js", TARGET / "verification.js", TARGET / "app.js", TARGET / "styles.css", TARGET / "content.json", TARGET / "manifest.json", TARGET / "manifest.sha256", TARGET / "verification.json", TARGET / "browser_check.mjs", TARGET / GUIDE_ARCHIVE, TARGET / "downloads/project-guide-bilingual.pdf", TARGET / "downloads/meaning-intelligence-zh.mp4", TARGET / "downloads/meaning-intelligence-en.mp4", TARGET / "downloads/guide-narration-zh.mp3", TARGET / "downloads/guide-narration-en.mp3"]
     expected += [TARGET / "audio" / lang / f"{item}.mp3" for lang in LANGUAGES for item in chapter_ids]
     expected += [TARGET / "captions" / lang / f"{item}.{suffix}" for lang in LANGUAGES for item in chapter_ids for suffix in ("srt", "vtt")]
     expected += [TARGET / "transcripts" / lang / f"{item}.txt" for lang in LANGUAGES for item in chapter_ids]
@@ -247,11 +254,11 @@ def main() -> int:
     check("structure", "offline-csp", "connect-src 'none'" in html and "default-src 'self' data: blob:" in html and "script-src 'self'" in html and "object-src 'none'" in html, "local-only CSP present")
     check("structure", "download-paths-local", all(item["path"].startswith("downloads/") and (TARGET / item["path"]).is_file() for item in content["downloads"]), f"{len(content['downloads'])} download records")
     try:
-        with zipfile.ZipFile(TARGET / "meaning-intelligence-project-guide-2026-11-27.zip") as archive:
+        with zipfile.ZipFile(TARGET / GUIDE_ARCHIVE) as archive:
             names = archive.namelist()
-            unsafe = [name for name in names if name.startswith("/") or ".." in Path(name).parts]
+            unsafe = [name for name in names if name.startswith("/") or ".." in Path(name.replace(chr(92), "/")).parts]
             required = {"index.html", "content.js", "verification.js", "manifest.json", "manifest.sha256", "verification.json", "downloads/project-guide-bilingual.pdf", "downloads/guide-narration-zh.mp3", "downloads/guide-narration-en.mp3"}
-            ok = archive.testzip() is None and not unsafe and required <= set(names) and "meaning-intelligence-project-guide-2026-11-27.zip" not in names and not any(name.endswith((".tmp", ".part")) for name in names)
+            ok = archive.testzip() is None and not unsafe and required <= set(names) and len(names) == len(set(names)) and GUIDE_ARCHIVE not in names and LEGACY_GUIDE_ARCHIVE not in names and not any(name.endswith((".tmp", ".part")) or ".uploading" in name.lower() or ".downloading" in name.lower() for name in names)
             check("structure", "standalone-guide-archive", ok, f"{len(names)} entries; CRC={archive.testzip()}; unsafe={unsafe}; missing={sorted(required - set(names))}")
     except Exception as error:
         check("structure", "standalone-guide-archive", False, error)
@@ -423,6 +430,7 @@ def main() -> int:
     categories = Counter(entry["category"] for entry in checks)
     report = {
         "schema": "meaning-intelligence-project-guide-verification-v1",
+        "run_id": args.run_id,
         "ok": not failed,
         "generated": content["meta"]["generated"],
         "target": str(TARGET),
@@ -432,7 +440,11 @@ def main() -> int:
         "pending": pending,
         "manifest_sha256": sha256(TARGET / "manifest.json"),
     }
-    write_json_atomic(TARGET / "verification.json", report)
+    try:
+        write_json_atomic(TARGET / "verification.json", report)
+    except Exception as error:
+        print(f"FAIL verification-report-write: {error}", file=sys.stderr)
+        return 2
     print(json.dumps(report["summary"], ensure_ascii=False, indent=2))
     if failed:
         for entry in failed:

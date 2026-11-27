@@ -64,7 +64,7 @@ EXCLUDED_PARTS = {
 EXCLUDED_NAMES = {
     ".env", ".env.local", ".npmrc", ".netrc", "credentials.json", "token.txt",
     "tokens.json", "secrets.json", "id_rsa", "id_ed25519",
-    "意义智能_完整交付包.zip", "意义智能_完整交付包_2026-11-27_release-provisional.zip", "meaning-intelligence-project-guide.zip", "meaning-intelligence-project-guide-2026-11-27.zip",
+    "意义智能_完整交付包.zip", "意义智能_完整交付包_2026-11-27_release-provisional.zip", "meaning-intelligence-project-guide.zip", "meaning-intelligence-project-guide-2026-11-27.zip", "meaning-intelligence-project-guide-2026-11-27-final4.zip",
 }
 EXCLUDED_SUFFIXES = {".pyc", ".pyo", ".pem", ".key", ".pfx", ".p12"}
 SECRET_PATTERNS = (
@@ -295,6 +295,45 @@ def sync_project_guide() -> bool:
     guide_source = GUIDE_SOURCE / "downloads" / "source-v0.2.0-release.zip"
     if not guide_source.is_file() or sha256(guide_source) != sha256(SOURCE_ARCHIVE):
         raise RuntimeError("项目说明书便捷源码包与权威 final3 源码包不一致，拒绝同步。")
+    guide_manifest = json.loads((GUIDE_SOURCE / "manifest.json").read_text(encoding="utf-8"))
+    source_prefix = "意义智能有声读物_发布包/"
+    mismatches = []
+    for item in guide_manifest.get("copied_downloads", []):
+        source_value = str(item.get("source", "")).replace("\\", "/")
+        if not source_value.startswith(source_prefix):
+            continue
+        guide_relative = str(item.get("path", ""))
+        try:
+            guide_target = GUIDE_SOURCE / safe_relative(GUIDE_SOURCE / Path(guide_relative), GUIDE_SOURCE)
+            source_target = PACKAGE / safe_relative(PACKAGE / Path(source_value[len(source_prefix):]), PACKAGE)
+        except RuntimeError as exc:
+            mismatches.append(f"{guide_relative}:unsafe:{exc}")
+            continue
+        if not guide_target.is_file():
+            mismatches.append(f"{guide_relative}:guide-missing")
+            continue
+        if guide_target.stat().st_size != item.get("bytes") or sha256(guide_target) != item.get("sha256"):
+            mismatches.append(f"{guide_relative}:guide-stale")
+        if not source_target.is_file():
+            mismatches.append(f"{guide_relative}:source-missing")
+            continue
+        if sha256(source_target) != item.get("source_sha256"):
+            mismatches.append(f"{guide_relative}:source-stale")
+        direct_copy = item.get("sha256") == item.get("source_sha256")
+        if direct_copy:
+            if source_target.stat().st_size != item.get("bytes") or sha256(source_target) != item.get("sha256"):
+                mismatches.append(f"{guide_relative}:copy-stale")
+        else:
+            if source_target.suffix.lower() != ".docx" or guide_target.suffix.lower() != ".pdf":
+                mismatches.append(f"{guide_relative}:unexpected-derivative")
+                continue
+            derivative = source_target.with_suffix(".pdf")
+            if not derivative.is_file():
+                mismatches.append(f"{guide_relative}:derivative-missing")
+            elif derivative.stat().st_size != item.get("bytes") or sha256(derivative) != item.get("sha256"):
+                mismatches.append(f"{guide_relative}:derivative-stale")
+    if mismatches:
+        raise RuntimeError(f"项目说明书下载物与发布包不同源，拒绝同步: {mismatches}")
     target = PACKAGE / "project-guide"
     if target.exists():
         marker = target / "manifest.json"
@@ -630,10 +669,12 @@ def build_epub(path: Path, language: str, zh_chapters: list[tuple[str, str]], en
         ("OEBPS/images/cover.jpg", (PACKAGE / "assets" / "cover.jpg").read_bytes()),
     )}
     with zipfile.ZipFile(path, "w") as archive:
-        archive.writestr("mimetype", "application/epub+zip", compress_type=zipfile.ZIP_STORED)
         for name, data in files.items():
-            if name != "mimetype":
-                archive.writestr(name, data, compress_type=zipfile.ZIP_DEFLATED)
+            info = zipfile.ZipInfo(name, (2026, 11, 27, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_STORED if name == "mimetype" else zipfile.ZIP_DEFLATED
+            info.create_system = 3
+            info.external_attr = 0o600 << 16
+            archive.writestr(info, data)
 
 
 def copy_release_videos() -> list[tuple[Path, str]]:

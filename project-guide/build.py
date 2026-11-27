@@ -12,6 +12,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import uuid
 import wave
 import zipfile
 from pathlib import Path
@@ -27,6 +28,7 @@ VOICE_NAMES = {"zh": "Microsoft Huihui Desktop", "en": "Microsoft Zira Desktop"}
 CONTENT: dict = {}
 FFMPEG = ""
 FFPROBE = ""
+GUIDE_ARCHIVE = "meaning-intelligence-project-guide-2026-11-27-final4.zip"
 
 
 def sha256(path: Path) -> str:
@@ -42,16 +44,16 @@ def write_text(path: Path, value: str) -> None:
     if path.is_file() and path.read_text(encoding="utf-8") == value:
         return
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(path.name + ".tmp")
-    for attempt in range(12):
+    temporary = path.with_name(f".{path.name}.{time.time_ns()}.tmp")
+    for attempt in range(240):
         try:
             temporary.write_text(value, encoding="utf-8")
             temporary.replace(path)
             return
         except PermissionError:
-            if attempt == 11:
-                path.write_text(value, encoding="utf-8")
-                return
+            temporary.unlink(missing_ok=True)
+            if attempt == 239:
+                raise
             time.sleep(0.25)
 
 
@@ -196,6 +198,7 @@ def copy_downloads(content: dict, source_root: Path) -> list[dict]:
         "downloads/attachment-updated-2026-11-27.pdf": attachment_docx,
         "downloads/attachment-errata-2026-11-26.pdf": errata_docx,
     }
+    pdf_sources = {relative: document.with_suffix(".pdf") for relative, document in pdf_derivatives.items()}
     generated = {"downloads/project-guide-bilingual.docx", "downloads/project-guide-bilingual.pdf", "downloads/guide-narration-zh.mp3", "downloads/guide-narration-en.mp3"}
     records = []
     for item in content["downloads"]:
@@ -203,26 +206,27 @@ def copy_downloads(content: dict, source_root: Path) -> list[dict]:
         if relative in generated:
             continue
         source = pairs.get(relative)
-        if source is None and relative in pdf_derivatives:
-            source = pdf_derivatives[relative]
+        if source is None and relative in pdf_sources:
+            source = pdf_sources[relative]
         if source is None:
             raise ValueError(f"No reproducible source mapping for {relative}")
         if not source.is_file():
             raise FileNotFoundError(source)
         target = TARGET / relative
         target.parent.mkdir(parents=True, exist_ok=True)
-        if relative in pdf_derivatives:
-            converted = convert_to_pdf(source)
-            if not target.is_file() or sha256(target) != sha256(converted):
-                temporary = target.with_name(target.name + ".tmp")
-                shutil.copy2(converted, temporary)
-                replace_generated_file(temporary, target)
-        elif source.resolve() != target.resolve():
+        if source.resolve() != target.resolve():
             if not target.is_file() or sha256(target) != sha256(source):
                 temporary = target.with_name(target.name + ".tmp")
                 shutil.copy2(source, temporary)
                 replace_generated_file(temporary, target)
-        records.append({"path": relative, "source": str(source.relative_to(source_root)), "source_sha256": sha256(source), "bytes": target.stat().st_size, "sha256": sha256(target)})
+        record = {"path": relative, "source": str(source.relative_to(source_root)), "source_sha256": sha256(source), "bytes": target.stat().st_size, "sha256": sha256(target)}
+        if relative in pdf_derivatives:
+            document = pdf_derivatives[relative]
+            if not document.is_file():
+                raise FileNotFoundError(document)
+            record["derived_from"] = str(document.relative_to(source_root))
+            record["derived_from_sha256"] = sha256(document)
+        records.append(record)
     missing_pdf_records = set(pdf_derivatives) - {item["path"] for item in records}
     if missing_pdf_records:
         raise ValueError(f"PDF downloads missing from content catalog: {sorted(missing_pdf_records)}")
@@ -543,7 +547,7 @@ def replace_generated_file(source: Path, target: Path) -> None:
 
 
 def package_guide() -> None:
-    output = TARGET / "meaning-intelligence-project-guide-2026-11-27.zip"
+    output = TARGET / GUIDE_ARCHIVE
     files = [path for path in manifest_files() if path.name != output.name]
     for name in ("verification.js", "manifest.json", "manifest.sha256", "verification.json"):
         path = TARGET / name
@@ -580,7 +584,7 @@ def write_summary(report: dict) -> None:
 
 
 def manifest_files() -> list[Path]:
-    excluded = {"manifest.json", "manifest.sha256", "verification.json", "verification.js", "meaning-intelligence-project-guide.zip", "meaning-intelligence-project-guide-2026-11-27.zip", "downloads/source-v0.2.0.zip", "downloads/source-v0.2.0-final.zip", "downloads/attachment-updated-2026-11-26.pdf", "build_final.py", "verify_package_final.py"}
+    excluded = {"manifest.json", "manifest.sha256", "verification.json", "verification.js", "meaning-intelligence-project-guide.zip", "meaning-intelligence-project-guide-2026-11-27.zip", GUIDE_ARCHIVE, "downloads/source-v0.2.0.zip", "downloads/source-v0.2.0-final.zip", "downloads/attachment-updated-2026-11-26.pdf", "build_final.py", "verify_package_final.py"}
     files = []
     for path in TARGET.rglob("*"):
         if not path.is_file():
@@ -629,7 +633,7 @@ def make_manifest(figure_records: list[dict], download_records: list[dict]) -> d
         "counts": {"chapters": 18, "languages": 2, "narration_files": 36, "srt_files": 36, "vtt_files": 36, "chapter_transcripts": 36},
         "narration": {"engine": "Windows System.Speech.Synthesis", "rate": SAPI_RATE, "voices": VOICE_NAMES, "total_duration_seconds": {key: round(value, 6) for key, value in totals.items()}, "aggregate_duration_seconds": round(sum(totals.values()), 6)},
         "media": media, "figures": figure_records, "copied_downloads": download_records, "files": files,
-        "excluded_from_manifest": {"verification.json": "Generated after manifest validation to avoid a circular hash; verification.js is also excluded because it embeds the verification result.", "meaning-intelligence-project-guide-2026-11-27.zip": "Standalone archive is excluded to avoid self-reference and is validated separately by CRC, safe paths, required files, and self-exclusion."},
+        "excluded_from_manifest": {"verification.json": "Generated after manifest validation to avoid a circular hash; verification.js is also excluded because it embeds the verification result.", GUIDE_ARCHIVE: "Standalone archive is excluded to avoid self-reference and is validated separately by CRC, safe paths, required files, and self-exclusion."},
         "scope": {"built_in_target_only": True, "publication_root_modified": False, "external_git_actions_performed_by_builder": False, "external_deployment_performed_by_builder": False, "credentials_read": False},
     }
     write_json(TARGET / "manifest.json", manifest)
@@ -639,13 +643,17 @@ def make_manifest(figure_records: list[dict], download_records: list[dict]) -> d
 
 
 def verify(source_root: Path, skip_browser: bool) -> dict:
-    command = [sys.executable, str(TARGET / "verify.py"), "--source-root", str(source_root), "--ffprobe", FFPROBE]
+    run_id = uuid.uuid4().hex
+    command = [sys.executable, str(TARGET / "verify.py"), "--source-root", str(source_root), "--ffprobe", FFPROBE, "--run-id", run_id]
     if skip_browser:
         command.append("--skip-browser")
     result = subprocess.run(command, check=False, text=True, encoding="utf-8", errors="replace")
     if result.returncode not in (0, 1):
         raise RuntimeError(f"Verification process failed ({result.returncode}).")
-    return json.loads((TARGET / "verification.json").read_text(encoding="utf-8"))
+    report = json.loads((TARGET / "verification.json").read_text(encoding="utf-8"))
+    if report.get("run_id") != run_id:
+        raise RuntimeError("Verification report does not belong to the current run; stale evidence rejected.")
+    return report
 
 
 def main() -> int:

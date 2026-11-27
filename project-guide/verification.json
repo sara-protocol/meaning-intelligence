@@ -1,5 +1,6 @@
 {
   "schema": "meaning-intelligence-project-guide-verification-v1",
+  "run_id": "9110eeea8074494ca971da0a313a6ab3",
   "ok": true,
   "generated": "2026-11-27",
   "target": "C:\\Users\\gog98\\Documents\\lingxi-claw\\users\\247656584\\projects\\11955814199197869\\workspace\\意义智能\\deliverables\\project-guide",
@@ -864,5 +865,11 @@
       }
     }
   ],
-  "manifest_sha256": "a1031cb20164dabf863a612f7630ef4e9c98bee872fff809c67ab252972bf2df"
+  "manifest_sha256": "e3dcc20bc383069c206546bd763eacc562759d5419715ba5ccbfd4a3fab53566",
+  "source_manifest_sha256": "1799ed08d8fa212c3f7216b4cab0f605284591cac62f533504f30bf842c81144",
+  "deployment": {
+    "schema": "meaning-intelligence-guide-deployment-evidence-v1",
+    "manifest_rewritten_for_web_derivatives": true,
+    "source_checks_preserved": true
+  }
 }

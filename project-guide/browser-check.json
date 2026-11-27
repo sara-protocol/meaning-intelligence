@@ -55,12 +55,12 @@
         {
           "name": "en-audio-source",
           "ok": true,
-          "detail": "http://127.0.0.1:58799/audio/en/overview.mp3"
+          "detail": "http://127.0.0.1:62623/audio/en/overview.mp3"
         },
         {
           "name": "en-track",
           "ok": true,
-          "detail": "http://127.0.0.1:58799/captions/en/overview.vtt"
+          "detail": "http://127.0.0.1:62623/captions/en/overview.vtt"
         },
         {
           "name": "chapter-count",
@@ -145,7 +145,7 @@
         {
           "name": "chapter-switch",
           "ok": true,
-          "detail": "http://127.0.0.1:58799/audio/en/provenance.mp3"
+          "detail": "http://127.0.0.1:62623/audio/en/provenance.mp3"
         },
         {
           "name": "chapter-progress-seek",
@@ -155,7 +155,7 @@
         {
           "name": "language-audio-switch",
           "ok": true,
-          "detail": "http://127.0.0.1:58799/audio/zh/provenance.mp3"
+          "detail": "http://127.0.0.1:62623/audio/zh/provenance.mp3"
         },
         {
           "name": "language-caption-switch",
@@ -316,7 +316,7 @@
         {
           "name": "audio-playback",
           "ok": true,
-          "detail": "0.030021s paused=false"
+          "detail": "0.13s paused=false"
         },
         {
           "name": "chapter-switch",

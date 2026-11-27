@@ -584,30 +584,30 @@
     {
       "path": "downloads/ebook-v1.1-bilingual.epub",
       "source": "意义智能有声读物_发布包\\download\\Meaning_Intelligence_Audio_Book_v1.1_ZH-EN.epub",
-      "source_sha256": "f3fe0ea892f51e68211b1e771a10492092dacf43ae3881cefdfdd4c6cad874c9",
+      "source_sha256": "1e2d58cd98167bc1489f0a8e0f6db61a6710a7a4b1a3b648d4c9fa0df2e4cd73",
       "bytes": 105034,
-      "sha256": "f3fe0ea892f51e68211b1e771a10492092dacf43ae3881cefdfdd4c6cad874c9"
+      "sha256": "1e2d58cd98167bc1489f0a8e0f6db61a6710a7a4b1a3b648d4c9fa0df2e4cd73"
     },
     {
       "path": "downloads/ebook-v1.1-zh.epub",
       "source": "意义智能有声读物_发布包\\download\\Meaning_Intelligence_Audio_Book_v1.1_ZH.epub",
-      "source_sha256": "fa860ce20989c5790434496618f96a705ce9ece0ebbd2fb40d445f4c1db987fb",
+      "source_sha256": "58ff12b1b7daf967f7115ff574158da8c78a3ecddf10c1010e8e9e904407822e",
       "bytes": 95636,
-      "sha256": "fa860ce20989c5790434496618f96a705ce9ece0ebbd2fb40d445f4c1db987fb"
+      "sha256": "58ff12b1b7daf967f7115ff574158da8c78a3ecddf10c1010e8e9e904407822e"
     },
     {
       "path": "downloads/ebook-v1.1-en.epub",
       "source": "意义智能有声读物_发布包\\download\\Meaning_Intelligence_Audio_Book_v1.1_EN.epub",
-      "source_sha256": "2cf5abfc50ba353b5ce45c9daa3a45f5d3f003110df6cc7f83b14c40fd59a55c",
+      "source_sha256": "6f38967878e9275ecb08fe605c6caab0b0150ab9c00206dc7bc1a5736766ed04",
       "bytes": 88175,
-      "sha256": "2cf5abfc50ba353b5ce45c9daa3a45f5d3f003110df6cc7f83b14c40fd59a55c"
+      "sha256": "6f38967878e9275ecb08fe605c6caab0b0150ab9c00206dc7bc1a5736766ed04"
     },
     {
       "path": "downloads/source-v0.2.0-release.zip",
       "source": "意义智能有声读物_发布包\\download\\Meaning_Intelligence_Source_v0.2.0_2026-11-27_release-final3.zip",
-      "source_sha256": "761e7093a3d8823aba8245c6ea481f954632cc129fa9673c53cb172a7631abde",
-      "bytes": 7202848,
-      "sha256": "761e7093a3d8823aba8245c6ea481f954632cc129fa9673c53cb172a7631abde"
+      "source_sha256": "632332c8d36b35f73225d8147c8c5e03b33f25d176ae2dbbc6aa36904bd1e190",
+      "bytes": 7231593,
+      "sha256": "632332c8d36b35f73225d8147c8c5e03b33f25d176ae2dbbc6aa36904bd1e190"
     },
     {
       "path": "downloads/lecture-deck.pptx",
@@ -640,16 +640,18 @@
     {
       "path": "downloads/project-audit-2026-11-26.docx",
       "source": "意义智能有声读物_发布包\\download\\documents\\意义智能_项目审查与优化报告_2026-11-26.docx",
-      "source_sha256": "40d8aa5e76d1bd0c4e034c9fe97eda88d6ca91d0edc90831792c2247cf1905cb",
-      "bytes": 52461,
-      "sha256": "40d8aa5e76d1bd0c4e034c9fe97eda88d6ca91d0edc90831792c2247cf1905cb"
+      "source_sha256": "59f8494553cc3847a0e271f8fabe5208e8c3f5d1fd2a9465ac9019233b745643",
+      "bytes": 52762,
+      "sha256": "59f8494553cc3847a0e271f8fabe5208e8c3f5d1fd2a9465ac9019233b745643"
     },
     {
       "path": "downloads/project-audit-2026-11-26.pdf",
-      "source": "意义智能有声读物_发布包\\download\\documents\\意义智能_项目审查与优化报告_2026-11-26.docx",
-      "source_sha256": "40d8aa5e76d1bd0c4e034c9fe97eda88d6ca91d0edc90831792c2247cf1905cb",
-      "bytes": 832174,
-      "sha256": "5018202c04493d0ff14d7dfecc50cd53d136d16d6c4f16638fd120eeb8ee7fb0"
+      "source": "意义智能有声读物_发布包\\download\\documents\\意义智能_项目审查与优化报告_2026-11-26.pdf",
+      "source_sha256": "9c83b8380771024c639c54e60d60781164303eb5f312f285cd6d2145f02dbb14",
+      "bytes": 848801,
+      "sha256": "9c83b8380771024c639c54e60d60781164303eb5f312f285cd6d2145f02dbb14",
+      "derived_from": "意义智能有声读物_发布包\\download\\documents\\意义智能_项目审查与优化报告_2026-11-26.docx",
+      "derived_from_sha256": "59f8494553cc3847a0e271f8fabe5208e8c3f5d1fd2a9465ac9019233b745643"
     },
     {
       "path": "downloads/release-manual-v3.0.docx",
@@ -660,38 +662,44 @@
     },
     {
       "path": "downloads/release-manual-v3.0.pdf",
-      "source": "意义智能有声读物_发布包\\download\\documents\\意义智能_有声读物_发布指南与操作手册_v3.0.docx",
-      "source_sha256": "8d0404ec086a333c57bf2d4730baefe935c3ebad69d712aeb93a8de7a5ae8f58",
+      "source": "意义智能有声读物_发布包\\download\\documents\\意义智能_有声读物_发布指南与操作手册_v3.0.pdf",
+      "source_sha256": "4fc2870bc40bf394658b07b5df1366f1e09b78ff962bdce3cece939880859e09",
       "bytes": 743089,
-      "sha256": "95e2a47179b3e55065cac0bd31cdae59029d647a486554e2042412946d45b1e1"
+      "sha256": "4fc2870bc40bf394658b07b5df1366f1e09b78ff962bdce3cece939880859e09",
+      "derived_from": "意义智能有声读物_发布包\\download\\documents\\意义智能_有声读物_发布指南与操作手册_v3.0.docx",
+      "derived_from_sha256": "8d0404ec086a333c57bf2d4730baefe935c3ebad69d712aeb93a8de7a5ae8f58"
     },
     {
       "path": "downloads/attachment-updated-2026-11-26.docx",
       "source": "意义智能有声读物_发布包\\download\\documents\\意义智能_附件衍生更新版_2026-11-26.docx",
-      "source_sha256": "8c643ba2f6778608a752024ef5458d3b47b3a87819f1635aae1c5cd7f4f3dcf7",
-      "bytes": 404205,
-      "sha256": "8c643ba2f6778608a752024ef5458d3b47b3a87819f1635aae1c5cd7f4f3dcf7"
+      "source_sha256": "f8ac1d0a7c7fd3203954d08631a8ba7e7880912ed0c558b8e3a59e291e0b24a8",
+      "bytes": 404254,
+      "sha256": "f8ac1d0a7c7fd3203954d08631a8ba7e7880912ed0c558b8e3a59e291e0b24a8"
     },
     {
       "path": "downloads/attachment-updated-2026-11-27.pdf",
-      "source": "意义智能有声读物_发布包\\download\\documents\\意义智能_附件衍生更新版_2026-11-26.docx",
-      "source_sha256": "8c643ba2f6778608a752024ef5458d3b47b3a87819f1635aae1c5cd7f4f3dcf7",
-      "bytes": 1511935,
-      "sha256": "04250ddd91ae9ae2fa184fc03aaa603441f84e72118902e0fa8e11c03b2c7129"
+      "source": "意义智能有声读物_发布包\\download\\documents\\意义智能_附件衍生更新版_2026-11-26.pdf",
+      "source_sha256": "5e7a16f61548db18cf6955648974de3688faa1b35adb1a5195ed0f0a1269784f",
+      "bytes": 1516469,
+      "sha256": "5e7a16f61548db18cf6955648974de3688faa1b35adb1a5195ed0f0a1269784f",
+      "derived_from": "意义智能有声读物_发布包\\download\\documents\\意义智能_附件衍生更新版_2026-11-26.docx",
+      "derived_from_sha256": "f8ac1d0a7c7fd3203954d08631a8ba7e7880912ed0c558b8e3a59e291e0b24a8"
     },
     {
       "path": "downloads/attachment-errata-2026-11-26.docx",
       "source": "意义智能有声读物_发布包\\download\\documents\\意义智能_书稿勘误与补充说明_2026-11-26.docx",
-      "source_sha256": "9fd561d12828d1437e283d5fc04b99f35b7b4fc8e315955a326e728f0bf8a37b",
-      "bytes": 48783,
-      "sha256": "9fd561d12828d1437e283d5fc04b99f35b7b4fc8e315955a326e728f0bf8a37b"
+      "source_sha256": "0c44b9220e4e59c3e115e91a7753266eb0aa610eb70757c192ee5b36f7f1c9ac",
+      "bytes": 48824,
+      "sha256": "0c44b9220e4e59c3e115e91a7753266eb0aa610eb70757c192ee5b36f7f1c9ac"
     },
     {
       "path": "downloads/attachment-errata-2026-11-26.pdf",
-      "source": "意义智能有声读物_发布包\\download\\documents\\意义智能_书稿勘误与补充说明_2026-11-26.docx",
-      "source_sha256": "9fd561d12828d1437e283d5fc04b99f35b7b4fc8e315955a326e728f0bf8a37b",
-      "bytes": 709778,
-      "sha256": "e9121a0dc885f695c1bd0238b65919216d99a204a0c1694d3a167b6b05692634"
+      "source": "意义智能有声读物_发布包\\download\\documents\\意义智能_书稿勘误与补充说明_2026-11-26.pdf",
+      "source_sha256": "6504d675bb8222e12f5b7b22b5964ad126d3ec2805fc98663650f10300779623",
+      "bytes": 713560,
+      "sha256": "6504d675bb8222e12f5b7b22b5964ad126d3ec2805fc98663650f10300779623",
+      "derived_from": "意义智能有声读物_发布包\\download\\documents\\意义智能_书稿勘误与补充说明_2026-11-26.docx",
+      "derived_from_sha256": "0c44b9220e4e59c3e115e91a7753266eb0aa610eb70757c192ee5b36f7f1c9ac"
     },
     {
       "path": "downloads/release-subtitles-zh.srt",
@@ -732,13 +740,13 @@
       "path": "downloads/project-guide-bilingual.docx",
       "source": "generated locally by build.py",
       "bytes": 50563,
-      "sha256": "de88040cf9043cf606bd5160e7f02ed8fbb8d19cc091f2c99e2daad761ba5557"
+      "sha256": "d7b723bb1009458d16349616fbee3c687fef4a7fd6f59b34b0c712040d46bf59"
     },
     {
       "path": "downloads/project-guide-bilingual.pdf",
       "source": "generated locally by build.py",
       "bytes": 622780,
-      "sha256": "de2b23497c5d119e45df28b4dc058eba8e4c94d4b48755ef9832bbaa097133e1"
+      "sha256": "c7aee24a5716ae65bccb5a089f868dfc3b0be8719c3ef3a26a2e2152dba97154"
     },
     {
       "path": "downloads/guide-narration-zh-web.mp3",
@@ -996,18 +1004,18 @@
     },
     {
       "path": "browser-check.json",
-      "bytes": 11175,
-      "sha256": "8b9110b7ef27ab10f0cd609108f9e8210072bb88057f9cd32181dd1ed0dd0581"
+      "bytes": 11171,
+      "sha256": "11c4d1b02a33c899627192eab3dcc133238281d24e38806e5000dcd8fcab26b3"
     },
     {
       "path": "browser_check.mjs",
-      "bytes": 6304,
-      "sha256": "952b4a5a2e55f9fc6c95fb78592dba70777b74fe7d84a94e796bb25fa710a7bf"
+      "bytes": 6661,
+      "sha256": "8566788236e79057814dba158fd58071bb0b6db220e22d74f81c08013aa0f179"
     },
     {
       "path": "build.py",
-      "bytes": 42705,
-      "sha256": "0ca477d89b7446f4df9936ea1582913ad7d452c29d950e29e062e05aa3097cb3"
+      "bytes": 43066,
+      "sha256": "7ebdaebf2755d0c365f81f51a0f169e590c8cffa3e2f8d5b31c8c6f8bb8d3fa3"
     },
     {
       "path": "build_audio.py",
@@ -1576,38 +1584,38 @@
     },
     {
       "path": "downloads/attachment-errata-2026-11-26.docx",
-      "bytes": 48783,
-      "sha256": "9fd561d12828d1437e283d5fc04b99f35b7b4fc8e315955a326e728f0bf8a37b"
+      "bytes": 48824,
+      "sha256": "0c44b9220e4e59c3e115e91a7753266eb0aa610eb70757c192ee5b36f7f1c9ac"
     },
     {
       "path": "downloads/attachment-errata-2026-11-26.pdf",
-      "bytes": 709778,
-      "sha256": "e9121a0dc885f695c1bd0238b65919216d99a204a0c1694d3a167b6b05692634"
+      "bytes": 713560,
+      "sha256": "6504d675bb8222e12f5b7b22b5964ad126d3ec2805fc98663650f10300779623"
     },
     {
       "path": "downloads/attachment-updated-2026-11-26.docx",
-      "bytes": 404205,
-      "sha256": "8c643ba2f6778608a752024ef5458d3b47b3a87819f1635aae1c5cd7f4f3dcf7"
+      "bytes": 404254,
+      "sha256": "f8ac1d0a7c7fd3203954d08631a8ba7e7880912ed0c558b8e3a59e291e0b24a8"
     },
     {
       "path": "downloads/attachment-updated-2026-11-27.pdf",
-      "bytes": 1511935,
-      "sha256": "04250ddd91ae9ae2fa184fc03aaa603441f84e72118902e0fa8e11c03b2c7129"
+      "bytes": 1516469,
+      "sha256": "5e7a16f61548db18cf6955648974de3688faa1b35adb1a5195ed0f0a1269784f"
     },
     {
       "path": "downloads/ebook-v1.1-bilingual.epub",
       "bytes": 105034,
-      "sha256": "f3fe0ea892f51e68211b1e771a10492092dacf43ae3881cefdfdd4c6cad874c9"
+      "sha256": "1e2d58cd98167bc1489f0a8e0f6db61a6710a7a4b1a3b648d4c9fa0df2e4cd73"
     },
     {
       "path": "downloads/ebook-v1.1-en.epub",
       "bytes": 88175,
-      "sha256": "2cf5abfc50ba353b5ce45c9daa3a45f5d3f003110df6cc7f83b14c40fd59a55c"
+      "sha256": "6f38967878e9275ecb08fe605c6caab0b0150ab9c00206dc7bc1a5736766ed04"
     },
     {
       "path": "downloads/ebook-v1.1-zh.epub",
       "bytes": 95636,
-      "sha256": "fa860ce20989c5790434496618f96a705ce9ece0ebbd2fb40d445f4c1db987fb"
+      "sha256": "58ff12b1b7daf967f7115ff574158da8c78a3ecddf10c1010e8e9e904407822e"
     },
     {
       "path": "downloads/guide-narration-en-web.mp3",
@@ -1656,23 +1664,23 @@
     },
     {
       "path": "downloads/project-audit-2026-11-26.docx",
-      "bytes": 52461,
-      "sha256": "40d8aa5e76d1bd0c4e034c9fe97eda88d6ca91d0edc90831792c2247cf1905cb"
+      "bytes": 52762,
+      "sha256": "59f8494553cc3847a0e271f8fabe5208e8c3f5d1fd2a9465ac9019233b745643"
     },
     {
       "path": "downloads/project-audit-2026-11-26.pdf",
-      "bytes": 832174,
-      "sha256": "5018202c04493d0ff14d7dfecc50cd53d136d16d6c4f16638fd120eeb8ee7fb0"
+      "bytes": 848801,
+      "sha256": "9c83b8380771024c639c54e60d60781164303eb5f312f285cd6d2145f02dbb14"
     },
     {
       "path": "downloads/project-guide-bilingual.docx",
       "bytes": 50563,
-      "sha256": "de88040cf9043cf606bd5160e7f02ed8fbb8d19cc091f2c99e2daad761ba5557"
+      "sha256": "d7b723bb1009458d16349616fbee3c687fef4a7fd6f59b34b0c712040d46bf59"
     },
     {
       "path": "downloads/project-guide-bilingual.pdf",
       "bytes": 622780,
-      "sha256": "de2b23497c5d119e45df28b4dc058eba8e4c94d4b48755ef9832bbaa097133e1"
+      "sha256": "c7aee24a5716ae65bccb5a089f868dfc3b0be8719c3ef3a26a2e2152dba97154"
     },
     {
       "path": "downloads/release-manual-v3.0.docx",
@@ -1682,7 +1690,7 @@
     {
       "path": "downloads/release-manual-v3.0.pdf",
       "bytes": 743089,
-      "sha256": "95e2a47179b3e55065cac0bd31cdae59029d647a486554e2042412946d45b1e1"
+      "sha256": "4fc2870bc40bf394658b07b5df1366f1e09b78ff962bdce3cece939880859e09"
     },
     {
       "path": "downloads/release-narration-en.txt",
@@ -1711,8 +1719,8 @@
     },
     {
       "path": "downloads/source-v0.2.0-release.zip",
-      "bytes": 7202848,
-      "sha256": "761e7093a3d8823aba8245c6ea481f954632cc129fa9673c53cb172a7631abde"
+      "bytes": 7231593,
+      "sha256": "632332c8d36b35f73225d8147c8c5e03b33f25d176ae2dbbc6aa36904bd1e190"
     },
     {
       "path": "downloads/whitepaper-v1.1.docx",
@@ -1941,13 +1949,13 @@
     },
     {
       "path": "verify.py",
-      "bytes": 33300,
-      "sha256": "b70f3339af6a043fdc8ca08413d5d09cf8e61c5fd42321993b51a224df8267de"
+      "bytes": 33909,
+      "sha256": "d1993ad035fa7f7455c74934767de98b082f2e1eacec4bb071b73d96dc843d21"
     }
   ],
   "excluded_from_manifest": {
     "verification.json": "Generated after manifest validation to avoid a circular hash; verification.js is also excluded because it embeds the verification result.",
-    "meaning-intelligence-project-guide-2026-11-27.zip": "Standalone archive is excluded to avoid self-reference and is validated separately by CRC, safe paths, required files, and self-exclusion."
+    "meaning-intelligence-project-guide-2026-11-27-final4.zip": "Standalone archive is excluded to avoid self-reference and is validated separately by CRC, safe paths, required files, and self-exclusion."
   },
   "scope": {
     "built_in_target_only": true,
